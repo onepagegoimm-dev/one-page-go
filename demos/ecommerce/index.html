@@ -525,9 +525,9 @@ function renderProducts() {
             <div class="product-desc">${p.description || ''}</div>
             <div class="product-price">$${p.price}</div>
             <div class="qty-control">
-              <button class="qty-btn" onclick="changeQty(${p.id}, -1)">−</button>
+              <button class="qty-btn" onclick="changeQty('${p.id}', -1)">−</button>
               <span class="qty-num" id="qty-${p.id}">0</span>
-              <button class="qty-btn" onclick="changeQty(${p.id}, 1)">＋</button>
+              <button class="qty-btn" onclick="changeQty('${p.id}', 1)">＋</button>
             </div>
           </div>
         </div>`;
