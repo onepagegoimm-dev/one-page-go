@@ -8,98 +8,127 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --cream:   #fdf6ee;
-    --warm:    #f5e6d3;
-    --lilac:   #e8d5f5;
-    --purple:  #9c5ec0;
-    --deep:    #6a1b9a;
-    --brown:   #7a4f3a;
-    --text:    #4a3428;
-    --muted:   #9c7b6e;
-    --white:   #fffcf8;
-    --shadow:  rgba(122,79,58,0.12);
-    --green:   #7dba6a;
+    --bg:      #0d0b1a;
+    --surface: #1a1533;
+    --card:    rgba(30,24,60,0.7);
+    --border:  rgba(179,136,255,0.15);
+    --gold:    #f0d78c;
+    --amber:   #d4a853;
+    --neon:    #b388ff;
+    --purple:  #7c4dff;
+    --deep:    #4a148c;
+    --text:    #e8e0f0;
+    --muted:   #9e8fb8;
+    --white:   #f5f0ff;
+    --shadow:  rgba(124,77,255,0.15);
+    --green:   #69f0ae;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--cream);
+    background: var(--bg);
     font-family: 'Noto Serif TC', serif;
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
   }
 
-  body::before {
+  /* ── 星空背景 ── */
+  body::before, body::after {
     content: '';
     position: fixed; inset: 0; z-index: 0;
-    background-image:
-      radial-gradient(circle at 20% 20%, rgba(232,213,245,0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(245,230,211,0.4) 0%, transparent 50%),
-      radial-gradient(circle at 60% 10%, rgba(253,246,238,0.5) 0%, transparent 40%);
     pointer-events: none;
   }
+  body::before {
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(124,77,255,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(74,20,140,0.2) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(179,136,255,0.05) 0%, transparent 70%);
+  }
+  body::after {
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 50%, transparent 50%),
+      radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.4) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 40% 10%, rgba(240,215,140,0.7) 50%, transparent 50%),
+      radial-gradient(1px 1px at 55% 60%, rgba(255,255,255,0.5) 50%, transparent 50%),
+      radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.3) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 85% 45%, rgba(240,215,140,0.6) 50%, transparent 50%),
+      radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.4) 50%, transparent 50%),
+      radial-gradient(1px 1px at 60% 85%, rgba(255,255,255,0.5) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 90% 75%, rgba(179,136,255,0.6) 50%, transparent 50%),
+      radial-gradient(1px 1px at 35% 90%, rgba(255,255,255,0.3) 50%, transparent 50%),
+      radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,0.4) 50%, transparent 50%),
+      radial-gradient(1px 1px at 75% 5%, rgba(240,215,140,0.5) 50%, transparent 50%);
+    animation: twinkle 4s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle { 0% { opacity: 0.6; } 100% { opacity: 1; } }
 
   header {
     position: relative; z-index: 10;
     text-align: center;
-    padding: 2rem 1.5rem 1.2rem;
-    background: linear-gradient(180deg, var(--warm) 0%, transparent 100%);
+    padding: 2.5rem 1.5rem 1.5rem;
+    background: linear-gradient(180deg, rgba(74,20,140,0.3) 0%, transparent 100%);
   }
 
   .logo-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; }
-  .logo-icon { font-size: 2rem; line-height: 1; animation: float 3s ease-in-out infinite; }
+  .logo-icon { font-size: 2.4rem; line-height: 1; animation: float 3s ease-in-out infinite; filter: drop-shadow(0 0 12px rgba(240,215,140,0.4)); }
   @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-  .logo-name { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--brown); }
-  .logo-sub  { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.15em; }
+  .logo-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 500; color: var(--gold); text-shadow: 0 0 20px rgba(240,215,140,0.3); }
+  .logo-sub  { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.2em; }
 
   .deco-line {
     margin-top: 0.8rem;
-    font-size: 0.7rem; color: var(--purple); letter-spacing: 0.3em;
+    font-size: 0.7rem; color: var(--neon); letter-spacing: 0.3em;
+    text-shadow: 0 0 8px rgba(179,136,255,0.5);
   }
 
   .main { position: relative; z-index: 5; max-width: 480px; margin: 0 auto; padding: 0 1.2rem 3rem; }
 
-  .section-title { text-align: center; font-size: 1.1rem; margin: 1.5rem 0 1rem; color: var(--brown); }
+  .section-title { text-align: center; font-size: 1.1rem; margin: 1.5rem 0 1rem; color: var(--gold); }
 
   /* ── 活動卡片 ── */
   .event-card {
-    background: var(--white);
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.2rem;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 16px var(--shadow);
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     animation: fadeUp 0.5s ease both;
   }
-  .event-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--shadow); }
-  .event-card.selected { border: 2px solid var(--purple); }
+  .event-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(124,77,255,0.2); border-color: rgba(179,136,255,0.3); }
+  .event-card.selected { border: 2px solid var(--neon); box-shadow: 0 0 20px rgba(179,136,255,0.2); }
 
   .event-img { font-size: 2.5rem; text-align: center; margin-bottom: 0.6rem; }
   .event-img img { width: 100%; border-radius: 10px; }
-  .event-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; }
+  .event-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; color: var(--white); }
   .event-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
   .event-info { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.3rem; }
   .event-badge {
     font-size: 0.7rem;
     padding: 0.2rem 0.6rem;
     border-radius: 12px;
-    background: var(--lilac);
-    color: var(--deep);
+    background: rgba(179,136,255,0.15);
+    color: var(--neon);
+    border: 1px solid rgba(179,136,255,0.2);
   }
 
   /* ── 票種選擇 ── */
   .ticket-section {
-    background: var(--white);
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.2rem;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 16px var(--shadow);
     animation: fadeUp 0.5s ease both;
   }
-  .ticket-section label { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--brown); }
+  .ticket-section label { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--gold); }
 
   .ticket-type-btn {
     display: flex;
@@ -107,9 +136,9 @@
     align-items: center;
     width: 100%;
     padding: 0.8rem 1rem;
-    border: 1px solid var(--warm);
+    border: 1px solid var(--border);
     border-radius: 12px;
-    background: var(--cream);
+    background: rgba(26,21,51,0.6);
     font-family: inherit;
     font-size: 0.85rem;
     color: var(--text);
@@ -117,25 +146,28 @@
     margin-bottom: 0.5rem;
     transition: all 0.3s;
   }
-  .ticket-type-btn:hover { background: var(--lilac); }
-  .ticket-type-btn.selected { background: var(--purple); color: white; border-color: var(--purple); }
+  .ticket-type-btn:hover { background: rgba(124,77,255,0.15); border-color: rgba(179,136,255,0.3); }
+  .ticket-type-btn.selected { background: var(--purple); color: white; border-color: var(--purple); box-shadow: 0 0 15px rgba(124,77,255,0.3); }
 
   .ticket-type-name { font-weight: 600; }
   .ticket-type-meta { text-align: right; }
-  .ticket-type-price { font-weight: 600; }
-  .remaining-badge { font-size: 0.7rem; opacity: 0.8; }
+  .ticket-type-price { font-weight: 600; color: var(--gold); }
+  .ticket-type-btn.selected .ticket-type-price { color: var(--gold); }
+  .remaining-badge { font-size: 0.7rem; opacity: 0.8; display: block; }
   .ticket-type-btn.selected .remaining-badge { color: rgba(255,255,255,0.8); }
 
   /* ── 數量選擇 ── */
   .qty-section {
-    background: var(--white);
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.2rem;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 16px var(--shadow);
     animation: fadeUp 0.5s ease both;
   }
-  .qty-section label { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--brown); }
+  .qty-section label { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--gold); }
   .qty-control {
     display: flex;
     align-items: center;
@@ -144,20 +176,20 @@
   }
   .qty-btn {
     width: 38px; height: 38px;
-    border: 1px solid var(--warm);
+    border: 1px solid var(--border);
     border-radius: 50%;
-    background: var(--cream);
+    background: rgba(26,21,51,0.6);
     font-size: 1.2rem;
-    color: var(--text);
+    color: var(--neon);
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: all 0.3s;
   }
-  .qty-btn:hover { background: var(--lilac); }
+  .qty-btn:hover { background: rgba(124,77,255,0.2); border-color: var(--neon); }
   .qty-display {
     font-size: 1.3rem;
     font-weight: 600;
-    color: var(--brown);
+    color: var(--gold);
     min-width: 40px;
     text-align: center;
   }
@@ -165,26 +197,31 @@
 
   /* ── 訂單摘要 ── */
   .order-summary {
-    background: var(--white);
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1rem 1.2rem;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 16px var(--shadow);
     animation: fadeUp 0.5s ease both;
   }
-  .summary-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--brown); }
-  .summary-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem; }
-  .summary-total { border-top: 1px solid var(--warm); padding-top: 0.5rem; margin-top: 0.5rem; font-weight: 600; color: var(--deep); }
+  .summary-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--gold); }
+  .summary-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem; color: var(--text); }
+  .summary-total { border-top: 1px solid var(--border); padding-top: 0.5rem; margin-top: 0.5rem; font-weight: 600; color: var(--gold); }
 
   /* ── Email 驗證 ── */
   .verify-section {
-    background: var(--white);
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.2rem;
-    box-shadow: 0 4px 16px var(--shadow);
     margin-bottom: 1rem;
     animation: fadeUp 0.5s ease both;
   }
+  .verify-section > label { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--gold); }
   .verify-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
   .verify-row input { flex: 1; }
   .verify-btn {
@@ -197,36 +234,38 @@
     font-size: 0.8rem;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 0.3s;
+    transition: all 0.3s;
   }
-  .verify-btn:hover { background: var(--deep); }
-  .verify-btn:disabled { background: var(--muted); cursor: not-allowed; }
+  .verify-btn:hover { background: var(--neon); color: var(--deep); }
+  .verify-btn:disabled { background: rgba(158,143,184,0.3); color: var(--muted); cursor: not-allowed; }
   .verify-status { font-size: 0.75rem; margin-top: 0.3rem; }
 
   /* ── 表單 ── */
   .form-section {
-    background: var(--white);
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.2rem;
-    box-shadow: 0 4px 16px var(--shadow);
     margin-bottom: 1.5rem;
     animation: fadeUp 0.5s ease both;
   }
-  .form-section label { display: block; font-size: 0.8rem; margin-bottom: 0.3rem; color: var(--brown); }
+  .form-section label { display: block; font-size: 0.8rem; margin-bottom: 0.3rem; color: var(--muted); }
   .form-section input, .form-section textarea {
     width: 100%;
     padding: 0.55rem 0.7rem;
-    border: 1px solid var(--warm);
+    border: 1px solid var(--border);
     border-radius: 10px;
     font-family: inherit;
     font-size: 0.85rem;
     color: var(--text);
-    background: var(--cream);
+    background: rgba(26,21,51,0.6);
     margin-bottom: 0.8rem;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
   }
-  .form-section input:focus, .form-section textarea:focus { border-color: var(--purple); }
+  .form-section input:focus, .form-section textarea:focus { border-color: var(--neon); box-shadow: 0 0 8px rgba(179,136,255,0.2); }
   .form-section textarea { height: 70px; resize: vertical; }
 
   /* ── 送出按鈕 ── */
@@ -235,17 +274,18 @@
     padding: 0.8rem;
     border: none;
     border-radius: 14px;
-    background: linear-gradient(135deg, var(--purple), var(--deep));
+    background: linear-gradient(135deg, var(--purple), var(--neon));
     color: white;
     font-family: inherit;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.3s;
+    transition: all 0.3s;
     letter-spacing: 0.05em;
+    box-shadow: 0 4px 20px rgba(124,77,255,0.3);
   }
-  .submit-btn:hover { opacity: 0.9; }
-  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .submit-btn:hover { box-shadow: 0 6px 28px rgba(124,77,255,0.5); transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
 
   /* ── 成功畫面 ── */
   .success-screen {
@@ -256,58 +296,62 @@
   }
   .success-icon { font-size: 3rem; animation: pop 0.6s ease; }
   @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
-  .success-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--brown); margin: 0.8rem 0 0.5rem; }
+  .success-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin: 0.8rem 0 0.5rem; text-shadow: 0 0 15px rgba(240,215,140,0.3); }
   .success-msg { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; }
   .success-badge {
     display: inline-block;
-    background: var(--warm);
+    background: rgba(179,136,255,0.15);
+    border: 1px solid var(--border);
     padding: 0.5rem 1.2rem;
     border-radius: 20px;
     font-size: 0.85rem;
-    color: var(--brown);
+    color: var(--neon);
     font-weight: 600;
     margin-bottom: 0.8rem;
   }
 
   .checkin-code-display {
     display: inline-block;
-    background: var(--lilac);
+    background: rgba(124,77,255,0.15);
+    border: 2px solid var(--neon);
     padding: 0.8rem 1.5rem;
     border-radius: 14px;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--deep);
+    color: var(--gold);
     letter-spacing: 0.3em;
     margin-bottom: 0.5rem;
     font-family: 'Courier New', monospace;
+    box-shadow: 0 0 25px rgba(179,136,255,0.25), inset 0 0 15px rgba(124,77,255,0.1);
+    text-shadow: 0 0 10px rgba(240,215,140,0.4);
   }
   .checkin-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
 
   .new-order-btn {
     padding: 0.7rem 2rem;
-    border: 2px solid var(--purple);
+    border: 2px solid var(--neon);
     border-radius: 14px;
     background: transparent;
-    color: var(--purple);
+    color: var(--neon);
     font-family: inherit;
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s;
   }
-  .new-order-btn:hover { background: var(--purple); color: white; }
+  .new-order-btn:hover { background: var(--neon); color: var(--bg); box-shadow: 0 0 15px rgba(179,136,255,0.3); }
 
   /* ── Loading / Error ── */
-  .loading-wrap { text-align: center; padding: 2rem; }
-  .spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid var(--warm); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .loading-wrap { text-align: center; padding: 2rem; color: var(--muted); }
+  .spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--neon); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .error-msg { background: #fce4e4; color: #7a3a3a; padding: 0.6rem 1rem; border-radius: 10px; font-size: 0.8rem; margin-bottom: 1rem; text-align: center; }
+  .error-msg { background: rgba(255,82,82,0.15); border: 1px solid rgba(255,82,82,0.3); color: #ff8a80; padding: 0.6rem 1rem; border-radius: 10px; font-size: 0.8rem; margin-bottom: 1rem; text-align: center; }
 
   .hidden { display: none !important; }
 
   footer {
     position: relative; z-index: 5;
     text-align: center; padding: 1.5rem;
-    font-size: 0.7rem; color: var(--muted);
+    font-size: 0.7rem; color: rgba(158,143,184,0.5);
   }
 
   @keyframes fadeUp {

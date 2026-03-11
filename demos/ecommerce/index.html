@@ -7,19 +7,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
-  /* ── 色票 ── */
+  /* ── 色票：暖心手作風 ── */
   :root {
-    --cream:   #fdf6ee;
-    --warm:    #f5e6d3;
-    --blush:   #f2c4c4;
-    --rose:    #e8a0a0;
-    --mauve:   #c97d7d;
-    --brown:   #7a4f3a;
-    --text:    #4a3428;
-    --muted:   #9c7b6e;
-    --white:   #fffcf8;
-    --shadow:  rgba(122,79,58,0.12);
+    --cream:   #faf3ea;
+    --warm:    #f0dcc8;
+    --peach:   #f5c8a8;
+    --rose:    #e09580;
+    --terra:   #c47a62;
+    --brown:   #6b4332;
+    --text:    #3e2a1e;
+    --muted:   #9a7e6f;
+    --white:   #fffaf5;
+    --shadow:  rgba(107,67,50,0.1);
     --green:   #7dba6a;
+    --stitch:  #d4b89c;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,14 +33,21 @@
     overflow-x: hidden;
   }
 
-  /* ── 背景紋理 ── */
+  /* ── 手作紙質紋理背景 ── */
   body::before {
     content: '';
     position: fixed; inset: 0; z-index: 0;
     background-image:
-      radial-gradient(circle at 20% 20%, rgba(242,196,196,0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(245,230,211,0.4) 0%, transparent 50%),
-      radial-gradient(circle at 60% 10%, rgba(253,246,238,0.5) 0%, transparent 40%);
+      repeating-linear-gradient(
+        0deg,
+        transparent, transparent 24px,
+        rgba(212,184,156,0.08) 24px, rgba(212,184,156,0.08) 25px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent, transparent 24px,
+        rgba(212,184,156,0.05) 24px, rgba(212,184,156,0.05) 25px
+      );
     pointer-events: none;
   }
 
@@ -47,43 +55,43 @@
   header {
     position: relative; z-index: 10;
     text-align: center;
-    padding: 3rem 1.5rem 2rem;
-    background: linear-gradient(180deg, var(--warm) 0%, transparent 100%);
+    padding: 2.5rem 1.5rem 1.5rem;
+    background: linear-gradient(180deg, rgba(240,220,200,0.5) 0%, transparent 100%);
   }
 
   .logo-wrap {
     display: inline-flex; flex-direction: column; align-items: center; gap: 0.4rem;
   }
 
-  .logo-icon { font-size: 2.8rem; line-height: 1; animation: float 3s ease-in-out infinite; }
+  .logo-icon { font-size: 2.5rem; line-height: 1; animation: float 3s ease-in-out infinite; }
 
   @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50%      { transform: translateY(-6px); }
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-5px) rotate(-2deg); }
   }
 
   .logo-name {
     font-family: 'Playfair Display', serif;
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     font-weight: 500;
     color: var(--brown);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
   }
 
   .logo-sub {
-    font-size: 0.78rem;
-    letter-spacing: 0.25em;
-    color: var(--mauve);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
     text-transform: uppercase;
   }
 
-  /* ── 裝飾線 ── */
+  /* ── 裝飾線（縫線風格） ── */
   .deco-line {
-    display: flex; align-items: center; gap: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
     max-width: 260px; margin: 1rem auto 0;
   }
-  .deco-line span { flex: 1; height: 1px; background: var(--blush); }
-  .deco-line em { font-style: normal; font-size: 0.8rem; color: var(--rose); }
+  .deco-line span { flex: 1; height: 0; border-top: 2px dashed var(--stitch); }
+  .deco-line em { font-style: normal; font-size: 0.75rem; color: var(--rose); }
 
   /* ── 主內容 ── */
   main { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 1.5rem; }
@@ -91,24 +99,24 @@
   /* ── Section 標題 ── */
   .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: var(--brown);
     margin-bottom: 1.2rem;
     display: flex; align-items: center; gap: 0.6rem;
   }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--blush); }
+  .section-title::after { content: ''; flex: 1; height: 0; border-top: 2px dashed var(--stitch); }
 
   /* ── 商品卡 ── */
   .products-grid { display: flex; flex-direction: column; gap: 1rem; }
 
   .product-card {
     background: var(--white);
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 4px 20px var(--shadow);
-    border: 1px solid rgba(242,196,196,0.4);
+    box-shadow: 0 3px 14px var(--shadow);
+    border: 2px dashed rgba(212,184,156,0.5);
     display: flex;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, border-color 0.3s;
     animation: fadeUp 0.5s ease both;
   }
 
@@ -117,13 +125,13 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--shadow); }
+  .product-card:hover { transform: translateY(-2px); border-color: var(--peach); }
 
   .product-img {
     width: 110px; min-height: 110px;
-    background: var(--warm);
+    background: linear-gradient(135deg, var(--warm), var(--peach));
     display: flex; align-items: center; justify-content: center;
-    font-size: 3rem;
+    font-size: 2.8rem;
     flex-shrink: 0;
     overflow: hidden;
   }
@@ -131,45 +139,46 @@
 
   .product-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
 
-  .product-name { font-weight: 600; font-size: 1rem; }
+  .product-name { font-weight: 600; font-size: 1rem; color: var(--brown); }
   .product-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
-  .product-price { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--mauve); margin-top: auto; }
+  .product-price { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--terra); margin-top: auto; }
 
   /* 數量控制 */
   .qty-control {
     display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem;
   }
   .qty-btn {
-    width: 28px; height: 28px; border-radius: 50%;
-    border: 1.5px solid var(--blush);
+    width: 30px; height: 30px; border-radius: 8px;
+    border: 2px dashed var(--stitch);
     background: var(--cream); color: var(--brown);
     font-size: 1.1rem; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: background 0.15s;
+    transition: all 0.2s;
     line-height: 1;
   }
-  .qty-btn:hover { background: var(--blush); }
+  .qty-btn:hover { background: var(--peach); border-style: solid; }
   .qty-num { min-width: 24px; text-align: center; font-weight: 600; font-size: 0.95rem; }
 
   /* ── 購物車摘要 ── */
   #cart-summary {
     margin: 1.8rem 0 1rem;
     background: var(--white);
-    border-radius: 20px;
-    border: 1.5px solid var(--blush);
+    border-radius: 18px;
+    border: 2px dashed var(--stitch);
     overflow: hidden;
-    box-shadow: 0 4px 16px var(--shadow);
+    box-shadow: 0 3px 14px var(--shadow);
     display: none;
     animation: fadeUp 0.4s ease;
   }
   #cart-summary.show { display: block; }
 
   .cart-header {
-    background: linear-gradient(135deg, var(--blush), var(--rose));
+    background: var(--warm);
     padding: 0.9rem 1.2rem;
     display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px dashed var(--stitch);
   }
-  .cart-header span { color: var(--white); font-weight: 600; font-size: 0.95rem; }
+  .cart-header span { color: var(--brown); font-weight: 600; font-size: 0.95rem; }
 
   .cart-items { padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; }
 
@@ -181,22 +190,22 @@
 
   .cart-total {
     padding: 0.8rem 1.2rem;
-    border-top: 1px dashed var(--blush);
+    border-top: 2px dashed var(--stitch);
     display: flex; justify-content: space-between; align-items: center;
   }
   .cart-total-label { font-size: 0.85rem; color: var(--muted); }
   .cart-total-amount {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem; color: var(--mauve);
+    font-size: 1.4rem; color: var(--terra);
   }
 
   /* ── 訂單表單 ── */
   #order-form {
     background: var(--white);
-    border-radius: 20px;
+    border-radius: 18px;
     padding: 1.5rem;
-    box-shadow: 0 4px 20px var(--shadow);
-    border: 1px solid rgba(242,196,196,0.3);
+    box-shadow: 0 3px 14px var(--shadow);
+    border: 2px dashed rgba(212,184,156,0.5);
     display: flex; flex-direction: column; gap: 1rem;
     margin-bottom: 2rem;
   }
@@ -205,26 +214,24 @@
 
   .form-label {
     font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    color: var(--mauve);
-    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--terra);
   }
 
   .form-input, .form-textarea {
     background: var(--cream);
-    border: 1.5px solid var(--blush);
-    border-radius: 12px;
+    border: 1.5px solid var(--stitch);
+    border-radius: 10px;
     padding: 0.7rem 1rem;
     font-family: 'Noto Serif TC', serif;
     font-size: 0.95rem;
     color: var(--text);
     outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s;
     width: 100%;
   }
   .form-input:focus, .form-textarea:focus {
     border-color: var(--rose);
-    box-shadow: 0 0 0 3px rgba(232,160,160,0.2);
   }
 
   .form-textarea { resize: vertical; min-height: 70px; }
@@ -232,10 +239,10 @@
   /* ── Email 驗證區 ── */
   .verify-section {
     background: var(--white);
-    border-radius: 20px;
+    border-radius: 18px;
     padding: 1.5rem;
-    box-shadow: 0 4px 20px var(--shadow);
-    border: 1px solid rgba(242,196,196,0.3);
+    box-shadow: 0 3px 14px var(--shadow);
+    border: 2px dashed rgba(212,184,156,0.5);
     margin-bottom: 1.5rem;
     animation: fadeUp 0.4s ease;
   }
@@ -247,53 +254,53 @@
 
   .verify-btn {
     padding: 0.7rem 1rem;
-    background: linear-gradient(135deg, var(--rose), var(--mauve));
+    background: var(--rose);
     color: var(--white);
     border: none;
-    border-radius: 12px;
+    border-radius: 100px;
     font-family: 'Noto Serif TC', serif;
     font-size: 0.82rem;
     cursor: pointer;
     white-space: nowrap;
-    transition: opacity 0.2s;
+    transition: background 0.2s;
     flex-shrink: 0;
   }
-  .verify-btn:hover:not(:disabled) { opacity: 0.85; }
+  .verify-btn:hover:not(:disabled) { background: var(--terra); }
   .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .verified-badge {
     display: inline-flex; align-items: center; gap: 0.4rem;
-    background: #eaf7e5; border: 1.5px solid #b8dfa8;
+    background: #eaf7e5; border: 1.5px dashed #b8dfa8;
     border-radius: 100px; padding: 0.5rem 1rem;
     font-size: 0.85rem; color: var(--green);
     margin-top: 0.8rem;
   }
 
   .info-msg {
-    background: #f0f4ff; border: 1px solid #c0d0f0;
+    background: #fdf3e7; border: 1.5px dashed var(--stitch);
     border-radius: 12px; padding: 0.8rem 1rem;
-    font-size: 0.82rem; color: #5a6f9a; text-align: center;
+    font-size: 0.82rem; color: var(--muted); text-align: center;
     margin-top: 0.5rem;
   }
 
-  /* ── 送出按鈕 ── */
+  /* ── 送出按鈕（膠囊型） ── */
   .submit-btn {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(135deg, var(--rose), var(--mauve));
+    background: var(--rose);
     color: var(--white);
     border: none;
-    border-radius: 16px;
+    border-radius: 100px;
     font-family: 'Playfair Display', serif;
     font-size: 1.05rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(201,125,125,0.35);
-    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: 0 4px 16px rgba(224,149,128,0.3);
+    transition: transform 0.2s, background 0.2s;
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
   }
-  .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(201,125,125,0.4); }
-  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .submit-btn:hover:not(:disabled) { transform: translateY(-1px); background: var(--terra); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   /* ── 成功畫面 ── */
   #success-screen {
@@ -302,29 +309,29 @@
     animation: fadeUp 0.5s ease;
   }
   #success-screen.show { display: block; }
-  .success-icon { font-size: 4rem; margin-bottom: 1rem; animation: pop 0.4s ease 0.1s both; }
+  .success-icon { font-size: 3.5rem; margin-bottom: 1rem; animation: pop 0.4s ease 0.1s both; }
   @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .success-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--brown); margin-bottom: 0.5rem; }
+  .success-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--brown); margin-bottom: 0.5rem; }
   .success-msg { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
   .order-id-badge {
     display: inline-block; margin-top: 1.2rem;
-    background: var(--warm); border: 1.5px solid var(--blush);
-    border-radius: 100px; padding: 0.4rem 1.2rem;
-    font-size: 0.82rem; color: var(--mauve); letter-spacing: 0.08em;
+    background: var(--cream); border: 2px dashed var(--stitch);
+    border-radius: 100px; padding: 0.5rem 1.5rem;
+    font-size: 0.82rem; color: var(--terra); letter-spacing: 0.08em;
   }
   .new-order-btn {
     margin-top: 2rem;
     padding: 0.75rem 2rem;
-    background: var(--white);
-    border: 1.5px solid var(--blush);
+    background: transparent;
+    border: 2px dashed var(--rose);
     border-radius: 100px;
-    color: var(--mauve);
+    color: var(--rose);
     font-family: 'Noto Serif TC', serif;
     cursor: pointer;
     font-size: 0.9rem;
-    transition: background 0.2s;
+    transition: all 0.2s;
   }
-  .new-order-btn:hover { background: var(--warm); }
+  .new-order-btn:hover { background: var(--rose); color: white; border-style: solid; }
 
   /* ── 載入中 ── */
   .loading-wrap {
@@ -332,31 +339,33 @@
     color: var(--muted); font-size: 0.9rem;
   }
   .spinner {
-    width: 36px; height: 36px;
-    border: 3px solid var(--blush);
+    width: 32px; height: 32px;
+    border: 3px dashed var(--stitch);
     border-top-color: var(--rose);
+    border-top-style: solid;
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    animation: spin 1s linear infinite;
     margin: 0 auto 1rem;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   /* 錯誤 */
   .error-msg {
-    background: #fff0f0; border: 1px solid #f9c0c0;
+    background: #fff0f0; border: 1.5px dashed #e8a0a0;
     border-radius: 12px; padding: 0.8rem 1rem;
-    font-size: 0.85rem; color: #c97d7d; text-align: center;
+    font-size: 0.85rem; color: #b06050; text-align: center;
   }
 
   /* Footer */
   footer {
     text-align: center; padding: 2rem;
-    font-size: 0.75rem; color: var(--muted);
+    font-size: 0.72rem; color: var(--muted);
     position: relative; z-index: 1;
+    letter-spacing: 0.05em;
   }
 
   @media (max-width: 360px) {
-    .logo-name { font-size: 2rem; }
+    .logo-name { font-size: 1.9rem; }
     .product-img { width: 90px; min-height: 90px; font-size: 2.4rem; }
   }
 </style>

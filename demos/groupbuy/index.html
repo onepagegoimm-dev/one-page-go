@@ -8,128 +8,171 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --cream:   #fdf6ee;
-    --warm:    #f5e6d3;
-    --peach:   #f7d8a0;
-    --orange:  #e8a850;
-    --amber:   #c97d30;
-    --brown:   #7a4f3a;
-    --text:    #4a3428;
-    --muted:   #9c7b6e;
-    --white:   #fffcf8;
-    --shadow:  rgba(122,79,58,0.12);
-    --green:   #7dba6a;
-    --greenBg: #e8f5e9;
+    --leaf:    #2ecc71;
+    --leaf-d:  #27ae60;
+    --lime:    #a8e6cf;
+    --sunny:   #ffd93d;
+    --sunny-d: #f0c929;
+    --orange:  #ff6b35;
+    --white:   #ffffff;
+    --bg:      #f0faf4;
+    --card:    #ffffff;
+    --text:    #2d3436;
+    --muted:   #636e72;
+    --light:   #b2bec3;
+    --green:   #27ae60;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--cream);
+    background: var(--bg);
     font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
   }
 
+  /* 幾何圓點裝飾 */
   body::before {
     content: '';
     position: fixed; inset: 0; z-index: 0;
     background-image:
-      radial-gradient(circle at 20% 20%, rgba(247,216,160,0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(245,230,211,0.4) 0%, transparent 50%),
-      radial-gradient(circle at 60% 10%, rgba(253,246,238,0.5) 0%, transparent 40%);
+      radial-gradient(circle 3px at 10% 15%, var(--lime) 100%, transparent 0),
+      radial-gradient(circle 5px at 85% 10%, var(--sunny) 100%, transparent 0),
+      radial-gradient(circle 4px at 90% 70%, var(--lime) 100%, transparent 0),
+      radial-gradient(circle 3px at 15% 80%, var(--sunny) 100%, transparent 0),
+      radial-gradient(circle 6px at 50% 5%, rgba(46,204,113,0.15) 100%, transparent 0);
+    opacity: 0.6;
     pointer-events: none;
   }
 
   header {
     position: relative; z-index: 10;
     text-align: center;
-    padding: 2rem 1.5rem 1.2rem;
-    background: linear-gradient(180deg, var(--warm) 0%, transparent 100%);
+    padding: 2rem 1.5rem 1rem;
+    background: linear-gradient(180deg, rgba(168,230,207,0.4) 0%, transparent 100%);
   }
 
   .logo-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; }
-  .logo-icon { font-size: 2rem; line-height: 1; animation: float 3s ease-in-out infinite; }
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-  .logo-name { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--brown); }
-  .logo-sub  { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.15em; }
-
-  .deco-line {
-    margin-top: 0.8rem;
-    font-size: 0.7rem; color: var(--orange); letter-spacing: 0.3em;
+  .logo-icon { font-size: 2.2rem; line-height: 1; animation: bounce 2s ease-in-out infinite; }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(-5deg); }
+    75% { transform: translateY(-4px) rotate(3deg); }
+  }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .logo-sub {
+    font-size: 0.7rem;
+    color: var(--leaf-d);
+    letter-spacing: 0.12em;
+    font-weight: 600;
   }
 
-  .main { position: relative; z-index: 5; max-width: 480px; margin: 0 auto; padding: 0 1.2rem 3rem; }
+  .deco-line {
+    margin-top: 0.6rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+  }
 
-  .section-title { text-align: center; font-size: 1.1rem; margin: 1.5rem 0 1rem; color: var(--brown); }
+  .main { position: relative; z-index: 5; max-width: 480px; margin: 0 auto; padding: 0 1rem 3rem; }
+
+  .section-title {
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.5rem 0 1rem;
+    color: var(--text);
+  }
 
   /* ── 團購卡片 ── */
   .campaign-card {
-    background: var(--white);
-    border-radius: 16px;
-    padding: 1.2rem;
+    background: var(--card);
+    border-radius: 14px;
+    padding: 0;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 16px var(--shadow);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    animation: fadeUp 0.5s ease both;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.4s ease both;
+    overflow: hidden;
+    border-left: 5px solid var(--leaf);
   }
-  .campaign-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--shadow); }
-  .campaign-card.selected { border: 2px solid var(--orange); }
+  .campaign-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46,204,113,0.12); }
+  .campaign-card.selected { border-left-color: var(--orange); box-shadow: 0 4px 20px rgba(255,107,53,0.15); }
 
-  .campaign-img { font-size: 2.5rem; text-align: center; margin-bottom: 0.6rem; }
+  .campaign-card-inner { padding: 1.2rem; }
+
+  .campaign-img { font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem; }
   .campaign-img img { width: 100%; border-radius: 10px; }
-  .campaign-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; }
-  .campaign-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
-  .campaign-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
-  .campaign-price { font-size: 1.1rem; color: var(--amber); font-weight: 600; }
+  .campaign-name { font-weight: 600; font-size: 1.05rem; margin-bottom: 0.25rem; color: var(--text); }
+  .campaign-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.6rem; line-height: 1.5; }
+  .campaign-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.7rem; }
+  .campaign-price { font-size: 1.15rem; color: var(--orange); font-weight: 600; }
   .campaign-status {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
+    font-size: 0.68rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
     font-weight: 600;
+    letter-spacing: 0.03em;
   }
-  .campaign-status.open { background: var(--greenBg); color: #2e7d32; }
-  .campaign-status.reached { background: #e3f2fd; color: #1565c0; }
+  .campaign-status.open { background: rgba(46,204,113,0.12); color: var(--leaf-d); }
+  .campaign-status.reached { background: rgba(52,152,219,0.12); color: #2980b9; }
 
   /* ── 進度條 ── */
   .progress-wrap { margin-bottom: 0.5rem; }
-  .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.3rem; }
   .progress-bar {
-    height: 8px;
-    background: var(--warm);
-    border-radius: 4px;
+    height: 10px;
+    background: #e8f5e9;
+    border-radius: 5px;
     overflow: hidden;
   }
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--orange), var(--amber));
-    border-radius: 4px;
-    transition: width 0.5s ease;
+    background: linear-gradient(90deg, var(--leaf), var(--sunny));
+    border-radius: 5px;
+    transition: width 0.6s ease;
+    position: relative;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 0;
+    width: 12px; height: 100%;
+    background: rgba(255,255,255,0.4);
+    border-radius: 0 5px 5px 0;
   }
 
   /* ── 倒數計時 ── */
   .countdown-badge {
     display: inline-block;
-    background: var(--warm);
-    color: var(--brown);
+    background: var(--sunny);
+    color: var(--text);
     font-size: 0.7rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
+    font-weight: 600;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
   }
-  .countdown-badge.urgent { background: #fce4e4; color: #7a3a3a; }
+  .countdown-badge.urgent { background: #ff7675; color: white; }
 
   /* ── 數量選擇 ── */
   .qty-section {
-    background: var(--white);
-    border-radius: 16px;
+    background: var(--card);
+    border-radius: 14px;
     padding: 1.2rem;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 16px var(--shadow);
-    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    animation: fadeUp 0.4s ease both;
   }
-  .qty-section label { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--brown); }
+  .qty-section label { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--text); font-weight: 600; }
   .qty-control {
     display: flex;
     align-items: center;
@@ -137,47 +180,51 @@
     justify-content: center;
   }
   .qty-btn {
-    width: 38px; height: 38px;
-    border: 1px solid var(--warm);
-    border-radius: 50%;
-    background: var(--cream);
+    width: 40px; height: 40px;
+    border: 2px solid var(--leaf);
+    border-radius: 10px;
+    background: white;
     font-size: 1.2rem;
-    color: var(--text);
+    color: var(--leaf-d);
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: all 0.3s;
+    transition: all 0.2s;
+    font-weight: 700;
   }
-  .qty-btn:hover { background: var(--peach); }
+  .qty-btn:hover { background: var(--leaf); color: white; }
   .qty-display {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    color: var(--brown);
-    min-width: 40px;
+    color: var(--text);
+    min-width: 50px;
     text-align: center;
+    background: var(--bg);
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
   }
-  .qty-hint { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 0.5rem; }
+  .qty-hint { font-size: 0.72rem; color: var(--muted); text-align: center; margin-top: 0.5rem; }
 
   /* ── 訂單摘要 ── */
   .order-summary {
-    background: var(--white);
-    border-radius: 16px;
+    background: var(--card);
+    border-radius: 14px;
     padding: 1rem 1.2rem;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 16px var(--shadow);
-    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    animation: fadeUp 0.4s ease both;
   }
-  .summary-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--brown); }
+  .summary-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--text); }
   .summary-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem; }
-  .summary-total { border-top: 1px solid var(--warm); padding-top: 0.5rem; margin-top: 0.5rem; font-weight: 600; color: var(--amber); }
+  .summary-total { border-top: 2px solid var(--bg); padding-top: 0.5rem; margin-top: 0.5rem; font-weight: 600; color: var(--orange); }
 
   /* ── Email 驗證 ── */
   .verify-section {
-    background: var(--white);
-    border-radius: 16px;
+    background: var(--card);
+    border-radius: 14px;
     padding: 1.2rem;
-    box-shadow: 0 4px 16px var(--shadow);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     margin-bottom: 1rem;
-    animation: fadeUp 0.5s ease both;
+    animation: fadeUp 0.4s ease both;
   }
   .verify-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
   .verify-row input { flex: 1; }
@@ -185,61 +232,62 @@
     padding: 0.55rem 0.8rem;
     border: none;
     border-radius: 10px;
-    background: var(--orange);
+    background: var(--leaf);
     color: white;
     font-family: inherit;
     font-size: 0.8rem;
+    font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 0.3s;
+    transition: background 0.2s;
   }
-  .verify-btn:hover { background: var(--amber); }
-  .verify-btn:disabled { background: var(--muted); cursor: not-allowed; }
-  .verify-status { font-size: 0.75rem; margin-top: 0.3rem; }
+  .verify-btn:hover { background: var(--leaf-d); }
+  .verify-btn:disabled { background: var(--light); cursor: not-allowed; }
+  .verify-status { font-size: 0.72rem; margin-top: 0.3rem; }
 
   /* ── 表單 ── */
   .form-section {
-    background: var(--white);
-    border-radius: 16px;
+    background: var(--card);
+    border-radius: 14px;
     padding: 1.2rem;
-    box-shadow: 0 4px 16px var(--shadow);
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 1rem;
+    animation: fadeUp 0.4s ease both;
   }
-  .form-section label { display: block; font-size: 0.8rem; margin-bottom: 0.3rem; color: var(--brown); }
+  .form-section label { display: block; font-size: 0.8rem; margin-bottom: 0.3rem; color: var(--text); font-weight: 600; }
   .form-section input, .form-section textarea {
     width: 100%;
-    padding: 0.55rem 0.7rem;
-    border: 1px solid var(--warm);
+    padding: 0.6rem 0.7rem;
+    border: 2px solid #e8f5e9;
     border-radius: 10px;
     font-family: inherit;
     font-size: 0.85rem;
     color: var(--text);
-    background: var(--cream);
+    background: var(--bg);
     margin-bottom: 0.8rem;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.2s;
   }
-  .form-section input:focus, .form-section textarea:focus { border-color: var(--orange); }
+  .form-section input:focus, .form-section textarea:focus { border-color: var(--leaf); }
   .form-section textarea { height: 70px; resize: vertical; }
 
   /* ── 送出按鈕 ── */
   .submit-btn {
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.85rem;
     border: none;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--orange), var(--amber));
-    color: white;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--leaf) 0%, var(--sunny) 100%);
+    color: var(--text);
     font-family: inherit;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.3s;
-    letter-spacing: 0.05em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.03em;
   }
-  .submit-btn:hover { opacity: 0.9; }
-  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(46,204,113,0.25); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
   /* ── 成功畫面 ── */
   .success-screen {
@@ -250,47 +298,48 @@
   }
   .success-icon { font-size: 3rem; animation: pop 0.6s ease; }
   @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
-  .success-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--brown); margin: 0.8rem 0 0.5rem; }
+  .success-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--text); margin: 0.8rem 0 0.5rem; }
   .success-msg { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; }
   .success-badge {
     display: inline-block;
-    background: var(--warm);
-    padding: 0.5rem 1.2rem;
-    border-radius: 20px;
+    background: linear-gradient(135deg, var(--leaf), var(--sunny));
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
     font-size: 0.85rem;
-    color: var(--brown);
+    color: var(--text);
     font-weight: 600;
     margin-bottom: 1.5rem;
   }
   .new-order-btn {
     padding: 0.7rem 2rem;
-    border: 2px solid var(--orange);
-    border-radius: 14px;
+    border: 2px solid var(--leaf);
+    border-radius: 12px;
     background: transparent;
-    color: var(--orange);
+    color: var(--leaf-d);
     font-family: inherit;
     font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
   }
-  .new-order-btn:hover { background: var(--orange); color: white; }
+  .new-order-btn:hover { background: var(--leaf); color: white; }
 
   /* ── Loading / Error ── */
   .loading-wrap { text-align: center; padding: 2rem; }
-  .spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid var(--warm); border-top-color: var(--orange); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid #e8f5e9; border-top-color: var(--leaf); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .error-msg { background: #fce4e4; color: #7a3a3a; padding: 0.6rem 1rem; border-radius: 10px; font-size: 0.8rem; margin-bottom: 1rem; text-align: center; }
+  .error-msg { background: #ffeaa7; color: #6c5000; padding: 0.6rem 1rem; border-radius: 10px; font-size: 0.8rem; margin-bottom: 1rem; text-align: center; font-weight: 600; }
 
   .hidden { display: none !important; }
 
   footer {
     position: relative; z-index: 5;
     text-align: center; padding: 1.5rem;
-    font-size: 0.7rem; color: var(--muted);
+    font-size: 0.68rem; color: var(--muted);
   }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 </style>
@@ -423,22 +472,24 @@ function renderCampaigns() {
 
     return `
       <div class="campaign-card" id="camp-${c.id}" onclick="selectCampaign('${c.id}')" style="animation-delay:${i*0.08}s">
-        <div class="campaign-img">${imgHtml}</div>
-        <div class="campaign-name">${c.name}</div>
-        <div class="campaign-desc">${c.description || ''}</div>
-        <div class="campaign-meta">
-          <span class="campaign-price">$${c.price}/份</span>
-          <span class="campaign-status ${statusClass}">${statusLabel}</span>
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-label">
-            <span>已跟團 ${c.current_qty}/${c.min_qty} 份</span>
-            <span>還可跟 ${remaining} 份</span>
+        <div class="campaign-card-inner">
+          <div class="campaign-img">${imgHtml}</div>
+          <div class="campaign-name">${c.name}</div>
+          <div class="campaign-desc">${c.description || ''}</div>
+          <div class="campaign-meta">
+            <span class="campaign-price">$${c.price}/份</span>
+            <span class="campaign-status ${statusClass}">${statusLabel}</span>
           </div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.4rem;">
-          <span class="countdown-badge" id="countdown-${c.id}">⏳ 計算中...</span>
+          <div class="progress-wrap">
+            <div class="progress-label">
+              <span>已跟團 ${c.current_qty}/${c.min_qty} 份</span>
+              <span>還可跟 ${remaining} 份</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.4rem;">
+            <span class="countdown-badge" id="countdown-${c.id}">⏳ 計算中...</span>
+          </div>
         </div>
       </div>`;
   }).join('');
