@@ -720,6 +720,7 @@
   let contractTermsText = "";
   let price = 0;
   let emailVerified = false;
+  let customerName = '';
 
   // ── DOM 元素 ──
   const steps = document.querySelectorAll('.step-item');
@@ -972,6 +973,9 @@
       return;
     }
 
+    // 儲存客戶姓名供後續驗證
+    customerName = name;
+
     // 從模板類型取得價格
     const budget = TEMPLATE_PRICING[templateType] || 0;
 
@@ -1036,6 +1040,11 @@
 
     if (!signatureText) {
       showError(2, '請輸入您的全名作為電子簽名');
+      return;
+    }
+
+    if (signatureText !== customerName) {
+      showError(2, '電子簽名必須與您的姓名（' + customerName + '）一致');
       return;
     }
 
