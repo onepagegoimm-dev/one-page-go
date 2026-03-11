@@ -549,7 +549,19 @@
 
       <div class="field">
         <label>Email <span class="required">*</span></label>
-        <input type="email" id="email" placeholder="email@example.com" required />
+        <div style="display: flex; gap: 8px;">
+          <input type="email" id="email" placeholder="email@example.com" required style="flex: 1;" />
+          <button type="button" id="btnSendCode" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem; font-size: 0.78rem; white-space: nowrap;">發送驗證碼</button>
+        </div>
+      </div>
+
+      <div class="field hidden" id="verifyCodeField">
+        <label>驗證碼 <span class="required">*</span></label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="verifyCode" maxlength="6" placeholder="請輸入 6 位數驗證碼" style="flex: 1; letter-spacing: 0.3em; text-align: center;" />
+          <button type="button" id="btnVerifyCode" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem; font-size: 0.78rem; white-space: nowrap;">驗證</button>
+        </div>
+        <div class="hint" id="verifyStatus"></div>
       </div>
 
       <div class="field">
@@ -567,20 +579,10 @@
         <label>模板類型 <span class="required">*</span></label>
         <select id="templateType" required>
           <option value="" disabled selected>請選擇模板類型</option>
-          <option value="ecommerce">微型電商</option>
-          <option value="booking">預約系統</option>
-          <option value="groupbuy">團購管理</option>
-          <option value="ticketing">活動售票</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>方案選擇 <span class="required">*</span></label>
-        <select id="budget" required>
-          <option value="" disabled selected>請選擇方案</option>
-          <option value="3000">基本方案 — NT$3,000</option>
-          <option value="6000">進階方案 — NT$6,000</option>
-          <option value="12000">完整方案 — NT$12,000</option>
+          <option value="ecommerce">微型電商 — NT$2,000</option>
+          <option value="booking">預約系統 — NT$1,500</option>
+          <option value="groupbuy">團購管理 — NT$1,200</option>
+          <option value="ticketing">活動售票 — NT$800</option>
         </select>
       </div>
 
@@ -703,12 +705,21 @@
   // ── API 設定 ──
   const API_URL = "YOUR_APPS_SCRIPT_URL";
 
+  // ── 定價對照 ──
+  const TEMPLATE_PRICING = {
+    ecommerce: 2000,
+    booking:   1500,
+    groupbuy:  1200,
+    ticketing: 800
+  };
+
   // ── 狀態 ──
   let currentStep = 1;
   let inquiryId = null;
   let contractId = null;
   let contractTermsText = "";
   let price = 0;
+  let emailVerified = false;
 
   // ── DOM 元素 ──
   const steps = document.querySelectorAll('.step-item');
@@ -802,6 +813,7 @@
       groupbuy: '團購管理',
       ticketing: '活動售票'
     };
+    const priceAmount = typeof budget === 'number' ? budget : (TEMPLATE_PRICING[templateType] || 0);
     return `One Page Go 網頁製作服務合約
 
 甲方（委託方）：${name}
@@ -813,7 +825,7 @@
 乙方將為甲方製作「${typeNames[templateType] || templateType}」類型之單頁式網頁應用，包含前端頁面設計與後端串接。
 
 二、費用與付款
-本次服務費用為 ${formatPrice(budget)} 元整，甲方應於簽約後 3 個工作天內完成匯款。
+本次服務費用為 ${formatPrice(priceAmount)} 元整，甲方應於簽約後 3 個工作天內完成匯款。
 
 三、製作時程
 乙方將於收到款項後 5–7 個工作天內完成初版交付，甲方享有 2 次免費修改。
@@ -831,6 +843,98 @@
 本合約如有爭議，雙方同意以台灣台北地方法院為第一審管轄法院。`;
   }
 
+  // ── Email 驗證 ──
+  document.getElementById('btnSendCode').addEventListener('click', async () => {
+    clearError(1);
+    const email = document.getElementById('email').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showError(1, '請先輸入有效的 Email 地址');
+      return;
+    }
+
+    const btn = document.getElementById('btnSendCode');
+    btn.disabled = true;
+    btn.textContent = '發送中...';
+
+    try {
+      const res = await fetch(API_URL + '?action=sendVerifyCode&email=' + encodeURIComponent(email));
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('verifyCodeField').classList.remove('hidden');
+        document.getElementById('verifyStatus').textContent = '驗證碼已發送至您的信箱';
+        document.getElementById('verifyStatus').style.color = 'var(--green)';
+      } else {
+        showError(1, data.message || '發送失敗，請稍後再試');
+      }
+    } catch (err) {
+      // 開發模式：模擬發送
+      console.warn('API 未連線，模擬驗證碼發送', err);
+      document.getElementById('verifyCodeField').classList.remove('hidden');
+      document.getElementById('verifyStatus').textContent = '（開發模式）請輸入任意 6 位數字';
+      document.getElementById('verifyStatus').style.color = 'var(--muted)';
+    }
+
+    // 60 秒倒數
+    let countdown = 60;
+    btn.textContent = `${countdown}s`;
+    const timer = setInterval(() => {
+      countdown--;
+      btn.textContent = `${countdown}s`;
+      if (countdown <= 0) {
+        clearInterval(timer);
+        btn.textContent = '重新發送';
+        btn.disabled = false;
+      }
+    }, 1000);
+  });
+
+  document.getElementById('btnVerifyCode').addEventListener('click', async () => {
+    clearError(1);
+    const email = document.getElementById('email').value.trim();
+    const code = document.getElementById('verifyCode').value.trim();
+
+    if (!code || code.length !== 6) {
+      showError(1, '請輸入 6 位數驗證碼');
+      return;
+    }
+
+    const btn = document.getElementById('btnVerifyCode');
+    btn.disabled = true;
+    btn.textContent = '驗證中...';
+
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'verifyCode', email, code })
+      });
+      const data = await res.json();
+      if (data.success) {
+        emailVerified = true;
+        document.getElementById('verifyStatus').textContent = '驗證成功';
+        document.getElementById('verifyStatus').style.color = 'var(--green)';
+        document.getElementById('email').disabled = true;
+        document.getElementById('verifyCode').disabled = true;
+        btn.textContent = '已驗證';
+        document.getElementById('btnSendCode').classList.add('hidden');
+      } else {
+        showError(1, data.message || '驗證碼錯誤');
+        btn.disabled = false;
+        btn.textContent = '驗證';
+      }
+    } catch (err) {
+      // 開發模式：任意 6 碼通過
+      console.warn('API 未連線，模擬驗證通過', err);
+      emailVerified = true;
+      document.getElementById('verifyStatus').textContent = '（開發模式）驗證成功';
+      document.getElementById('verifyStatus').style.color = 'var(--green)';
+      document.getElementById('email').disabled = true;
+      document.getElementById('verifyCode').disabled = true;
+      btn.textContent = '已驗證';
+      document.getElementById('btnSendCode').classList.add('hidden');
+    }
+  });
+
   // ── Step 1: 提交需求 ──
   document.getElementById('inquiryForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -841,11 +945,10 @@
     const phone = document.getElementById('phone').value.trim();
     const businessName = document.getElementById('businessName').value.trim();
     const templateType = document.getElementById('templateType').value;
-    const budget = document.getElementById('budget').value;
     const requirements = document.getElementById('requirements').value.trim();
 
-    // 驗證
-    if (!name || !email || !phone || !businessName || !templateType || !budget) {
+    // 驗證必填
+    if (!name || !email || !phone || !businessName || !templateType) {
       showError(1, '請填寫所有必填欄位');
       return;
     }
@@ -854,6 +957,22 @@
       showError(1, '請輸入有效的 Email 地址');
       return;
     }
+
+    // Email 驗證檢查
+    if (!emailVerified) {
+      showError(1, '請先完成 Email 驗證');
+      return;
+    }
+
+    // 電話格式驗證（09 開頭）
+    const phoneClean = phone.replace(/[-\s]/g, '');
+    if (!/^09\d{8}$/.test(phoneClean)) {
+      showError(1, '請輸入有效的手機號碼（09 開頭，共 10 碼）');
+      return;
+    }
+
+    // 從模板類型取得價格
+    const budget = TEMPLATE_PRICING[templateType] || 0;
 
     const btn = document.getElementById('btnSubmitInquiry');
     setLoading(btn, true);
@@ -870,7 +989,7 @@
           template_type: templateType,
           business_name: businessName,
           requirements,
-          budget
+          budget: templateType
         })
       });
 
