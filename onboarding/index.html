@@ -857,8 +857,9 @@
     btn.textContent = '發送中...';
 
     try {
-      const res = await fetch(API_URL + '?action=sendVerifyCode&email=' + encodeURIComponent(email));
-      const data = await res.json();
+      const res = await fetch(API_URL + '?action=sendVerifyCode&email=' + encodeURIComponent(email), { redirect: 'follow' });
+      const text = await res.text();
+      const data = JSON.parse(text);
       if (data.success) {
         document.getElementById('verifyCodeField').classList.remove('hidden');
         document.getElementById('verifyStatus').textContent = '驗證碼已發送至您的信箱';
@@ -905,7 +906,7 @@
     try {
       const res = await fetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'verifyCode', email, code })
       });
       const data = await res.json();
@@ -980,7 +981,7 @@
     try {
       const res = await fetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           action: 'submitInquiry',
           name,
@@ -1049,7 +1050,7 @@
     try {
       const res = await fetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           action: 'signContract',
           contract_id: contractId,
@@ -1110,7 +1111,7 @@
     try {
       const res = await fetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           action: 'submitPayment',
           contract_id: contractId,
