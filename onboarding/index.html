@@ -1744,7 +1744,7 @@
     btn.textContent = '發送中...';
 
     try {
-      const res = await fetch(API_URL + '?action=sendVerifyCode&email=' + encodeURIComponent(email), { redirect: 'follow' });
+      const res = await fetch(API_URL + '?action=sendVerifyCode&email=' + encodeURIComponent(email) + '&purpose=tracking', { redirect: 'follow' });
       const text = await res.text();
       const data = JSON.parse(text);
       if (data.success) {
