@@ -283,6 +283,39 @@
                 border-bottom-color: var(--brown);
             }
 
+            /* ── Demo 統計 ── */
+            .stats-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+            }
+            .stat-card {
+                background: var(--white);
+                border-radius: 16px;
+                padding: 20px 16px;
+                text-align: center;
+                box-shadow: 0 2px 12px var(--shadow);
+                transition: transform 0.3s;
+            }
+            .stat-card:hover {
+                transform: translateY(-4px);
+            }
+            .stat-emoji {
+                font-size: 1.8rem;
+                margin-bottom: 6px;
+            }
+            .stat-count {
+                font-family: "Playfair Display", serif;
+                font-size: 2rem;
+                font-weight: 500;
+                color: var(--mauve);
+                margin-bottom: 4px;
+            }
+            .stat-label {
+                font-size: 0.78rem;
+                color: var(--muted);
+            }
+
             /* ── 技術架構 ── */
             .tech-section {
                 background: var(--warm);
@@ -585,6 +618,39 @@
             </div>
         </section>
 
+        <!-- ── Demo 即時數據 ── -->
+        <section id="demo-stats">
+            <div class="container">
+                <h2 class="section-title fade-up">Demo 即時訂單數據</h2>
+                <div class="divider fade-up"></div>
+                <p class="section-subtitle fade-up">
+                    以下數據來自 Demo 展示頁，試試看下單後數字會即時更新
+                </p>
+                <div class="stats-grid fade-up">
+                    <div class="stat-card">
+                        <div class="stat-emoji">🧁</div>
+                        <div class="stat-count" id="stat-ecommerce">-</div>
+                        <div class="stat-label">電商訂單</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">💆</div>
+                        <div class="stat-count" id="stat-booking">-</div>
+                        <div class="stat-label">預約訂單</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">🍊</div>
+                        <div class="stat-count" id="stat-groupbuy">-</div>
+                        <div class="stat-label">團購訂單</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">🎪</div>
+                        <div class="stat-count" id="stat-ticketing">-</div>
+                        <div class="stat-label">售票訂單</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ── 技術架構 ── -->
         <section id="tech">
             <div class="container">
@@ -644,7 +710,7 @@
                         <div class="template-info">
                             <h3>後端運行在你的帳號</h3>
                             <p>
-                                Apps Script 部署在你的 Google
+                                系統部署在你自己的 Google
                                 帳號下，你擁有完整的管理權限，隨時可以查看或修改。
                             </p>
                         </div>
@@ -802,6 +868,27 @@
             document
                 .querySelectorAll(".fade-up")
                 .forEach((el) => observer.observe(el));
+
+            /* ── Demo Stats ── */
+            const DEMO_APIS = {
+                ecommerce: "https://script.google.com/macros/s/AKfycbxQWWF38lw7KPXn658C43fREy-hdKNAb3r_xaqPEDRADP9an0pipbDFcHVp8bUl2bkE/exec",
+                booking:   "https://script.google.com/macros/s/AKfycbxXHqT4oC4ko6IVOu2tOVIsNoeSf0S_YLOnUZGE00XZ_ZQULplziLIAeITqFf5DBU4gHQ/exec",
+                groupbuy:  "https://script.google.com/macros/s/AKfycbwZzwf-T_ObMwTW3r0HJhgpSxO7ehNltflrFbn44xEw2iJtMoOU9KD8xZKD6KPqx_y5/exec",
+                ticketing: "https://script.google.com/macros/s/AKfycbwsQeEcGI2BjQh50QzYHk2poaIHHQ7rRTSGsvZ0_4bWh-byiygjO0k0hqIiqOpNs_XZ/exec"
+            };
+
+            Object.entries(DEMO_APIS).forEach(([key, url]) => {
+                fetch(`${url}?action=getStats`)
+                    .then(r => r.json())
+                    .then(data => {
+                        const el = document.getElementById(`stat-${key}`);
+                        if (el) el.textContent = data.orderCount ?? 0;
+                    })
+                    .catch(() => {
+                        const el = document.getElementById(`stat-${key}`);
+                        if (el) el.textContent = "0";
+                    });
+            });
 
             /* ── Smooth Scroll ── */
             document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
