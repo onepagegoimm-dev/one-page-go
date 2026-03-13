@@ -365,6 +365,83 @@
                 margin-top: 8px;
             }
 
+            /* ── 費用對比 ── */
+            .compare-section {
+                background: var(--white);
+                border-radius: 20px;
+                margin: 0 20px;
+                padding: 40px 24px;
+                box-shadow: 0 2px 12px var(--shadow);
+            }
+            .compare-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0 16px;
+            }
+            .compare-table th {
+                font-size: 0.82rem;
+                font-weight: 600;
+                padding: 10px 8px;
+                text-align: center;
+            }
+            .compare-table th:first-child {
+                text-align: left;
+                color: var(--muted);
+            }
+            .compare-table th:nth-child(2) {
+                color: var(--muted);
+            }
+            .compare-table th:nth-child(3) {
+                color: var(--brown);
+            }
+            .compare-table td {
+                font-size: 0.88rem;
+                padding: 12px 8px;
+                text-align: center;
+                border-top: 1px solid var(--warm);
+            }
+            .compare-table td:first-child {
+                text-align: left;
+                color: var(--text);
+                font-weight: 600;
+                font-size: 0.82rem;
+            }
+            .compare-table td:nth-child(2) {
+                color: var(--muted);
+                text-decoration: line-through;
+                text-decoration-color: var(--rose);
+            }
+            .compare-table td:nth-child(3) {
+                color: var(--brown);
+                font-weight: 600;
+            }
+            .compare-highlight {
+                background: linear-gradient(135deg, #f5e6d3 0%, #fdf6ee 100%);
+                border-radius: 12px;
+                padding: 16px;
+                text-align: center;
+                margin-top: 8px;
+            }
+            .compare-highlight .save-amount {
+                font-family: "Playfair Display", serif;
+                font-size: 1.8rem;
+                font-weight: 500;
+                color: var(--mauve);
+            }
+            .compare-highlight .save-label {
+                font-size: 0.82rem;
+                color: var(--brown);
+                font-weight: 600;
+                margin-top: 4px;
+            }
+            .compare-note {
+                font-size: 0.75rem;
+                color: var(--muted);
+                text-align: center;
+                margin-top: 14px;
+                line-height: 1.6;
+            }
+
             /* ── 定價 ── */
             .pricing-list {
                 display: flex;
@@ -726,6 +803,58 @@
                             </p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 費用對比 ── -->
+        <section id="compare">
+            <div class="container">
+                <h2 class="section-title fade-up">算一筆帳，你就懂了</h2>
+                <div class="divider fade-up"></div>
+                <p class="section-subtitle fade-up">
+                    以微型電商為例，和月租開店平台比一比
+                </p>
+                <div class="compare-section fade-up">
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>月租平台</th>
+                                <th>One Page Go</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>第 1 個月</td>
+                                <td>NT$1,299</td>
+                                <td>NT$1,000</td>
+                            </tr>
+                            <tr>
+                                <td>半年後</td>
+                                <td>NT$7,794</td>
+                                <td>NT$1,000</td>
+                            </tr>
+                            <tr>
+                                <td>一年後</td>
+                                <td>NT$15,588</td>
+                                <td>NT$1,000</td>
+                            </tr>
+                            <tr>
+                                <td>兩年後</td>
+                                <td>NT$31,176</td>
+                                <td>NT$1,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="compare-highlight">
+                        <div class="save-amount">省下 NT$30,176</div>
+                        <div class="save-label">兩年累計節省金額</div>
+                    </div>
+                    <p class="compare-note">
+                        月租平台以市場最低方案 NT$1,299/月估算<br />
+                        尚不含平台交易抽成 2%~5.5%
+                    </p>
                 </div>
             </div>
         </section>
