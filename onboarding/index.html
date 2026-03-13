@@ -1001,6 +1001,11 @@
       <label for="agreeTerms">我已閱讀並同意合約條款</label>
     </div>
 
+    <div class="checkbox-field">
+      <input type="checkbox" id="agreeCustomized" />
+      <label for="agreeCustomized" style="font-size:0.75rem;color:var(--muted);">我了解本服務為客製化數位內容，經同意提供後不適用消保法七日無條件解除權（合約第九條）</label>
+    </div>
+
     <button type="button" class="btn btn-primary" id="btnSignContract">
       <span class="btn-text">確認簽署</span>
       <div class="spinner"></div>
@@ -1220,33 +1225,98 @@
       ticketing: '活動售票'
     };
     const priceAmount = typeof budget === 'number' ? budget : (TEMPLATE_PRICING[templateType] || 0);
+    const typeName = typeNames[templateType] || templateType;
+    const today = new Date();
+    const dateStr = `${today.getFullYear()} 年 ${String(today.getMonth()+1).padStart(2,'0')} 月 ${String(today.getDate()).padStart(2,'0')} 日`;
+
+    // 加購服務文字
+    const tg = document.getElementById('addonTelegram').checked;
+    const line = document.getElementById('addonLine').checked;
+    let addonsText = '';
+    if (tg && line) addonsText = '\n加購服務：Telegram + LINE 即時通知';
+    else if (tg) addonsText = '\n加購服務：Telegram 即時通知';
+    else if (line) addonsText = '\n加購服務：LINE 即時通知';
+
     return `One Page Go 網頁製作服務合約
+
+合約日期：${dateStr}
 
 甲方（委託方）：${name}
 品牌名稱：${businessName}
 
 乙方（製作方）：One Page Go 工作室
 
+━━━━━━━━━━━━━━━━━━━━━━
+
 一、服務內容
-乙方將為甲方製作「${typeNames[templateType] || templateType}」類型之單頁式網頁應用，包含前端頁面設計與後端串接。
+乙方為甲方製作「${typeName}」類型之單頁式網頁應用，服務包含：
+• 依所選模板類型建立前端網頁（響應式設計，支援手機與電腦瀏覽）
+• 設定 Google Sheets 資料後台
+• 部署 Google Apps Script 後端 API
+• GitHub Pages 靜態網頁託管${addonsText}
+
+本服務不包含：
+• 網域名稱（Domain）註冊與續費
+• 搜尋引擎優化（SEO）
+• 持續性維護與內容更新
+• 第三方金流串接（如信用卡、Line Pay）
+• 素材製作（文案撰寫、商品攝影、Logo 設計）
 
 二、費用與付款
-本次服務費用為 ${formatPrice(priceAmount)} 元整，甲方應於簽約後 3 個工作天內完成匯款。
+• 本次服務費用為新台幣 ${formatPrice(priceAmount)} 元整（含稅）
+• 甲方應於簽約後 3 個工作天內完成匯款至乙方指定帳戶
+• 逾期未付款視為自動取消訂單
 
-三、製作時程
-乙方將於收到款項後 5–7 個工作天內完成初版交付，甲方享有 2 次免費修改。
+三、素材提供
+• 甲方應提供網頁所需之文案、商品圖片、品牌 Logo 等素材
+• 乙方於收到全額款項及完整素材後，方開始製作
+• 若甲方延遲提供素材，交付時程相應順延
 
-四、智慧財產權
-網頁成品之智慧財產權於甲方完成付款後歸甲方所有。模板框架及技術架構之著作權歸乙方所有。
+四、製作時程
+• 乙方於收到款項及完整素材後 5–7 個工作天內完成初版交付
+• 工作天不含週末及國定假日
+• 如遇不可抗力因素（如第三方平台異常），乙方將通知甲方並合理延期
 
-五、保密條款
-雙方對於合作期間所獲知之對方商業資訊，負有保密義務。
+五、修改與驗收
+• 甲方享有 2 次免費修改（限文字替換、圖片更換、顏色微調）
+• 版面重新設計、功能新增不屬於免費修改範圍，需另行報價
+• 交付後 7 個工作日為驗收期，甲方應於期限內確認或提出修改需求
+• 驗收期滿未提出異議，視為驗收通過
 
-六、合約效力
-本合約自雙方簽署之日起生效。若任一方需終止合約，應於 7 日前書面通知對方。
+六、智慧財產權
+• 網頁成品之著作財產權，於甲方完成全額付款後歸甲方所有
+• 底層模板架構及技術框架之著作權歸乙方所有，乙方得繼續使用於其他專案
+• 乙方保留將本作品列入作品集展示之權利（不揭露甲方營業數據）
 
-七、爭議處理
-本合約如有爭議，雙方同意以台灣台北地方法院為第一審管轄法院。`;
+七、售後服務
+• 交付後提供 3 次免費技術諮詢（含操作教學、問題排除、小幅調整）
+• 免費諮詢限交付日起 30 日內使用完畢，逾期作廢
+• 超出免費次數或重大功能變更另行報價
+
+八、退款政策
+• 尚未開始製作（未收到素材或未開工）：全額退款
+• 已開始製作但未交付：不予退款
+• 已交付驗收：不予退款
+
+九、客製化服務告知
+本服務為依甲方需求量身製作之客製化數位內容，依據消費者保護法第 19 條及「通訊交易解除權合理例外情事適用準則」第 2 條規定，經甲方同意提供服務後，不適用七日無條件解除權。
+
+十、免責聲明
+• 本服務使用之第三方平台（Google Sheets、Google Apps Script、GitHub Pages）之可用性、效能與政策變更，非乙方所能控制，乙方不負擔保責任
+• 甲方提供之素材（文案、圖片等）如涉及侵權，相關責任由甲方自行承擔
+• 乙方不保證網頁帶來之商業成效（如銷售額、流量、轉換率等）
+
+十一、隱私權與資料安全
+• 乙方僅蒐集提供本服務所必需之個人資料
+• 甲方之營運資料（訂單、會員等）存放於甲方自有之 Google Sheet，乙方不保留副本
+• 合約完成後，乙方將於 30 日內刪除甲方提供之素材檔案
+
+十二、爭議處理
+• 本合約如有爭議，雙方應先以善意協商解決
+• 協商不成時，雙方同意以臺灣臺北地方法院為第一審管轄法院
+
+━━━━━━━━━━━━━━━━━━━━━━
+本合約自雙方簽署之日起生效。`;
   }
 
   // ── 加購服務 & 即時報價 ──
@@ -1536,6 +1606,7 @@
 
     const signatureText = document.getElementById('signatureText').value.trim();
     const agreeTerms = document.getElementById('agreeTerms').checked;
+    const agreeCustomized = document.getElementById('agreeCustomized').checked;
 
     if (!signatureText) {
       showError(2, '請輸入您的全名作為電子簽名');
@@ -1549,6 +1620,11 @@
 
     if (!agreeTerms) {
       showError(2, '請勾選同意合約條款');
+      return;
+    }
+
+    if (!agreeCustomized) {
+      showError(2, '請確認您了解客製化服務條款（第九條）');
       return;
     }
 
@@ -1573,6 +1649,7 @@
           // 追蹤模式：返回訂單列表
           document.getElementById('signatureText').value = '';
           document.getElementById('agreeTerms').checked = false;
+          document.getElementById('agreeCustomized').checked = false;
           document.getElementById('step2').classList.add('hidden');
           document.getElementById('trackBackFromSign').classList.remove('show');
           document.getElementById('trackingSection').classList.remove('hidden');
@@ -1739,6 +1816,7 @@
     // 重置表單
     document.getElementById('signatureText').value = '';
     document.getElementById('agreeTerms').checked = false;
+    document.getElementById('agreeCustomized').checked = false;
     document.getElementById('transferLast5').value = '';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
