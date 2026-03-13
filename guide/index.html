@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>One Page Go — 購買後設定指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── 色票 ── */
+  :root {
+    --cream:   #fdf6ee;
+    --warm:    #f5e6d3;
+    --blush:   #f2c4c4;
+    --rose:    #e8a0a0;
+    --mauve:   #c97d7d;
+    --brown:   #7a4f3a;
+    --text:    #4a3428;
+    --muted:   #9c7b6e;
+    --white:   #fffcf8;
+    --shadow:  rgba(122,79,58,0.12);
+    --green:   #7dba6a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Noto Serif TC', serif;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(242,196,196,0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(245,230,211,0.4) 0%, transparent 50%),
+      radial-gradient(circle at 60% 10%, rgba(253,246,238,0.5) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 2rem 1.5rem 1.2rem;
+    background: linear-gradient(180deg, var(--warm) 0%, transparent 100%);
+  }
+
+  .back-link {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--brown); }
+
+  .logo-wrap {
+    display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  }
+
+  .logo-icon { font-size: 2rem; line-height: 1; animation: float 3s ease-in-out infinite; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-6px); }
+  }
+
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--brown);
+    letter-spacing: 0.05em;
+  }
+
+  .logo-sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: var(--mauve);
+    text-transform: uppercase;
+  }
+
+  /* ── 主容器 ── */
+  .container {
+    position: relative; z-index: 10;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 1.2rem 3rem;
+  }
+
+  /* ── 導覽列 ── */
+  .guide-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    padding-bottom: 0.3rem;
+  }
+
+  .guide-nav-btn {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1.5px solid var(--blush);
+    background: var(--white);
+    color: var(--muted);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .guide-nav-btn:hover {
+    background: var(--warm);
+    color: var(--brown);
+  }
+
+  .guide-nav-btn.active {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* ── 區塊卡片 ── */
+  .section-card {
+    background: var(--white);
+    border-radius: 14px;
+    box-shadow: 0 2px 12px var(--shadow);
+    padding: 1.5rem 1.2rem;
+    margin-bottom: 1.2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--brown);
+    margin-bottom: 0.3rem;
+  }
+
+  .divider {
+    width: 40px; height: 2.5px;
+    background: linear-gradient(90deg, var(--rose), var(--blush));
+    border-radius: 2px;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .section-card p,
+  .section-card li {
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .section-card .subtitle {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  /* ── 步驟列表 ── */
+  .step-list {
+    list-style: none;
+    counter-reset: step-counter;
+  }
+
+  .step-list li {
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: 2.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .step-list li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0; top: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), var(--blush));
+    color: var(--white);
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .step-list li strong {
+    color: var(--brown);
+    font-weight: 600;
+  }
+
+  /* ── 提示框 ── */
+  .tip-box {
+    background: linear-gradient(135deg, rgba(242,196,196,0.15), rgba(245,230,211,0.25));
+    border-left: 3px solid var(--rose);
+    border-radius: 0 8px 8px 0;
+    padding: 0.8rem 1rem;
+    margin: 0.8rem 0;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .tip-box .tip-label {
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 0.2rem;
+  }
+
+  /* ── 警告框 ── */
+  .warn-box {
+    background: rgba(242,196,196,0.15);
+    border-left: 3px solid var(--mauve);
+    border-radius: 0 8px 8px 0;
+    padding: 0.8rem 1rem;
+    margin: 0.8rem 0;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .warn-box .warn-label {
+    font-weight: 600;
+    color: var(--mauve);
+    margin-bottom: 0.2rem;
+  }
+
+  /* ── 截圖佔位 ── */
+  .screenshot-placeholder {
+    background: var(--cream);
+    border: 1.5px dashed var(--blush);
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin: 0.8rem 0;
+  }
+
+  .screenshot-placeholder .icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  /* ── 總覽流程圖 ── */
+  .flow-overview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+  }
+
+  .flow-step {
+    background: var(--white);
+    border: 1.5px solid var(--blush);
+    border-radius: 10px;
+    padding: 0.5rem 0.8rem;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text);
+    min-width: 70px;
+  }
+
+  .flow-step .flow-icon {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .flow-arrow {
+    color: var(--blush);
+    font-size: 1rem;
+  }
+
+  /* ── 內容分頁 ── */
+  .guide-page { display: none; }
+  .guide-page.active { display: block; }
+
+  /* ── 程式碼片段 ── */
+  .code-inline {
+    background: rgba(242,196,196,0.2);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: var(--brown);
+    word-break: break-all;
+  }
+
+  /* ── 連結 ── */
+  .link {
+    color: var(--mauve);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .link:hover { color: var(--brown); }
+
+  /* ── FAQ 手風琴 ── */
+  .faq-item {
+    border-bottom: 1px solid rgba(242,196,196,0.4);
+    padding: 0.8rem 0;
+  }
+
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-q {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--brown);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .faq-q::after {
+    content: '+';
+    font-size: 1rem;
+    color: var(--muted);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-q::after {
+    content: '-';
+  }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    font-size: 0.78rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 300px;
+    padding-top: 0.5rem;
+  }
+
+  /* ── 完成確認 ── */
+  .checklist {
+    list-style: none;
+  }
+
+  .checklist li {
+    padding: 0.5rem 0;
+    padding-left: 1.8rem;
+    position: relative;
+    font-size: 0.82rem;
+    border-bottom: 1px dashed rgba(242,196,196,0.4);
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.6rem;
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--blush);
+    border-radius: 3px;
+    background: var(--white);
+  }
+
+  .checklist li.done::before {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .checklist li.done::after {
+    content: '\2713';
+    position: absolute;
+    left: 3px; top: 0.45rem;
+    color: var(--white);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  /* ── Footer ── */
+  footer {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  /* ── 按鈕 ── */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 0.85rem;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--rose) 0%, var(--mauve) 100%);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(201,125,125,0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(201,125,125,0.4);
+  }
+
+  .btn-secondary {
+    background: var(--cream);
+    color: var(--brown);
+    border: 1.5px solid var(--blush);
+  }
+
+  .btn-secondary:hover {
+    background: var(--warm);
+  }
+
+  .btn + .btn {
+    margin-top: 0.6rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="../index.html" class="back-link">&larr; 返回首頁</a>
+  <div class="logo-wrap">
+    <div class="logo-icon">&#128218;</div>
+    <div class="logo-name">One Page Go</div>
+    <div class="logo-sub">Setup Guide</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ── 導覽 ── -->
+  <nav class="guide-nav">
+    <button class="guide-nav-btn active" onclick="showPage('overview')">總覽</button>
+    <button class="guide-nav-btn" onclick="showPage('github')">GitHub 設定</button>
+    <button class="guide-nav-btn" onclick="showPage('sheet')">Google Sheet</button>
+    <button class="guide-nav-btn" onclick="showPage('checklist')">完成確認</button>
+    <button class="guide-nav-btn" onclick="showPage('faq')">常見問題</button>
+  </nav>
+
+  <!-- ══════════════════════════════ -->
+  <!-- ── Page 1: 總覽 ── -->
+  <!-- ══════════════════════════════ -->
+  <div id="page-overview" class="guide-page active">
+
+    <div class="section-card">
+      <h2>歡迎！接下來要做什麼？</h2>
+      <div class="divider"></div>
+      <p class="subtitle">感謝您購買 One Page Go 方案，以下是設定流程總覽</p>
+
+      <p>您的網頁需要兩個服務來運作：</p>
+      <br />
+      <ol class="step-list">
+        <li>
+          <strong>GitHub Pages</strong> — 網頁託管<br />
+          您的網頁會放在 GitHub 上，透過 GitHub Pages 免費提供全球訪問。
+        </li>
+        <li>
+          <strong>Google Sheet</strong> — 資料後台<br />
+          訂單、會員、商品等資料存在您自己的 Google Sheet，完全由您掌控。
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-label">為什麼要自己建立帳號？</div>
+        所有資料都存放在您自己的帳號中，即使日後不再使用我們的服務，您的資料依然屬於您，不會遺失或被刪除。
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2>設定流程一覽</h2>
+      <div class="divider"></div>
+
+      <div class="flow-overview">
+        <div class="flow-step">
+          <span class="flow-icon">&#128100;</span>
+          建立 GitHub<br />帳號
+        </div>
+        <span class="flow-arrow">&#10132;</span>
+        <div class="flow-step">
+          <span class="flow-icon">&#128230;</span>
+          建立<br />Repository
+        </div>
+        <span class="flow-arrow">&#10132;</span>
+        <div class="flow-step">
+          <span class="flow-icon">&#127760;</span>
+          開啟<br />GitHub Pages
+        </div>
+      </div>
+
+      <div class="flow-overview">
+        <div class="flow-step">
+          <span class="flow-icon">&#128196;</span>
+          建立 Google<br />Sheet
+        </div>
+        <span class="flow-arrow">&#10132;</span>
+        <div class="flow-step">
+          <span class="flow-icon">&#128279;</span>
+          共享<br />Sheet 給我們
+        </div>
+        <span class="flow-arrow">&#10132;</span>
+        <div class="flow-step">
+          <span class="flow-icon">&#127881;</span>
+          設定<br />完成！
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">預估所需時間</div>
+        整個流程約需 10-15 分鐘。如果您已經有 Google 帳號，會更快。
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="showPage('github')">開始設定 GitHub &rarr;</button>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- ── Page 2: GitHub 設定 ── -->
+  <!-- ══════════════════════════════ -->
+  <div id="page-github" class="guide-page">
+
+    <div class="section-card">
+      <h2>Step 1：建立 GitHub 帳號</h2>
+      <div class="divider"></div>
+      <p class="subtitle">如果您已有 GitHub 帳號，可跳到 Step 2</p>
+
+      <ol class="step-list">
+        <li>
+          前往 <strong>github.com</strong>，點擊右上角 <strong>Sign up</strong>
+        </li>
+        <li>
+          輸入您的 <strong>Email 地址</strong>，設定密碼
+        </li>
+        <li>
+          選擇一個 <strong>使用者名稱</strong>（英文 + 數字，不含空格）<br />
+          <span style="font-size:0.75rem;color:var(--muted);">例如：my-bakery-shop、wang-studio</span>
+        </li>
+        <li>
+          完成驗證後，到信箱點擊 <strong>驗證連結</strong> 啟用帳號
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-label">使用者名稱建議</div>
+        GitHub 使用者名稱會出現在您的網址中（例如 <span class="code-inline">your-name.github.io</span>），建議使用品牌相關的簡短英文名稱。
+      </div>
+
+      <div class="warn-box">
+        <div class="warn-label">免費方案即可</div>
+        GitHub 免費方案已包含 GitHub Pages 功能，不需要付費升級。
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2>Step 2：建立 Repository</h2>
+      <div class="divider"></div>
+      <p class="subtitle">Repository（倉庫）是存放網頁檔案的地方</p>
+
+      <ol class="step-list">
+        <li>
+          登入 GitHub 後，點擊右上角 <strong>+</strong> 選擇 <strong>New repository</strong>
+        </li>
+        <li>
+          Repository name 輸入：<br />
+          <span class="code-inline">你的使用者名稱.github.io</span><br />
+          <span style="font-size:0.75rem;color:var(--muted);">例如：my-bakery-shop.github.io</span>
+        </li>
+        <li>
+          確認選擇 <strong>Public</strong>（公開）
+        </li>
+        <li>
+          勾選 <strong>Add a README file</strong>
+        </li>
+        <li>
+          點擊 <strong>Create repository</strong> 完成建立
+        </li>
+      </ol>
+
+      <div class="warn-box">
+        <div class="warn-label">名稱必須完全一致</div>
+        Repository 名稱必須是 <span class="code-inline">使用者名稱.github.io</span>，大小寫需一致，否則 GitHub Pages 無法自動啟用。
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2>Step 3：開啟 GitHub Pages</h2>
+      <div class="divider"></div>
+      <p class="subtitle">讓您的網頁可以被全世界瀏覽</p>
+
+      <ol class="step-list">
+        <li>
+          進入剛建立的 repository 頁面
+        </li>
+        <li>
+          點擊上方的 <strong>Settings</strong>（齒輪圖示）
+        </li>
+        <li>
+          左側選單點擊 <strong>Pages</strong>
+        </li>
+        <li>
+          在 <strong>Source</strong> 區域確認設定為：<br />
+          Branch: <span class="code-inline">main</span> / Folder: <span class="code-inline">/ (root)</span>
+        </li>
+        <li>
+          點擊 <strong>Save</strong>，等待 1-2 分鐘後即可透過<br />
+          <span class="code-inline">https://你的名稱.github.io</span> 瀏覽
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-label">邀請我們協作</div>
+        完成以上步驟後，請將您的 <strong>GitHub 使用者名稱</strong> 告知我們。我們會透過 collaborator 邀請的方式，將您的網頁檔案部署到此 repository。
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2>Step 4：接受 Collaborator 邀請</h2>
+      <div class="divider"></div>
+      <p class="subtitle">我們會發送邀請，您只需接受</p>
+
+      <ol class="step-list">
+        <li>
+          告知我們您的 GitHub 使用者名稱後，您會收到一封<strong>邀請 Email</strong>
+        </li>
+        <li>
+          點擊 Email 中的 <strong>View invitation</strong> 連結
+        </li>
+        <li>
+          在 GitHub 頁面點擊 <strong>Accept invitation</strong>
+        </li>
+        <li>
+          接受後，我們即可將網頁檔案部署到您的 repository。<br />部署完成後，您的網頁就正式上線了！
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-label">部署完成後</div>
+        您可以隨時在 repository 的 Settings &rarr; Collaborators 中移除我們的權限，網頁依然會正常運作。
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="showPage('sheet')">接下來：設定 Google Sheet &rarr;</button>
+    <button class="btn btn-secondary" onclick="showPage('overview')">&larr; 返回總覽</button>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- ── Page 3: Google Sheet 設定 ── -->
+  <!-- ══════════════════════════════ -->
+  <div id="page-sheet" class="guide-page">
+
+    <div class="section-card">
+      <h2>Step 1：建立 Google Sheet</h2>
+      <div class="divider"></div>
+      <p class="subtitle">用您自己的 Google 帳號建立資料表</p>
+
+      <ol class="step-list">
+        <li>
+          使用您的 Google 帳號登入 <strong>Google 雲端硬碟</strong><br />
+          <span style="font-size:0.75rem;color:var(--muted);">前往 drive.google.com</span>
+        </li>
+        <li>
+          點擊左上角 <strong>+ 新增</strong> &rarr; <strong>Google 試算表</strong> &rarr; <strong>空白試算表</strong>
+        </li>
+        <li>
+          為試算表命名，例如：<br />
+          <span class="code-inline">我的烘焙坊 - 訂單管理</span>
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-label">不需要手動建立欄位</div>
+        試算表的欄位和格式會由我們的系統自動建立，您只需要建立一個空白的試算表即可。
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2>Step 2：共享試算表給我們</h2>
+      <div class="divider"></div>
+      <p class="subtitle">讓我們的系統能讀寫您的訂單資料</p>
+
+      <ol class="step-list">
+        <li>
+          在試算表右上角點擊 <strong>共用</strong>（Share）按鈕
+        </li>
+        <li>
+          在「新增使用者和群組」欄位中，輸入我們提供的 <strong>服務帳號 Email</strong><br />
+          <span style="font-size:0.75rem;color:var(--muted);">我們會在確認訂單時提供此 Email</span>
+        </li>
+        <li>
+          權限設定為 <strong>編輯者</strong>
+        </li>
+        <li>
+          點擊 <strong>傳送</strong> 完成共享
+        </li>
+      </ol>
+
+      <div class="warn-box">
+        <div class="warn-label">請選擇「編輯者」權限</div>
+        系統需要「編輯者」權限才能自動建立欄位和寫入訂單資料。「檢視者」或「評論者」權限將無法正常運作。
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2>Step 3：複製試算表網址</h2>
+      <div class="divider"></div>
+      <p class="subtitle">我們需要網址來連結您的系統</p>
+
+      <ol class="step-list">
+        <li>
+          開啟您剛建立的試算表
+        </li>
+        <li>
+          複製瀏覽器網址列中的完整網址<br />
+          <span style="font-size:0.75rem;color:var(--muted);">格式類似：https://docs.google.com/spreadsheets/d/xxxxx/edit</span>
+        </li>
+        <li>
+          將網址傳送給我們
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-label">我們只需要網址中的 ID</div>
+        試算表網址中間的一長串英數字就是 Sheet ID，我們會用它來連結您的網頁後台。您不需要自己擷取，只要貼上完整網址即可。
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2>Step 4：等待系統設定</h2>
+      <div class="divider"></div>
+      <p class="subtitle">我們收到資訊後會完成最後設定</p>
+
+      <ol class="step-list">
+        <li>
+          我們收到您的試算表網址後，會<strong>自動建立所需的欄位和分頁</strong>
+        </li>
+        <li>
+          同時將您的網頁部署到 GitHub Pages
+        </li>
+        <li>
+          全部完成後，我們會通知您，並附上<strong>網頁網址</strong>和<strong>使用說明</strong>
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-label">資料完全在您的帳號中</div>
+        所有訂單、會員、商品資料都存在您自己的 Google Sheet。您可以隨時查看、匯出、備份，完全由您掌控。
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="showPage('checklist')">設定完成確認 &rarr;</button>
+    <button class="btn btn-secondary" onclick="showPage('github')">&larr; 返回 GitHub 設定</button>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- ── Page 4: 完成確認 ── -->
+  <!-- ══════════════════════════════ -->
+  <div id="page-checklist" class="guide-page">
+
+    <div class="section-card">
+      <h2>設定完成確認清單</h2>
+      <div class="divider"></div>
+      <p class="subtitle">請確認以下項目都已完成</p>
+
+      <h3 style="font-size:0.88rem;color:var(--brown);margin:1rem 0 0.5rem;">GitHub 部分</h3>
+      <ul class="checklist" id="checklistGithub">
+        <li onclick="toggleCheck(this)">已建立 GitHub 帳號</li>
+        <li onclick="toggleCheck(this)">已建立 <span class="code-inline">使用者名稱.github.io</span> repository</li>
+        <li onclick="toggleCheck(this)">已確認 Repository 為 Public</li>
+        <li onclick="toggleCheck(this)">已在 Settings &rarr; Pages 開啟 GitHub Pages</li>
+        <li onclick="toggleCheck(this)">已將 GitHub 使用者名稱告知我們</li>
+        <li onclick="toggleCheck(this)">已接受 Collaborator 邀請</li>
+      </ul>
+
+      <h3 style="font-size:0.88rem;color:var(--brown);margin:1rem 0 0.5rem;">Google Sheet 部分</h3>
+      <ul class="checklist" id="checklistSheet">
+        <li onclick="toggleCheck(this)">已用自己的 Google 帳號建立空白試算表</li>
+        <li onclick="toggleCheck(this)">已將試算表共享給我們的服務帳號（編輯者權限）</li>
+        <li onclick="toggleCheck(this)">已將試算表網址傳送給我們</li>
+      </ul>
+    </div>
+
+    <div class="section-card">
+      <h2>需要提供給我們的資訊</h2>
+      <div class="divider"></div>
+
+      <div style="background:var(--cream);border:1.5px solid var(--blush);border-radius:10px;padding:1rem;font-size:0.82rem;line-height:1.8;">
+        <strong style="color:var(--brown);">1. GitHub 使用者名稱</strong><br />
+        <span style="color:var(--muted);">例如：my-bakery-shop</span><br /><br />
+        <strong style="color:var(--brown);">2. Google Sheet 網址</strong><br />
+        <span style="color:var(--muted);">例如：https://docs.google.com/spreadsheets/d/xxxxx/edit</span>
+      </div>
+
+      <div class="tip-box" style="margin-top:1rem;">
+        <div class="tip-label">傳送方式</div>
+        您可以透過接單時留下的 Email 或聯絡方式，將以上資訊傳送給我們。
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="showPage('faq')">查看常見問題 &rarr;</button>
+    <button class="btn btn-secondary" onclick="showPage('sheet')">&larr; 返回 Google Sheet 設定</button>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- ── Page 5: FAQ ── -->
+  <!-- ══════════════════════════════ -->
+  <div id="page-faq" class="guide-page">
+
+    <div class="section-card">
+      <h2>常見問題</h2>
+      <div class="divider"></div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">GitHub 免費帳號真的夠用嗎？</div>
+        <div class="faq-a">
+          完全夠用。GitHub 免費方案已包含 GitHub Pages 功能，支援自訂網域，而且沒有流量限制（合理使用範圍內）。一頁式網頁所需的儲存空間非常小，免費方案綽綽有餘。
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Google Sheet 共享給你們安全嗎？</div>
+        <div class="faq-a">
+          非常安全。我們使用的是 Google 服務帳號（Service Account），只能存取您主動共享的那一份試算表，無法存取您帳號中的其他檔案。您也可以隨時在共享設定中移除我們的存取權限。
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">可以用我已有的 GitHub / Google 帳號嗎？</div>
+        <div class="faq-a">
+          當然可以。如果您已有 GitHub 帳號，直接使用即可（跳到建立 Repository 步驟）。Google 帳號也是同理，只需要建立新的試算表並共享給我們。
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">日後不想用了，資料會怎樣？</div>
+        <div class="faq-a">
+          所有資料都在您自己的帳號中：網頁檔案在您的 GitHub repository，訂單資料在您的 Google Sheet。即使不再使用我們的服務，這些資料依然完整屬於您。您可以自由下載、備份或轉移。
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">可以用自己的網域名稱嗎？</div>
+        <div class="faq-a">
+          可以。GitHub Pages 支援自訂網域。如果您有自己的網域（例如 mybakery.com），可以在 GitHub Pages 設定中綁定。這是加購服務的一部分，我們會協助您完成 DNS 設定。
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">我完全不懂技術，能完成這些步驟嗎？</div>
+        <div class="faq-a">
+          可以的！這份指南已盡量簡化步驟。如果您在任何步驟遇到困難，都可以隨時聯繫我們，我們會透過螢幕共享或通話協助您完成設定。
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">設定完成後多久網頁會上線？</div>
+        <div class="faq-a">
+          收到您的 GitHub 使用者名稱和 Google Sheet 網址後，我們通常在 1-2 個工作天內完成部署。部署完成後會立即通知您，並附上您的網頁網址。
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary" onclick="showPage('checklist')">&larr; 返回完成確認</button>
+    <a href="../index.html" class="btn btn-secondary" style="text-decoration:none; display:block; text-align:center; margin-top:0.6rem;">返回首頁</a>
+  </div>
+
+</div>
+
+<footer>
+  &copy; 2026 One Page Go. All rights reserved.
+</footer>
+
+<script>
+  // ── 頁面切換 ──
+  function showPage(pageId) {
+    document.querySelectorAll('.guide-page').forEach(function(p) { p.classList.remove('active'); });
+    document.getElementById('page-' + pageId).classList.add('active');
+
+    document.querySelectorAll('.guide-nav-btn').forEach(function(btn) { btn.classList.remove('active'); });
+    var navBtns = document.querySelectorAll('.guide-nav-btn');
+    var pageMap = { overview: 0, github: 1, sheet: 2, checklist: 3, faq: 4 };
+    if (pageMap[pageId] !== undefined) {
+      navBtns[pageMap[pageId]].classList.add('active');
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Checklist 切換 ──
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+  }
+
+  // ── FAQ 手風琴 ──
+  function toggleFaq(el) {
+    el.classList.toggle('open');
+  }
+</script>
+</body>
+</html>

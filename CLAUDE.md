@@ -14,6 +14,7 @@ one-page-go/                         ← GitHub Pages 公開展示
 │   ├── groupbuy/index.html          # 團購 Demo（Fruitbox Collective Sample）
 │   └── ticketing/index.html         # 售票 Demo（Starlight Festival Sample）
 ├── onboarding/index.html            # 客戶接單流程（需求→簽約→付款）
+├── guide/index.html                 # 購買後設定指南（GitHub + Google Sheet）
 ├── CLAUDE.md
 └── README.md
 ```

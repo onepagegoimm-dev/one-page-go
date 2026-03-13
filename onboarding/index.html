@@ -907,6 +907,12 @@
         <div class="hint">交付時會邀請您為 collaborator，協助部署到您的 GitHub Pages。</div>
       </div>
 
+      <div class="field">
+        <label>Google Sheet 網址（選填）</label>
+        <input type="url" id="googleSheetUrl" placeholder="https://docs.google.com/spreadsheets/d/xxxxx/edit" />
+        <div class="hint">如已建立 Google Sheet，請貼上網址。尚未建立也沒關係，購買後可參考 <a href="../guide/index.html" target="_blank" rel="noopener" style="color:var(--mauve);text-decoration:underline;text-underline-offset:2px;">設定指南</a> 再提供。</div>
+      </div>
+
       <!-- 加購服務 -->
       <div class="addon-section">
         <h4>加購服務（選填）</h4>
@@ -945,6 +951,16 @@
           <span>合計</span>
           <span id="summaryTotal">—</span>
         </div>
+      </div>
+
+      <!-- 購買前須知 -->
+      <div style="background:linear-gradient(135deg,rgba(242,196,196,0.15),rgba(245,230,211,0.25));border-left:3px solid var(--rose);border-radius:0 8px 8px 0;padding:0.8rem 1rem;margin-bottom:1.2rem;font-size:0.78rem;line-height:1.7;color:var(--text);">
+        <strong style="color:var(--brown);">購買前須知</strong><br/>
+        付款完成後，您需要自行建立以下帳號：<br/>
+        <span style="color:var(--brown);font-weight:600;">1.</span> <strong>GitHub 帳號</strong> — 用來託管您的網頁（免費）<br/>
+        <span style="color:var(--brown);font-weight:600;">2.</span> <strong>Google 帳號</strong> — 用來建立資料管理試算表（免費）<br/>
+        <span style="font-size:0.72rem;color:var(--muted);">所有資料存在您自己的帳號中，確保完全由您掌控。</span><br/>
+        <a href="../guide/index.html" target="_blank" rel="noopener" style="color:var(--mauve);font-weight:600;text-decoration:underline;text-underline-offset:2px;">→ 查看完整設定指南</a>
       </div>
 
       <div class="field">
@@ -1054,12 +1070,14 @@
       </p>
       <div style="background:var(--cream);border:1.5px solid var(--blush);border-radius:10px;padding:1rem;text-align:left;font-size:0.8rem;color:var(--text);line-height:1.7;margin-bottom:1.2rem;">
         <strong style="color:var(--brown);">📋 接下來您需要準備：</strong><br/>
-        1. 一個 Google 帳號（用來存放您的訂單資料）<br/>
-        2. 我們會提供設定指南，幫您在自己的帳號建立 Google Sheet<br/>
+        1. 一個 GitHub 帳號（用來託管您的網頁）<br/>
+        2. 一個 Google 帳號（用來存放您的訂單資料）<br/>
         3. 所有資料都存在您自己的帳號，我們不會保留任何副本
       </div>
       <div class="inquiry-id" id="successInquiryId"></div>
-      <br /><br />
+      <br />
+      <a href="../guide/index.html" target="_blank" rel="noopener" class="btn btn-primary" style="text-decoration:none; display:inline-block; width:auto; padding:0.7rem 2rem;">查看設定指南 →</a>
+      <br />
       <a href="../index.html" class="btn btn-secondary" style="text-decoration:none; display:inline-block; width:auto; padding:0.7rem 2rem;">返回首頁</a>
     </div>
   </div>
@@ -1421,6 +1439,7 @@
     const requirements = document.getElementById('requirements').value.trim();
     const githubHosting = document.getElementById('githubHosting').value;
     const githubUsername = document.getElementById('githubUsername').value.trim();
+    const googleSheetUrl = document.getElementById('googleSheetUrl').value.trim();
 
     // 驗證必填
     if (!name || !email || !phone || !businessName || !templateType) {
@@ -1473,7 +1492,8 @@
           budget: templateType,
           addons: addonsValue,
           github_hosting: githubHosting,
-          github_username: githubUsername || ''
+          github_username: githubUsername || '',
+          google_sheet_url: googleSheetUrl || ''
         })
       });
 
