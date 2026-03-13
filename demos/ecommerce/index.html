@@ -518,11 +518,32 @@ function renderProducts() {
     return;
   }
 
-  const EMOJI = ["🧁","🍰","🥐","🍞","🎂","🍩","🥧","🍪"];
+  // 根據產品名稱關鍵字匹配 emoji
+  const EMOJI_MAP = [
+    { keywords: ["可頌", "croissant"], emoji: "🥐" },
+    { keywords: ["布朗尼", "巧克力", "brownie", "chocolate"], emoji: "🍫" },
+    { keywords: ["水果塔", "塔", "tart"], emoji: "🍰" },
+    { keywords: ["蛋糕", "cake", "戚風"], emoji: "🎂" },
+    { keywords: ["杯子蛋糕", "cupcake", "瑪芬", "muffin"], emoji: "🧁" },
+    { keywords: ["甜甜圈", "donut"], emoji: "🍩" },
+    { keywords: ["派", "pie", "批"], emoji: "🥧" },
+    { keywords: ["餅乾", "cookie", "曲奇"], emoji: "🍪" },
+    { keywords: ["麵包", "吐司", "bread", "toast"], emoji: "🍞" },
+    { keywords: ["鬆餅", "waffle", "pancake"], emoji: "🧇" },
+  ];
+  const FALLBACK_EMOJI = ["🧁","🍰","🥐","🍞","🎂","🍩","🥧","🍪"];
+
+  function getProductEmoji(name, index) {
+    const lower = name.toLowerCase();
+    for (const entry of EMOJI_MAP) {
+      if (entry.keywords.some(k => lower.includes(k))) return entry.emoji;
+    }
+    return FALLBACK_EMOJI[index % FALLBACK_EMOJI.length];
+  }
 
   container.innerHTML = `<div class="products-grid">${
     products.map((p, i) => {
-      const emoji = EMOJI[i % EMOJI.length];
+      const emoji = getProductEmoji(p.name, i);
       const imgHtml = p.image_url
         ? `<img src="${p.image_url}" alt="${p.name}" />`
         : emoji;
