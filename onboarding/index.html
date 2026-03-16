@@ -1995,7 +1995,7 @@
       if (inq.next_action === 'sign_contract' && inq.contract) {
         actionHtml = `<button class="btn-action btn-action-primary" onclick="trackSignContract('${inq.contract.contract_id}')">前往簽約</button>`;
       } else if (inq.next_action === 'submit_payment' && inq.contract) {
-        actionHtml = `<button class="btn-action btn-action-primary" onclick="trackSubmitPayment('${inq.contract.contract_id}')">立即匯款回報</button>`;
+        actionHtml = `<button class="btn-action btn-action-primary" onclick="trackSubmitPayment('${inq.contract.contract_id}')">立即匯款並填寫後5碼完成合約</button>`;
       } else if (inq.next_action === 'wait_admin') {
         actionHtml = '<span class="wait-hint">等待管理者處理</span>';
       } else if (inq.next_action === 'completed') {
