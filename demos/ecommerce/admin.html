@@ -120,6 +120,27 @@
   .login-btn:hover:not(:disabled) { transform: translateY(-1px); background: var(--terra); }
   .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+  .demo-notice {
+    background: var(--cream); border: 1.5px dashed var(--stitch);
+    border-radius: 12px; padding: 0.9rem 1rem;
+    font-size: 0.82rem; color: var(--muted);
+    line-height: 1.7; margin-bottom: 1rem;
+  }
+  .demo-notice strong { color: var(--brown); font-size: 0.85rem; }
+
+  .demo-password {
+    background: #eaf7e5; border: 1.5px dashed #b8dfa8;
+    border-radius: 10px; padding: 0.6rem 1rem;
+    font-size: 0.85rem; color: #4a7a3a;
+    text-align: center; margin-bottom: 1rem;
+  }
+  .demo-password code {
+    background: rgba(255,255,255,0.6); padding: 0.15rem 0.5rem;
+    border-radius: 6px; font-family: monospace;
+    font-size: 0.95rem; font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
   .error-msg {
     background: #fff0f0; border: 1.5px dashed #e8a0a0;
     border-radius: 12px; padding: 0.8rem 1rem;
@@ -265,6 +286,14 @@
 <main id="login-view">
   <div class="login-card">
     <div class="section-title">🔐 管理員登入</div>
+    <div class="demo-notice">
+      <strong>此頁面為管理後台展示</strong><br/>
+      購買後，店主可透過此後台即時查看所有訂單、營收統計。<br/>
+      此為管理者專屬功能，僅限擁有密碼的店主登入使用。
+    </div>
+    <div class="demo-password">
+      展示用密碼：<code>admin123123</code>
+    </div>
     <div id="login-error" class="error-msg" style="display:none"></div>
     <div class="form-group">
       <label class="form-label">管理員密碼</label>
