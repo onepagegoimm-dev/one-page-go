@@ -1015,9 +1015,9 @@
 
   <!-- ── Step 3: 確認付款 ── -->
   <div id="step3" class="form-section fade-up hidden">
-    <h2>確認付款</h2>
+    <h2>請儘速完成匯款</h2>
     <div class="divider"></div>
-    <p class="subtitle">請依照以下資訊完成匯款後回報</p>
+    <p class="subtitle" style="color: var(--mauve); font-weight: 600;">請於簽約後 3 個工作天內完成匯款，逾期將自動取消訂單</p>
 
     <div class="error-msg" id="error3"></div>
 
@@ -1995,7 +1995,7 @@
       if (inq.next_action === 'sign_contract' && inq.contract) {
         actionHtml = `<button class="btn-action btn-action-primary" onclick="trackSignContract('${inq.contract.contract_id}')">前往簽約</button>`;
       } else if (inq.next_action === 'submit_payment' && inq.contract) {
-        actionHtml = `<button class="btn-action btn-action-primary" onclick="trackSubmitPayment('${inq.contract.contract_id}')">填寫匯款資訊</button>`;
+        actionHtml = `<button class="btn-action btn-action-primary" onclick="trackSubmitPayment('${inq.contract.contract_id}')">立即匯款回報</button>`;
       } else if (inq.next_action === 'wait_admin') {
         actionHtml = '<span class="wait-hint">等待管理者處理</span>';
       } else if (inq.next_action === 'completed') {
