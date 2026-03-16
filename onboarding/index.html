@@ -1663,7 +1663,7 @@
           action: 'signContract',
           contract_id: contractId,
           signature_text: signatureText,
-          email: document.getElementById('email').value.trim().toLowerCase(),
+          email: (trackingMode ? trackEmail : document.getElementById('email').value.trim().toLowerCase()),
           sessionToken: getSessionToken()
         })
       });
@@ -1740,7 +1740,7 @@
           contract_id: contractId,
           transfer_last5: transferLast5,
           transfer_date: transferDate,
-          email: document.getElementById('email').value.trim().toLowerCase(),
+          email: (trackingMode ? trackEmail : document.getElementById('email').value.trim().toLowerCase()),
           sessionToken: getSessionToken()
         })
       });
