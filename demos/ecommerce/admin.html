@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bloom Bakery 管理後台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream:   #faf3ea;
+    --warm:    #f0dcc8;
+    --peach:   #f5c8a8;
+    --rose:    #e09580;
+    --terra:   #c47a62;
+    --brown:   #6b4332;
+    --text:    #3e2a1e;
+    --muted:   #9a7e6f;
+    --white:   #fffaf5;
+    --shadow:  rgba(107,67,50,0.1);
+    --green:   #7dba6a;
+    --stitch:  #d4b89c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Noto Serif TC', serif;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(212,184,156,0.08) 24px, rgba(212,184,156,0.08) 25px),
+      repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(212,184,156,0.05) 24px, rgba(212,184,156,0.05) 25px);
+    pointer-events: none;
+  }
+
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 2rem 1.5rem 1.2rem;
+    background: linear-gradient(180deg, rgba(240,220,200,0.5) 0%, transparent 100%);
+  }
+
+  .logo-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .logo-icon { font-size: 2rem; line-height: 1; }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 500;
+    color: var(--brown); letter-spacing: 0.04em;
+  }
+  .logo-sub {
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    color: var(--muted); text-transform: uppercase;
+  }
+
+  .deco-line {
+    display: flex; align-items: center; gap: 0.8rem;
+    max-width: 260px; margin: 0.8rem auto 0;
+  }
+  .deco-line span { flex: 1; height: 0; border-top: 2px dashed var(--stitch); }
+  .deco-line em { font-style: normal; font-size: 0.75rem; color: var(--rose); }
+
+  main { position: relative; z-index: 1; max-width: 580px; margin: 0 auto; padding: 1.5rem; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--brown);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-title::after { content: ''; flex: 1; height: 0; border-top: 2px dashed var(--stitch); }
+
+  /* ── Login ── */
+  .login-card {
+    background: var(--white);
+    border-radius: 18px; padding: 2rem 1.5rem;
+    box-shadow: 0 3px 14px var(--shadow);
+    border: 2px dashed rgba(212,184,156,0.5);
+    max-width: 360px; margin: 2rem auto;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  .form-label { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--terra); }
+
+  .form-input {
+    background: var(--cream);
+    border: 1.5px solid var(--stitch);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.95rem; color: var(--text);
+    outline: none; width: 100%;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--rose); }
+
+  .login-btn {
+    width: 100%; padding: 0.85rem;
+    background: var(--rose); color: var(--white);
+    border: none; border-radius: 100px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; letter-spacing: 0.08em;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(224,149,128,0.3);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .login-btn:hover:not(:disabled) { transform: translateY(-1px); background: var(--terra); }
+  .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .error-msg {
+    background: #fff0f0; border: 1.5px dashed #e8a0a0;
+    border-radius: 12px; padding: 0.8rem 1rem;
+    font-size: 0.85rem; color: #b06050; text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  /* ── Dashboard ── */
+  .stats-row {
+    display: flex; gap: 0.8rem; margin-bottom: 1.5rem;
+    animation: fadeUp 0.4s ease both;
+  }
+  .stat-card {
+    flex: 1; background: var(--white);
+    border-radius: 14px; padding: 1rem;
+    border: 2px dashed rgba(212,184,156,0.5);
+    text-align: center;
+    box-shadow: 0 2px 10px var(--shadow);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; color: var(--terra);
+  }
+  .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* ── Orders Table ── */
+  .orders-card {
+    background: var(--white);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 3px 14px var(--shadow);
+    border: 2px dashed rgba(212,184,156,0.5);
+    animation: fadeUp 0.4s ease 0.1s both;
+  }
+
+  .orders-header {
+    background: var(--warm);
+    padding: 0.9rem 1.2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px dashed var(--stitch);
+  }
+  .orders-header span { color: var(--brown); font-weight: 600; font-size: 0.95rem; }
+
+  .logout-btn {
+    padding: 0.4rem 1rem;
+    background: transparent; border: 1.5px dashed var(--rose);
+    border-radius: 100px; color: var(--rose);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.75rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .logout-btn:hover { background: var(--rose); color: white; border-style: solid; }
+
+  .orders-list { padding: 0; }
+
+  .order-item {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid rgba(212,184,156,0.3);
+    animation: fadeUp 0.3s ease both;
+  }
+  .order-item:last-child { border-bottom: none; }
+
+  .order-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .order-id {
+    font-size: 0.8rem; color: var(--brown);
+    font-weight: 600; letter-spacing: 0.03em;
+  }
+  .order-status {
+    font-size: 0.72rem; font-weight: 600;
+    padding: 0.2rem 0.7rem; border-radius: 100px;
+  }
+  .status-pending   { background: #FFF8E1; color: #856404; }
+  .status-deposit   { background: #E3F2FD; color: #1565C0; }
+  .status-paid      { background: #E8F5E9; color: #2E7D32; }
+  .status-picked    { background: #D6F0D3; color: #3A7A4F; }
+  .status-cancelled { background: #FAD4D4; color: #7A3A3A; }
+
+  .order-detail {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 1rem; font-size: 0.82rem;
+  }
+  .order-detail dt { color: var(--muted); }
+  .order-detail dd { color: var(--text); }
+  .order-items-full { grid-column: 1 / -1; }
+  .order-amount {
+    font-family: 'Playfair Display', serif;
+    color: var(--terra); font-size: 0.95rem;
+  }
+
+  .empty-state {
+    text-align: center; padding: 3rem 1rem;
+    color: var(--muted); font-size: 0.9rem;
+  }
+
+  .loading-wrap {
+    text-align: center; padding: 3rem;
+    color: var(--muted); font-size: 0.9rem;
+  }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px dashed var(--stitch);
+    border-top-color: var(--rose); border-top-style: solid;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .session-timer {
+    text-align: center; font-size: 0.72rem;
+    color: var(--muted); margin-top: 1rem;
+  }
+
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 0.72rem; color: var(--muted);
+    position: relative; z-index: 1;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 360px) {
+    .logo-name { font-size: 1.5rem; }
+    .order-detail { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo-icon">🐄</div>
+    <div class="logo-name">Bloom Bakery</div>
+    <div class="logo-sub">Admin Dashboard</div>
+  </div>
+  <div class="deco-line">
+    <span></span><em>✦ 訂單管理後台 ✦</em><span></span>
+  </div>
+</header>
+
+<!-- ── 登入畫面 ── -->
+<main id="login-view">
+  <div class="login-card">
+    <div class="section-title">🔐 管理員登入</div>
+    <div id="login-error" class="error-msg" style="display:none"></div>
+    <div class="form-group">
+      <label class="form-label">管理員密碼</label>
+      <input class="form-input" id="f-password" type="password" placeholder="請輸入管理員密碼"
+             onkeydown="if(event.key==='Enter')doLogin()" />
+    </div>
+    <button class="login-btn" id="login-btn" onclick="doLogin()">登入</button>
+  </div>
+</main>
+
+<!-- ── 管理後台 ── -->
+<main id="dashboard-view" style="display:none">
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">-</div>
+      <div class="stat-label">總訂單數</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-pending">-</div>
+      <div class="stat-label">待確認</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-revenue">-</div>
+      <div class="stat-label">總營收</div>
+    </div>
+  </div>
+
+  <div class="orders-card">
+    <div class="orders-header">
+      <span>📋 訂單列表</span>
+      <button class="logout-btn" onclick="doLogout()">登出</button>
+    </div>
+    <div class="orders-list" id="orders-list">
+      <div class="loading-wrap">
+        <div class="spinner"></div>
+        載入訂單中…
+      </div>
+    </div>
+  </div>
+
+  <div class="session-timer" id="session-timer"></div>
+</main>
+
+<footer>Bloom Bakery ✦ Admin Dashboard</footer>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxQWWF38lw7KPXn658C43fREy-hdKNAb3r_xaqPEDRADP9an0pipbDFcHVp8bUl2bkE/exec";
+
+let adminToken = '';
+let sessionExpiry = 0;
+let timerInterval = null;
+
+// ── 登入 ──
+async function doLogin() {
+  const password = document.getElementById('f-password').value.trim();
+  if (!password) return showLoginError('請輸入密碼');
+
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true;
+  btn.textContent = '登入中…';
+  hideLoginError();
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'adminLogin', password })
+    });
+    const data = await res.json();
+
+    if (data.error) {
+      showLoginError(data.error);
+      btn.disabled = false;
+      btn.textContent = '登入';
+      return;
+    }
+
+    adminToken = data.adminToken;
+    sessionExpiry = Date.now() + 10 * 60 * 1000; // 10 分鐘
+    sessionStorage.setItem('admin_token', adminToken);
+    sessionStorage.setItem('admin_expiry', sessionExpiry);
+
+    showDashboard();
+  } catch (e) {
+    showLoginError('連線失敗，請稍後再試');
+    btn.disabled = false;
+    btn.textContent = '登入';
+  }
+}
+
+// ── 登出 ──
+function doLogout() {
+  adminToken = '';
+  sessionExpiry = 0;
+  sessionStorage.removeItem('admin_token');
+  sessionStorage.removeItem('admin_expiry');
+  clearInterval(timerInterval);
+
+  document.getElementById('dashboard-view').style.display = 'none';
+  document.getElementById('login-view').style.display = 'block';
+  document.getElementById('f-password').value = '';
+}
+
+// ── 顯示後台 ──
+function showDashboard() {
+  document.getElementById('login-view').style.display = 'none';
+  document.getElementById('dashboard-view').style.display = 'block';
+  startTimer();
+  loadOrders();
+}
+
+// ── 載入訂單 ──
+async function loadOrders() {
+  const list = document.getElementById('orders-list');
+  list.innerHTML = '<div class="loading-wrap"><div class="spinner"></div>載入訂單中…</div>';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'adminGetOrders', adminToken })
+    });
+    const data = await res.json();
+
+    if (data.error) {
+      if (data.error.includes('未授權')) {
+        doLogout();
+        showLoginError('登入已過期，請重新登入');
+      } else {
+        list.innerHTML = `<div class="empty-state">${data.error}</div>`;
+      }
+      return;
+    }
+
+    renderOrders(data.orders || []);
+    renderStats(data.orders || []);
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state">載入失敗，請稍後再試</div>';
+  }
+}
+
+// ── 渲染訂單 ──
+function renderOrders(orders) {
+  const list = document.getElementById('orders-list');
+
+  if (!orders.length) {
+    list.innerHTML = '<div class="empty-state">目前沒有訂單</div>';
+    return;
+  }
+
+  // 最新訂單在上面
+  const sorted = [...orders].reverse();
+
+  list.innerHTML = sorted.map((o, i) => {
+    const statusClass = getStatusClass(o.order_status);
+    const statusText = o.order_status || '未知';
+
+    return `
+      <div class="order-item" style="animation-delay:${i * 0.05}s">
+        <div class="order-top">
+          <span class="order-id">${esc(o.order_id)}</span>
+          <span class="order-status ${statusClass}">${esc(statusText)}</span>
+        </div>
+        <div class="order-detail">
+          <dt>時間</dt><dd>${esc(o.timestamp)}</dd>
+          <dt>姓名</dt><dd>${esc(o.customer_name)}</dd>
+          <dt>Email</dt><dd>${esc(o.email)}</dd>
+          <dt>電話</dt><dd>${esc(o.phone)}</dd>
+          <dt>取貨日</dt><dd>${esc(o.pickup_date)}</dd>
+          <dt>金額</dt><dd class="order-amount">$${esc(o.total)}</dd>
+          <dt class="order-items-full">品項</dt>
+          <dd class="order-items-full">${esc(o.items)}</dd>
+          ${o.note ? `<dt class="order-items-full">備註</dt><dd class="order-items-full">${esc(o.note)}</dd>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── 渲染統計 ──
+function renderStats(orders) {
+  document.getElementById('stat-total').textContent = orders.length;
+
+  const pending = orders.filter(o => o.order_status === '待確認').length;
+  document.getElementById('stat-pending').textContent = pending;
+
+  const revenue = orders
+    .filter(o => o.order_status !== '已取消')
+    .reduce((sum, o) => sum + (Number(o.total) || 0), 0);
+  document.getElementById('stat-revenue').textContent = '$' + revenue.toLocaleString();
+}
+
+// ── 狀態樣式 ──
+function getStatusClass(status) {
+  const map = {
+    '待確認': 'status-pending',
+    '已收訂金': 'status-deposit',
+    '已付清': 'status-paid',
+    '已取貨': 'status-picked',
+    '已取消': 'status-cancelled'
+  };
+  return map[status] || 'status-pending';
+}
+
+// ── Session 倒計時 ──
+function startTimer() {
+  clearInterval(timerInterval);
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+  const remaining = Math.max(0, sessionExpiry - Date.now());
+  if (remaining <= 0) {
+    doLogout();
+    showLoginError('登入已過期，請重新登入');
+    return;
+  }
+  const min = Math.floor(remaining / 60000);
+  const sec = Math.floor((remaining % 60000) / 1000);
+  document.getElementById('session-timer').textContent =
+    `登入將在 ${min}:${String(sec).padStart(2, '0')} 後過期`;
+}
+
+// ── 工具 ──
+function esc(val) {
+  if (val == null) return '';
+  const div = document.createElement('div');
+  div.textContent = String(val);
+  return div.innerHTML;
+}
+
+function showLoginError(msg) {
+  const el = document.getElementById('login-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function hideLoginError() {
+  document.getElementById('login-error').style.display = 'none';
+}
+
+// ── 頁面載入：檢查是否有有效 session ──
+window.addEventListener('DOMContentLoaded', () => {
+  const savedToken = sessionStorage.getItem('admin_token');
+  const savedExpiry = Number(sessionStorage.getItem('admin_expiry') || 0);
+
+  if (savedToken && savedExpiry > Date.now()) {
+    adminToken = savedToken;
+    sessionExpiry = savedExpiry;
+    showDashboard();
+  }
+});
+</script>
+</body>
+</html>
