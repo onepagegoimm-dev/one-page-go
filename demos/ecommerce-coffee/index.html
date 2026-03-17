@@ -597,7 +597,10 @@ function setMinDate() {
 // ── 載入商品 ──────────────────────────────────────────
 async function loadProducts() {
   try {
-    const res  = await fetch(`${API_URL}?action=getProducts`);
+    const res  = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'getProducts' })
+    });
     const data = await res.json();
     products = data.products || [];
     renderProducts();
