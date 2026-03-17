@@ -369,6 +369,32 @@
             .template-link-admin:hover {
                 opacity: 1;
             }
+            .demo-variants {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                margin-top: 8px;
+            }
+            .demo-variant-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 0.8rem;
+                color: var(--muted);
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+            .demo-variant-link:hover {
+                color: var(--mauve);
+            }
+            .demo-variant-link .variant-emoji {
+                font-size: 0.9rem;
+            }
+            .demo-variant-link .variant-style {
+                font-size: 0.72rem;
+                color: var(--muted);
+                opacity: 0.7;
+            }
 
             /* ── Demo 統計 ── */
             .stats-grid {
@@ -729,14 +755,24 @@
                             <p>
                                 商品展示、多品項選購、訂單自動通知，輕鬆開始你的網路商店
                             </p>
-                            <a
-                                href="demos/ecommerce/index.html"
-                                class="template-link"
-                                >查看 Demo →</a
-                            >
+                            <div class="demo-variants">
+                                <a href="demos/ecommerce/index.html" class="demo-variant-link">
+                                    <span class="variant-emoji">🧁</span>
+                                    Bloom Bakery
+                                    <span class="variant-style">暖色手作風</span>
+                                    →
+                                </a>
+                                <a href="demos/ecommerce-coffee/index.html" class="demo-variant-link">
+                                    <span class="variant-emoji">☕</span>
+                                    Urban Drip Coffee
+                                    <span class="variant-style">工業極簡風</span>
+                                    →
+                                </a>
+                            </div>
                             <a
                                 href="demos/ecommerce/admin.html"
                                 class="template-link template-link-admin"
+                                style="margin-left:0; margin-top:8px;"
                                 >管理後台 Demo →</a
                             >
                         </div>
