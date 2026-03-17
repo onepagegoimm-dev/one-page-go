@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Urban Drip Coffee 精品咖啡訂購</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,800;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── 色票：Industrial Minimalist ── */
+  :root {
+    --bg:       #F5F3F0;
+    --card:     #FFFFFF;
+    --border:   #E0DCD8;
+    --primary:  #2C2C2C;
+    --accent:   #D4A574;
+    --gold:     #8B6914;
+    --text:     #1A1A1A;
+    --muted:    #6B6560;
+    --white:    #FFFFFF;
+    --green:    #4A7A5A;
+    --error:    #8B3A3A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 2.5rem 1.5rem 1.5rem;
+    background: var(--bg);
+  }
+
+  .logo-wrap {
+    display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  }
+
+  .logo-tagline-top {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .logo-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-5px); }
+  }
+
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 0.04em;
+  }
+
+  .logo-sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .header-line {
+    max-width: 260px;
+    margin: 1.2rem auto 0;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── 主內容 ── */
+  main { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 1.5rem; }
+
+  /* ── Section 標題 ── */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-title::after { content: ''; flex: 1; height: 0; border-top: 1px solid var(--border); }
+
+  /* ── 商品卡 ── */
+  .products-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+  .product-card {
+    background: var(--card);
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    display: flex;
+    transition: transform 0.2s, box-shadow 0.3s;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .product-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+  .product-img {
+    width: 110px; min-height: 110px;
+    background: linear-gradient(135deg, #2C2C2C, #D4A574);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.8rem;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .product-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.4s ease;
+  }
+  .product-card:hover .product-img img { filter: grayscale(0); }
+
+  .product-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
+
+  .product-name { font-weight: 800; font-size: 1rem; color: var(--primary); }
+  .product-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; font-weight: 300; }
+  .product-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-top: auto;
+  }
+
+  /* 數量控制 */
+  .qty-control {
+    display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem;
+  }
+  .qty-btn {
+    width: 30px; height: 30px; border-radius: 0;
+    border: 1px solid var(--border);
+    background: var(--bg); color: var(--primary);
+    font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+  .qty-btn:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+  .qty-num { min-width: 24px; text-align: center; font-weight: 800; font-size: 0.95rem; }
+
+  /* ── 購物車摘要 ── */
+  #cart-summary {
+    margin: 1.8rem 0 1rem;
+    background: var(--card);
+    border-radius: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: none;
+    animation: fadeUp 0.4s ease;
+  }
+  #cart-summary.show { display: block; }
+
+  .cart-header {
+    background: var(--primary);
+    padding: 0.9rem 1.2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cart-header span { color: var(--white); font-weight: 800; font-size: 0.95rem; }
+
+  .cart-items { padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .cart-item {
+    display: flex; justify-content: space-between;
+    font-size: 0.88rem; color: var(--text);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cart-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .cart-item-name { color: var(--muted); font-weight: 300; }
+
+  .cart-total {
+    padding: 0.8rem 1.2rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cart-total-label { font-size: 0.85rem; color: var(--muted); font-weight: 300; }
+  .cart-total-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--gold);
+    font-weight: 800;
+  }
+
+  /* ── 搭配推薦 ── */
+  #recommend-section {
+    margin: 1rem 0 1.5rem;
+    display: none;
+    animation: fadeUp 0.4s ease;
+  }
+  #recommend-section.show { display: block; }
+
+  .recommend-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .recommend-title::after { content: ''; flex: 1; height: 0; border-top: 1px solid var(--border); }
+
+  .recommend-scroll {
+    display: flex;
+    gap: 0.8rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .recommend-scroll::-webkit-scrollbar { height: 4px; }
+  .recommend-scroll::-webkit-scrollbar-track { background: transparent; }
+  .recommend-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 0; }
+
+  .recommend-card {
+    flex-shrink: 0;
+    width: 130px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 0.8rem;
+    display: flex; flex-direction: column; gap: 0.4rem;
+    transition: border-color 0.2s;
+  }
+  .recommend-card:hover { border-color: var(--accent); }
+
+  .recommend-name {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.3;
+  }
+  .recommend-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    color: var(--gold);
+  }
+  .recommend-add-btn {
+    margin-top: auto;
+    padding: 0.35rem 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--primary);
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  .recommend-add-btn:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+  /* ── 訂單表單 ── */
+  #order-form {
+    background: var(--card);
+    border-radius: 0;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .form-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  .form-input, .form-textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 0.7rem 1rem;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-textarea { resize: vertical; min-height: 70px; }
+
+  /* ── Email 驗證區 ── */
+  .verify-section {
+    background: var(--card);
+    border-radius: 0;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .verify-row {
+    display: flex; gap: 0.5rem; align-items: flex-end;
+  }
+  .verify-row .form-group { flex: 1; }
+
+  .verify-btn {
+    padding: 0.7rem 1rem;
+    background: var(--accent);
+    color: var(--primary);
+    border: none;
+    border-radius: 0;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+    font-weight: 300;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+  .verify-btn:hover:not(:disabled) { background: #c49464; }
+  .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .verified-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: #e8f0ea; border: 1px solid #b5ccba;
+    border-radius: 0; padding: 0.5rem 1rem;
+    font-size: 0.85rem; color: var(--green);
+    margin-top: 0.8rem;
+  }
+
+  .info-msg {
+    background: #f5f2ee; border: 1px solid var(--border);
+    border-radius: 0; padding: 0.8rem 1rem;
+    font-size: 0.82rem; color: var(--muted); text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  /* ── 送出按鈕 ── */
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .submit-btn:hover:not(:disabled) { transform: translateY(-1px); background: #1a1a1a; }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ── 成功畫面 ── */
+  #success-screen {
+    display: none; text-align: center;
+    padding: 3rem 1.5rem;
+    animation: fadeUp 0.5s ease;
+  }
+  #success-screen.show { display: block; }
+  .success-icon { font-size: 3.5rem; margin-bottom: 1rem; animation: pop 0.4s ease 0.1s both; }
+  @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  .success-msg { font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
+  .order-id-badge {
+    display: inline-block; margin-top: 1.2rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 0; padding: 0.5rem 1.5rem;
+    font-size: 0.82rem; color: var(--gold); letter-spacing: 0.08em;
+  }
+  .new-order-btn {
+    margin-top: 2rem;
+    padding: 0.75rem 2rem;
+    background: transparent;
+    border: 1px solid var(--primary);
+    border-radius: 0;
+    color: var(--primary);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  .new-order-btn:hover { background: var(--primary); color: var(--white); }
+
+  /* ── 載入中 ── */
+  .loading-wrap {
+    text-align: center; padding: 3rem;
+    color: var(--muted); font-size: 0.9rem;
+    font-weight: 300;
+  }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* 錯誤 */
+  .error-msg {
+    background: #f5eeee; border: 1px solid #d4bfbf;
+    border-radius: 0; padding: 0.8rem 1rem;
+    font-size: 0.85rem; color: var(--error); text-align: center;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 0.72rem; color: var(--muted);
+    position: relative; z-index: 1;
+    letter-spacing: 0.1em;
+    font-weight: 300;
+  }
+
+  @media (max-width: 360px) {
+    .logo-name { font-size: 1.9rem; }
+    .product-img { width: 90px; min-height: 90px; font-size: 2.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo-wrap">
+    <div class="logo-tagline-top">SPECIALTY COFFEE ROASTERS</div>
+    <div class="logo-icon">&#9749;</div>
+    <div class="logo-name">Urban Drip Coffee</div>
+    <div class="logo-sub">&#10022; 城市手沖 &middot; 精品咖啡 &#10022;</div>
+  </div>
+  <hr class="header-line" />
+</header>
+
+<main id="shop-view">
+  <!-- 商品區 -->
+  <div class="section-title">本日商品</div>
+
+  <div id="products-container">
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      正在載入商品中...
+    </div>
+  </div>
+
+  <!-- 購物車摘要 -->
+  <div id="cart-summary">
+    <div class="cart-header">
+      <span>購物車</span>
+      <span id="cart-count-badge"></span>
+    </div>
+    <div class="cart-items" id="cart-items-list"></div>
+    <div class="cart-total">
+      <span class="cart-total-label">合計</span>
+      <span class="cart-total-amount">$<span id="cart-total-num">0</span></span>
+    </div>
+  </div>
+
+  <!-- 搭配推薦 -->
+  <div id="recommend-section">
+    <div class="recommend-title">為您推薦</div>
+    <div class="recommend-scroll" id="recommend-list"></div>
+  </div>
+
+  <!-- 訂購表單 -->
+  <div id="form-section" style="display:none">
+    <div class="section-title">填寫訂購資訊</div>
+
+    <!-- Email 驗證區 -->
+    <div class="verify-section" id="verify-section">
+      <div class="form-group">
+        <label class="form-label">EMAIL *</label>
+        <div class="verify-row">
+          <div class="form-group">
+            <input class="form-input" id="f-email" type="email" placeholder="your@email.com" />
+          </div>
+          <button class="verify-btn" id="send-code-btn" onclick="sendCode()">發送驗證碼</button>
+        </div>
+      </div>
+      <div id="code-section" style="display:none; margin-top:0.8rem;">
+        <div class="form-group">
+          <label class="form-label">驗證碼</label>
+          <div class="verify-row">
+            <div class="form-group">
+              <input class="form-input" id="f-code" type="text" placeholder="輸入 6 位數驗證碼" maxlength="6" />
+            </div>
+            <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">驗證</button>
+          </div>
+        </div>
+      </div>
+      <div id="verify-status"></div>
+    </div>
+
+    <!-- 訂購資訊 -->
+    <div id="order-form" style="display:none">
+      <div class="form-group">
+        <label class="form-label">姓名 *</label>
+        <input class="form-input" id="f-name" type="text" placeholder="請輸入您的姓名" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">電話 *</label>
+        <input class="form-input" id="f-phone" type="tel" placeholder="0912-345-678" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">取貨日期 *</label>
+        <input class="form-input" id="f-date" type="date" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">備註</label>
+        <textarea class="form-textarea" id="f-note" placeholder="特殊需求、沖煮偏好等..."></textarea>
+      </div>
+      <div id="form-error" class="error-msg" style="display:none"></div>
+      <button class="submit-btn" id="submit-btn" onclick="submitOrder()">確認送出訂單</button>
+    </div>
+  </div>
+</main>
+
+<!-- 成功畫面 -->
+<div id="success-screen">
+  <div class="success-icon">&#9749;</div>
+  <div class="success-title">訂單已送出</div>
+  <div class="success-msg">
+    謝謝您的訂購，<br/>我們會盡快與您確認取貨細節。
+  </div>
+  <div class="order-id-badge" id="success-order-id"></div>
+  <br/>
+  <button class="new-order-btn" onclick="resetPage()">再次訂購</button>
+</div>
+
+<footer>Urban Drip Coffee &#10022; Specialty Coffee Roasters</footer>
+
+<script>
+// ── 設定你的 Apps Script 網址 ──────────────────────────
+const API_URL = "https://script.google.com/macros/s/AKfycbwUV3Ma-dJskftvSMktDNR_palzNVsyrx99bJB9sSs7takCNeWGoW4AqbwGPWqxocUs7g/exec";
+
+// ── 資料 ─────────────────────────────────────────────
+let products = [];
+let cart     = {};
+let emailVerified = false;
+let verifiedEmail = "";
+
+// ── 初始化 ────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  setMinDate();
+  loadProducts();
+});
+
+function setMinDate() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('f-date').min = today;
+}
+
+// ── 載入商品 ──────────────────────────────────────────
+async function loadProducts() {
+  try {
+    const res  = await fetch(`${API_URL}?action=getProducts`);
+    const data = await res.json();
+    products = data.products || [];
+    renderProducts();
+  } catch(e) {
+    document.getElementById('products-container').innerHTML =
+      `<div class="error-msg">無法載入商品，請稍後再試</div>`;
+  }
+}
+
+function renderProducts() {
+  const container = document.getElementById('products-container');
+  if (!products.length) {
+    container.innerHTML = `<div class="loading-wrap">目前暫無商品，請稍後再來</div>`;
+    return;
+  }
+
+  const EMOJI = ["\u2615","\u2615","\u2615","\u2615","\u2615","\u2615","\u2615","\u2615"];
+
+  container.innerHTML = `<div class="products-grid">${
+    products.map((p, i) => {
+      const emoji = EMOJI[i % EMOJI.length];
+      const imgHtml = p.image_url
+        ? `<img src="${p.image_url}" alt="${p.name}" />`
+        : emoji;
+      return `
+        <div class="product-card" style="animation-delay:${i*0.08}s">
+          <div class="product-img">${imgHtml}</div>
+          <div class="product-body">
+            <div class="product-name">${p.name}</div>
+            <div class="product-desc">${p.description || ''}</div>
+            <div class="product-price">$${p.price}</div>
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty('${p.id}', -1)">\u2212</button>
+              <span class="qty-num" id="qty-${p.id}">0</span>
+              <button class="qty-btn" onclick="changeQty('${p.id}', 1)">\uFF0B</button>
+            </div>
+          </div>
+        </div>`;
+    }).join('')
+  }</div>`;
+}
+
+// ── 購物車操作 ────────────────────────────────────────
+function changeQty(id, delta) {
+  cart[id] = Math.max(0, (cart[id] || 0) + delta);
+  document.getElementById(`qty-${id}`).textContent = cart[id];
+  updateCart();
+}
+
+function updateCart() {
+  const items = getCartItems();
+  const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+
+  const summary  = document.getElementById('cart-summary');
+  const formSec  = document.getElementById('form-section');
+  const itemList = document.getElementById('cart-items-list');
+
+  if (items.length === 0) {
+    summary.classList.remove('show');
+    formSec.style.display = 'none';
+    document.getElementById('recommend-section').classList.remove('show');
+    return;
+  }
+
+  document.getElementById('cart-count-badge').textContent = `${items.length} 項商品`;
+  itemList.innerHTML = items.map(i => `
+    <div class="cart-item">
+      <span class="cart-item-name">${i.name} \u00D7 ${i.qty}</span>
+      <span>$${i.price * i.qty}</span>
+    </div>`).join('');
+  document.getElementById('cart-total-num').textContent = total;
+
+  summary.classList.add('show');
+  formSec.style.display = 'block';
+
+  updateRecommendations(items);
+}
+
+function getCartItems() {
+  return products
+    .filter(p => cart[p.id] > 0)
+    .map(p => ({ ...p, qty: cart[p.id] }));
+}
+
+// ── 搭配推薦邏輯 ─────────────────────────────────────
+function updateRecommendations(cartItems) {
+  const recSection = document.getElementById('recommend-section');
+  const recList = document.getElementById('recommend-list');
+
+  // 關鍵字分組
+  const coffeeKeywords = ['焙', '豆', '掛耳', '咖啡', '濃縮', '拿鐵', '美式'];
+  const equipKeywords  = ['濾杯', '壺', '入門組', '手沖', '磨豆', '濾紙'];
+
+  const cartTexts = cartItems.map(i => `${i.name} ${i.description || ''}`);
+  const cartStr = cartTexts.join(' ');
+
+  const hasCoffee = coffeeKeywords.some(k => cartStr.includes(k));
+  const hasEquip  = equipKeywords.some(k => cartStr.includes(k));
+
+  // 根據購物車內容推薦互補商品
+  const cartIds = new Set(cartItems.map(i => i.id));
+  let recommended = [];
+
+  if (hasCoffee) {
+    // 購物車有咖啡類 → 推薦器具類
+    recommended = products.filter(p => {
+      if (cartIds.has(p.id)) return false;
+      const txt = `${p.name} ${p.description || ''}`;
+      return equipKeywords.some(k => txt.includes(k));
+    });
+  }
+
+  if (hasEquip) {
+    // 購物車有器具類 → 推薦咖啡類
+    const coffeeRecs = products.filter(p => {
+      if (cartIds.has(p.id)) return false;
+      if (recommended.find(r => r.id === p.id)) return false;
+      const txt = `${p.name} ${p.description || ''}`;
+      return coffeeKeywords.some(k => txt.includes(k));
+    });
+    recommended = recommended.concat(coffeeRecs);
+  }
+
+  // 去重
+  const seen = new Set();
+  recommended = recommended.filter(p => {
+    if (seen.has(p.id)) return false;
+    seen.add(p.id);
+    return true;
+  });
+
+  if (recommended.length === 0) {
+    recSection.classList.remove('show');
+    return;
+  }
+
+  recList.innerHTML = recommended.map(p => `
+    <div class="recommend-card">
+      <div class="recommend-name">${p.name}</div>
+      <div class="recommend-price">$${p.price}</div>
+      <button class="recommend-add-btn" onclick="addRecommend('${p.id}')">加入</button>
+    </div>
+  `).join('');
+
+  recSection.classList.add('show');
+}
+
+function addRecommend(id) {
+  cart[id] = (cart[id] || 0) + 1;
+  const qtyEl = document.getElementById(`qty-${id}`);
+  if (qtyEl) qtyEl.textContent = cart[id];
+  updateCart();
+}
+
+// ── Email 格式驗證 ────────────────────────────────────
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+}
+
+// ── Email 驗證 ───────────────────────────────────────
+async function sendCode() {
+  const email = document.getElementById('f-email').value.trim();
+  const statusEl = document.getElementById('verify-status');
+  const btn = document.getElementById('send-code-btn');
+
+  if (!email) {
+    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">請輸入 Email</div>`;
+    return;
+  }
+  if (!isValidEmail(email)) {
+    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">Email 格式不正確，請確認格式（例如：name@example.com）</div>`;
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '發送中...';
+  statusEl.innerHTML = '';
+
+  try {
+    // 先檢查會員狀態
+    const checkRes = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'checkMember', email })
+    });
+    const checkData = await checkRes.json();
+
+    if (checkData.blocked) {
+      statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">此 Email 已被停用，請聯繫店家</div>`;
+      btn.disabled = false;
+      btn.textContent = '發送驗證碼';
+      return;
+    }
+
+    if (checkData.hasActiveOrder) {
+      statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">您有未完成的訂單，結單後才能再次訂購</div>`;
+      btn.disabled = false;
+      btn.textContent = '發送驗證碼';
+      return;
+    }
+
+    if (checkData.exists && checkData.verified) {
+      emailVerified = true;
+      verifiedEmail = email;
+      showVerified();
+      return;
+    }
+
+    // 發送驗證碼
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'sendVerifyCode', email })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById('code-section').style.display = 'block';
+      statusEl.innerHTML = `<div class="info-msg">驗證碼已寄到 ${email}，請查收信箱（含垃圾郵件）</div>`;
+      // 60 秒冷卻
+      let cd = 60;
+      btn.textContent = `${cd}s`;
+      const timer = setInterval(() => {
+        cd--;
+        btn.textContent = `${cd}s`;
+        if (cd <= 0) {
+          clearInterval(timer);
+          btn.disabled = false;
+          btn.textContent = '重新發送';
+        }
+      }, 1000);
+    } else {
+      statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">${data.error || '發送失敗'}</div>`;
+      btn.disabled = false;
+      btn.textContent = '發送驗證碼';
+    }
+  } catch(e) {
+    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">網路錯誤，請稍後再試</div>`;
+    btn.disabled = false;
+    btn.textContent = '發送驗證碼';
+  }
+}
+
+async function verifyEmail() {
+  const email = document.getElementById('f-email').value.trim();
+  const code  = document.getElementById('f-code').value.trim();
+  const statusEl = document.getElementById('verify-status');
+  const btn = document.getElementById('verify-btn');
+
+  if (!code || code.length !== 6) {
+    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">請輸入 6 位數驗證碼</div>`;
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '驗證中...';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'verifyCode', email, code })
+    });
+    const data = await res.json();
+
+    if (data.success && data.verified) {
+      emailVerified = true;
+      verifiedEmail = email;
+      showVerified();
+    } else {
+      statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">${data.error || '驗證失敗'}</div>`;
+      btn.disabled = false;
+      btn.textContent = '驗證';
+    }
+  } catch(e) {
+    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">網路錯誤，請稍後再試</div>`;
+    btn.disabled = false;
+    btn.textContent = '驗證';
+  }
+}
+
+function showVerified() {
+  const section = document.getElementById('verify-section');
+  section.innerHTML = `
+    <div class="verified-badge">已驗證：${verifiedEmail}</div>
+  `;
+  document.getElementById('order-form').style.display = 'flex';
+}
+
+// ── 送出訂單 ──────────────────────────────────────────
+async function submitOrder() {
+  const name       = document.getElementById('f-name').value.trim();
+  const phone      = document.getElementById('f-phone').value.trim();
+  const pickupDate = document.getElementById('f-date').value;
+  const note       = document.getElementById('f-note').value.trim();
+  const errorEl    = document.getElementById('form-error');
+  const btn        = document.getElementById('submit-btn');
+
+  errorEl.style.display = 'none';
+
+  if (!emailVerified) { showError('請先完成 Email 驗證'); return; }
+  if (!name)          { showError('請填寫姓名'); return; }
+  if (name.length < 2){ showError('姓名至少 2 個字'); return; }
+  if (!phone)         { showError('請填寫電話'); return; }
+  if (!/^09\d{8}$/.test(phone.replace(/[-\s]/g, ''))) { showError('請輸入有效的手機號碼（09 開頭）'); return; }
+  if (!pickupDate)    { showError('請選擇取貨日期'); return; }
+
+  const items = getCartItems();
+  if (!items.length) { showError('購物車是空的'); return; }
+
+  const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:2px;margin:0"></span>';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'submitOrder',
+        email: verifiedEmail,
+        customerName: name,
+        phone: phone.replace(/[-\s]/g, ''),
+        pickupDate, note, items, total
+      })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById('shop-view').style.display = 'none';
+      const s = document.getElementById('success-screen');
+      s.classList.add('show');
+      document.getElementById('success-order-id').textContent = `訂單編號：${data.orderId}`;
+    } else {
+      showError(data.error || '送出失敗');
+      btn.disabled = false;
+      btn.innerHTML = '確認送出訂單';
+    }
+  } catch(e) {
+    showError('送出失敗，請稍後再試');
+    btn.disabled = false;
+    btn.innerHTML = '確認送出訂單';
+  }
+}
+
+function showError(msg) {
+  const el = document.getElementById('form-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function resetPage() {
+  cart = {};
+  emailVerified = false;
+  verifiedEmail = "";
+  document.getElementById('success-screen').classList.remove('show');
+  document.getElementById('shop-view').style.display = 'block';
+  document.getElementById('order-form').style.display = 'none';
+  document.getElementById('form-error').style.display = 'none';
+  document.getElementById('recommend-section').classList.remove('show');
+
+  // 重建驗證區
+  const vs = document.getElementById('verify-section');
+  vs.innerHTML = `
+    <div class="form-group">
+      <label class="form-label">EMAIL *</label>
+      <div class="verify-row">
+        <div class="form-group">
+          <input class="form-input" id="f-email" type="email" placeholder="your@email.com" />
+        </div>
+        <button class="verify-btn" id="send-code-btn" onclick="sendCode()">發送驗證碼</button>
+      </div>
+    </div>
+    <div id="code-section" style="display:none; margin-top:0.8rem;">
+      <div class="form-group">
+        <label class="form-label">驗證碼</label>
+        <div class="verify-row">
+          <div class="form-group">
+            <input class="form-input" id="f-code" type="text" placeholder="輸入 6 位數驗證碼" maxlength="6" />
+          </div>
+          <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">驗證</button>
+        </div>
+      </div>
+    </div>
+    <div id="verify-status"></div>
+  `;
+
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-phone').value = '';
+  document.getElementById('f-date').value = '';
+  document.getElementById('f-note').value = '';
+  renderProducts();
+  updateCart();
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
