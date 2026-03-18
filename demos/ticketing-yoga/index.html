@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Morning Yoga Retreat — 線上購票</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary:   #7E57C2;
+    --secondary: #B39DDB;
+    --accent:    #FFB74D;
+    --bg:        #FDFBFF;
+    --card:      #FFFFFF;
+    --border:    #E8E0F0;
+    --text:      #37303E;
+    --muted:     #7A7082;
+    --green:     #4CAF50;
+    --orange:    #FF9800;
+    --red:       #E53935;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* -- 晨光漸層背景 -- */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg,
+        rgba(255,255,255,1) 0%,
+        rgba(179,157,219,0.08) 30%,
+        rgba(126,87,194,0.06) 50%,
+        rgba(179,157,219,0.04) 70%,
+        rgba(255,255,255,1) 100%
+      );
+  }
+
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 2.5rem 1.5rem 1.5rem;
+    background: linear-gradient(180deg, rgba(179,157,219,0.1) 0%, transparent 100%);
+  }
+
+  .logo-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .logo-icon {
+    font-size: 2.8rem;
+    line-height: 1;
+    animation: breathe 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(126,87,194,0.2));
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1.0); }
+    50%      { transform: scale(1.02); }
+  }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--primary);
+    letter-spacing: 2px;
+  }
+  .logo-sub {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+  }
+
+  .deco-line {
+    margin-top: 0.8rem;
+    font-size: 0.75rem;
+    color: var(--secondary);
+    letter-spacing: 0.3em;
+  }
+
+  .main {
+    position: relative; z-index: 5;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 1.2rem 3rem;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 1.5rem 0 1rem;
+    color: var(--primary);
+    letter-spacing: 2px;
+  }
+
+  /* -- 活動卡片 -- */
+  .event-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
+  }
+  .event-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(126,87,194,0.12);
+    border-color: var(--secondary);
+  }
+  .event-card.selected {
+    border: 2px solid var(--primary);
+    box-shadow: 0 4px 24px rgba(126,87,194,0.15);
+  }
+
+  .event-img { font-size: 2.5rem; text-align: center; margin-bottom: 0.6rem; }
+  .event-img img { width: 100%; border-radius: 14px; }
+  .event-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; color: var(--text); }
+  .event-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .event-info { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.3rem; }
+  .event-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    background: rgba(126,87,194,0.08);
+    color: var(--primary);
+    border: 1px solid rgba(126,87,194,0.12);
+  }
+
+  /* -- 場次選擇器 -- */
+  .session-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
+  }
+  .session-section > label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+    color: var(--primary);
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+
+  .session-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--card);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s;
+  }
+  .session-card:hover {
+    background: rgba(126,87,194,0.05);
+    border-color: var(--secondary);
+  }
+  .session-card.selected {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 16px rgba(126,87,194,0.25);
+  }
+
+  .session-date { font-weight: 600; }
+  .session-time { font-size: 0.8rem; opacity: 0.85; }
+  .session-meta { text-align: right; }
+  .session-remaining { font-size: 0.75rem; font-weight: 600; display: block; }
+  .remaining-green  { color: var(--green); }
+  .remaining-orange { color: var(--orange); }
+  .remaining-red    { color: var(--red); animation: pulse-remaining 1.5s ease-in-out infinite; }
+  .session-card.selected .session-remaining { color: rgba(255,255,255,0.9); }
+  .session-card.selected .remaining-red { animation: none; color: rgba(255,255,255,0.9); }
+
+  @keyframes pulse-remaining {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.5; }
+  }
+
+  /* -- 票種選擇 -- */
+  .ticket-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
+  }
+  .ticket-section label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+    color: var(--primary);
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+
+  .ticket-type-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--card);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s;
+  }
+  .ticket-type-btn:hover {
+    background: rgba(126,87,194,0.05);
+    border-color: var(--secondary);
+  }
+  .ticket-type-btn.selected {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 16px rgba(126,87,194,0.25);
+  }
+
+  .ticket-type-name { font-weight: 600; }
+  .ticket-type-meta { text-align: right; }
+  .ticket-type-price { font-weight: 600; color: var(--accent); }
+  .ticket-type-btn.selected .ticket-type-price { color: var(--accent); }
+  .remaining-badge { font-size: 0.7rem; opacity: 0.8; display: block; }
+  .ticket-type-btn.selected .remaining-badge { color: rgba(255,255,255,0.8); }
+
+  /* -- 數量選擇 -- */
+  .qty-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
+  }
+  .qty-section label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+    color: var(--primary);
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+  .qty-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .qty-btn {
+    width: 38px; height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--card);
+    font-size: 1.2rem;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(126,87,194,0.08);
+  }
+  .qty-btn:hover { background: rgba(126,87,194,0.08); border-color: var(--secondary); }
+  .qty-display {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary);
+    min-width: 40px;
+    text-align: center;
+  }
+  .qty-hint { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 0.5rem; }
+
+  /* -- 訂單摘要 -- */
+  .order-summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
+  }
+  .summary-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--primary); }
+  .summary-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem; color: var(--text); }
+  .summary-total { border-top: 1px solid var(--border); padding-top: 0.5rem; margin-top: 0.5rem; font-weight: 600; color: var(--primary); }
+
+  /* -- Email 驗證 -- */
+  .verify-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
+  }
+  .verify-section > label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+    color: var(--primary);
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+  .verify-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
+  .verify-row input { flex: 1; }
+  .verify-btn {
+    padding: 0.55rem 0.8rem;
+    border: none;
+    border-radius: 12px;
+    background: var(--primary);
+    color: white;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 400;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s;
+    box-shadow: 0 2px 10px rgba(126,87,194,0.2);
+  }
+  .verify-btn:hover { background: var(--secondary); box-shadow: 0 4px 16px rgba(126,87,194,0.3); }
+  .verify-btn:disabled { background: rgba(122,112,130,0.2); color: var(--muted); cursor: not-allowed; box-shadow: none; }
+  .verify-status { font-size: 0.75rem; margin-top: 0.3rem; }
+
+  /* -- 表單 -- */
+  .form-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.5s ease both;
+    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
+  }
+  .form-section label {
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .form-section input, .form-section textarea {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--bg);
+    margin-bottom: 0.8rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .form-section input:focus, .form-section textarea:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(179,157,219,0.15);
+  }
+  .form-section textarea { height: 70px; resize: vertical; }
+
+  /* -- 送出按鈕 -- */
+  .submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 0.1em;
+    box-shadow: 0 4px 20px rgba(126,87,194,0.25);
+  }
+  .submit-btn:hover { box-shadow: 0 6px 28px rgba(126,87,194,0.4); transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* -- 成功畫面 -- */
+  .success-screen {
+    display: none;
+    position: relative; z-index: 5;
+    max-width: 480px; margin: 0 auto; padding: 3rem 1.5rem;
+    text-align: center;
+  }
+  .success-icon { font-size: 3rem; animation: pop 0.6s ease; }
+  @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--primary);
+    margin: 0.8rem 0 0.5rem;
+    letter-spacing: 2px;
+  }
+  .success-msg { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; }
+  .success-badge {
+    display: inline-block;
+    background: rgba(126,87,194,0.08);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+
+  .checkin-code-display {
+    display: inline-block;
+    background: rgba(126,87,194,0.06);
+    border: 2px solid var(--primary);
+    padding: 0.8rem 1.5rem;
+    border-radius: 16px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.3em;
+    margin-bottom: 0.5rem;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 4px 20px rgba(126,87,194,0.15);
+  }
+  .checkin-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+  .new-order-btn {
+    padding: 0.7rem 2rem;
+    border: 2px solid var(--primary);
+    border-radius: 16px;
+    background: transparent;
+    color: var(--primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+  }
+  .new-order-btn:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 16px rgba(126,87,194,0.25);
+  }
+
+  /* -- Loading / Error -- */
+  .loading-wrap { text-align: center; padding: 2rem; color: var(--muted); }
+  .spinner {
+    display: inline-block;
+    width: 28px; height: 28px;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error-msg {
+    background: rgba(229,57,53,0.08);
+    border: 1px solid rgba(229,57,53,0.2);
+    color: var(--red);
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .hidden { display: none !important; }
+
+  footer {
+    position: relative; z-index: 5;
+    text-align: center; padding: 1.5rem;
+    font-size: 0.7rem; color: rgba(122,112,130,0.5);
+    letter-spacing: 1px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo-icon">&#x1F9D8;</div>
+    <div class="logo-name">Morning Yoga Retreat</div>
+    <div class="logo-sub">BREATHE &middot; STRETCH &middot; RENEW</div>
+  </div>
+  <div class="deco-line">&#x2500; &#x6668;&#x9593;&#x7464;&#x4F3D; &middot; &#x8EAB;&#x5FC3;&#x6B78;&#x96F6; &#x2500;</div>
+</header>
+
+<!-- -- 主頁面 -- -->
+<div class="main" id="shop-view">
+  <h2 class="section-title">&#x1F9D8; 活動列表</h2>
+  <div id="events-container">
+    <div class="loading-wrap"><div class="spinner"></div></div>
+  </div>
+
+  <!-- 場次選擇 -->
+  <div id="session-section" class="session-section hidden">
+    <label>&#x2600;&#xFE0F; 選擇場次</label>
+    <div id="session-container"></div>
+  </div>
+
+  <!-- 票種選擇 -->
+  <div id="ticket-section" class="ticket-section hidden">
+    <label>&#x1F3AB; 選擇票種</label>
+    <div id="ticket-types-container">
+      <div class="loading-wrap"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <!-- 數量選擇 -->
+  <div id="qty-section" class="qty-section hidden">
+    <label>&#x1F4E6; 選擇數量</label>
+    <div class="qty-control">
+      <button class="qty-btn" onclick="changeQty(-1)">&minus;</button>
+      <div class="qty-display" id="qty-display">1</div>
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+    </div>
+    <div class="qty-hint" id="qty-hint"></div>
+  </div>
+
+  <!-- 訂單摘要 -->
+  <div id="order-summary" class="order-summary hidden">
+    <div class="summary-title">&#x1F4CB; 訂單摘要</div>
+    <div class="summary-row"><span>活動</span><span id="sum-event"></span></div>
+    <div class="summary-row" id="sum-session-row" style="display:none;"><span>場次</span><span id="sum-session"></span></div>
+    <div class="summary-row"><span>票種</span><span id="sum-ticket"></span></div>
+    <div class="summary-row"><span>單價</span><span id="sum-price"></span></div>
+    <div class="summary-row"><span>數量</span><span id="sum-qty"></span></div>
+    <div class="summary-row summary-total"><span>合計</span><span id="sum-total"></span></div>
+  </div>
+
+  <!-- Email 驗證 -->
+  <div id="verify-section" class="verify-section hidden">
+    <label>&#x1F4E7; Email 驗證</label>
+    <div class="verify-row">
+      <input type="email" id="email" placeholder="your@email.com" />
+      <button class="verify-btn" id="send-code-btn" onclick="sendCode()">發送驗證碼</button>
+    </div>
+    <div id="code-row" class="verify-row hidden">
+      <input type="text" id="verify-code" placeholder="輸入 6 位驗證碼" maxlength="6" />
+      <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">驗證</button>
+    </div>
+    <div class="verify-status" id="verify-status"></div>
+  </div>
+
+  <!-- 表單 -->
+  <div id="form-section" class="form-section hidden">
+    <label>姓名</label>
+    <input type="text" id="name" placeholder="您的姓名" />
+    <label>電話</label>
+    <input type="tel" id="phone" placeholder="0912-345-678" />
+    <label>備註（選填）</label>
+    <textarea id="note" placeholder="有什麼需要備註的嗎？"></textarea>
+    <button class="submit-btn" id="submit-btn" onclick="submitOrder()">&#x1F9D8; 確認購票</button>
+  </div>
+
+  <div id="error-msg" class="error-msg hidden"></div>
+</div>
+
+<!-- -- 成功畫面 -- -->
+<div class="success-screen" id="success-screen">
+  <div class="success-icon">&#x2728;</div>
+  <h2 class="success-title">購票成功！</h2>
+  <p class="success-msg">請截圖保存您的簽到碼，活動當天出示即可入場</p>
+  <div class="success-badge" id="success-id"></div>
+  <br/>
+  <div class="checkin-code-display" id="checkin-code"></div>
+  <div class="checkin-label">簽到碼 — 請妥善保存</div>
+  <button class="new-order-btn" onclick="resetPage()">再次購票</button>
+</div>
+
+<footer>Morning Yoga Retreat Sample &mdash; Powered by One Page Go</footer>
+
+<script>
+// -- 設定你的 Apps Script 網址 --
+const API_URL = "https://script.google.com/macros/s/AKfycbwhzdlTmrDWSDMW2VNPcDbkuOsmc3oUm0qpxm2h6ZFw7Ikg_2c0pFgnVViEBZt7oXiSmg/exec";
+
+const EVENT_EMOJI = ["\u{1F9D8}","\u{1F31F}","\u{1F33F}","\u{1F338}","\u{2600}\uFE0F","\u{1F54A}\uFE0F"];
+
+let events = [];
+let selectedEvent = null;
+let ticketTypes = [];
+let selectedTicket = null;
+let qty = 1;
+let emailVerified = false;
+let verifiedEmail = '';
+let sessionToken = '';
+
+// 場次相關
+let sessions = [];
+let selectedSession = null;
+let hasSessionConfig = false;
+
+// -- 載入活動 --
+async function loadEvents() {
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'getEvents' })
+    });
+    const text = await res.text();
+    const data = JSON.parse(text);
+    events = data.events || [];
+    renderEvents();
+  } catch (err) {
+    document.getElementById('events-container').innerHTML =
+      '<div class="loading-wrap">目前暫無售票活動，請稍後再來</div>';
+  }
+}
+
+function renderEvents() {
+  const container = document.getElementById('events-container');
+  if (!events.length) {
+    container.innerHTML = '<div class="loading-wrap">目前暫無售票活動，請稍後再來</div>';
+    return;
+  }
+  container.innerHTML = events.map((e, i) => {
+    const emoji = EVENT_EMOJI[i % EVENT_EMOJI.length];
+    const imgHtml = e.image_url
+      ? `<img src="${e.image_url}" alt="${e.name}" />`
+      : emoji;
+    // 過濾 description 中的場次設定（不顯示在卡片上）
+    const displayDesc = stripSessionConfig(e.description || '');
+    return `
+      <div class="event-card" id="evt-${e.id}" onclick="selectEvent('${e.id}')" style="animation-delay:${i*0.08}s">
+        <div class="event-img">${imgHtml}</div>
+        <div class="event-name">${e.name}</div>
+        <div class="event-desc">${displayDesc}</div>
+        <div class="event-info">
+          <span class="event-badge">\u{1F4C5} ${e.date}</span>
+          <span class="event-badge">\u23F0 ${e.time}</span>
+          <span class="event-badge">\u{1F4CD} ${e.venue}</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// -- 場次設定解析 --
+function stripSessionConfig(desc) {
+  // 移除 ｜場次：... 部分
+  return desc.replace(/\uff5c\u5834\u6b21\uff1a[^\n]*/g, '').trim();
+}
+
+function parseSessionConfig(desc) {
+  // 搜尋 ｜場次：4/18(六)06:00/剩15名,4/19(日)06:00/剩20名,...
+  const match = desc.match(/\uff5c\u5834\u6b21\uff1a(.+)/);
+  if (!match) return [];
+  const parts = match[1].split(',');
+  return parts.map(part => {
+    const p = part.trim();
+    // 格式: 4/18(六)06:00/剩15名
+    const m = p.match(/^(.+?\(.+?\))\s*(\d{1,2}:\d{2})\s*\/\s*\u5269(\d+)\u540d$/);
+    if (!m) return null;
+    const dateWeekday = m[1]; // 4/18(六)
+    const time = m[2];       // 06:00
+    const remaining = parseInt(m[3], 10);
+    return { dateWeekday, time, remaining, raw: p };
+  }).filter(Boolean);
+}
+
+function getRemainingClass(remaining) {
+  if (remaining < 5)  return 'remaining-red';
+  if (remaining <= 10) return 'remaining-orange';
+  return 'remaining-green';
+}
+
+function renderSessions() {
+  const container = document.getElementById('session-container');
+  container.innerHTML = sessions.map((s, i) => {
+    const cls = getRemainingClass(s.remaining);
+    return `
+      <button class="session-card" id="ses-${i}" onclick="selectSession(${i})">
+        <span>
+          <span class="session-date">${s.dateWeekday}</span>
+          <span class="session-time"> ${s.time}</span>
+        </span>
+        <span class="session-meta">
+          <span class="session-remaining ${cls}">\u5269 ${s.remaining} \u540d</span>
+        </span>
+      </button>`;
+  }).join('');
+}
+
+function selectSession(index) {
+  selectedSession = sessions[index];
+  if (!selectedSession) return;
+
+  // 標記選中
+  document.querySelectorAll('.session-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('ses-' + index).classList.add('selected');
+
+  // 重設後續狀態
+  selectedTicket = null;
+  qty = 1;
+  document.getElementById('qty-section').classList.add('hidden');
+  document.getElementById('order-summary').classList.add('hidden');
+  document.getElementById('verify-section').classList.add('hidden');
+  document.getElementById('form-section').classList.add('hidden');
+
+  // 載入票種
+  loadTicketTypes(selectedEvent.id);
+
+  document.getElementById('session-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// -- 選擇活動 --
+async function selectEvent(id) {
+  selectedEvent = events.find(e => String(e.id) === String(id));
+  if (!selectedEvent) return;
+
+  // 標記選中
+  document.querySelectorAll('.event-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('evt-' + id).classList.add('selected');
+
+  // 重設狀態
+  selectedTicket = null;
+  selectedSession = null;
+  sessions = [];
+  hasSessionConfig = false;
+  qty = 1;
+  document.getElementById('session-section').classList.add('hidden');
+  document.getElementById('ticket-section').classList.add('hidden');
+  document.getElementById('qty-section').classList.add('hidden');
+  document.getElementById('order-summary').classList.add('hidden');
+  document.getElementById('verify-section').classList.add('hidden');
+  document.getElementById('form-section').classList.add('hidden');
+
+  // 檢查是否有場次設定
+  sessions = parseSessionConfig(selectedEvent.description || '');
+  hasSessionConfig = sessions.length > 0;
+
+  if (hasSessionConfig) {
+    // 顯示場次選擇器
+    const section = document.getElementById('session-section');
+    section.classList.remove('hidden');
+    renderSessions();
+    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } else {
+    // 無場次設定，直接載入票種
+    loadTicketTypes(id);
+  }
+}
+
+// -- 載入票種 --
+async function loadTicketTypes(eventId) {
+  const section = document.getElementById('ticket-section');
+  const container = document.getElementById('ticket-types-container');
+  section.classList.remove('hidden');
+  container.innerHTML = '<div class="loading-wrap"><div class="spinner"></div></div>';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'getTicketTypes', event_id: eventId })
+    });
+    const text = await res.text();
+    const data = JSON.parse(text);
+    ticketTypes = data.ticketTypes || [];
+
+    if (!ticketTypes.length) {
+      container.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:0.85rem;padding:1rem;">此活動暫無可購票種</div>';
+      return;
+    }
+
+    container.innerHTML = ticketTypes.map(t => `
+      <button class="ticket-type-btn" id="tt-${t.id}" onclick="selectTicketType('${t.id}')">
+        <span class="ticket-type-name">\u{1F3AB} ${t.name}</span>
+        <span class="ticket-type-meta">
+          <span class="ticket-type-price">$${t.price}</span>
+          <span class="remaining-badge">\u5269 ${t.available} \u5F35</span>
+        </span>
+      </button>
+    `).join('');
+  } catch (err) {
+    container.innerHTML = '<div style="text-align:center;color:var(--red);font-size:0.8rem;">載入票種失敗</div>';
+  }
+
+  section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// -- 選擇票種 --
+function selectTicketType(id) {
+  selectedTicket = ticketTypes.find(t => String(t.id) === String(id));
+  if (!selectedTicket) return;
+
+  // 標記選中
+  document.querySelectorAll('.ticket-type-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('tt-' + id).classList.add('selected');
+
+  // 重設數量
+  qty = 1;
+  document.getElementById('qty-display').textContent = qty;
+  document.getElementById('qty-hint').textContent = `最多可購 ${Math.min(selectedTicket.available, 4)} 張`;
+
+  // 顯示數量選擇
+  document.getElementById('qty-section').classList.remove('hidden');
+  updateSummary();
+
+  document.getElementById('qty-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function changeQty(delta) {
+  if (!selectedTicket) return;
+  const maxQty = Math.min(selectedTicket.available, 4);
+  const newQty = qty + delta;
+  if (newQty < 1 || newQty > maxQty) return;
+  qty = newQty;
+  document.getElementById('qty-display').textContent = qty;
+  updateSummary();
+}
+
+function updateSummary() {
+  if (!selectedEvent || !selectedTicket) return;
+
+  document.getElementById('sum-event').textContent = selectedEvent.name;
+  document.getElementById('sum-ticket').textContent = selectedTicket.name;
+  document.getElementById('sum-price').textContent = '$' + selectedTicket.price;
+  document.getElementById('sum-qty').textContent = qty + ' 張';
+  document.getElementById('sum-total').textContent = '$' + (selectedTicket.price * qty);
+
+  // 場次資訊
+  if (hasSessionConfig && selectedSession) {
+    document.getElementById('sum-session-row').style.display = 'flex';
+    document.getElementById('sum-session').textContent = selectedSession.dateWeekday + ' ' + selectedSession.time;
+  } else {
+    document.getElementById('sum-session-row').style.display = 'none';
+  }
+
+  document.getElementById('order-summary').classList.remove('hidden');
+  document.getElementById('verify-section').classList.remove('hidden');
+
+  if (emailVerified) {
+    document.getElementById('form-section').classList.remove('hidden');
+  }
+}
+
+// -- Email 驗證 --
+async function sendCode() {
+  const email = document.getElementById('email').value.trim();
+  if (!email) { showError('請輸入 Email'); return; }
+
+  const btn = document.getElementById('send-code-btn');
+  btn.disabled = true;
+  btn.textContent = '發送中\u2026';
+  hideError();
+
+  try {
+    const checkRes = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'checkMember', email })
+    });
+    const checkData = JSON.parse(await checkRes.text());
+
+    if (checkData.blocked) { showError('此 Email 已被停用，請聯繫主辦單位'); btn.disabled = false; btn.textContent = '發送驗證碼'; return; }
+    if (checkData.hasActiveOrder) { showError('您有未完成的訂單，請先完成付款後再購票'); btn.disabled = false; btn.textContent = '發送驗證碼'; return; }
+
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'sendVerifyCode', email })
+    });
+    const data = JSON.parse(await res.text());
+
+    if (data.success) {
+      document.getElementById('code-row').classList.remove('hidden');
+      document.getElementById('verify-status').textContent = '驗證碼已寄出，請查看信箱';
+      document.getElementById('verify-status').style.color = 'var(--green)';
+      let sec = 60;
+      btn.textContent = `${sec}s`;
+      const timer = setInterval(() => {
+        sec--;
+        btn.textContent = `${sec}s`;
+        if (sec <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = '重新發送'; }
+      }, 1000);
+    } else {
+      showError(data.error || '發送失敗');
+      btn.disabled = false;
+      btn.textContent = '發送驗證碼';
+    }
+  } catch (err) {
+    showError('API 連線失敗');
+    btn.disabled = false;
+    btn.textContent = '發送驗證碼';
+  }
+}
+
+async function verifyEmail() {
+  const email = document.getElementById('email').value.trim();
+  const code  = document.getElementById('verify-code').value.trim();
+  if (!code) { showError('請輸入驗證碼'); return; }
+
+  const btn = document.getElementById('verify-btn');
+  btn.disabled = true;
+  btn.textContent = '驗證中\u2026';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'verifyCode', email, code })
+    });
+    const data = JSON.parse(await res.text());
+
+    if (data.success) {
+      emailVerified = true;
+      verifiedEmail = email;
+      sessionToken = data.sessionToken || '';
+      showVerified();
+    } else {
+      showError(data.error || '驗證失敗');
+      btn.disabled = false;
+      btn.textContent = '驗證';
+    }
+  } catch (err) {
+    showError('API 連線失敗');
+    btn.disabled = false;
+    btn.textContent = '驗證';
+  }
+}
+
+function showVerified() {
+  document.getElementById('verify-status').textContent = '\u2705 驗證成功';
+  document.getElementById('verify-status').style.color = 'var(--green)';
+  document.getElementById('email').disabled = true;
+  document.getElementById('verify-code').disabled = true;
+  document.getElementById('verify-btn').disabled = true;
+  document.getElementById('verify-btn').textContent = '已驗證';
+  document.getElementById('send-code-btn').classList.add('hidden');
+  document.getElementById('code-row').classList.add('hidden');
+  document.getElementById('form-section').classList.remove('hidden');
+}
+
+// -- 送出訂單 --
+async function submitOrder() {
+  const name  = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  let   note  = document.getElementById('note').value.trim();
+
+  hideError();
+  if (!name)  { showError('請輸入姓名'); return; }
+  if (!phone) { showError('請輸入電話'); return; }
+  const phoneClean = phone.replace(/[-\s]/g, '');
+  if (!/^09\d{8}$/.test(phoneClean)) { showError('請輸入有效的手機號碼（09 開頭，共 10 碼）'); return; }
+  if (!selectedEvent || !selectedTicket) { showError('請選擇活動和票種'); return; }
+
+  // 場次資訊寫入備註
+  if (hasSessionConfig && selectedSession) {
+    const sessionNote = `\u3010\u5834\u6B21\u3011${selectedSession.dateWeekday} ${selectedSession.time}`;
+    note = note ? `${sessionNote}\n${note}` : sessionNote;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '送出中\u2026';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        action: 'submitTicketOrder',
+        email: verifiedEmail,
+        sessionToken,
+        name,
+        phone,
+        event_id: String(selectedEvent.id),
+        ticket_type_id: String(selectedTicket.id),
+        qty,
+        note
+      })
+    });
+    const data = JSON.parse(await res.text());
+
+    if (data.success) {
+      document.getElementById('shop-view').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+      document.getElementById('success-id').textContent = '訂單編號：' + data.orderId;
+      document.getElementById('checkin-code').textContent = data.checkinCode;
+    } else {
+      showError(data.error || '購票失敗');
+      btn.disabled = false;
+      btn.textContent = '\u{1F9D8} 確認購票';
+    }
+  } catch (err) {
+    showError('API 連線失敗');
+    btn.disabled = false;
+    btn.textContent = '\u{1F9D8} 確認購票';
+  }
+}
+
+// -- 重置 --
+function resetPage() {
+  selectedEvent = null;
+  selectedTicket = null;
+  selectedSession = null;
+  sessions = [];
+  hasSessionConfig = false;
+  ticketTypes = [];
+  qty = 1;
+  emailVerified = false;
+  verifiedEmail = '';
+  sessionToken = '';
+
+  document.getElementById('success-screen').style.display = 'none';
+  document.getElementById('shop-view').style.display = 'block';
+
+  document.querySelectorAll('.event-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('session-section').classList.add('hidden');
+  document.getElementById('ticket-section').classList.add('hidden');
+  document.getElementById('qty-section').classList.add('hidden');
+  document.getElementById('order-summary').classList.add('hidden');
+  document.getElementById('verify-section').classList.add('hidden');
+  document.getElementById('form-section').classList.add('hidden');
+
+  // 重建驗證區
+  document.getElementById('email').disabled = false;
+  document.getElementById('email').value = '';
+  document.getElementById('verify-code').disabled = false;
+  document.getElementById('verify-code').value = '';
+  document.getElementById('send-code-btn').classList.remove('hidden');
+  document.getElementById('send-code-btn').disabled = false;
+  document.getElementById('send-code-btn').textContent = '發送驗證碼';
+  document.getElementById('verify-btn').disabled = false;
+  document.getElementById('verify-btn').textContent = '驗證';
+  document.getElementById('code-row').classList.add('hidden');
+  document.getElementById('verify-status').textContent = '';
+
+  document.getElementById('name').value = '';
+  document.getElementById('phone').value = '';
+  document.getElementById('note').value = '';
+  document.getElementById('submit-btn').disabled = false;
+  document.getElementById('submit-btn').textContent = '\u{1F9D8} 確認購票';
+  document.getElementById('qty-display').textContent = '1';
+
+  hideError();
+  loadEvents();
+}
+
+// -- 工具 --
+function showError(msg) {
+  const el = document.getElementById('error-msg');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+}
+function hideError() {
+  document.getElementById('error-msg').classList.add('hidden');
+}
+
+// -- 啟動 --
+loadEvents();
+</script>
+</body>
+</html>
