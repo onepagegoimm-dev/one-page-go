@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jade Leaf Tea Sample 茶葉訂購</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,800;1,400&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ── 色票：Eastern Elegant Tea Ceremony ── */
+  :root {
+    --primary:  #2D4A3E;
+    --secondary:#8B7355;
+    --accent:   #C4956A;
+    --bg:       #F8F5F0;
+    --card:     #FFFDF8;
+    --border:   #D4C5B2;
+    --text:     #2D2A26;
+    --muted:    #7A7168;
+    --white:    #FFFFFF;
+    --green:    #2D4A3E;
+    --error:    #8B3A3A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(139,115,85,0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(196,149,106,0.04) 0%, transparent 50%),
+      radial-gradient(circle at 50% 80%, rgba(45,74,62,0.02) 0%, transparent 40%);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 2.5rem 1.5rem 1.5rem;
+    background: transparent;
+  }
+
+  .logo-wrap {
+    display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  }
+
+  .logo-tagline-top {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    color: var(--secondary);
+    text-transform: uppercase;
+  }
+
+  .logo-icon {
+    font-size: 2.8rem;
+    line-height: 1;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-6px); }
+  }
+
+  .logo-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.15em;
+  }
+
+  .logo-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--secondary);
+    font-weight: 400;
+  }
+
+  .header-line {
+    max-width: 200px;
+    margin: 1.2rem auto 0;
+    border: none;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--border);
+    letter-spacing: 0.5em;
+  }
+  .header-line::before { content: '\2500\2500 \u25C6 \2500\2500'; }
+
+  /* ── 主內容 ── */
+  main { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 1.5rem; }
+
+  /* ── Section 標題 ── */
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── 商品卡 ── */
+  .products-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+  .product-card {
+    background: var(--card);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(45,42,38,0.06), 0 0 0 1px rgba(212,197,178,0.3);
+    display: flex;
+    transition: transform 0.3s ease, box-shadow 0.4s ease;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .product-card:hover {
+    transform: translateY(-3px) rotate(-0.3deg);
+    box-shadow: 0 8px 24px rgba(45,42,38,0.1), 0 0 0 1px rgba(212,197,178,0.4);
+  }
+
+  .product-img {
+    width: 110px; min-height: 110px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.8rem;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .product-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: sepia(20%) saturate(80%);
+    transition: filter 0.4s ease;
+  }
+  .product-card:hover .product-img img { filter: sepia(0%) saturate(100%); }
+
+  .product-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
+
+  .product-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--primary);
+    letter-spacing: 0.05em;
+  }
+  .product-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .product-price {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    color: var(--accent);
+    font-weight: 700;
+    margin-top: auto;
+  }
+
+  /* ── 規格選擇器 ── */
+  .variant-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.4rem;
+  }
+  .variant-pill {
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: transparent;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .variant-pill:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+  .variant-pill.active {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+  }
+
+  /* 數量控制 */
+  .qty-control {
+    display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem;
+  }
+  .qty-btn {
+    width: 28px; height: 28px; border-radius: 2px;
+    border: 1px solid var(--border);
+    background: var(--bg); color: var(--primary);
+    font-size: 1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+  .qty-btn:hover { background: var(--primary); color: var(--white); border-color: var(--primary); }
+  .qty-num { min-width: 24px; text-align: center; font-weight: 700; font-size: 0.95rem; }
+
+  /* ── 購物車摘要 ── */
+  #cart-summary {
+    margin: 1.8rem 0 1rem;
+    background: var(--card);
+    border-radius: 2px;
+    box-shadow: 0 2px 12px rgba(45,42,38,0.06);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    display: none;
+    animation: fadeUp 0.4s ease;
+  }
+  #cart-summary.show { display: block; }
+
+  .cart-header {
+    background: var(--primary);
+    padding: 0.9rem 1.2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cart-header span { color: var(--white); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.05em; }
+
+  .cart-items { padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .cart-item {
+    display: flex; justify-content: space-between;
+    font-size: 0.88rem; color: var(--text);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cart-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .cart-item-name { color: var(--muted); font-weight: 400; }
+
+  .cart-total {
+    padding: 0.8rem 1.2rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cart-total-label { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+  .cart-total-amount {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.4rem; color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── 訂單表單 ── */
+  #order-form {
+    background: var(--card);
+    border-radius: 2px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(45,42,38,0.06);
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .form-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .form-input, .form-textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.7rem 1rem;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--primary);
+  }
+
+  .form-textarea { resize: vertical; min-height: 70px; }
+
+  /* ── Email 驗證區 ── */
+  .verify-section {
+    background: var(--card);
+    border-radius: 2px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(45,42,38,0.06);
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .verify-row {
+    display: flex; gap: 0.5rem; align-items: flex-end;
+  }
+  .verify-row .form-group { flex: 1; }
+
+  .verify-btn {
+    padding: 0.7rem 1rem;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 2px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+  .verify-btn:hover:not(:disabled) { background: #1e352b; }
+  .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .verified-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: #e8efe9; border: 1px solid #b5ccba;
+    border-radius: 2px; padding: 0.5rem 1rem;
+    font-size: 0.85rem; color: var(--green);
+    margin-top: 0.8rem;
+  }
+
+  .info-msg {
+    background: #f5f2ee; border: 1px solid var(--border);
+    border-radius: 2px; padding: 0.8rem 1rem;
+    font-size: 0.82rem; color: var(--muted); text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  /* ── 送出按鈕 ── */
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 2px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .submit-btn:hover:not(:disabled) { transform: translateY(-1px); background: #1e352b; }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ── 成功畫面 ── */
+  #success-screen {
+    display: none; text-align: center;
+    padding: 3rem 1.5rem;
+    animation: fadeUp 0.5s ease;
+  }
+  #success-screen.show { display: block; }
+  .success-icon { font-size: 3.5rem; margin-bottom: 1rem; animation: pop 0.4s ease 0.1s both; }
+  @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .success-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  .success-msg { font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-weight: 400; }
+  .order-id-badge {
+    display: inline-block; margin-top: 1.2rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 2px; padding: 0.5rem 1.5rem;
+    font-size: 0.82rem; color: var(--accent); letter-spacing: 0.08em;
+  }
+  .new-order-btn {
+    margin-top: 2rem;
+    padding: 0.75rem 2rem;
+    background: transparent;
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+    color: var(--primary);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    transition: all 0.2s;
+  }
+  .new-order-btn:hover { background: var(--primary); color: var(--white); }
+
+  /* ── 分隔線 ── */
+  .divider {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--border);
+    letter-spacing: 0.5em;
+    margin: 1.5rem 0;
+  }
+
+  /* ── 載入中 ── */
+  .loading-wrap {
+    text-align: center; padding: 3rem;
+    color: var(--muted); font-size: 0.9rem;
+    font-weight: 400;
+  }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* 錯誤 */
+  .error-msg {
+    background: #f5eeee; border: 1px solid #d4bfbf;
+    border-radius: 2px; padding: 0.8rem 1rem;
+    font-size: 0.85rem; color: var(--error); text-align: center;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 0.72rem; color: var(--muted);
+    position: relative; z-index: 1;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+  }
+
+  @media (max-width: 360px) {
+    .logo-name { font-size: 1.5rem; }
+    .product-img { width: 90px; min-height: 90px; font-size: 2.4rem; }
+    .variant-pill { font-size: 0.62rem; padding: 0.2rem 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo-wrap">
+    <div class="logo-tagline-top">ARTISAN TEA HOUSE</div>
+    <div class="logo-icon">&#127861;</div>
+    <div class="logo-name">Jade Leaf Tea Sample</div>
+    <div class="logo-sub">&#9472; &#19968;&#30415;&#28165;&#33559; &middot; &#21322;&#26085;&#28014;&#29983; &#9472;</div>
+  </div>
+  <div class="header-line"></div>
+</header>
+
+<main id="shop-view">
+  <!-- 商品區 -->
+  <div class="section-title">&#33590;&#21697;&#36984;&#36092;</div>
+
+  <div id="products-container">
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      正在載入茶品中...
+    </div>
+  </div>
+
+  <!-- 購物車摘要 -->
+  <div id="cart-summary">
+    <div class="cart-header">
+      <span>&#36092;&#29289;&#36554;</span>
+      <span id="cart-count-badge"></span>
+    </div>
+    <div class="cart-items" id="cart-items-list"></div>
+    <div class="cart-total">
+      <span class="cart-total-label">&#21512;&#35336;</span>
+      <span class="cart-total-amount">$<span id="cart-total-num">0</span></span>
+    </div>
+  </div>
+
+  <!-- 訂購表單 -->
+  <div id="form-section" style="display:none">
+    <div class="divider">&#9472;&#9472; &#9670; &#9472;&#9472;</div>
+    <div class="section-title">&#22635;&#23531;&#35330;&#36092;&#36039;&#35338;</div>
+
+    <!-- Email 驗證區 -->
+    <div class="verify-section" id="verify-section">
+      <div class="form-group">
+        <label class="form-label">EMAIL *</label>
+        <div class="verify-row">
+          <div class="form-group">
+            <input class="form-input" id="f-email" type="email" placeholder="your@email.com" />
+          </div>
+          <button class="verify-btn" id="send-code-btn" onclick="sendCode()">&#30332;&#36865;&#39511;&#35657;&#30908;</button>
+        </div>
+      </div>
+      <div id="code-section" style="display:none; margin-top:0.8rem;">
+        <div class="form-group">
+          <label class="form-label">&#39511;&#35657;&#30908;</label>
+          <div class="verify-row">
+            <div class="form-group">
+              <input class="form-input" id="f-code" type="text" placeholder="&#36664;&#20837; 6 &#20301;&#25976;&#39511;&#35657;&#30908;" maxlength="6" />
+            </div>
+            <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">&#39511;&#35657;</button>
+          </div>
+        </div>
+      </div>
+      <div id="verify-status"></div>
+    </div>
+
+    <!-- 訂購資訊 -->
+    <div id="order-form" style="display:none">
+      <div class="form-group">
+        <label class="form-label">&#22995;&#21517; *</label>
+        <input class="form-input" id="f-name" type="text" placeholder="&#35531;&#36664;&#20837;&#24744;&#30340;&#22995;&#21517;" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">&#38651;&#35441; *</label>
+        <input class="form-input" id="f-phone" type="tel" placeholder="0912-345-678" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">&#21462;&#36008;&#26085;&#26399; *</label>
+        <input class="form-input" id="f-date" type="date" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">&#20633;&#35387;</label>
+        <textarea class="form-textarea" id="f-note" placeholder="&#29305;&#27530;&#38656;&#27714;&#12289;&#21253;&#35037;&#20559;&#22909;&#31561;..."></textarea>
+      </div>
+      <div id="form-error" class="error-msg" style="display:none"></div>
+      <button class="submit-btn" id="submit-btn" onclick="submitOrder()">&#30906;&#35469;&#36865;&#20986;&#35330;&#21934;</button>
+    </div>
+  </div>
+</main>
+
+<!-- 成功畫面 -->
+<div id="success-screen">
+  <div class="success-icon">&#127861;</div>
+  <div class="success-title">&#35330;&#21934;&#24050;&#36865;&#20986;</div>
+  <div class="success-msg">
+    &#35613;&#35613;&#24744;&#30340;&#35330;&#36092;&#65292;<br/>&#25105;&#20497;&#26371;&#30433;&#24555;&#33287;&#24744;&#30906;&#35469;&#21462;&#36008;&#32048;&#31680;&#12290;
+  </div>
+  <div class="order-id-badge" id="success-order-id"></div>
+  <br/>
+  <button class="new-order-btn" onclick="resetPage()">&#20877;&#27425;&#35330;&#36092;</button>
+</div>
+
+<footer>Jade Leaf Tea Sample &#8212; Powered by One Page Go</footer>
+
+<script>
+// ── 設定你的 Apps Script 網址 ──────────────────────────
+const API_URL = "https://script.google.com/macros/s/AKfycbzYxbyT5EExBDO55vAjOc9Ug2kzdZE8tp7O_Gm2d2hNRXQLHvjnws2kYAM8i_WMSAJW/exec";
+
+// ── 資料 ─────────────────────────────────────────────
+let products = [];
+let cart     = {};           // { productId: { qty, variant } }
+let emailVerified = false;
+let verifiedEmail = "";
+let sessionToken  = "";
+
+// ── 初始化 ────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  setMinDate();
+  loadProducts();
+});
+
+function setMinDate() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('f-date').min = today;
+}
+
+// ── 規格解析 ────────────────────────────────────────
+// 描述中若含有「｜規格：50g/$680,100g/$1200」格式，解析為規格陣列
+function parseVariants(description) {
+  if (!description) return null;
+  const idx = description.indexOf('\uFF5C\u898F\u683C\uFF1A');
+  if (idx === -1) return null;
+  const specStr = description.substring(idx + 4); // 跳過「｜規格：」
+  const parts = specStr.split(',');
+  const variants = [];
+  for (const part of parts) {
+    const match = part.trim().match(/^(.+?)\/\$(\d+)$/);
+    if (match) {
+      variants.push({ label: match[1].trim(), price: parseInt(match[2]) });
+    }
+  }
+  return variants.length > 0 ? variants : null;
+}
+
+// 取得商品描述（去除規格部分）
+function getCleanDescription(description) {
+  if (!description) return '';
+  const idx = description.indexOf('\uFF5C\u898F\u683C\uFF1A');
+  if (idx === -1) return description;
+  return description.substring(0, idx).trim();
+}
+
+// ── 載入商品 ──────────────────────────────────────────
+async function loadProducts() {
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'getProducts' })
+    });
+    const data = await res.json();
+    products = data.products || [];
+    // 預處理規格
+    products.forEach(p => {
+      p._variants = parseVariants(p.description);
+      p._cleanDesc = getCleanDescription(p.description);
+    });
+    renderProducts();
+  } catch(e) {
+    document.getElementById('products-container').innerHTML =
+      '<div class="error-msg">\u7121\u6CD5\u8F09\u5165\u8336\u54C1\uFF0C\u8ACB\u7A0D\u5F8C\u518D\u8A66</div>';
+  }
+}
+
+function renderProducts() {
+  const container = document.getElementById('products-container');
+  if (!products.length) {
+    container.innerHTML = '<div class="loading-wrap">\u76EE\u524D\u66AB\u7121\u8336\u54C1\uFF0C\u8ACB\u7A0D\u5F8C\u518D\u4F86</div>';
+    return;
+  }
+
+  container.innerHTML = '<div class="products-grid">' +
+    products.map((p, i) => {
+      const imgHtml = p.image_url
+        ? '<img src="' + p.image_url + '" alt="' + p.name + '" />'
+        : '\uD83C\uDF75';
+
+      // 規格選擇器
+      let variantHtml = '';
+      let displayPrice = p.price;
+      if (p._variants) {
+        // 取得目前選中的規格
+        const cartEntry = cart[p.id];
+        const selectedIdx = cartEntry ? p._variants.findIndex(v => v.label === cartEntry.variant) : 0;
+        const activeIdx = selectedIdx >= 0 ? selectedIdx : 0;
+        displayPrice = p._variants[activeIdx].price;
+
+        variantHtml = '<div class="variant-picker">' +
+          p._variants.map((v, vi) =>
+            '<button class="variant-pill' + (vi === activeIdx ? ' active' : '') +
+            '" onclick="selectVariant(\'' + p.id + '\',' + vi + ')">' +
+            v.label + ' $' + v.price + '</button>'
+          ).join('') + '</div>';
+      }
+
+      const qty = cart[p.id] ? cart[p.id].qty : 0;
+
+      return '<div class="product-card" style="animation-delay:' + (i * 0.08) + 's">' +
+        '<div class="product-img">' + imgHtml + '</div>' +
+        '<div class="product-body">' +
+          '<div class="product-name">' + p.name + '</div>' +
+          '<div class="product-desc">' + p._cleanDesc + '</div>' +
+          variantHtml +
+          '<div class="product-price" id="price-' + p.id + '">$' + displayPrice + '</div>' +
+          '<div class="qty-control">' +
+            '<button class="qty-btn" onclick="changeQty(\'' + p.id + '\', -1)">\u2212</button>' +
+            '<span class="qty-num" id="qty-' + p.id + '">' + qty + '</span>' +
+            '<button class="qty-btn" onclick="changeQty(\'' + p.id + '\', 1)">\uFF0B</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('') + '</div>';
+}
+
+// ── 規格選擇 ────────────────────────────────────────
+function selectVariant(productId, variantIdx) {
+  const p = products.find(x => x.id === productId);
+  if (!p || !p._variants) return;
+
+  const variant = p._variants[variantIdx];
+
+  // 更新 cart entry 的 variant
+  if (cart[productId]) {
+    cart[productId].variant = variant.label;
+  }
+
+  // 更新價格顯示
+  const priceEl = document.getElementById('price-' + productId);
+  if (priceEl) priceEl.textContent = '$' + variant.price;
+
+  // 更新 pill 樣式
+  const card = priceEl.closest('.product-card');
+  if (card) {
+    const pills = card.querySelectorAll('.variant-pill');
+    pills.forEach((pill, idx) => {
+      pill.classList.toggle('active', idx === variantIdx);
+    });
+  }
+
+  // 如果已在購物車，更新合計
+  if (cart[productId] && cart[productId].qty > 0) {
+    updateCart();
+  }
+}
+
+// ── 購物車操作 ────────────────────────────────────────
+function changeQty(id, delta) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+
+  if (!cart[id]) {
+    // 初始化：記下目前選中的 variant
+    const defaultVariant = p._variants ? p._variants[0].label : null;
+    cart[id] = { qty: 0, variant: defaultVariant };
+
+    // 檢查目前 active pill 的 variant
+    const priceEl = document.getElementById('price-' + id);
+    if (priceEl && p._variants) {
+      const card = priceEl.closest('.product-card');
+      if (card) {
+        const activePill = card.querySelector('.variant-pill.active');
+        if (activePill) {
+          const pillText = activePill.textContent;
+          const match = pillText.match(/^(.+?)\s*\$/);
+          if (match) cart[id].variant = match[1].trim();
+        }
+      }
+    }
+  }
+
+  cart[id].qty = Math.max(0, cart[id].qty + delta);
+  document.getElementById('qty-' + id).textContent = cart[id].qty;
+
+  if (cart[id].qty === 0) {
+    delete cart[id];
+  }
+
+  updateCart();
+}
+
+function getSelectedPrice(product) {
+  if (!product._variants) return product.price;
+  const cartEntry = cart[product.id];
+  if (!cartEntry || !cartEntry.variant) return product._variants[0].price;
+  const found = product._variants.find(v => v.label === cartEntry.variant);
+  return found ? found.price : product._variants[0].price;
+}
+
+function getCartItemName(product) {
+  const cartEntry = cart[product.id];
+  if (product._variants && cartEntry && cartEntry.variant) {
+    return product.name + ' (' + cartEntry.variant + ')';
+  }
+  return product.name;
+}
+
+function updateCart() {
+  const items = getCartItems();
+  const total = items.reduce((s, i) => s + i.displayPrice * i.qty, 0);
+
+  const summary  = document.getElementById('cart-summary');
+  const formSec  = document.getElementById('form-section');
+  const itemList = document.getElementById('cart-items-list');
+
+  if (items.length === 0) {
+    summary.classList.remove('show');
+    formSec.style.display = 'none';
+    return;
+  }
+
+  document.getElementById('cart-count-badge').textContent = items.length + ' \u9805\u8336\u54C1';
+  itemList.innerHTML = items.map(i =>
+    '<div class="cart-item">' +
+      '<span class="cart-item-name">' + i.displayName + ' \u00D7 ' + i.qty + '</span>' +
+      '<span>$' + (i.displayPrice * i.qty) + '</span>' +
+    '</div>').join('');
+  document.getElementById('cart-total-num').textContent = total;
+
+  summary.classList.add('show');
+  formSec.style.display = 'block';
+}
+
+function getCartItems() {
+  return products
+    .filter(p => cart[p.id] && cart[p.id].qty > 0)
+    .map(p => ({
+      ...p,
+      qty: cart[p.id].qty,
+      displayPrice: getSelectedPrice(p),
+      displayName: getCartItemName(p)
+    }));
+}
+
+// ── Email 格式驗證 ────────────────────────────────────
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+}
+
+// ── Email 驗證 ───────────────────────────────────────
+async function sendCode() {
+  const email = document.getElementById('f-email').value.trim();
+  const statusEl = document.getElementById('verify-status');
+  const btn = document.getElementById('send-code-btn');
+
+  if (!email) {
+    statusEl.innerHTML = '<div class="error-msg" style="margin-top:0.5rem">\u8ACB\u8F38\u5165 Email</div>';
+    return;
+  }
+  if (!isValidEmail(email)) {
+    statusEl.innerHTML = '<div class="error-msg" style="margin-top:0.5rem">Email \u683C\u5F0F\u4E0D\u6B63\u78BA\uFF0C\u8ACB\u78BA\u8A8D\u683C\u5F0F\uFF08\u4F8B\u5982\uFF1Aname@example.com\uFF09</div>';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '\u767C\u9001\u4E2D...';
+  statusEl.innerHTML = '';
+
+  try {
+    // 先檢查會員狀態
+    const checkRes = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'checkMember', email })
+    });
+    const checkData = await checkRes.json();
+
+    if (checkData.blocked) {
+      statusEl.innerHTML = '<div class="error-msg" style="margin-top:0.5rem">\u6B64 Email \u5DF2\u88AB\u505C\u7528\uFF0C\u8ACB\u806F\u7E6B\u5E97\u5BB6</div>';
+      btn.disabled = false;
+      btn.textContent = '\u767C\u9001\u9A57\u8B49\u78BC';
+      return;
+    }
+
+    if (checkData.hasActiveOrder) {
+      statusEl.innerHTML = '<div class="error-msg" style="margin-top:0.5rem">\u60A8\u6709\u672A\u5B8C\u6210\u7684\u8A02\u55AE\uFF0C\u7D50\u55AE\u5F8C\u624D\u80FD\u518D\u6B21\u8A02\u8CFC</div>';
+      btn.disabled = false;
+      btn.textContent = '\u767C\u9001\u9A57\u8B49\u78BC';
+      return;
+    }
+
+    if (checkData.exists && checkData.verified) {
+      emailVerified = true;
+      verifiedEmail = email;
+      sessionToken = checkData.sessionToken || '';
+      showVerified();
+      return;
+    }
+
+    // 發送驗證碼
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'sendVerifyCode', email })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById('code-section').style.display = 'block';
+      statusEl.innerHTML = '<div class="info-msg">\u9A57\u8B49\u78BC\u5DF2\u5BC4\u5230 ' + email + '\uFF0C\u8ACB\u67E5\u6536\u4FE1\u7BB1\uFF08\u542B\u5783\u573E\u90F5\u4EF6\uFF09</div>';
+      // 60 秒冷卻
+      let cd = 60;
+      btn.textContent = cd + 's';
+      const timer = setInterval(() => {
+        cd--;
+        btn.textContent = cd + 's';
+        if (cd <= 0) {
+          clearInterval(timer);
+          btn.disabled = false;
+          btn.textContent = '\u91CD\u65B0\u767C\u9001';
+        }
+      }, 1000);
+    } else {
+      statusEl.innerHTML = '<div class="error-msg" style="margin-top:0.5rem">' + (data.error || '\u767C\u9001\u5931\u6557') + '</div>';
+      btn.disabled = false;
+      btn.textContent = '\u767C\u9001\u9A57\u8B49\u78BC';
+    }
+  } catch(e) {
+    statusEl.innerHTML = '<div class="error-msg" style="margin-top:0.5rem">\u7DB2\u8DEF\u932F\u8AA4\uFF0C\u8ACB\u7A0D\u5F8C\u518D\u8A66</div>';
+    btn.disabled = false;
+    btn.textContent = '\u767C\u9001\u9A57\u8B49\u78BC';
+  }
+}
+
+async function verifyEmail() {
+  const email = document.getElementById('f-email').value.trim();
+  const code  = document.getElementById('f-code').value.trim();
+  const statusEl = document.getElementById('verify-status');
+  const btn = document.getElementById('verify-btn');
+
+  if (!code || code.length !== 6) {
+    statusEl.innerHTML = '<div class="error-msg" style="margin-top:0.5rem">\u8ACB\u8F38\u5165 6 \u4F4D\u6578\u9A57\u8B49\u78BC</div>';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '\u9A57\u8B49\u4E2D...';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'verifyCode', email, code })
+    });
+    const data = await res.json();
+
+    if (data.success && data.verified) {
+      emailVerified = true;
+      verifiedEmail = email;
+      sessionToken = data.sessionToken || '';
+      showVerified();
+    } else {
+      statusEl.innerHTML = '<div class="error-msg" style="margin-top:0.5rem">' + (data.error || '\u9A57\u8B49\u5931\u6557') + '</div>';
+      btn.disabled = false;
+      btn.textContent = '\u9A57\u8B49';
+    }
+  } catch(e) {
+    statusEl.innerHTML = '<div class="error-msg" style="margin-top:0.5rem">\u7DB2\u8DEF\u932F\u8AA4\uFF0C\u8ACB\u7A0D\u5F8C\u518D\u8A66</div>';
+    btn.disabled = false;
+    btn.textContent = '\u9A57\u8B49';
+  }
+}
+
+function showVerified() {
+  const section = document.getElementById('verify-section');
+  section.innerHTML = '<div class="verified-badge">\u5DF2\u9A57\u8B49\uFF1A' + verifiedEmail + '</div>';
+  document.getElementById('order-form').style.display = 'flex';
+}
+
+// ── 送出訂單 ──────────────────────────────────────────
+async function submitOrder() {
+  const name       = document.getElementById('f-name').value.trim();
+  const phone      = document.getElementById('f-phone').value.trim();
+  const pickupDate = document.getElementById('f-date').value;
+  const note       = document.getElementById('f-note').value.trim();
+  const errorEl    = document.getElementById('form-error');
+  const btn        = document.getElementById('submit-btn');
+
+  errorEl.style.display = 'none';
+
+  if (!emailVerified) { showError('\u8ACB\u5148\u5B8C\u6210 Email \u9A57\u8B49'); return; }
+  if (!name)          { showError('\u8ACB\u586B\u5BEB\u59D3\u540D'); return; }
+  if (name.length < 2){ showError('\u59D3\u540D\u81F3\u5C11 2 \u500B\u5B57'); return; }
+  if (!phone)         { showError('\u8ACB\u586B\u5BEB\u96FB\u8A71'); return; }
+  if (!/^09\d{8}$/.test(phone.replace(/[-\s]/g, ''))) { showError('\u8ACB\u8F38\u5165\u6709\u6548\u7684\u624B\u6A5F\u865F\u78BC\uFF0809 \u958B\u982D\uFF09'); return; }
+  if (!pickupDate)    { showError('\u8ACB\u9078\u64C7\u53D6\u8CA8\u65E5\u671F'); return; }
+
+  const rawItems = getCartItems();
+  if (!rawItems.length) { showError('\u8CFC\u7269\u8ECA\u662F\u7A7A\u7684'); return; }
+
+  // 組裝提交用 items：name 帶規格、price 用選中規格價格
+  const items = rawItems.map(i => ({
+    id: i.id,
+    name: i.displayName,
+    price: i.displayPrice,
+    qty: i.qty
+  }));
+  const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:2px;margin:0"></span>';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        action: 'submitOrder',
+        email: verifiedEmail,
+        sessionToken,
+        customerName: name,
+        phone: phone.replace(/[-\s]/g, ''),
+        pickupDate, note, items, total
+      })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById('shop-view').style.display = 'none';
+      const s = document.getElementById('success-screen');
+      s.classList.add('show');
+      document.getElementById('success-order-id').textContent = '\u8A02\u55AE\u7DE8\u865F\uFF1A' + data.orderId;
+    } else {
+      showError(data.error || '\u9001\u51FA\u5931\u6557');
+      btn.disabled = false;
+      btn.innerHTML = '\u78BA\u8A8D\u9001\u51FA\u8A02\u55AE';
+    }
+  } catch(e) {
+    showError('\u9001\u51FA\u5931\u6557\uFF0C\u8ACB\u7A0D\u5F8C\u518D\u8A66');
+    btn.disabled = false;
+    btn.innerHTML = '\u78BA\u8A8D\u9001\u51FA\u8A02\u55AE';
+  }
+}
+
+function showError(msg) {
+  const el = document.getElementById('form-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function resetPage() {
+  cart = {};
+  emailVerified = false;
+  verifiedEmail = "";
+  sessionToken = "";
+  document.getElementById('success-screen').classList.remove('show');
+  document.getElementById('shop-view').style.display = 'block';
+  document.getElementById('order-form').style.display = 'none';
+  document.getElementById('form-error').style.display = 'none';
+
+  // 重建驗證區
+  const vs = document.getElementById('verify-section');
+  vs.innerHTML =
+    '<div class="form-group">' +
+      '<label class="form-label">EMAIL *</label>' +
+      '<div class="verify-row">' +
+        '<div class="form-group">' +
+          '<input class="form-input" id="f-email" type="email" placeholder="your@email.com" />' +
+        '</div>' +
+        '<button class="verify-btn" id="send-code-btn" onclick="sendCode()">\u767C\u9001\u9A57\u8B49\u78BC</button>' +
+      '</div>' +
+    '</div>' +
+    '<div id="code-section" style="display:none; margin-top:0.8rem;">' +
+      '<div class="form-group">' +
+        '<label class="form-label">\u9A57\u8B49\u78BC</label>' +
+        '<div class="verify-row">' +
+          '<div class="form-group">' +
+            '<input class="form-input" id="f-code" type="text" placeholder="\u8F38\u5165 6 \u4F4D\u6578\u9A57\u8B49\u78BC" maxlength="6" />' +
+          '</div>' +
+          '<button class="verify-btn" id="verify-btn" onclick="verifyEmail()">\u9A57\u8B49</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div id="verify-status"></div>';
+
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-phone').value = '';
+  document.getElementById('f-date').value = '';
+  document.getElementById('f-note').value = '';
+  renderProducts();
+  updateCart();
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
