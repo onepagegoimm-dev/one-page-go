@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paws & Love Pet Salon — 線上預約</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary:   #E8919A;
+    --secondary: #A8D8E8;
+    --accent:    #F5C842;
+    --bg:        #FFF8FA;
+    --card:      #FFFFFF;
+    --border:    #F0D6DA;
+    --text:      #4A3F42;
+    --muted:     #8A7D80;
+    --primary-l: #F2B3BA;
+    --success:   #7EC8A0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+  /* 散落淡色肉球背景 */
+  body::before {
+    content: '🐾';
+    position: fixed;
+    top: 8%;
+    left: 6%;
+    font-size: 2.5rem;
+    opacity: 0.04;
+    transform: rotate(-20deg);
+    pointer-events: none;
+  }
+  body::after {
+    content: '🐾';
+    position: fixed;
+    top: 35%;
+    right: 5%;
+    font-size: 3rem;
+    opacity: 0.04;
+    transform: rotate(25deg);
+    pointer-events: none;
+  }
+  .paw-bg-1, .paw-bg-2, .paw-bg-3 {
+    position: fixed;
+    font-size: 2rem;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .paw-bg-1 { bottom: 15%; left: 10%; transform: rotate(40deg); }
+  .paw-bg-2 { top: 60%; right: 12%; transform: rotate(-15deg); font-size: 2.8rem; }
+  .paw-bg-3 { bottom: 40%; left: 55%; transform: rotate(60deg); font-size: 1.8rem; }
+
+  header {
+    text-align: center;
+    padding: 3rem 1.5rem 1.8rem;
+    background: linear-gradient(135deg, var(--primary), #D87A84);
+    color: #fff;
+    position: relative;
+  }
+  /* 波浪底邊裝飾 */
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: var(--bg);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .logo-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .logo-icon { font-size: 2.2rem; line-height: 1; animation: float 4s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.06em;
+  }
+  .logo-sub {
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .logo-tagline {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.9);
+    margin-top: 0.4rem;
+    letter-spacing: 0.15em;
+  }
+
+  .deco-line {
+    margin-top: 0.8rem;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.3em;
+  }
+
+  .main { max-width: 460px; margin: 0 auto; padding: 1rem 1.5rem 3rem; position: relative; z-index: 1; }
+
+  .section-title {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 2rem 0 1.2rem;
+    color: var(--primary);
+    letter-spacing: 0.2em;
+  }
+  .section-title::before, .section-title::after {
+    content: '·····';
+    color: var(--border);
+    margin: 0 0.4rem;
+    font-size: 0.7rem;
+  }
+
+  /* ── 服務卡片 ── */
+  .service-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 1.3rem 1.2rem;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    animation: fadeUp 0.5s ease both;
+    position: relative;
+  }
+  .service-card:hover {
+    transform: scale(1.02) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(232,145,154,0.15);
+  }
+  .service-card.selected {
+    border-color: var(--primary);
+    background: rgba(232,145,154,0.04);
+    box-shadow: 0 0 0 3px rgba(232,145,154,0.15);
+  }
+
+  .service-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    color: var(--text);
+    letter-spacing: 0.05em;
+  }
+  .service-desc { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.6rem; line-height: 1.6; }
+  .service-meta { display: flex; justify-content: space-between; align-items: center; }
+  .service-price { font-size: 1.05rem; color: var(--primary); font-weight: 600; }
+  .duration-badge {
+    background: var(--secondary);
+    color: #fff;
+    font-size: 0.62rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ── 加購套件 ── */
+  #addon-section {
+    margin-bottom: 0.8rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  .addon-label {
+    font-size: 0.75rem;
+    color: var(--text);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+  }
+  .addon-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .addon-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.55rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 30px;
+    background: var(--card);
+    font-family: inherit;
+    font-size: 0.78rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 400;
+  }
+  .addon-btn:hover { border-color: var(--primary-l); background: rgba(232,145,154,0.04); }
+  .addon-btn.active {
+    border-color: var(--success);
+    background: rgba(126,200,160,0.08);
+    color: var(--text);
+    font-weight: 600;
+  }
+  .addon-btn .addon-check {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 14px;
+    font-size: 0.6rem;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .addon-btn.active .addon-check {
+    background: var(--success);
+    border-color: var(--success);
+    color: #fff;
+  }
+  .addon-price { font-size: 0.7rem; color: var(--primary); font-weight: 600; }
+
+  /* ── 日期 + 時段 ── */
+  .date-picker-wrap {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 1.3rem 1.2rem;
+    margin-bottom: 0.8rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  .date-picker-wrap label {
+    display: block;
+    font-size: 0.72rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .date-picker-wrap input[type="date"] {
+    width: 100%;
+    padding: 0.6rem 0.7rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .date-picker-wrap input[type="date"]:focus { border-color: var(--primary); }
+
+  .time-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+  .time-slot-btn {
+    padding: 0.6rem 0.3rem;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    background: var(--card);
+    font-family: inherit;
+    font-size: 0.78rem;
+    color: var(--text);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .time-slot-btn:hover { border-color: var(--primary-l); background: rgba(232,145,154,0.04); }
+  .time-slot-btn.selected { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .time-slot-btn .remaining { display: block; font-size: 0.58rem; color: var(--muted); margin-top: 0.15rem; letter-spacing: 0.05em; }
+  .time-slot-btn.selected .remaining { color: rgba(255,255,255,0.7); }
+
+  /* ── 預約摘要 ── */
+  .booking-summary {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  .summary-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--primary);
+    letter-spacing: 0.15em;
+  }
+  .summary-row { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.35rem; color: var(--text); }
+  .summary-row span:first-child { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.05em; }
+  .summary-total {
+    border-top: 2px solid var(--primary);
+    padding-top: 0.6rem; margin-top: 0.6rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+  .summary-total span:first-child { color: var(--text); }
+
+  /* ── 表單 ── */
+  .form-section {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 1.3rem 1.2rem;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  .form-section label {
+    display: block;
+    font-size: 0.68rem;
+    margin-bottom: 0.3rem;
+    color: var(--text);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .form-section input, .form-section textarea {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.83rem;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--bg);
+    margin-bottom: 0.8rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .form-section input:focus, .form-section textarea:focus { border-color: var(--primary); }
+  .form-section textarea { height: 70px; resize: vertical; }
+
+  /* ── Email 驗證 ── */
+  .verify-section {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 1.3rem 1.2rem;
+    margin-bottom: 0.8rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  .verify-section > label {
+    display: block;
+    font-size: 0.68rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .verify-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
+  .verify-row input {
+    flex: 1;
+    padding: 0.55rem 0.7rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.83rem;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .verify-row input:focus { border-color: var(--primary); }
+  .verify-btn {
+    padding: 0.55rem 0.8rem;
+    border: none;
+    background: var(--primary);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.72rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s;
+    letter-spacing: 0.08em;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .verify-btn:hover { background: #D87A84; }
+  .verify-btn:disabled { background: var(--muted); cursor: not-allowed; opacity: 0.6; }
+  .verify-status { font-size: 0.72rem; margin-top: 0.3rem; }
+
+  /* ── 送出按鈕 ── */
+  .submit-btn {
+    width: 100%;
+    padding: 0.85rem;
+    border: none;
+    background: linear-gradient(135deg, var(--primary), #D87A84);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 0.15em;
+    border-radius: 30px;
+  }
+  .submit-btn:hover { transform: scale(1.02); box-shadow: 0 4px 16px rgba(232,145,154,0.3); }
+  .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ── 成功畫面 ── */
+  .success-screen {
+    display: none;
+    max-width: 460px; margin: 0 auto; padding: 4rem 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .success-icon { font-size: 2.8rem; animation: pop 0.6s ease; }
+  @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 1rem 0 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  .success-msg { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
+  .success-badge {
+    display: inline-block;
+    background: var(--card);
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.82rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    letter-spacing: 0.08em;
+  }
+  .new-order-btn {
+    padding: 0.65rem 2rem;
+    border: 2px solid var(--primary);
+    border-radius: 30px;
+    background: transparent;
+    color: var(--primary);
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 0.12em;
+  }
+  .new-order-btn:hover { background: var(--primary); color: #fff; }
+
+  /* ── 成功粒子動畫 ── */
+  .particle-container {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    font-size: 1.2rem;
+    animation: particleFall linear forwards;
+    opacity: 0.8;
+  }
+  @keyframes particleFall {
+    0% { transform: translateY(-20px) rotate(0deg) scale(1); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg) scale(0.3); opacity: 0; }
+  }
+
+  /* ── Loading / Error ── */
+  .loading-wrap { text-align: center; padding: 2rem; }
+  .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error-msg { background: #fce8e8; color: #7a3a3a; padding: 0.6rem 1rem; border: 1px solid #f0c5c5; border-radius: 12px; font-size: 0.78rem; margin-bottom: 0.8rem; text-align: center; }
+
+  .hidden { display: none !important; }
+
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 0.6rem; color: var(--muted);
+    letter-spacing: 0.12em;
+    position: relative;
+    z-index: 1;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="paw-bg-1">🐾</div>
+<div class="paw-bg-2">🐾</div>
+<div class="paw-bg-3">🐾</div>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo-icon">🐾</div>
+    <div class="logo-name">Paws & Love Pet Salon</div>
+    <div class="logo-sub">LOVE YOUR FURRY FRIEND</div>
+    <div class="logo-tagline">&#9825; 毛孩美容 · 用愛呵護 &#9825;</div>
+  </div>
+  <div class="deco-line">·····🐾·····</div>
+</header>
+
+<!-- ── 主頁面 ── -->
+<div class="main" id="shop-view">
+  <h2 class="section-title">🐾 服務項目</h2>
+  <div id="services-container">
+    <div class="loading-wrap"><div class="spinner"></div></div>
+  </div>
+
+  <!-- 加購套件 -->
+  <div id="addon-section" class="hidden">
+    <div class="addon-label">🎀 加購套件</div>
+    <div class="addon-grid" id="addon-grid"></div>
+  </div>
+
+  <!-- 日期 + 時段選擇 -->
+  <div id="date-time-section" class="hidden">
+    <div class="date-picker-wrap">
+      <label>📅 選擇預約日期</label>
+      <input type="date" id="booking-date" />
+      <div id="timeslots-container" class="hidden">
+        <label style="margin-top:0.8rem;">⏰ 選擇時段</label>
+        <div class="time-slots-grid" id="timeslots-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 預約摘要 -->
+  <div id="booking-summary" class="booking-summary hidden">
+    <div class="summary-title">🐾 預約摘要</div>
+    <div class="summary-row"><span>服務</span><span id="sum-service"></span></div>
+    <div class="summary-row"><span>時長</span><span id="sum-duration"></span></div>
+    <div class="summary-row" id="sum-addon-row" class="hidden"><span>加購</span><span id="sum-addon"></span></div>
+    <div class="summary-row"><span>日期</span><span id="sum-date"></span></div>
+    <div class="summary-row"><span>時段</span><span id="sum-time"></span></div>
+    <div class="summary-row summary-total"><span>合計</span><span id="sum-price"></span></div>
+  </div>
+
+  <!-- Email 驗證 -->
+  <div id="verify-section" class="verify-section hidden">
+    <label>📧 Email 驗證</label>
+    <div class="verify-row">
+      <input type="email" id="email" placeholder="your@email.com" />
+      <button class="verify-btn" id="send-code-btn" onclick="sendCode()">發送驗證碼</button>
+    </div>
+    <div id="code-row" class="verify-row hidden">
+      <input type="text" id="verify-code" placeholder="輸入 6 位驗證碼" maxlength="6" />
+      <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">驗證</button>
+    </div>
+    <div class="verify-status" id="verify-status"></div>
+  </div>
+
+  <!-- 表單 -->
+  <div id="form-section" class="form-section hidden">
+    <label>姓名</label>
+    <input type="text" id="name" placeholder="您的姓名" />
+    <label>電話</label>
+    <input type="tel" id="phone" placeholder="0912-345-678" />
+    <label>備註（選填）</label>
+    <textarea id="note" placeholder="有什麼需要特別注意的嗎？（如寵物品種、個性等）"></textarea>
+    <button class="submit-btn" id="submit-btn" onclick="submitBooking()">🐾 確認預約</button>
+  </div>
+
+  <div id="error-msg" class="error-msg hidden"></div>
+</div>
+
+<!-- ── 成功畫面 ── -->
+<div class="success-screen" id="success-screen">
+  <div class="success-icon">🎉</div>
+  <h2 class="success-title">預約成功</h2>
+  <p class="success-msg">謝謝您的預約，我們會用滿滿的愛照顧您的毛孩 🐾</p>
+  <div class="success-badge" id="success-id"></div>
+  <br/>
+  <button class="new-order-btn" onclick="resetPage()">再次預約</button>
+</div>
+
+<footer>Paws & Love Pet Salon Sample — Powered by One Page Go</footer>
+
+<script>
+// ── 設定你的 Apps Script 網址 ──────────────────────────
+const API_URL = "https://script.google.com/macros/s/AKfycbyGuMsIYIYwDcz_YgZ489pP41Ou3auafLJT4ICnwU312WWGZWdI3mr0Dusjui-qVkHg/exec";
+
+let services = [];
+let selectedService = null;
+let selectedAddons = [];     // { name, price }
+let parsedAddons = [];       // 目前服務可用的加購選項
+let selectedDate = '';
+let selectedTime = '';
+let emailVerified = false;
+let verifiedEmail = '';
+let sessionToken = '';
+
+// ── 解析加購資訊 ──────────────────────────────────────
+function parseAddons(description) {
+  if (!description) return { text: '', addons: [] };
+  const parts = String(description).split('｜');
+  const text = parts[0].trim();
+  if (parts.length < 2) return { text, addons: [] };
+
+  const config = parts[1].trim();
+  const match = config.match(/^加購[：:]\s*(.+)$/);
+  if (!match) return { text, addons: [] };
+
+  const addons = match[1].split(',').map(a => {
+    const m = a.trim().match(/^(.+?)\s*\/\s*\$(\d+)$/);
+    if (m) return { name: m[1].trim(), price: parseInt(m[2], 10) };
+    return null;
+  }).filter(Boolean);
+
+  return { text, addons };
+}
+
+// ── 載入服務（POST） ────────────────────────────────────
+async function loadServices() {
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'getServices' })
+    });
+    const data = JSON.parse(await res.text());
+    services = data.services || [];
+    renderServices();
+  } catch (err) {
+    document.getElementById('services-container').innerHTML =
+      '<div class="loading-wrap" style="color:var(--muted);font-size:0.85rem;">目前暫無服務，請稍後再來</div>';
+  }
+}
+
+function renderServices() {
+  const container = document.getElementById('services-container');
+  if (!services.length) {
+    container.innerHTML = '<div class="loading-wrap" style="color:var(--muted);font-size:0.85rem;">目前暫無服務，請稍後再來</div>';
+    return;
+  }
+  container.innerHTML = services.map((s, i) => {
+    const parsed = parseAddons(s.description);
+    const imgHtml = s.image_url
+      ? `<img src="${s.image_url}" alt="${s.name}" style="width:100%;border-radius:14px;margin-bottom:0.5rem;" />`
+      : '';
+    return `
+      <div class="service-card" id="svc-${s.id}" onclick="selectService('${s.id}')" style="animation-delay:${i*0.08}s">
+        ${imgHtml}
+        <div class="service-name">${s.name}</div>
+        <div class="service-desc">${parsed.text}</div>
+        <div class="service-meta">
+          <span class="service-price">$${s.price}</span>
+          <span class="duration-badge">${s.duration_min} MIN</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── 選擇服務 ──────────────────────────────────────────
+function selectService(id) {
+  selectedService = services.find(s => String(s.id) === String(id));
+  if (!selectedService) return;
+  selectedAddons = [];
+
+  document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('svc-' + id).classList.add('selected');
+
+  // 解析加購
+  const parsed = parseAddons(selectedService.description);
+  parsedAddons = parsed.addons;
+
+  // 顯示加購選擇
+  const addonSection = document.getElementById('addon-section');
+  const addonGrid = document.getElementById('addon-grid');
+
+  if (parsedAddons.length > 0) {
+    addonGrid.innerHTML = parsedAddons.map((a, i) => `
+      <button class="addon-btn" data-index="${i}" onclick="toggleAddon(this, ${i})">
+        <span class="addon-check"></span>
+        <span>${a.name}</span>
+        <span class="addon-price">+$${a.price}</span>
+      </button>
+    `).join('');
+    addonSection.classList.remove('hidden');
+  } else {
+    addonSection.classList.add('hidden');
+  }
+
+  // 顯示日期選擇
+  document.getElementById('date-time-section').classList.remove('hidden');
+  document.getElementById('timeslots-container').classList.add('hidden');
+  document.getElementById('booking-summary').classList.add('hidden');
+  document.getElementById('verify-section').classList.add('hidden');
+  document.getElementById('form-section').classList.add('hidden');
+
+  const dateInput = document.getElementById('booking-date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+  dateInput.value = '';
+  selectedDate = '';
+  selectedTime = '';
+
+  const scrollTarget = parsedAddons.length > 0 ? addonSection : document.getElementById('date-time-section');
+  scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ── 切換加購 ──────────────────────────────────────────
+function toggleAddon(el, index) {
+  const addon = parsedAddons[index];
+  if (!addon) return;
+
+  const exists = selectedAddons.findIndex(a => a.name === addon.name);
+  if (exists >= 0) {
+    selectedAddons.splice(exists, 1);
+    el.classList.remove('active');
+  } else {
+    selectedAddons.push({ name: addon.name, price: addon.price });
+    el.classList.add('active');
+  }
+
+  updateSummary();
+}
+
+// ── 日期變更 → 載入時段（POST） ────────────────────────
+document.getElementById('booking-date').addEventListener('change', async function() {
+  selectedDate = this.value;
+  selectedTime = '';
+  if (!selectedDate) return;
+
+  const container = document.getElementById('timeslots-container');
+  const grid = document.getElementById('timeslots-grid');
+  container.classList.remove('hidden');
+  grid.innerHTML = '<div class="loading-wrap"><div class="spinner"></div></div>';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'getTimeSlots', date: selectedDate })
+    });
+    const data = JSON.parse(await res.text());
+    const slots = data.slots || [];
+
+    if (!slots.length) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);font-size:0.82rem;padding:1rem;letter-spacing:0.05em;">此日期暫無可預約時段</div>';
+      return;
+    }
+
+    grid.innerHTML = slots.map(s => `
+      <button class="time-slot-btn" onclick="selectTimeSlot(this, '${s.time_slot}')">
+        ${s.time_slot}
+        <span class="remaining">剩 ${s.remaining} 位</span>
+      </button>
+    `).join('');
+  } catch (err) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#7a3a3a;font-size:0.8rem;">載入時段失敗</div>';
+  }
+});
+
+// ── 選擇時段 ──────────────────────────────────────────
+function selectTimeSlot(el, time) {
+  selectedTime = time;
+
+  document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+
+  updateSummary();
+
+  document.getElementById('booking-summary').classList.remove('hidden');
+  document.getElementById('verify-section').classList.remove('hidden');
+
+  if (emailVerified) {
+    document.getElementById('form-section').classList.remove('hidden');
+  }
+}
+
+// ── 更新摘要 ──────────────────────────────────────────
+function updateSummary() {
+  if (!selectedService) return;
+  document.getElementById('sum-service').textContent = selectedService.name;
+  document.getElementById('sum-duration').textContent = selectedService.duration_min + ' 分鐘';
+  document.getElementById('sum-date').textContent = selectedDate || '—';
+  document.getElementById('sum-time').textContent = selectedTime || '—';
+
+  // 加購摘要
+  const addonRow = document.getElementById('sum-addon-row');
+  const addonText = document.getElementById('sum-addon');
+  if (selectedAddons.length > 0) {
+    addonText.textContent = selectedAddons.map(a => a.name + ' +$' + a.price).join(', ');
+    addonRow.style.display = 'flex';
+  } else {
+    addonRow.style.display = 'none';
+  }
+
+  // 合計 = 服務價格 + 加購總額
+  const addonTotal = selectedAddons.reduce((sum, a) => sum + a.price, 0);
+  const total = selectedService.price + addonTotal;
+  document.getElementById('sum-price').textContent = '$' + total;
+}
+
+// ── Email 驗證 ────────────────────────────────────────
+async function sendCode() {
+  const email = document.getElementById('email').value.trim();
+  if (!email) { showError('請輸入 Email'); return; }
+
+  const btn = document.getElementById('send-code-btn');
+  btn.disabled = true;
+  btn.textContent = '發送中…';
+  hideError();
+
+  try {
+    const checkRes = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'checkMember', email })
+    });
+    const checkData = JSON.parse(await checkRes.text());
+
+    if (checkData.blocked) { showError('此 Email 已被停用，請聯繫店家'); btn.disabled = false; btn.textContent = '發送驗證碼'; return; }
+    if (checkData.hasActiveOrder) { showError('您有未完成的預約，完成後才能再次預約'); btn.disabled = false; btn.textContent = '發送驗證碼'; return; }
+
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'sendVerifyCode', email })
+    });
+    const data = JSON.parse(await res.text());
+
+    if (data.success) {
+      document.getElementById('code-row').classList.remove('hidden');
+      document.getElementById('verify-status').textContent = '驗證碼已寄出，請查看信箱';
+      document.getElementById('verify-status').style.color = '#3A7A4F';
+      let sec = 60;
+      btn.textContent = `${sec}s`;
+      const timer = setInterval(() => {
+        sec--;
+        btn.textContent = `${sec}s`;
+        if (sec <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = '重新發送'; }
+      }, 1000);
+    } else {
+      showError(data.error || '發送失敗');
+      btn.disabled = false;
+      btn.textContent = '發送驗證碼';
+    }
+  } catch (err) {
+    showError('API 連線失敗');
+    btn.disabled = false;
+    btn.textContent = '發送驗證碼';
+  }
+}
+
+async function verifyEmail() {
+  const email = document.getElementById('email').value.trim();
+  const code  = document.getElementById('verify-code').value.trim();
+  if (!code) { showError('請輸入驗證碼'); return; }
+
+  const btn = document.getElementById('verify-btn');
+  btn.disabled = true;
+  btn.textContent = '…';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'verifyCode', email, code })
+    });
+    const data = JSON.parse(await res.text());
+
+    if (data.success) {
+      emailVerified = true;
+      verifiedEmail = email;
+      sessionToken = data.sessionToken || '';
+      showVerified();
+    } else {
+      showError(data.error || '驗證失敗');
+      btn.disabled = false;
+      btn.textContent = '驗證';
+    }
+  } catch (err) {
+    showError('API 連線失敗');
+    btn.disabled = false;
+    btn.textContent = '驗證';
+  }
+}
+
+function showVerified() {
+  document.getElementById('verify-status').textContent = '✅ 驗證成功';
+  document.getElementById('verify-status').style.color = '#3A7A4F';
+  document.getElementById('email').disabled = true;
+  document.getElementById('verify-code').disabled = true;
+  document.getElementById('verify-btn').disabled = true;
+  document.getElementById('verify-btn').textContent = '✓';
+  document.getElementById('send-code-btn').classList.add('hidden');
+  document.getElementById('code-row').classList.add('hidden');
+  document.getElementById('form-section').classList.remove('hidden');
+}
+
+// ── 送出預約 ──────────────────────────────────────────
+async function submitBooking() {
+  const name  = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  let   note  = document.getElementById('note').value.trim();
+
+  hideError();
+  if (!name)  { showError('請輸入姓名'); return; }
+  if (!phone) { showError('請輸入電話'); return; }
+  const phoneClean = phone.replace(/[-\s]/g, '');
+  if (!/^09\d{8}$/.test(phoneClean)) { showError('請輸入有效的手機號碼（09 開頭，共 10 碼）'); return; }
+  if (!selectedService || !selectedDate || !selectedTime) { showError('請完成服務、日期、時段選擇'); return; }
+
+  // 將加購資訊寫入 note
+  if (selectedAddons.length > 0) {
+    const addonNote = '【加購】' + selectedAddons.map(a => a.name + '/$' + a.price).join(', ');
+    note = note ? addonNote + '\n' + note : addonNote;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '預約中…';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        action: 'submitBooking',
+        email: verifiedEmail,
+        sessionToken,
+        name,
+        phone,
+        service_id: String(selectedService.id),
+        booking_date: selectedDate,
+        booking_time: selectedTime,
+        note
+      })
+    });
+    const data = JSON.parse(await res.text());
+
+    if (data.success) {
+      document.getElementById('shop-view').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+      document.getElementById('success-id').textContent = data.bookingId;
+      spawnParticles();
+    } else {
+      showError(data.error || '預約失敗');
+      btn.disabled = false;
+      btn.textContent = '🐾 確認預約';
+    }
+  } catch (err) {
+    showError('API 連線失敗');
+    btn.disabled = false;
+    btn.textContent = '🐾 確認預約';
+  }
+}
+
+// ── 成功粒子動畫 ────────────────────────────────────
+function spawnParticles() {
+  const container = document.createElement('div');
+  container.className = 'particle-container';
+  document.body.appendChild(container);
+
+  const emojis = ['🐾', '💖', '🐾', '💕', '🐾', '✨', '🐾', '💗'];
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+    p.style.animationDuration = (2 + Math.random() * 3) + 's';
+    p.style.animationDelay = (Math.random() * 1.5) + 's';
+    container.appendChild(p);
+  }
+
+  setTimeout(() => container.remove(), 6000);
+}
+
+// ── 重置 ──────────────────────────────────────────────
+function resetPage() {
+  selectedService = null;
+  selectedAddons = [];
+  parsedAddons = [];
+  selectedDate = '';
+  selectedTime = '';
+  emailVerified = false;
+  verifiedEmail = '';
+  sessionToken = '';
+
+  document.getElementById('success-screen').style.display = 'none';
+  document.getElementById('shop-view').style.display = 'block';
+
+  document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('addon-section').classList.add('hidden');
+  document.getElementById('date-time-section').classList.add('hidden');
+  document.getElementById('booking-summary').classList.add('hidden');
+  document.getElementById('verify-section').classList.add('hidden');
+  document.getElementById('form-section').classList.add('hidden');
+
+  document.getElementById('email').disabled = false;
+  document.getElementById('email').value = '';
+  document.getElementById('verify-code').disabled = false;
+  document.getElementById('verify-code').value = '';
+  document.getElementById('send-code-btn').classList.remove('hidden');
+  document.getElementById('send-code-btn').disabled = false;
+  document.getElementById('send-code-btn').textContent = '發送驗證碼';
+  document.getElementById('verify-btn').disabled = false;
+  document.getElementById('verify-btn').textContent = '驗證';
+  document.getElementById('code-row').classList.add('hidden');
+  document.getElementById('verify-status').textContent = '';
+
+  document.getElementById('name').value = '';
+  document.getElementById('phone').value = '';
+  document.getElementById('note').value = '';
+  document.getElementById('submit-btn').disabled = false;
+  document.getElementById('submit-btn').textContent = '🐾 確認預約';
+  document.getElementById('booking-date').value = '';
+
+  hideError();
+  renderServices();
+}
+
+// ── 工具 ──────────────────────────────────────────────
+function showError(msg) {
+  const el = document.getElementById('error-msg');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+}
+function hideError() {
+  document.getElementById('error-msg').classList.add('hidden');
+}
+
+// ── 啟動 ──────────────────────────────────────────────
+loadServices();
+</script>
+</body>
+</html>
