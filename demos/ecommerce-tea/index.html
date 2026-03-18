@@ -686,7 +686,7 @@ function renderProducts() {
 
 // ── 規格選擇 ────────────────────────────────────────
 function selectVariant(productId, variantIdx) {
-  const p = products.find(x => x.id === productId);
+  const p = products.find(x => String(x.id) === String(productId));
   if (!p || !p._variants) return;
 
   const variant = p._variants[variantIdx];
@@ -717,7 +717,7 @@ function selectVariant(productId, variantIdx) {
 
 // ── 購物車操作 ────────────────────────────────────────
 function changeQty(id, delta) {
-  const p = products.find(x => x.id === id);
+  const p = products.find(x => String(x.id) === String(id));
   if (!p) return;
 
   if (!cart[id]) {
