@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fisherman's Dock Sample — 漁港直送團購</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Noto+Serif+TC:wght@300;400;600;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary:   #1A5276;
+    --secondary: #5DADE2;
+    --accent:    #E67E22;
+    --bg:        #F0F8FF;
+    --card:      #FFFFFF;
+    --border:    #BDE0F2;
+    --text:      #1C2833;
+    --muted:     #5D6D7E;
+    --green:     #27ae60;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* 波浪紋底部裝飾 */
+  body::before {
+    content: '';
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    z-index: 0;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%231A5276' fill-opacity='0.06' d='M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,64C960,75,1056,85,1152,80C1248,75,1344,53,1392,42.7L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z'/%3E%3C/svg%3E") no-repeat bottom center;
+    background-size: cover;
+    pointer-events: none;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    z-index: 0;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%235DADE2' fill-opacity='0.05' d='M0,96L48,85.3C96,75,192,53,288,53.3C384,53,480,75,576,85.3C672,96,768,96,864,85.3C960,75,1056,53,1152,48C1248,43,1344,53,1392,58.7L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z'/%3E%3C/svg%3E") no-repeat bottom center;
+    background-size: cover;
+    pointer-events: none;
+  }
+
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 2rem 1.5rem 1rem;
+    background: linear-gradient(180deg, rgba(26,82,118,0.1) 0%, transparent 100%);
+  }
+
+  .logo-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .logo-icon { font-size: 2.4rem; line-height: 1; animation: swim 3s ease-in-out infinite; }
+  @keyframes swim {
+    0%,100% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(6px) rotate(5deg); }
+    50% { transform: translateX(0) rotate(0deg); }
+    75% { transform: translateX(-6px) rotate(-5deg); }
+  }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .logo-sub {
+    font-size: 0.68rem;
+    color: var(--primary);
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+
+  .deco-line {
+    margin-top: 0.6rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+
+  .separator {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--border);
+    letter-spacing: 0.2em;
+    margin: 1rem 0;
+    user-select: none;
+  }
+
+  .main { position: relative; z-index: 5; max-width: 480px; margin: 0 auto; padding: 0 1rem 3rem; }
+
+  .section-title {
+    text-align: center;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    margin: 1.5rem 0 1rem;
+    color: var(--primary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── 團購卡片 ── */
+  .campaign-card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 0;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(26,82,118,0.08);
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    animation: fadeUp 0.4s ease both;
+    overflow: hidden;
+    border-left: 5px solid var(--primary);
+    /* 繩結邊框 */
+    border-top: 3px dashed var(--border);
+    border-bottom: 3px dashed var(--border);
+    position: relative;
+  }
+  .campaign-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(26,82,118,0.15);
+  }
+  /* ripple effect */
+  .campaign-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), rgba(93,173,226,0.25) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .campaign-card:hover::after { opacity: 1; }
+  .campaign-card.selected {
+    border-left-color: var(--accent);
+    box-shadow: 0 4px 20px rgba(230,126,34,0.2);
+  }
+
+  .campaign-card-inner { padding: 1.2rem; position: relative; z-index: 1; }
+
+  .campaign-img { font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem; }
+  .campaign-img img { width: 100%; border-radius: 10px; }
+  .campaign-name { font-weight: 600; font-size: 1.05rem; margin-bottom: 0.25rem; color: var(--text); }
+  .campaign-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.6rem; line-height: 1.5; }
+  .campaign-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.7rem; }
+  .campaign-price { font-size: 1.15rem; color: var(--accent); font-weight: 600; }
+  .campaign-status {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .campaign-status.open { background: rgba(26,82,118,0.1); color: var(--primary); }
+  .campaign-status.reached { background: rgba(39,174,96,0.12); color: var(--green); }
+
+  /* ── 進度條 ── */
+  .progress-wrap { margin-bottom: 0.5rem; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .progress-bar {
+    height: 10px;
+    background: var(--border);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 5px;
+    transition: width 0.6s ease;
+    position: relative;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 0;
+    width: 12px; height: 100%;
+    background: rgba(255,255,255,0.4);
+    border-radius: 0 5px 5px 0;
+  }
+
+  /* ── 倒數計時 ── */
+  .countdown-badge {
+    display: inline-block;
+    background: var(--border);
+    color: var(--text);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+  }
+  .countdown-badge.urgent { background: var(--accent); color: white; }
+
+  /* ── 數量選擇 ── */
+  .qty-section {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(26,82,118,0.08);
+    animation: fadeUp 0.4s ease both;
+  }
+  .qty-section > label { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--text); font-weight: 600; }
+  .qty-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .qty-btn {
+    width: 40px; height: 40px;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    background: white;
+    font-size: 1.2rem;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    font-weight: 700;
+  }
+  .qty-btn:hover { background: var(--primary); color: white; }
+  .qty-display {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 50px;
+    text-align: center;
+    background: var(--bg);
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+  }
+  .qty-hint { font-size: 0.72rem; color: var(--muted); text-align: center; margin-top: 0.5rem; }
+
+  /* ── 階梯團購價 ── */
+  .tier-section {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(26,82,118,0.08);
+    animation: fadeUp 0.4s ease both;
+  }
+  .tier-section > label { display: block; font-size: 0.85rem; margin-bottom: 0.8rem; color: var(--text); font-weight: 600; }
+
+  .tier-bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  /* 連接線 */
+  .tier-bar::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    right: 20px;
+    height: 3px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .tier-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tier-dot {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--muted);
+    transition: all 0.3s;
+    margin-bottom: 0.4rem;
+  }
+
+  .tier-node.active .tier-dot {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    transform: scale(1.15);
+    box-shadow: 0 2px 10px rgba(26,82,118,0.3);
+  }
+  .tier-node.passed .tier-dot {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: white;
+  }
+
+  .tier-price {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition: color 0.3s;
+  }
+  .tier-node.active .tier-price,
+  .tier-node.passed .tier-price { color: var(--primary); }
+
+  .tier-save {
+    font-size: 0.6rem;
+    background: rgba(230,126,34,0.12);
+    color: var(--accent);
+    padding: 0.1rem 0.4rem;
+    border-radius: 8px;
+    margin-top: 0.2rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tier-node.active .tier-save {
+    background: var(--accent);
+    color: white;
+  }
+
+  .tier-hint {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 0.4rem;
+    min-height: 1.2em;
+  }
+
+  /* ── 訂單摘要 ── */
+  .order-summary {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(26,82,118,0.08);
+    animation: fadeUp 0.4s ease both;
+  }
+  .summary-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--text); }
+  .summary-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .summary-total { border-top: 2px solid var(--bg); padding-top: 0.5rem; margin-top: 0.5rem; font-weight: 600; color: var(--accent); }
+  .summary-savings { font-size: 0.75rem; color: var(--accent); text-align: right; margin-top: 0.2rem; font-weight: 600; }
+
+  /* ── Email 驗證 ── */
+  .verify-section {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 12px rgba(26,82,118,0.08);
+    margin-bottom: 1rem;
+    animation: fadeUp 0.4s ease both;
+  }
+  .verify-section > label { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: var(--text); font-weight: 600; }
+  .verify-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
+  .verify-row input { flex: 1; }
+  .verify-btn {
+    padding: 0.55rem 0.8rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .verify-btn:hover { background: var(--secondary); }
+  .verify-btn:disabled { background: #8faabb; cursor: not-allowed; }
+  .verify-status { font-size: 0.72rem; margin-top: 0.3rem; }
+
+  /* ── 表單 ── */
+  .form-section {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 12px rgba(26,82,118,0.08);
+    margin-bottom: 1rem;
+    animation: fadeUp 0.4s ease both;
+  }
+  .form-section label { display: block; font-size: 0.8rem; margin-bottom: 0.3rem; color: var(--text); font-weight: 600; }
+  .form-section input, .form-section textarea {
+    width: 100%;
+    padding: 0.6rem 0.7rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--text);
+    background: var(--bg);
+    margin-bottom: 0.8rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-section input:focus, .form-section textarea:focus { border-color: var(--primary); }
+  .form-section textarea { height: 70px; resize: vertical; }
+
+  /* ── 送出按鈕 ── */
+  .submit-btn {
+    width: 100%;
+    padding: 0.85rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,82,118,0.3); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ── 成功畫面 ── */
+  .success-screen {
+    display: none;
+    position: relative; z-index: 5;
+    max-width: 480px; margin: 0 auto; padding: 3rem 1.5rem;
+    text-align: center;
+  }
+  .success-icon { font-size: 3rem; animation: pop 0.6s ease; position: relative; }
+  @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+  /* 水波動畫 */
+  .wave-wrap {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    margin-bottom: -6px;
+  }
+  .wave-dot {
+    position: absolute;
+    bottom: 0;
+    width: 8px; height: 8px;
+    background: var(--secondary);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: wave-bob 2s ease-in-out infinite;
+  }
+  .wave-dot:nth-child(1) { left: 10px; animation-delay: 0s; }
+  .wave-dot:nth-child(2) { left: 25px; animation-delay: 0.3s; }
+  .wave-dot:nth-child(3) { left: 40px; animation-delay: 0.6s; }
+  .wave-dot:nth-child(4) { left: 55px; animation-delay: 0.9s; }
+  .wave-dot:nth-child(5) { left: 70px; animation-delay: 1.2s; }
+
+  @keyframes wave-bob {
+    0%,100% { transform: translateY(0); opacity: 0.3; }
+    50% { transform: translateY(-14px); opacity: 0.8; }
+  }
+
+  .success-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--text); margin: 0.8rem 0 0.5rem; }
+  .success-msg { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; }
+  .success-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  .new-order-btn {
+    padding: 0.7rem 2rem;
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .new-order-btn:hover { background: var(--primary); color: white; }
+
+  /* ── Loading / Error ── */
+  .loading-wrap { text-align: center; padding: 2rem; }
+  .spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error-msg { background: #fce4e4; color: #8b2020; padding: 0.6rem 1rem; border-radius: 10px; font-size: 0.8rem; margin-bottom: 1rem; text-align: center; font-weight: 600; }
+
+  .hidden { display: none !important; }
+
+  /* ── Footer 波浪動畫 ── */
+  footer {
+    position: relative; z-index: 5;
+    text-align: center; padding: 2rem 1.5rem 1.5rem;
+    font-size: 0.68rem; color: var(--muted);
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 300%; height: 6px;
+    background: repeating-linear-gradient(90deg,
+      var(--primary) 0px, var(--primary) 8px,
+      transparent 8px, transparent 14px,
+      var(--secondary) 14px, var(--secondary) 22px,
+      transparent 22px, transparent 28px
+    );
+    opacity: 0.3;
+    animation: footer-wave 8s linear infinite;
+  }
+  @keyframes footer-wave {
+    from { transform: translateX(0); }
+    to { transform: translateX(33.33%); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo-icon">🐟</div>
+    <div class="logo-name">Fisherman's Dock Sample</div>
+    <div class="logo-sub">FRESH FROM THE SEA</div>
+  </div>
+  <div class="deco-line">✦ 漁港直送 · 尚青ㄟ ✦</div>
+</header>
+
+<!-- ── 主頁面 ── -->
+<div class="main" id="shop-view">
+  <h2 class="section-title">🐟 開團中</h2>
+  <div class="separator">⚓ ～～～～～ ⚓</div>
+  <div id="campaigns-container">
+    <div class="loading-wrap"><div class="spinner"></div></div>
+  </div>
+
+  <!-- 數量選擇 -->
+  <div id="qty-section" class="qty-section hidden">
+    <label>🦐 選擇數量</label>
+    <div class="qty-control">
+      <button class="qty-btn" onclick="changeQty(-1)">−</button>
+      <div class="qty-display" id="qty-display">1</div>
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+    </div>
+    <div class="qty-hint" id="qty-hint"></div>
+  </div>
+
+  <!-- 階梯團購價 -->
+  <div id="tier-section" class="tier-section hidden">
+    <label>📊 階梯團購價</label>
+    <div class="tier-bar" id="tier-bar"></div>
+    <div class="tier-hint" id="tier-hint"></div>
+  </div>
+
+  <!-- 訂單摘要 -->
+  <div id="order-summary" class="order-summary hidden">
+    <div class="summary-title">📋 訂單摘要</div>
+    <div class="summary-row"><span>品項</span><span id="sum-name"></span></div>
+    <div class="summary-row"><span>單價</span><span id="sum-price"></span></div>
+    <div class="summary-row"><span>數量</span><span id="sum-qty"></span></div>
+    <div id="sum-tier-row" class="summary-row hidden"><span>階梯價</span><span id="sum-tier"></span></div>
+    <div class="summary-row summary-total"><span>小計</span><span id="sum-total"></span></div>
+    <div id="sum-savings" class="summary-savings hidden"></div>
+  </div>
+
+  <!-- Email 驗證 -->
+  <div id="verify-section" class="verify-section hidden">
+    <label>📧 Email 驗證</label>
+    <div class="verify-row">
+      <input type="email" id="email" placeholder="your@email.com" />
+      <button class="verify-btn" id="send-code-btn" onclick="sendCode()">發送驗證碼</button>
+    </div>
+    <div id="code-row" class="verify-row hidden">
+      <input type="text" id="verify-code" placeholder="輸入 6 位驗證碼" maxlength="6" />
+      <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">驗證</button>
+    </div>
+    <div class="verify-status" id="verify-status"></div>
+  </div>
+
+  <!-- 表單 -->
+  <div id="form-section" class="form-section hidden">
+    <label>姓名</label>
+    <input type="text" id="name" placeholder="您的姓名" />
+    <label>電話</label>
+    <input type="tel" id="phone" placeholder="0912-345-678" />
+    <label>備註（選填）</label>
+    <textarea id="note" placeholder="有什麼需要備註的嗎？"></textarea>
+    <button class="submit-btn" id="submit-btn" onclick="submitOrder()">🐟 確認跟團</button>
+  </div>
+
+  <div id="error-msg" class="error-msg hidden"></div>
+</div>
+
+<!-- ── 成功畫面 ── -->
+<div class="success-screen" id="success-screen">
+  <div class="wave-wrap">
+    <div class="wave-dot"></div>
+    <div class="wave-dot"></div>
+    <div class="wave-dot"></div>
+    <div class="wave-dot"></div>
+    <div class="wave-dot"></div>
+  </div>
+  <div class="success-icon">🐟</div>
+  <h2 class="success-title">跟團成功！</h2>
+  <p class="success-msg">感謝您的參與，團購達標後會通知您取貨時間</p>
+  <div class="success-badge" id="success-id"></div>
+  <br/>
+  <button class="new-order-btn" onclick="resetPage()">再次跟團</button>
+</div>
+
+<footer>Fisherman's Dock Sample — Powered by One Page Go</footer>
+
+<script>
+// ── 設定你的 Apps Script 網址 ──────────────────────────
+const API_URL = "https://script.google.com/macros/s/AKfycbzZGZKC_WxCej9KAg4IHMNNoACCGn5vP5ttnudaDSRCbjf2Cyms3Gt4uZwiOf7KZdHc/exec";
+
+const SEA_EMOJI = ["🐟","🦐","🦀","🐙","🦑","🐚","🦞","🐠"];
+
+let campaigns = [];
+let selectedCampaign = null;
+let qty = 1;
+let emailVerified = false;
+let verifiedEmail = '';
+let sessionToken = '';
+let countdownTimers = [];
+
+// 階梯團購價相關
+let campaignTiers = [];   // 解析後的階梯 [{ minQty, unitPrice }]
+let activeTier = null;    // 目前適用的階梯
+
+// ── 載入團購活動 ─────────────────────────────────────
+async function loadCampaigns() {
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'getCampaigns' })
+    });
+    const text = await res.text();
+    const data = JSON.parse(text);
+    campaigns = data.campaigns || [];
+    renderCampaigns();
+  } catch (err) {
+    document.getElementById('campaigns-container').innerHTML =
+      '<div class="loading-wrap">目前暫無開團活動，請稍後再來</div>';
+  }
+}
+
+function renderCampaigns() {
+  const container = document.getElementById('campaigns-container');
+  if (!campaigns.length) {
+    container.innerHTML = '<div class="loading-wrap">目前暫無開團活動，請稍後再來</div>';
+    return;
+  }
+
+  // 清除舊的倒數計時
+  countdownTimers.forEach(t => clearInterval(t));
+  countdownTimers = [];
+
+  container.innerHTML = campaigns.map((c, i) => {
+    const emoji = SEA_EMOJI[i % SEA_EMOJI.length];
+    const imgHtml = c.image_url
+      ? `<img src="${c.image_url}" alt="${c.name}" />`
+      : emoji;
+    const pct = c.min_qty > 0 ? Math.min(Math.round((c.current_qty / c.min_qty) * 100), 100) : 0;
+    const statusLabel = c.status === 'reached' ? '已達標' : '開團中';
+    const statusClass = c.status === 'reached' ? 'reached' : 'open';
+    const remaining = c.max_qty - c.current_qty;
+
+    // 顯示用的描述：移除階梯配置字串
+    const displayDesc = (c.description || '').split('｜')[0].trim();
+
+    return `
+      <div class="campaign-card" id="camp-${c.id}" onclick="selectCampaign('${c.id}')" style="animation-delay:${i*0.08}s"
+           onmousemove="rippleTrack(event, this)" onmouseleave="rippleReset(this)">
+        <div class="campaign-card-inner">
+          <div class="campaign-img">${imgHtml}</div>
+          <div class="campaign-name">${c.name}</div>
+          <div class="campaign-desc">${displayDesc}</div>
+          <div class="campaign-meta">
+            <span class="campaign-price">$${c.price}/份</span>
+            <span class="campaign-status ${statusClass}">${statusLabel}</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-label">
+              <span>已跟團 ${c.current_qty}/${c.min_qty} 份</span>
+              <span>還可跟 ${remaining} 份</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.4rem;">
+            <span class="countdown-badge" id="countdown-${c.id}">⏳ 計算中...</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // 啟動倒數計時
+  campaigns.forEach(c => startCountdown(c.id, c.deadline));
+}
+
+// ── ripple 追蹤 ──────────────────────────────────────
+function rippleTrack(e, el) {
+  const rect = el.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+  const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+  el.style.setProperty('--ripple-x', x + '%');
+  el.style.setProperty('--ripple-y', y + '%');
+}
+function rippleReset(el) {
+  el.style.setProperty('--ripple-x', '50%');
+  el.style.setProperty('--ripple-y', '50%');
+}
+
+function startCountdown(id, deadline) {
+  const el = document.getElementById('countdown-' + id);
+  if (!el) return;
+
+  const target = new Date(deadline + 'T23:59:59').getTime();
+
+  function update() {
+    const now  = Date.now();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      el.textContent = '已截止';
+      el.classList.add('urgent');
+      return;
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+
+    if (days > 0) {
+      el.textContent = `⏳ 剩餘 ${days} 天 ${hours} 小時`;
+    } else if (hours > 0) {
+      el.textContent = `⏳ 剩餘 ${hours} 小時 ${mins} 分`;
+      el.classList.add('urgent');
+    } else {
+      el.textContent = `⏳ 剩餘 ${mins} 分鐘`;
+      el.classList.add('urgent');
+    }
+  }
+
+  update();
+  const timer = setInterval(update, 60000);
+  countdownTimers.push(timer);
+}
+
+// ── 解析階梯團購價 ───────────────────────────────────
+// 格式：description 裡含有 ｜階梯：3份/$890,5份/$850,10份/$790
+function parseTiers(description) {
+  if (!description) return [];
+  const parts = description.split('｜');
+  if (parts.length < 2) return [];
+
+  const tierPart = parts.find(p => p.trim().startsWith('階梯：'));
+  if (!tierPart) return [];
+
+  const tierStr = tierPart.replace('階梯：', '').trim();
+  const tiers = tierStr.split(',').map(item => {
+    const match = item.trim().match(/^(\d+)份\/\$(\d+)$/);
+    if (!match) return null;
+    return { minQty: parseInt(match[1], 10), unitPrice: parseInt(match[2], 10) };
+  }).filter(Boolean);
+
+  // 按數量排序
+  tiers.sort((a, b) => a.minQty - b.minQty);
+  return tiers;
+}
+
+// 取得目前數量對應的階梯
+function getCurrentTier(qty, tiers) {
+  if (!tiers.length) return null;
+  let matched = null;
+  for (const t of tiers) {
+    if (qty >= t.minQty) matched = t;
+  }
+  return matched;
+}
+
+// 取得下一階梯
+function getNextTier(qty, tiers) {
+  if (!tiers.length) return null;
+  for (const t of tiers) {
+    if (qty < t.minQty) return t;
+  }
+  return null;
+}
+
+function renderTiers() {
+  const tierSection = document.getElementById('tier-section');
+  const tierBar = document.getElementById('tier-bar');
+
+  if (!campaignTiers.length) {
+    tierSection.classList.add('hidden');
+    activeTier = null;
+    return;
+  }
+
+  tierSection.classList.remove('hidden');
+  const basePrice = selectedCampaign.price;
+
+  tierBar.innerHTML = campaignTiers.map((t, i) => {
+    const savedPct = Math.round((1 - t.unitPrice / basePrice) * 100);
+    return `
+      <div class="tier-node" id="tier-node-${i}">
+        <div class="tier-dot">${t.minQty}份</div>
+        <div class="tier-price">$${t.unitPrice}</div>
+        <div class="tier-save">省${savedPct}%</div>
+      </div>`;
+  }).join('');
+
+  updateTierHighlight();
+}
+
+function updateTierHighlight() {
+  if (!campaignTiers.length) return;
+
+  activeTier = getCurrentTier(qty, campaignTiers);
+  const nextTier = getNextTier(qty, campaignTiers);
+  const hintEl = document.getElementById('tier-hint');
+
+  campaignTiers.forEach((t, i) => {
+    const node = document.getElementById('tier-node-' + i);
+    if (!node) return;
+    node.classList.remove('active', 'passed');
+
+    if (activeTier && t.minQty < activeTier.minQty) {
+      node.classList.add('passed');
+    } else if (activeTier && t.minQty === activeTier.minQty) {
+      node.classList.add('active');
+    }
+  });
+
+  if (nextTier) {
+    const diff = nextTier.minQty - qty;
+    hintEl.textContent = `再買 ${diff} 個可享更低價 $${nextTier.unitPrice}/份！`;
+  } else if (activeTier) {
+    hintEl.textContent = '已達最優惠階梯價！';
+  } else {
+    const first = campaignTiers[0];
+    const diff = first.minQty - qty;
+    hintEl.textContent = `再買 ${diff} 個即可享階梯價 $${first.unitPrice}/份！`;
+  }
+}
+
+// ── 選擇團購 ────────────────────────────────────────
+function selectCampaign(id) {
+  selectedCampaign = campaigns.find(c => String(c.id) === String(id));
+  if (!selectedCampaign) return;
+
+  // 標記選中
+  document.querySelectorAll('.campaign-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('camp-' + id).classList.add('selected');
+
+  // 重設數量
+  qty = 1;
+  const maxAvail = selectedCampaign.max_qty - selectedCampaign.current_qty;
+  document.getElementById('qty-display').textContent = qty;
+  document.getElementById('qty-hint').textContent = `每人可跟 1 ~ ${maxAvail} 份`;
+
+  // 解析階梯團購價
+  campaignTiers = parseTiers(selectedCampaign.description);
+  activeTier = null;
+
+  // 顯示數量選擇
+  document.getElementById('qty-section').classList.remove('hidden');
+  document.getElementById('order-summary').classList.add('hidden');
+  document.getElementById('verify-section').classList.add('hidden');
+  document.getElementById('form-section').classList.add('hidden');
+
+  renderTiers();
+  updateSummary();
+
+  document.getElementById('qty-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function changeQty(delta) {
+  if (!selectedCampaign) return;
+  const maxAvail = selectedCampaign.max_qty - selectedCampaign.current_qty;
+  const newQty = qty + delta;
+  if (newQty < 1 || newQty > maxAvail) return;
+  qty = newQty;
+  document.getElementById('qty-display').textContent = qty;
+  updateTierHighlight();
+  updateSummary();
+}
+
+function updateSummary() {
+  if (!selectedCampaign) return;
+
+  const basePrice = selectedCampaign.price;
+  const tierRowEl = document.getElementById('sum-tier-row');
+  const savingsEl = document.getElementById('sum-savings');
+
+  document.getElementById('sum-name').textContent = selectedCampaign.name;
+  document.getElementById('sum-qty').textContent = qty + ' 份';
+
+  let total;
+  const currentTier = getCurrentTier(qty, campaignTiers);
+
+  if (currentTier) {
+    const unitPrice = currentTier.unitPrice;
+    total = unitPrice * qty;
+    const totalSavings = (basePrice - unitPrice) * qty;
+
+    document.getElementById('sum-price').textContent = '$' + basePrice + ' → $' + unitPrice;
+    document.getElementById('sum-tier').textContent = currentTier.minQty + '份階梯價 $' + unitPrice + '/份';
+    tierRowEl.classList.remove('hidden');
+    savingsEl.textContent = `共省 $${totalSavings}`;
+    savingsEl.classList.remove('hidden');
+  } else {
+    total = basePrice * qty;
+    document.getElementById('sum-price').textContent = '$' + basePrice;
+    tierRowEl.classList.add('hidden');
+    savingsEl.classList.add('hidden');
+  }
+
+  document.getElementById('sum-total').textContent = '$' + total;
+
+  document.getElementById('order-summary').classList.remove('hidden');
+  document.getElementById('verify-section').classList.remove('hidden');
+
+  if (emailVerified) {
+    document.getElementById('form-section').classList.remove('hidden');
+  }
+}
+
+// ── Email 驗證 ──────────────────────────────────────
+async function sendCode() {
+  const email = document.getElementById('email').value.trim();
+  if (!email) { showError('請輸入 Email'); return; }
+
+  const btn = document.getElementById('send-code-btn');
+  btn.disabled = true;
+  btn.textContent = '發送中…';
+  hideError();
+
+  try {
+    // 先檢查會員狀態
+    const checkRes = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'checkMember', email })
+    });
+    const checkData = JSON.parse(await checkRes.text());
+
+    if (checkData.blocked) { showError('此 Email 已被停用，請聯繫店家'); btn.disabled = false; btn.textContent = '發送驗證碼'; return; }
+    if (checkData.hasActiveOrder) { showError('您有未完成的訂單，完成後才能再次跟團'); btn.disabled = false; btn.textContent = '發送驗證碼'; return; }
+
+    // 發送驗證碼
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'sendVerifyCode', email })
+    });
+    const data = JSON.parse(await res.text());
+
+    if (data.success) {
+      document.getElementById('code-row').classList.remove('hidden');
+      document.getElementById('verify-status').textContent = '驗證碼已寄出，請查看信箱';
+      document.getElementById('verify-status').style.color = 'var(--green)';
+      let sec = 60;
+      btn.textContent = `${sec}s`;
+      const timer = setInterval(() => {
+        sec--;
+        btn.textContent = `${sec}s`;
+        if (sec <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = '重新發送'; }
+      }, 1000);
+    } else {
+      showError(data.error || '發送失敗');
+      btn.disabled = false;
+      btn.textContent = '發送驗證碼';
+    }
+  } catch (err) {
+    showError('API 連線失敗');
+    btn.disabled = false;
+    btn.textContent = '發送驗證碼';
+  }
+}
+
+async function verifyEmail() {
+  const email = document.getElementById('email').value.trim();
+  const code  = document.getElementById('verify-code').value.trim();
+  if (!code) { showError('請輸入驗證碼'); return; }
+
+  const btn = document.getElementById('verify-btn');
+  btn.disabled = true;
+  btn.textContent = '驗證中…';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'verifyCode', email, code })
+    });
+    const data = JSON.parse(await res.text());
+
+    if (data.success) {
+      emailVerified = true;
+      verifiedEmail = email;
+      sessionToken = data.sessionToken || '';
+      showVerified();
+    } else {
+      showError(data.error || '驗證失敗');
+      btn.disabled = false;
+      btn.textContent = '驗證';
+    }
+  } catch (err) {
+    showError('API 連線失敗');
+    btn.disabled = false;
+    btn.textContent = '驗證';
+  }
+}
+
+function showVerified() {
+  document.getElementById('verify-status').textContent = '✅ 驗證成功';
+  document.getElementById('verify-status').style.color = 'var(--green)';
+  document.getElementById('email').disabled = true;
+  document.getElementById('verify-code').disabled = true;
+  document.getElementById('verify-btn').disabled = true;
+  document.getElementById('verify-btn').textContent = '已驗證';
+  document.getElementById('send-code-btn').classList.add('hidden');
+  document.getElementById('code-row').classList.add('hidden');
+  document.getElementById('form-section').classList.remove('hidden');
+}
+
+// ── 送出訂單 ────────────────────────────────────────
+async function submitOrder() {
+  const name  = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  let   note  = document.getElementById('note').value.trim();
+
+  hideError();
+  if (!name)  { showError('請輸入姓名'); return; }
+  if (!phone) { showError('請輸入電話'); return; }
+  const phoneClean = phone.replace(/[-\s]/g, '');
+  if (!/^09\d{8}$/.test(phoneClean)) { showError('請輸入有效的手機號碼（09 開頭，共 10 碼）'); return; }
+  if (!selectedCampaign) { showError('請選擇團購活動'); return; }
+
+  // 階梯價寫入備註
+  const currentTier = getCurrentTier(qty, campaignTiers);
+  if (currentTier) {
+    const basePrice = selectedCampaign.price;
+    const totalSavings = (basePrice - currentTier.unitPrice) * qty;
+    const tierNote = `【階梯價】${qty}份/$${currentTier.unitPrice}，省$${totalSavings}`;
+    note = note ? `${tierNote}\n${note}` : tierNote;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '送出中…';
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        action: 'submitGroupOrder',
+        email: verifiedEmail,
+        sessionToken,
+        name,
+        phone,
+        campaign_id: String(selectedCampaign.id),
+        qty,
+        note
+      })
+    });
+    const data = JSON.parse(await res.text());
+
+    if (data.success) {
+      document.getElementById('shop-view').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+      document.getElementById('success-id').textContent = '訂單編號：' + data.orderId;
+    } else {
+      showError(data.error || '跟團失敗');
+      btn.disabled = false;
+      btn.textContent = '🐟 確認跟團';
+    }
+  } catch (err) {
+    showError('API 連線失敗');
+    btn.disabled = false;
+    btn.textContent = '🐟 確認跟團';
+  }
+}
+
+// ── 重置 ────────────────────────────────────────────
+function resetPage() {
+  selectedCampaign = null;
+  qty = 1;
+  emailVerified = false;
+  verifiedEmail = '';
+  sessionToken = '';
+  campaignTiers = [];
+  activeTier = null;
+
+  document.getElementById('success-screen').style.display = 'none';
+  document.getElementById('shop-view').style.display = 'block';
+
+  document.querySelectorAll('.campaign-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('qty-section').classList.add('hidden');
+  document.getElementById('tier-section').classList.add('hidden');
+  document.getElementById('order-summary').classList.add('hidden');
+  document.getElementById('verify-section').classList.add('hidden');
+  document.getElementById('form-section').classList.add('hidden');
+
+  // 重建驗證區
+  document.getElementById('email').disabled = false;
+  document.getElementById('email').value = '';
+  document.getElementById('verify-code').disabled = false;
+  document.getElementById('verify-code').value = '';
+  document.getElementById('send-code-btn').classList.remove('hidden');
+  document.getElementById('send-code-btn').disabled = false;
+  document.getElementById('send-code-btn').textContent = '發送驗證碼';
+  document.getElementById('verify-btn').disabled = false;
+  document.getElementById('verify-btn').textContent = '驗證';
+  document.getElementById('code-row').classList.add('hidden');
+  document.getElementById('verify-status').textContent = '';
+
+  document.getElementById('name').value = '';
+  document.getElementById('phone').value = '';
+  document.getElementById('note').value = '';
+  document.getElementById('submit-btn').disabled = false;
+  document.getElementById('submit-btn').textContent = '🐟 確認跟團';
+  document.getElementById('qty-display').textContent = '1';
+
+  hideError();
+  loadCampaigns();
+}
+
+// ── 工具 ────────────────────────────────────────────
+function showError(msg) {
+  const el = document.getElementById('error-msg');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+}
+function hideError() {
+  document.getElementById('error-msg').classList.add('hidden');
+}
+
+// ── 啟動 ────────────────────────────────────────────
+loadCampaigns();
+</script>
+</body>
+</html>
