@@ -922,7 +922,7 @@ function renderZones() {
   }).join('');
 }
 
-function selectZoneCard(index) {
+async function selectZoneCard(index) {
   selectedZone = zones[index];
   if (!selectedZone) return;
 
@@ -933,15 +933,33 @@ function selectZoneCard(index) {
   // 重設後續狀態
   selectedTicket = null;
   qty = 1;
+  document.getElementById('ticket-section').classList.add('hidden');
   document.getElementById('qty-section').classList.add('hidden');
   document.getElementById('order-summary').classList.add('hidden');
   document.getElementById('verify-section').classList.add('hidden');
   document.getElementById('form-section').classList.add('hidden');
 
-  // 載入票種
-  loadTicketTypes(selectedEvent.id);
+  // 有區域設定時：跳過票種選擇，靜默載入第一個票種（後端需要 ticket_type_id）
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'getTicketTypes', event_id: selectedEvent.id })
+    });
+    const data = JSON.parse(await res.text());
+    ticketTypes = data.ticketTypes || [];
+    if (ticketTypes.length > 0) {
+      selectedTicket = ticketTypes[0]; // 自動選第一個票種（後端用）
+    }
+  } catch (err) { /* ignore */ }
 
-  document.getElementById('zone-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // 直接顯示數量選擇（跳過票種選擇步驟）
+  document.getElementById('qty-display').textContent = '1';
+  document.getElementById('qty-hint').textContent = `MAX ${Math.min(selectedZone.remaining, 4)} TICKETS`;
+  document.getElementById('qty-section').classList.remove('hidden');
+  updateSummary();
+
+  document.getElementById('qty-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // -- 選擇活動 --
@@ -1042,8 +1060,9 @@ function selectTicketType(id) {
 }
 
 function changeQty(delta) {
-  if (!selectedTicket) return;
-  const maxQty = Math.min(selectedTicket.available, 4);
+  const maxAvail = (hasZoneConfig && selectedZone) ? selectedZone.remaining : (selectedTicket ? selectedTicket.available : 0);
+  if (maxAvail === 0) return;
+  const maxQty = Math.min(maxAvail, 4);
   const newQty = qty + delta;
   if (newQty < 1 || newQty > maxQty) return;
   qty = newQty;
@@ -1052,16 +1071,21 @@ function changeQty(delta) {
 }
 
 function updateSummary() {
-  if (!selectedEvent || !selectedTicket) return;
+  if (!selectedEvent) return;
+
+  // 有區域時用區域價格，無區域時用票種價格
+  const useZone = hasZoneConfig && selectedZone;
+  const unitPrice = useZone ? selectedZone.price : (selectedTicket ? selectedTicket.price : 0);
+  const ticketLabel = useZone ? selectedZone.name : (selectedTicket ? selectedTicket.name : '');
 
   document.getElementById('sum-event').textContent = selectedEvent.name;
-  document.getElementById('sum-ticket').textContent = selectedTicket.name;
-  document.getElementById('sum-price').textContent = '$' + selectedTicket.price;
+  document.getElementById('sum-ticket').textContent = ticketLabel;
+  document.getElementById('sum-price').textContent = '$' + unitPrice;
   document.getElementById('sum-qty').textContent = qty + ' 張';
-  document.getElementById('sum-total').textContent = '$' + (selectedTicket.price * qty);
+  document.getElementById('sum-total').textContent = '$' + (unitPrice * qty);
 
   // 區域資訊
-  if (hasZoneConfig && selectedZone) {
+  if (useZone) {
     document.getElementById('sum-zone-row').style.display = 'flex';
     document.getElementById('sum-zone').textContent = selectedZone.name;
   } else {
