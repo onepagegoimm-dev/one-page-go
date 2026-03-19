@@ -935,6 +935,20 @@
         <div class="addon-combo" id="addonCombo">
           雙通知組合優惠：Telegram + LINE 只要 +NT$250（省 NT$50）
         </div>
+        <div class="addon-item" style="margin-top: 6px; border-top: 1.5px solid rgba(242,196,196,0.4); padding-top: 10px;">
+          <input type="checkbox" id="addonGumroad" />
+          <div class="addon-info">
+            <div class="addon-name">Gumroad 金流串接</div>
+            <div class="addon-desc">信用卡 / PayPal 線上收款，免開公司、最快 1-2 天上線</div>
+          </div>
+          <div class="addon-price" style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+            <span>+NT$800</span>
+            <a href="../demos/payment/" target="_blank" rel="noopener" style="font-size:11px;color:var(--mauve);text-decoration:underline;text-underline-offset:2px;white-space:nowrap;">金流測試 &rarr;</a>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--brown);opacity:0.65;line-height:1.6;margin-top:10px;padding:8px 10px;background:rgba(242,196,196,0.1);border-radius:6px;">
+          其他金流方案：<strong>綠界 ECPay</strong>（+NT$3,000）或 <strong>Stripe</strong>（+NT$3,000）亦可客製串接，需註冊帳號及公司/商號，詳情請於備註說明。
+        </div>
       </div>
 
       <!-- 即時報價 -->
@@ -1121,7 +1135,8 @@
   const ADDON_PRICING = {
     telegram: 100,
     line: 200,
-    combo: 250  // 雙通知組合價
+    combo: 250,  // 雙通知組合價
+    gumroad: 800
   };
 
   // ── Session Token 工具 ──
@@ -1241,10 +1256,13 @@
     // 加購服務文字
     const tg = document.getElementById('addonTelegram').checked;
     const line = document.getElementById('addonLine').checked;
-    let addonsText = '';
-    if (tg && line) addonsText = '\n加購服務：Telegram + LINE 即時通知';
-    else if (tg) addonsText = '\n加購服務：Telegram 即時通知';
-    else if (line) addonsText = '\n加購服務：LINE 即時通知';
+    const gumroad = document.getElementById('addonGumroad').checked;
+    let addonParts = [];
+    if (tg && line) addonParts.push('Telegram + LINE 即時通知');
+    else if (tg) addonParts.push('Telegram 即時通知');
+    else if (line) addonParts.push('LINE 即時通知');
+    if (gumroad) addonParts.push('Gumroad 金流串接');
+    let addonsText = addonParts.length > 0 ? '\n加購服務：' + addonParts.join('、') : '';
 
     return `One Page Go 網頁製作服務合約
 
@@ -1339,27 +1357,35 @@
   function getAddonTotal() {
     const tg = document.getElementById('addonTelegram').checked;
     const line = document.getElementById('addonLine').checked;
-    if (tg && line) return ADDON_PRICING.combo;
-    if (tg) return ADDON_PRICING.telegram;
-    if (line) return ADDON_PRICING.line;
-    return 0;
+    const gumroad = document.getElementById('addonGumroad').checked;
+    let total = 0;
+    if (tg && line) total += ADDON_PRICING.combo;
+    else if (tg) total += ADDON_PRICING.telegram;
+    else if (line) total += ADDON_PRICING.line;
+    if (gumroad) total += ADDON_PRICING.gumroad;
+    return total;
   }
 
   function getAddonLabel() {
     const tg = document.getElementById('addonTelegram').checked;
     const line = document.getElementById('addonLine').checked;
-    if (tg && line) return 'Telegram + LINE（組合價）';
-    if (tg) return 'Telegram 通知';
-    if (line) return 'LINE 通知';
-    return '';
+    const gumroad = document.getElementById('addonGumroad').checked;
+    const parts = [];
+    if (tg && line) parts.push('Telegram + LINE（組合價）');
+    else if (tg) parts.push('Telegram 通知');
+    else if (line) parts.push('LINE 通知');
+    if (gumroad) parts.push('Gumroad 金流');
+    return parts.join(' + ');
   }
 
   function getAddonsValue() {
     const tg = document.getElementById('addonTelegram').checked;
     const line = document.getElementById('addonLine').checked;
+    const gumroad = document.getElementById('addonGumroad').checked;
     const parts = [];
     if (tg) parts.push('telegram');
     if (line) parts.push('line');
+    if (gumroad) parts.push('gumroad');
     return parts.join(',');
   }
 
@@ -1404,6 +1430,7 @@
   document.getElementById('templateType').addEventListener('change', updatePriceSummary);
   document.getElementById('addonTelegram').addEventListener('change', updatePriceSummary);
   document.getElementById('addonLine').addEventListener('change', updatePriceSummary);
+  document.getElementById('addonGumroad').addEventListener('change', updatePriceSummary);
 
   // ── GitHub 託管切換 ──
   document.getElementById('githubHosting').addEventListener('change', function() {
