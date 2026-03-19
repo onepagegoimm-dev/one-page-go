@@ -625,12 +625,37 @@
         <!-- ══ Gumroad 測試區 ══ -->
         <div class="section-title">Gumroad 金流測試</div>
 
-        <!-- Step 1: Create Order -->
-        <div class="card" id="step1">
-            <h2>Step 1 — 建立測試訂單</h2>
+        <!-- Step 0: Email Verification -->
+        <div class="card" id="step0">
+            <h2>Step 1 — Email 驗證</h2>
             <label for="email">Email</label>
             <input type="email" id="email" placeholder="your@email.com">
             <div class="input-hint" id="emailHint"></div>
+
+            <button class="btn btn-primary" id="btnSendCode" onclick="sendVerifyCode()">
+                發送驗證碼
+            </button>
+
+            <div class="hidden" id="codeSection" style="margin-top: 16px;">
+                <label for="verifyCode">驗證碼（6 位數字）</label>
+                <input type="text" id="verifyCode" placeholder="000000" maxlength="6"
+                    style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text);font-size:18px;letter-spacing:8px;text-align:center;outline:none;margin-bottom:6px;">
+                <div class="input-hint" id="codeHint"></div>
+                <button class="btn btn-primary" id="btnVerify" onclick="verifyEmailCode()">
+                    驗證
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 1: Create Order (hidden until verified) -->
+        <div class="card hidden" id="step1">
+            <h2>Step 2 — 建立測試訂單</h2>
+            <div class="order-info" style="margin-bottom: 16px;">
+                <div class="row">
+                    <span class="label">已驗證 Email</span>
+                    <span class="value" id="verifiedEmail" style="color:var(--success);">—</span>
+                </div>
+            </div>
 
             <div class="checkbox-row">
                 <input type="checkbox" id="confirmCheck">
@@ -644,7 +669,7 @@
 
         <!-- Step 2: Payment (hidden initially) -->
         <div class="card hidden" id="step2">
-            <h2>Step 2 — 前往 Gumroad 付款</h2>
+            <h2>Step 3 — 前往 Gumroad 付款</h2>
             <div class="order-info">
                 <div class="row">
                     <span class="label">訂單編號</span>
@@ -721,6 +746,8 @@
     // 狀態
     // ══════════════════════════════════════════════════
     let currentOrderId = null;
+    let currentEmail = null;
+    let sessionToken = null;
     let pollTimer = null;
     let pollAttempts = 0;
     const MAX_POLL = 60;  // 最多 60 次 = 5 分鐘
@@ -761,22 +788,18 @@
     }
 
     // ══════════════════════════════════════════════════
-    // 階段一：建立訂單
+    // Email 驗證碼：發送
     // ══════════════════════════════════════════════════
-    async function createOrder() {
-        const email = document.getElementById("email").value.trim();
-        const checkbox = document.getElementById("confirmCheck");
-        const hint = document.getElementById("emailHint");
+    async function sendVerifyCode() {
+        var email = document.getElementById("email").value.trim();
+        var hint = document.getElementById("emailHint");
 
-        // Email 空值檢查
         if (!email) {
             hint.textContent = "請輸入 Email";
             document.getElementById("email").classList.add("input-error");
             log("請輸入 Email", "err");
             return;
         }
-
-        // Email 格式驗證
         if (!validateEmail(email)) {
             hint.textContent = "請輸入有效的 Email 格式";
             document.getElementById("email").classList.add("input-error");
@@ -784,45 +807,135 @@
             return;
         }
 
-        // Checkbox 驗證
+        var btn = document.getElementById("btnSendCode");
+        btn.disabled = true;
+        btn.textContent = "發送中...";
+        log("正在發送驗證碼到 " + email + "...");
+
+        try {
+            var res = await fetch(API_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "sendVerifyCode", email: email }),
+            });
+            var data = await res.json();
+
+            if (data.success) {
+                log("驗證碼已寄出，請檢查信箱", "ok");
+                document.getElementById("codeSection").classList.remove("hidden");
+                document.getElementById("email").disabled = true;
+                // 60 秒倒數重新發送
+                var countdown = 60;
+                btn.textContent = "重新發送（" + countdown + "s）";
+                var timer = setInterval(function() {
+                    countdown--;
+                    btn.textContent = "重新發送（" + countdown + "s）";
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        btn.disabled = false;
+                        btn.textContent = "重新發送驗證碼";
+                    }
+                }, 1000);
+            } else {
+                log("發送失敗：" + data.error, "err");
+                btn.disabled = false;
+                btn.textContent = "發送驗證碼";
+            }
+        } catch (err) {
+            log("網路錯誤：" + err.message, "err");
+            btn.disabled = false;
+            btn.textContent = "發送驗證碼";
+        }
+    }
+
+    // ══════════════════════════════════════════════════
+    // Email 驗證碼：驗證
+    // ══════════════════════════════════════════════════
+    async function verifyEmailCode() {
+        var email = document.getElementById("email").value.trim();
+        var code = document.getElementById("verifyCode").value.trim();
+        var hint = document.getElementById("codeHint");
+
+        if (!code || code.length !== 6) {
+            hint.textContent = "請輸入 6 位數驗證碼";
+            log("請輸入 6 位數驗證碼", "err");
+            return;
+        }
+
+        var btn = document.getElementById("btnVerify");
+        btn.disabled = true;
+        btn.textContent = "驗證中...";
+        log("正在驗證...");
+
+        try {
+            var res = await fetch(API_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "verifyCode", email: email, code: code }),
+            });
+            var data = await res.json();
+
+            if (data.success && data.verified) {
+                currentEmail = email;
+                sessionToken = data.sessionToken;
+                log("Email 驗證成功！", "ok");
+
+                // 顯示 Step 1（建立訂單）
+                document.getElementById("step0").classList.add("hidden");
+                document.getElementById("step1").classList.remove("hidden");
+                document.getElementById("verifiedEmail").textContent = email;
+            } else {
+                hint.textContent = data.error || "驗證失敗";
+                log("驗證失敗：" + (data.error || "未知錯誤"), "err");
+                btn.disabled = false;
+                btn.textContent = "驗證";
+            }
+        } catch (err) {
+            log("網路錯誤：" + err.message, "err");
+            btn.disabled = false;
+            btn.textContent = "驗證";
+        }
+    }
+
+    // ══════════════════════════════════════════════════
+    // 建立訂單
+    // ══════════════════════════════════════════════════
+    async function createOrder() {
+        var checkbox = document.getElementById("confirmCheck");
+
         if (!checkbox.checked) {
             log("請先勾選確認後再建立訂單", "warn");
             return;
         }
 
-        if (!API_URL) {
-            log("請先設定 API_URL", "err");
+        if (!currentEmail || !sessionToken) {
+            log("請先完成 Email 驗證", "err");
             return;
         }
 
-        const btn = document.getElementById("btnCreate");
+        var btn = document.getElementById("btnCreate");
         btn.disabled = true;
         btn.textContent = "建立中...";
         log("正在建立訂單...");
 
         try {
-            const res = await fetch(API_URL, {
+            var res = await fetch(API_URL, {
                 method: "POST",
                 body: JSON.stringify({
                     action: "createOrder",
-                    email: email,
+                    email: currentEmail,
+                    sessionToken: sessionToken,
                 }),
             });
-            const data = await res.json();
+            var data = await res.json();
 
             if (data.success) {
                 currentOrderId = data.orderId;
                 log("訂單建立成功：" + data.orderId, "ok");
 
-                // 顯示 Step 2
                 document.getElementById("orderId").textContent = data.orderId;
                 document.getElementById("step1").classList.add("hidden");
                 document.getElementById("step2").classList.remove("hidden");
 
-                // 取得付款連結
                 await setupPaymentLink(data.orderId);
-
-                // 開始輪詢
                 startPolling(data.orderId);
             } else {
                 log("建立失敗：" + data.error, "err");
@@ -938,23 +1051,38 @@
             pollTimer = null;
         }
         currentOrderId = null;
+        currentEmail = null;
+        sessionToken = null;
         pollAttempts = 0;
 
-        document.getElementById("step1").classList.remove("hidden");
+        document.getElementById("step0").classList.remove("hidden");
+        document.getElementById("step1").classList.add("hidden");
         document.getElementById("step2").classList.add("hidden");
         document.getElementById("step3").classList.add("hidden");
         document.getElementById("btnReset").classList.add("hidden");
+        document.getElementById("codeSection").classList.add("hidden");
 
         var btn = document.getElementById("btnCreate");
         btn.disabled = false;
         btn.textContent = "建立測試訂單（$1.00 USD）";
 
+        var btnSend = document.getElementById("btnSendCode");
+        btnSend.disabled = false;
+        btnSend.textContent = "發送驗證碼";
+
+        var btnVerify = document.getElementById("btnVerify");
+        btnVerify.disabled = false;
+        btnVerify.textContent = "驗證";
+
         document.getElementById("statusBadge").textContent = "pending";
         document.getElementById("statusBadge").className = "status-badge status-pending";
 
         document.getElementById("email").value = "";
+        document.getElementById("email").disabled = false;
         document.getElementById("email").classList.remove("input-error");
         document.getElementById("emailHint").textContent = "";
+        document.getElementById("verifyCode").value = "";
+        document.getElementById("codeHint").textContent = "";
         document.getElementById("confirmCheck").checked = false;
 
         log("--- 重新測試 ---");
