@@ -1,33 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- 主頁 -->
     <url>
         <loc>https://bolin9159-gif.github.io/one-page-go/</loc>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
+    <!-- 接單流程 -->
     <url>
         <loc>https://bolin9159-gif.github.io/one-page-go/onboarding/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
+    <!-- 設定指南 -->
+    <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/guide/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <!-- 電商 Demo -->
     <url>
         <loc>https://bolin9159-gif.github.io/one-page-go/demos/ecommerce/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/demos/ecommerce-tea/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/demos/ecommerce-coffee/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <!-- 預約 Demo -->
+    <url>
         <loc>https://bolin9159-gif.github.io/one-page-go/demos/booking/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
+    <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/demos/booking-barber/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/demos/booking-pet/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <!-- 團購 Demo -->
     <url>
         <loc>https://bolin9159-gif.github.io/one-page-go/demos/groupbuy/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/demos/groupbuy-dock/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/demos/groupbuy-kitchen/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <!-- 售票 Demo -->
+    <url>
         <loc>https://bolin9159-gif.github.io/one-page-go/demos/ticketing/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/demos/ticketing-arcade/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/demos/ticketing-yoga/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
 </urlset>
