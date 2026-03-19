@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Pay Test - One Page Go 金流方案展示</title>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --card: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #eee;
+            --muted: #a0a0b0;
+            --success: #4ade80;
+            --warning: #facc15;
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 16px;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: var(--highlight);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .header .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ── Section Title ── */
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 14px;
+            padding-left: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 14px;
+            background: var(--highlight);
+            border-radius: 2px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* ── Card ── */
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .card h2 {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        /* ── Plan Cards ── */
+        .plan-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 22px 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+            transition: border-color 0.2s;
+        }
+
+        .plan-card.recommended {
+            border-color: var(--success);
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.08);
+        }
+
+        .plan-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .plan-badge.green {
+            background: rgba(74, 222, 128, 0.15);
+            color: var(--success);
+        }
+
+        .plan-badge.blue {
+            background: rgba(96, 165, 250, 0.15);
+            color: #60a5fa;
+        }
+
+        .plan-badge.purple {
+            background: rgba(192, 132, 252, 0.15);
+            color: #c084fc;
+        }
+
+        .plan-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .plan-tagline {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .plan-price {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .plan-price .currency {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .plan-price-note {
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .plan-details {
+            list-style: none;
+            margin-bottom: 0;
+        }
+
+        .plan-details li {
+            font-size: 13px;
+            color: var(--text);
+            padding: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .plan-details li:last-child {
+            border-bottom: none;
+        }
+
+        .plan-details .detail-label {
+            color: var(--muted);
+        }
+
+        .plan-details .detail-value {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .plan-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 14px;
+        }
+
+        .plan-tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+            color: var(--muted);
+        }
+
+        .plan-card.recommended .plan-tag {
+            background: rgba(74, 222, 128, 0.08);
+            color: rgba(74, 222, 128, 0.8);
+        }
+
+        .plan-footnote {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-top: 4px;
+            margin-bottom: 28px;
+            padding: 0 2px;
+        }
+
+        /* ── Form Elements ── */
+        label {
+            display: block;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 15px;
+            outline: none;
+            margin-bottom: 6px;
+            transition: border-color 0.2s;
+        }
+
+        input[type="email"]:focus {
+            border-color: var(--highlight);
+        }
+
+        input[type="email"].input-error {
+            border-color: var(--highlight);
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: var(--highlight);
+            margin-bottom: 12px;
+            min-height: 16px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding: 12px;
+            background: rgba(233, 69, 96, 0.06);
+            border-radius: 8px;
+            border: 1px solid rgba(233, 69, 96, 0.15);
+        }
+
+        .checkbox-row input[type="checkbox"] {
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--highlight);
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-row label {
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 0;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+
+        /* ── Buttons ── */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.85; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-primary {
+            background: var(--highlight);
+            color: #fff;
+        }
+
+        .btn-gumroad {
+            background: #FF90E8;
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 14px;
+        }
+
+        .btn-reset {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        /* ── Order Info ── */
+        .order-info {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .order-info .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+        }
+
+        .order-info .label {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .order-info .value {
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ── Status Badges ── */
+        .status-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status-pending {
+            background: rgba(250, 204, 21, 0.15);
+            color: var(--warning);
+        }
+
+        .status-paid {
+            background: rgba(74, 222, 128, 0.15);
+            color: var(--success);
+        }
+
+        .status-timeout {
+            background: rgba(233, 69, 96, 0.15);
+            color: var(--highlight);
+        }
+
+        /* ── Poll Info ── */
+        .poll-info {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 12px;
+        }
+
+        .poll-info .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--warning);
+            border-radius: 50%;
+            margin-right: 6px;
+            animation: blink 1.2s infinite;
+        }
+
+        .poll-info.done .dot {
+            background: var(--success);
+            animation: none;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* ── Success Banner ── */
+        .success-banner {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .success-banner .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .success-banner h3 {
+            color: var(--success);
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .success-banner p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ── Log ── */
+        .log-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .log-toggle h2 {
+            margin-bottom: 0;
+        }
+
+        .log-toggle .arrow {
+            font-size: 12px;
+            color: var(--muted);
+            transition: transform 0.2s;
+        }
+
+        .log-toggle .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .log {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--muted);
+            max-height: 200px;
+            overflow-y: auto;
+            line-height: 1.8;
+            margin-top: 14px;
+        }
+
+        .log.collapsed {
+            display: none;
+        }
+
+        .log .entry { padding: 2px 0; }
+        .log .time { color: #666; }
+        .log .ok { color: var(--success); }
+        .log .err { color: var(--highlight); }
+        .log .warn { color: var(--warning); }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 28px 0 12px;
+        }
+
+        .footer a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: var(--text);
+        }
+
+        .footer .copyright {
+            font-size: 12px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 28px 0;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="badge">POC TEST</div>
+            <h1>Pixel Pay Test</h1>
+            <p class="subtitle">One Page Go 金流串接方案展示</p>
+        </div>
+
+        <!-- ══ 金流比較表 ══ -->
+        <div class="section-title">金流方案比較</div>
+
+        <!-- Gumroad -->
+        <div class="plan-card recommended">
+            <span class="plan-badge green">推薦 - 最快上線</span>
+            <div class="plan-name">Gumroad</div>
+            <div class="plan-tagline">免開公司 / 免額外註冊 / 最適合快速驗證</div>
+            <div class="plan-price"><span class="currency">NT$</span>800</div>
+            <div class="plan-price-note">一次性串接設定費</div>
+            <ul class="plan-details">
+                <li>
+                    <span class="detail-label">平台手續費</span>
+                    <span class="detail-value">10%</span>
+                </li>
+                <li>
+                    <span class="detail-label">支援付款方式</span>
+                    <span class="detail-value">信用卡 / PayPal</span>
+                </li>
+                <li>
+                    <span class="detail-label">幣別</span>
+                    <span class="detail-value">USD 為主</span>
+                </li>
+                <li>
+                    <span class="detail-label">上線時間</span>
+                    <span class="detail-value">1-2 天</span>
+                </li>
+            </ul>
+            <div class="plan-tags">
+                <span class="plan-tag">最快上線</span>
+                <span class="plan-tag">免開公司</span>
+                <span class="plan-tag">免額外註冊</span>
+            </div>
+        </div>
+
+        <!-- ECPay -->
+        <div class="plan-card">
+            <span class="plan-badge blue">台灣在地首選</span>
+            <div class="plan-name">綠界 ECPay</div>
+            <div class="plan-tagline">台灣在地金流 / 支援超商與 ATM</div>
+            <div class="plan-price"><span class="currency">NT$</span>3,000</div>
+            <div class="plan-price-note">一次性串接設定費</div>
+            <ul class="plan-details">
+                <li>
+                    <span class="detail-label">平台手續費</span>
+                    <span class="detail-value">2.75%~5%</span>
+                </li>
+                <li>
+                    <span class="detail-label">支援付款方式</span>
+                    <span class="detail-value">信用卡 / ATM / 超商</span>
+                </li>
+                <li>
+                    <span class="detail-label">幣別</span>
+                    <span class="detail-value">TWD</span>
+                </li>
+                <li>
+                    <span class="detail-label">上線時間</span>
+                    <span class="detail-value">7-14 天</span>
+                </li>
+            </ul>
+            <div class="plan-tags">
+                <span class="plan-tag">需註冊綠界帳號</span>
+                <span class="plan-tag">需公司或商號</span>
+                <span class="plan-tag">台灣在地金流首選</span>
+            </div>
+        </div>
+
+        <!-- Stripe -->
+        <div class="plan-card">
+            <span class="plan-badge purple">國際金流首選</span>
+            <div class="plan-name">Stripe</div>
+            <div class="plan-tagline">國際金流 / 多幣別 / Apple Pay & Google Pay</div>
+            <div class="plan-price"><span class="currency">NT$</span>3,000</div>
+            <div class="plan-price-note">一次性串接設定費</div>
+            <ul class="plan-details">
+                <li>
+                    <span class="detail-label">平台手續費</span>
+                    <span class="detail-value">2.9% + US$0.30</span>
+                </li>
+                <li>
+                    <span class="detail-label">支援付款方式</span>
+                    <span class="detail-value">信用卡 / Apple Pay / Google Pay</span>
+                </li>
+                <li>
+                    <span class="detail-label">幣別</span>
+                    <span class="detail-value">多幣別</span>
+                </li>
+                <li>
+                    <span class="detail-label">上線時間</span>
+                    <span class="detail-value">7-14 天</span>
+                </li>
+            </ul>
+            <div class="plan-tags">
+                <span class="plan-tag">需註冊 Stripe 帳號</span>
+                <span class="plan-tag">需公司或商號</span>
+                <span class="plan-tag">國際金流首選</span>
+            </div>
+        </div>
+
+        <p class="plan-footnote">
+            以上加值費用為一次性串接設定費，不含模板本身費用。所有方案皆支援自動付款通知 + 訂單狀態追蹤。
+        </p>
+
+        <!-- ══ Gumroad 測試區 ══ -->
+        <div class="section-title">Gumroad 金流測試</div>
+
+        <!-- Step 1: Create Order -->
+        <div class="card" id="step1">
+            <h2>Step 1 — 建立測試訂單</h2>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="your@email.com">
+            <div class="input-hint" id="emailHint"></div>
+
+            <div class="checkbox-row">
+                <input type="checkbox" id="confirmCheck">
+                <label for="confirmCheck">我了解這是金流測試，將進行 US$1 的真實付款</label>
+            </div>
+
+            <button class="btn btn-primary" id="btnCreate" onclick="createOrder()">
+                建立測試訂單（$1.00 USD）
+            </button>
+        </div>
+
+        <!-- Step 2: Payment (hidden initially) -->
+        <div class="card hidden" id="step2">
+            <h2>Step 2 — 前往 Gumroad 付款</h2>
+            <div class="order-info">
+                <div class="row">
+                    <span class="label">訂單編號</span>
+                    <span class="value" id="orderId">—</span>
+                </div>
+                <div class="row">
+                    <span class="label">金額</span>
+                    <span class="value">$1.00 USD</span>
+                </div>
+                <div class="row">
+                    <span class="label">狀態</span>
+                    <span id="statusBadge" class="status-badge status-pending">pending</span>
+                </div>
+            </div>
+            <a class="btn btn-gumroad" id="btnPay" href="#" target="_blank">
+                前往 Gumroad 付款
+            </a>
+            <div class="poll-info" id="pollInfo">
+                <span class="dot"></span>
+                每 5 秒自動偵測付款狀態...（<span id="pollCount">0</span>/60）
+            </div>
+        </div>
+
+        <!-- Step 3: Success (hidden initially) -->
+        <div class="card hidden" id="step3">
+            <div class="success-banner">
+                <div class="icon">&#10003;</div>
+                <h3>付款成功！</h3>
+                <p>Gumroad Webhook 已成功通知 Apps Script 更新訂單狀態</p>
+            </div>
+            <div class="order-info">
+                <div class="row">
+                    <span class="label">訂單編號</span>
+                    <span class="value" id="successOrderId">—</span>
+                </div>
+                <div class="row">
+                    <span class="label">狀態</span>
+                    <span class="status-badge status-paid">paid</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reset -->
+        <button class="btn btn-reset hidden" id="btnReset" onclick="resetAll()">
+            重新測試
+        </button>
+
+        <!-- Log (collapsible) -->
+        <div class="card" style="margin-top: 16px;">
+            <div class="log-toggle" onclick="toggleLog()">
+                <h2>Log</h2>
+                <span class="arrow" id="logArrow">&#9660;</span>
+            </div>
+            <div class="log collapsed" id="log"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <a href="../../index.html">&larr; 回到 One Page Go</a>
+            <div class="copyright">&copy; 2025 One Page Go. All rights reserved.</div>
+        </div>
+    </div>
+
+    <script>
+    // ══════════════════════════════════════════════════
+    // 設定區（部署前必填）
+    // ══════════════════════════════════════════════════
+    const API_URL = "https://script.google.com/macros/s/AKfycbxLI5e73w_u66wMCd2UcgfkzS8R-puhj2d2Q_qtScABlwcC5YaXuUzNjaLYXFEKqEx6/exec";  // ← 貼上你的 Apps Script Web App URL
+
+    // Gumroad 產品 URL（備用，如果 getPaymentLink API 失敗時使用）
+    const GUMROAD_FALLBACK_URL = "https://bolinspire3.gumroad.com/l/criyxr";  // ← 貼上你的 Gumroad 產品 URL
+
+    // ══════════════════════════════════════════════════
+    // 狀態
+    // ══════════════════════════════════════════════════
+    let currentOrderId = null;
+    let pollTimer = null;
+    let pollAttempts = 0;
+    const MAX_POLL = 60;  // 最多 60 次 = 5 分鐘
+
+    // ══════════════════════════════════════════════════
+    // Email 格式驗證
+    // ══════════════════════════════════════════════════
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validateEmail(email) {
+        return EMAIL_REGEX.test(email);
+    }
+
+    // 即時驗證 Email 格式
+    document.getElementById("email").addEventListener("input", function() {
+        var hint = document.getElementById("emailHint");
+        var input = this;
+        if (input.value.trim() === "") {
+            hint.textContent = "";
+            input.classList.remove("input-error");
+        } else if (!validateEmail(input.value.trim())) {
+            hint.textContent = "請輸入有效的 Email 格式";
+            input.classList.add("input-error");
+        } else {
+            hint.textContent = "";
+            input.classList.remove("input-error");
+        }
+    });
+
+    // ══════════════════════════════════════════════════
+    // Log 收合切換
+    // ══════════════════════════════════════════════════
+    function toggleLog() {
+        var logEl = document.getElementById("log");
+        var arrow = document.getElementById("logArrow");
+        logEl.classList.toggle("collapsed");
+        arrow.classList.toggle("open");
+    }
+
+    // ══════════════════════════════════════════════════
+    // 階段一：建立訂單
+    // ══════════════════════════════════════════════════
+    async function createOrder() {
+        const email = document.getElementById("email").value.trim();
+        const checkbox = document.getElementById("confirmCheck");
+        const hint = document.getElementById("emailHint");
+
+        // Email 空值檢查
+        if (!email) {
+            hint.textContent = "請輸入 Email";
+            document.getElementById("email").classList.add("input-error");
+            log("請輸入 Email", "err");
+            return;
+        }
+
+        // Email 格式驗證
+        if (!validateEmail(email)) {
+            hint.textContent = "請輸入有效的 Email 格式";
+            document.getElementById("email").classList.add("input-error");
+            log("Email 格式無效", "err");
+            return;
+        }
+
+        // Checkbox 驗證
+        if (!checkbox.checked) {
+            log("請先勾選確認後再建立訂單", "warn");
+            return;
+        }
+
+        if (!API_URL) {
+            log("請先設定 API_URL", "err");
+            return;
+        }
+
+        const btn = document.getElementById("btnCreate");
+        btn.disabled = true;
+        btn.textContent = "建立中...";
+        log("正在建立訂單...");
+
+        try {
+            const res = await fetch(API_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "createOrder",
+                    email: email,
+                }),
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                currentOrderId = data.orderId;
+                log("訂單建立成功：" + data.orderId, "ok");
+
+                // 顯示 Step 2
+                document.getElementById("orderId").textContent = data.orderId;
+                document.getElementById("step1").classList.add("hidden");
+                document.getElementById("step2").classList.remove("hidden");
+
+                // 取得付款連結
+                await setupPaymentLink(data.orderId);
+
+                // 開始輪詢
+                startPolling(data.orderId);
+            } else {
+                log("建立失敗：" + data.error, "err");
+                btn.disabled = false;
+                btn.textContent = "建立測試訂單（$1.00 USD）";
+            }
+        } catch (err) {
+            log("網路錯誤：" + err.message, "err");
+            btn.disabled = false;
+            btn.textContent = "建立測試訂單（$1.00 USD）";
+        }
+    }
+
+    // ══════════════════════════════════════════════════
+    // 階段二：設定付款連結
+    // ══════════════════════════════════════════════════
+    async function setupPaymentLink(orderId) {
+        try {
+            const res = await fetch(API_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "getPaymentLink",
+                    order_id: orderId,
+                }),
+            });
+            const data = await res.json();
+
+            if (data.success && data.paymentUrl) {
+                document.getElementById("btnPay").href = data.paymentUrl;
+                log("付款連結已就緒", "ok");
+            } else {
+                // fallback：用本地設定的 URL
+                if (GUMROAD_FALLBACK_URL) {
+                    const fallbackUrl = GUMROAD_FALLBACK_URL + "?order_id=" + encodeURIComponent(orderId);
+                    document.getElementById("btnPay").href = fallbackUrl;
+                    log("使用備用付款連結", "warn");
+                } else {
+                    log("無法取得付款連結：" + (data.error || "未知錯誤"), "err");
+                }
+            }
+        } catch (err) {
+            log("取得付款連結失敗：" + err.message, "warn");
+            if (GUMROAD_FALLBACK_URL) {
+                const fallbackUrl = GUMROAD_FALLBACK_URL + "?order_id=" + encodeURIComponent(orderId);
+                document.getElementById("btnPay").href = fallbackUrl;
+                log("使用備用付款連結", "warn");
+            }
+        }
+    }
+
+    // ══════════════════════════════════════════════════
+    // 階段四：輪詢訂單狀態
+    // ══════════════════════════════════════════════════
+    function startPolling(orderId) {
+        pollAttempts = 0;
+        document.getElementById("pollCount").textContent = "0";
+        log("開始輪詢訂單狀態（每 5 秒）");
+
+        pollTimer = setInterval(async function () {
+            pollAttempts++;
+            document.getElementById("pollCount").textContent = String(pollAttempts);
+
+            if (pollAttempts > MAX_POLL) {
+                clearInterval(pollTimer);
+                pollTimer = null;
+                log("輪詢逾時（5 分鐘），請手動檢查 Sheet", "warn");
+                document.getElementById("statusBadge").textContent = "timeout";
+                document.getElementById("statusBadge").className = "status-badge status-timeout";
+                document.getElementById("pollInfo").innerHTML =
+                    '<span style="color:var(--highlight)">輪詢逾時，請檢查 Google Sheet 或重新整理頁面</span>';
+                document.getElementById("btnReset").classList.remove("hidden");
+                return;
+            }
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        action: "checkOrderStatus",
+                        order_id: orderId,
+                    }),
+                });
+                const data = await res.json();
+
+                if (data.status === "paid") {
+                    clearInterval(pollTimer);
+                    pollTimer = null;
+                    log("偵測到付款成功！status = paid", "ok");
+                    showSuccess(orderId);
+                }
+            } catch (err) {
+                // 網路錯誤時繼續輪詢
+            }
+        }, 5000);
+    }
+
+    // ══════════════════════════════════════════════════
+    // 成功畫面
+    // ══════════════════════════════════════════════════
+    function showSuccess(orderId) {
+        document.getElementById("step2").classList.add("hidden");
+        document.getElementById("step3").classList.remove("hidden");
+        document.getElementById("successOrderId").textContent = orderId;
+        document.getElementById("btnReset").classList.remove("hidden");
+    }
+
+    // ══════════════════════════════════════════════════
+    // 重新測試
+    // ══════════════════════════════════════════════════
+    function resetAll() {
+        if (pollTimer) {
+            clearInterval(pollTimer);
+            pollTimer = null;
+        }
+        currentOrderId = null;
+        pollAttempts = 0;
+
+        document.getElementById("step1").classList.remove("hidden");
+        document.getElementById("step2").classList.add("hidden");
+        document.getElementById("step3").classList.add("hidden");
+        document.getElementById("btnReset").classList.add("hidden");
+
+        var btn = document.getElementById("btnCreate");
+        btn.disabled = false;
+        btn.textContent = "建立測試訂單（$1.00 USD）";
+
+        document.getElementById("statusBadge").textContent = "pending";
+        document.getElementById("statusBadge").className = "status-badge status-pending";
+
+        document.getElementById("email").value = "";
+        document.getElementById("email").classList.remove("input-error");
+        document.getElementById("emailHint").textContent = "";
+        document.getElementById("confirmCheck").checked = false;
+
+        log("--- 重新測試 ---");
+    }
+
+    // ══════════════════════════════════════════════════
+    // Log 工具
+    // ══════════════════════════════════════════════════
+    function log(message, type) {
+        var el = document.getElementById("log");
+        var time = new Date().toLocaleTimeString("zh-TW", { hour12: false });
+        var cls = type || "";
+        el.innerHTML += '<div class="entry"><span class="time">[' + time + ']</span> <span class="' + cls + '">' + message + '</span></div>';
+        el.scrollTop = el.scrollHeight;
+    }
+
+    // 啟動檢查
+    if (!API_URL) {
+        log("API_URL 未設定，請在 script 最上方填入 Apps Script Web App URL", "err");
+    } else {
+        log("就緒。API: " + API_URL.substring(0, 50) + "...", "ok");
+    }
+    </script>
+</body>
+</html>
