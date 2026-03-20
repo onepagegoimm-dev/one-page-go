@@ -1900,14 +1900,26 @@
           document.getElementById('trackingSection').classList.remove('hidden');
           await loadMyInquiries(trackEmail);
         } else {
-          // 正常流程：進入 Step 3
-          document.getElementById('paymentAmount').textContent = formatPrice(baseBudget);
-          if (data.bankName) document.getElementById('bankName').textContent = data.bankName;
-          if (data.bankAccount) document.getElementById('bankAccount').textContent = data.bankAccount;
-          if (data.bankHolder) document.getElementById('bankHolder').textContent = data.bankHolder;
-          // Gumroad 資訊
-          if (data.gumroadAvailable !== undefined) gumroadAvailable = data.gumroadAvailable;
-          if (data.gumroadFeePercent !== undefined) gumroadFeePercent = data.gumroadFeePercent;
+          // 正常流程：呼叫 getPaymentInfo 取得付款資訊
+          const currentEmail = document.getElementById('email').value.trim().toLowerCase();
+          try {
+            const payRes = await fetch(API_URL, {
+              method: 'POST',
+              body: JSON.stringify({ action: 'getPaymentInfo', id: contractId, email: currentEmail, token: getSessionToken() })
+            });
+            const payData = await payRes.json();
+            if (payData.payment) {
+              document.getElementById('paymentAmount').textContent = formatPrice(payData.payment.amount);
+              if (payData.payment.bankName) document.getElementById('bankName').textContent = payData.payment.bankName;
+              if (payData.payment.bankAccount) document.getElementById('bankAccount').textContent = payData.payment.bankAccount;
+              if (payData.payment.bankHolder) document.getElementById('bankHolder').textContent = payData.payment.bankHolder;
+              if (payData.gumroadAvailable !== undefined) gumroadAvailable = payData.gumroadAvailable;
+              if (payData.gumroadFeePercent !== undefined) gumroadFeePercent = payData.gumroadFeePercent;
+            }
+          } catch (e) {
+            console.warn('getPaymentInfo 失敗，使用本地資料', e);
+            document.getElementById('paymentAmount').textContent = formatPrice(price);
+          }
           setupStep3PaymentView(baseBudget);
           goToStep(3);
         }
@@ -1929,9 +1941,8 @@
     }
   });
 
-  // ── 付款方式 tab 切換 ──
-  function selectPaymentMethod(method) {
-    selectedPaymentMethod = method;
+  // ── Step 3 付款 tab 顯示切換（不改變 selectedPaymentMethod，由 Step 1 決定） ──
+  function showStep3PaymentTab(method) {
     document.querySelectorAll('#step3 .payment-tab').forEach(t =>
       t.classList.toggle('active', t.dataset.method === method));
     document.querySelectorAll('#step3 .payment-tab-content').forEach(c =>
@@ -1949,16 +1960,16 @@
       // 使用者選擇線上刷卡：隱藏銀行匯款 tab，只顯示 Gumroad
       bankTab.classList.add('hidden');
       gumroadTabEl.classList.remove('hidden');
-      gumroadAmount = Math.round(baseAmount * (1 + gumroadFeePercent / 100));
+      gumroadAmount = price; // price 已含手續費（由 submitInquiry 計算）
       document.getElementById('gumroadAmount').textContent = formatPrice(gumroadAmount);
       document.getElementById('gumroadBreakdown').textContent =
-        '原價 ' + formatPrice(baseAmount) + ' + ' + gumroadFeePercent + '% 手續費';
-      selectPaymentMethod('gumroad');
+        '原價 ' + formatPrice(baseAmount) + ' + ' + gumroadFeePercent + '% 手續費 ' + formatPrice(price - baseAmount);
+      showStep3PaymentTab('gumroad');
     } else {
       // 使用者選擇銀行匯款（或 Gumroad 不可用）：隱藏 Gumroad tab
       bankTab.classList.remove('hidden');
       gumroadTabEl.classList.add('hidden');
-      selectPaymentMethod('bank_transfer');
+      showStep3PaymentTab('bank_transfer');
     }
   }
 
