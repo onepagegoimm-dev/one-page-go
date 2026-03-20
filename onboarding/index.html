@@ -1034,6 +1034,21 @@
         </div>
       </div>
 
+      <!-- 付款方式選擇 -->
+      <div class="addon-section" id="paymentMethodSection">
+        <h4>付款方式</h4>
+        <div class="payment-tabs" style="margin-bottom:0;">
+          <div class="payment-tab active" data-method="bank_transfer" onclick="selectPaymentMethodStep1('bank_transfer')">
+            <div class="tab-label">&#127974; 銀行匯款</div>
+            <div class="tab-sub">免手續費</div>
+          </div>
+          <div class="payment-tab" data-method="gumroad" onclick="selectPaymentMethodStep1('gumroad')">
+            <div class="tab-label">&#128179; 線上刷卡</div>
+            <div class="tab-sub">含 10% 手續費・即時完成</div>
+          </div>
+        </div>
+      </div>
+
       <!-- 即時報價 -->
       <div class="price-summary" id="priceSummary">
         <div class="price-row">
@@ -1043,6 +1058,10 @@
         <div class="price-row" id="summaryAddonRow" style="display:none;">
           <span id="summaryAddonName">加購服務</span>
           <span id="summaryAddonPrice">—</span>
+        </div>
+        <div class="price-row" id="summaryFeeRow" style="display:none;">
+          <span>線上刷卡手續費（10%）</span>
+          <span id="summaryFeePrice">—</span>
         </div>
         <div class="price-row total">
           <span>合計</span>
@@ -1112,7 +1131,7 @@
 
   <!-- ── Step 3: 選擇付款方式 ── -->
   <div id="step3" class="form-section fade-up hidden">
-    <h2>選擇付款方式</h2>
+    <h2>確認付款</h2>
     <div class="divider"></div>
     <p class="subtitle" style="color: var(--mauve); font-weight: 600;">請於簽約後 3 個工作天內完成付款，逾期將自動取消訂單</p>
 
@@ -1120,11 +1139,11 @@
 
     <!-- 付款方式 Tab -->
     <div class="payment-tabs">
-      <div class="payment-tab active" data-method="bank_transfer" onclick="selectPaymentMethod('bank_transfer')">
+      <div class="payment-tab active" data-method="bank_transfer">
         <div class="tab-label">&#127974; 銀行匯款</div>
         <div class="tab-sub">免手續費</div>
       </div>
-      <div class="payment-tab" data-method="gumroad" id="gumroadTab" onclick="selectPaymentMethod('gumroad')">
+      <div class="payment-tab" data-method="gumroad" id="gumroadTab">
         <div class="tab-label">&#128179; 線上刷卡</div>
         <div class="tab-sub">含 10% 手續費・即時完成</div>
       </div>
@@ -1281,6 +1300,7 @@
   let contractId = null;
   let contractTermsText = "";
   let price = 0;
+  let baseBudget = 0; // 不含手續費的基礎金額
   let emailVerified = false;
   let customerName = '';
 
@@ -1399,6 +1419,16 @@
     if (gumroad) addonParts.push('Gumroad 金流串接');
     let addonsText = addonParts.length > 0 ? '\n加購服務：' + addonParts.join('、') : '';
 
+    // 付款方式說明
+    let paymentMethodText = '';
+    if (selectedPaymentMethod === 'gumroad') {
+      const baseAmount = typeof budget === 'number' ? Math.round(budget / 1.1) : 0;
+      const feeAmount = budget - baseAmount;
+      paymentMethodText = '\n• 付款方式：線上刷卡（Gumroad），含 10% 手續費 ' + formatPrice(feeAmount) + ' 元';
+    } else {
+      paymentMethodText = '\n• 付款方式：銀行匯款（中華郵政 700）';
+    }
+
     return `One Page Go 網頁製作服務合約
 
 合約日期：${dateStr}
@@ -1425,8 +1455,8 @@
 • 素材製作（文案撰寫、商品攝影、Logo 設計）
 
 二、費用與付款
-• 本次服務費用為新台幣 ${formatPrice(priceAmount)} 元整（含稅）
-• 甲方應於簽約後 3 個工作天內完成匯款至乙方指定帳戶
+• 本次服務費用為新台幣 ${formatPrice(priceAmount)} 元整（含稅）${paymentMethodText}
+• 甲方應於簽約後 3 個工作天內完成付款
 • 逾期未付款視為自動取消訂單
 
 三、素材提供
@@ -1524,10 +1554,19 @@
     return parts.join(',');
   }
 
+  // ── Step 1 付款方式選擇 ──
+  function selectPaymentMethodStep1(method) {
+    selectedPaymentMethod = method;
+    document.querySelectorAll('#paymentMethodSection .payment-tab').forEach(t =>
+      t.classList.toggle('active', t.dataset.method === method));
+    updatePriceSummary();
+  }
+
   function updatePriceSummary() {
     const templateType = document.getElementById('templateType').value;
     const summary = document.getElementById('priceSummary');
     const addonRow = document.getElementById('summaryAddonRow');
+    const feeRow = document.getElementById('summaryFeeRow');
     const combo = document.getElementById('addonCombo');
 
     if (!templateType) {
@@ -1537,7 +1576,10 @@
 
     const basePrice = TEMPLATE_PRICING[templateType] || 0;
     const addonTotal = getAddonTotal();
-    const total = basePrice + addonTotal;
+    const subtotal = basePrice + addonTotal;
+    const isGumroad = selectedPaymentMethod === 'gumroad';
+    const fee = isGumroad ? Math.round(subtotal * 0.1) : 0;
+    const total = subtotal + fee;
 
     // 模板費用
     document.getElementById('summaryTemplateName').textContent = TEMPLATE_NAMES[templateType] || '模板費用';
@@ -1550,6 +1592,14 @@
       document.getElementById('summaryAddonPrice').textContent = '+' + formatPrice(addonTotal);
     } else {
       addonRow.style.display = 'none';
+    }
+
+    // 線上刷卡手續費
+    if (isGumroad && fee > 0) {
+      feeRow.style.display = 'flex';
+      document.getElementById('summaryFeePrice').textContent = '+' + formatPrice(fee);
+    } else {
+      feeRow.style.display = 'none';
     }
 
     // 合計
@@ -1716,7 +1766,10 @@
     // 從模板類型取得價格（含加購）
     const basePrice = TEMPLATE_PRICING[templateType] || 0;
     const addonTotal = getAddonTotal();
-    const totalBudget = basePrice + addonTotal;
+    const subtotal = basePrice + addonTotal;
+    const isGumroadPayment = selectedPaymentMethod === 'gumroad';
+    const gumroadFee = isGumroadPayment ? Math.round(subtotal * 0.1) : 0;
+    const totalBudget = subtotal + gumroadFee;
     const addonsValue = getAddonsValue(); // "telegram", "line", "telegram,line", ""
 
     const btn = document.getElementById('btnSubmitInquiry');
@@ -1737,6 +1790,7 @@
           requirements,
           budget: templateType,
           addons: addonsValue,
+          payment_method: selectedPaymentMethod,
           github_hosting: githubHosting,
           github_username: githubUsername || '',
           google_sheet_url: googleSheetUrl || ''
@@ -1748,6 +1802,7 @@
       if (data.success) {
         inquiryId = data.inquiryId;
         contractId = data.contractId;
+        baseBudget = subtotal;
         price = totalBudget;
         // 用 getContract 取得合約內容（受 session token 保護）
         try {
@@ -1774,6 +1829,7 @@
       console.warn('API 未連線，使用模擬資料', err);
       inquiryId = 'INQ-' + Date.now().toString(36).toUpperCase();
       contractId = 'CON-' + Date.now().toString(36).toUpperCase();
+      baseBudget = subtotal;
       price = totalBudget;
       contractTermsText = getDefaultContractTerms(name, businessName, templateType, price);
 
@@ -1844,15 +1900,14 @@
           await loadMyInquiries(trackEmail);
         } else {
           // 正常流程：進入 Step 3
-          document.getElementById('paymentAmount').textContent = formatPrice(price);
+          document.getElementById('paymentAmount').textContent = formatPrice(baseBudget);
           if (data.bankName) document.getElementById('bankName').textContent = data.bankName;
           if (data.bankAccount) document.getElementById('bankAccount').textContent = data.bankAccount;
           if (data.bankHolder) document.getElementById('bankHolder').textContent = data.bankHolder;
           // Gumroad 資訊
           if (data.gumroadAvailable !== undefined) gumroadAvailable = data.gumroadAvailable;
           if (data.gumroadFeePercent !== undefined) gumroadFeePercent = data.gumroadFeePercent;
-          setupGumroadDisplay(price);
-          selectPaymentMethod('bank_transfer');
+          setupStep3PaymentView(baseBudget);
           goToStep(3);
         }
       } else {
@@ -1864,9 +1919,8 @@
         document.getElementById('step2').classList.add('hidden');
         document.getElementById('trackingSection').classList.remove('hidden');
       } else {
-        document.getElementById('paymentAmount').textContent = formatPrice(price);
-        setupGumroadDisplay(price);
-        selectPaymentMethod('bank_transfer');
+        document.getElementById('paymentAmount').textContent = formatPrice(baseBudget);
+        setupStep3PaymentView(baseBudget);
         goToStep(3);
       }
     } finally {
@@ -1877,24 +1931,32 @@
   // ── 付款方式 tab 切換 ──
   function selectPaymentMethod(method) {
     selectedPaymentMethod = method;
-    document.querySelectorAll('.payment-tab').forEach(t =>
+    document.querySelectorAll('#step3 .payment-tab').forEach(t =>
       t.classList.toggle('active', t.dataset.method === method));
-    document.querySelectorAll('.payment-tab-content').forEach(c =>
+    document.querySelectorAll('#step3 .payment-tab-content').forEach(c =>
       c.classList.toggle('active', c.dataset.method === method));
     clearError(3);
   }
 
-  // ── 設定 Step 3 的 Gumroad 金額顯示 ──
-  function setupGumroadDisplay(contractPrice) {
-    if (gumroadAvailable) {
-      document.getElementById('gumroadTab').classList.remove('hidden');
-      gumroadAmount = Math.round(contractPrice * (1 + gumroadFeePercent / 100));
+  // ── 設定 Step 3 付款顯示（根據 Step 1 選擇） ──
+  function setupStep3PaymentView(baseAmount) {
+    const isGumroad = selectedPaymentMethod === 'gumroad';
+    const bankTab = document.querySelector('#step3 .payment-tab[data-method="bank_transfer"]');
+    const gumroadTabEl = document.getElementById('gumroadTab');
+
+    if (isGumroad && gumroadAvailable) {
+      // 使用者選擇線上刷卡：隱藏銀行匯款 tab，只顯示 Gumroad
+      bankTab.classList.add('hidden');
+      gumroadTabEl.classList.remove('hidden');
+      gumroadAmount = Math.round(baseAmount * (1 + gumroadFeePercent / 100));
       document.getElementById('gumroadAmount').textContent = formatPrice(gumroadAmount);
       document.getElementById('gumroadBreakdown').textContent =
-        '原價 ' + formatPrice(contractPrice) + ' + ' + gumroadFeePercent + '% 手續費';
+        '原價 ' + formatPrice(baseAmount) + ' + ' + gumroadFeePercent + '% 手續費';
+      selectPaymentMethod('gumroad');
     } else {
-      document.getElementById('gumroadTab').classList.add('hidden');
-      // 如果 Gumroad 不可用，確保選中銀行匯款
+      // 使用者選擇銀行匯款（或 Gumroad 不可用）：隱藏 Gumroad tab
+      bankTab.classList.remove('hidden');
+      gumroadTabEl.classList.add('hidden');
       selectPaymentMethod('bank_transfer');
     }
   }
@@ -2376,8 +2438,9 @@
         // Gumroad 資訊
         if (data.gumroadAvailable !== undefined) gumroadAvailable = data.gumroadAvailable;
         if (data.gumroadFeePercent !== undefined) gumroadFeePercent = data.gumroadFeePercent;
-        setupGumroadDisplay(price);
-        selectPaymentMethod('bank_transfer');
+        if (data.payment.payment_method) selectedPaymentMethod = data.payment.payment_method;
+        baseBudget = selectedPaymentMethod === 'gumroad' ? Math.round(price / 1.1) : price;
+        setupStep3PaymentView(baseBudget);
         stopGumroadPolling();
 
         document.getElementById('trackingSection').classList.add('hidden');
