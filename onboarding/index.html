@@ -1044,7 +1044,7 @@
           </div>
           <div class="payment-tab" data-method="gumroad" onclick="selectPaymentMethodStep1('gumroad')">
             <div class="tab-label">&#128179; 線上刷卡</div>
-            <div class="tab-sub">含 10% 手續費・即時完成</div>
+            <div class="tab-sub">含 20% 手續費・即時完成</div>
           </div>
         </div>
       </div>
@@ -1060,7 +1060,7 @@
           <span id="summaryAddonPrice">—</span>
         </div>
         <div class="price-row" id="summaryFeeRow" style="display:none;">
-          <span>線上刷卡手續費（10%）</span>
+          <span>線上刷卡手續費（20%）</span>
           <span id="summaryFeePrice">—</span>
         </div>
         <div class="price-row total">
@@ -1145,7 +1145,7 @@
       </div>
       <div class="payment-tab" data-method="gumroad" id="gumroadTab">
         <div class="tab-label">&#128179; 線上刷卡</div>
-        <div class="tab-sub">含 10% 手續費・即時完成</div>
+        <div class="tab-sub">含 20% 手續費・即時完成</div>
       </div>
     </div>
 
@@ -1308,7 +1308,7 @@
   let selectedPaymentMethod = 'bank_transfer';
   let gumroadPollTimer = null;
   let gumroadAvailable = false;
-  let gumroadFeePercent = 10;
+  let gumroadFeePercent = 20;
   let gumroadAmount = 0;
 
   // ── DOM 元素 ──
@@ -1422,9 +1422,9 @@
     // 付款方式說明
     let paymentMethodText = '';
     if (selectedPaymentMethod === 'gumroad') {
-      const baseAmount = typeof budget === 'number' ? Math.round(budget / 1.1) : 0;
+      const baseAmount = typeof budget === 'number' ? Math.round(budget / (1 + gumroadFeePercent / 100)) : 0;
       const feeAmount = budget - baseAmount;
-      paymentMethodText = '\n• 付款方式：線上刷卡（Gumroad），含 10% 手續費 ' + formatPrice(feeAmount) + ' 元';
+      paymentMethodText = '\n• 付款方式：線上刷卡（Gumroad），含 20% 手續費 ' + formatPrice(feeAmount) + ' 元';
     } else {
       paymentMethodText = '\n• 付款方式：銀行匯款（中華郵政 700）';
     }
@@ -1579,7 +1579,7 @@
     const addonTotal = getAddonTotal();
     const subtotal = basePrice + addonTotal;
     const isGumroad = selectedPaymentMethod === 'gumroad';
-    const fee = isGumroad ? Math.round(subtotal * 0.1) : 0;
+    const fee = isGumroad ? Math.round(subtotal * gumroadFeePercent / 100) : 0;
     const total = subtotal + fee;
 
     // 模板費用
@@ -1769,7 +1769,7 @@
     const addonTotal = getAddonTotal();
     const subtotal = basePrice + addonTotal;
     const isGumroadPayment = selectedPaymentMethod === 'gumroad';
-    const gumroadFee = isGumroadPayment ? Math.round(subtotal * 0.1) : 0;
+    const gumroadFee = isGumroadPayment ? Math.round(subtotal * gumroadFeePercent / 100) : 0;
     const totalBudget = subtotal + gumroadFee;
     const addonsValue = getAddonsValue(); // "telegram", "line", "telegram,line", ""
 
@@ -2462,7 +2462,7 @@
         if (data.gumroadAvailable !== undefined) gumroadAvailable = data.gumroadAvailable;
         if (data.gumroadFeePercent !== undefined) gumroadFeePercent = data.gumroadFeePercent;
         if (data.payment.payment_method) selectedPaymentMethod = data.payment.payment_method;
-        baseBudget = selectedPaymentMethod === 'gumroad' ? Math.round(price / 1.1) : price;
+        baseBudget = selectedPaymentMethod === 'gumroad' ? Math.round(price / (1 + gumroadFeePercent / 100)) : price;
         setupStep3PaymentView(baseBudget);
         stopGumroadPolling();
 
