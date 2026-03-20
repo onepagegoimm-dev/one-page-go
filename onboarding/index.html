@@ -1975,21 +1975,27 @@
 
   // ── Gumroad 輪詢 ──
   function startGumroadPolling(paymentId) {
+    // 防止多個 timer 同時跑
+    stopGumroadPolling();
+
     var attempts = 0;
     var maxAttempts = 60; // 5 分鐘
     var pollStatus = document.getElementById('gumroadPollStatus');
     var pollText = document.getElementById('gumroadPollText');
+    var pollSpinner = pollStatus.querySelector('.poll-spinner');
     pollStatus.classList.remove('hidden');
+    pollSpinner.style.display = '';
+    pollText.textContent = '等待付款確認中... (0/' + maxAttempts + ')';
 
     gumroadPollTimer = setInterval(async () => {
       attempts++;
       pollText.textContent = '等待付款確認中... (' + attempts + '/' + maxAttempts + ')';
 
       if (attempts > maxAttempts) {
-        clearInterval(gumroadPollTimer);
-        gumroadPollTimer = null;
+        stopGumroadPolling();
+        pollStatus.classList.remove('hidden');
         pollText.textContent = '偵測逾時，請至「訂單查詢」確認付款狀態';
-        pollStatus.querySelector('.poll-spinner').style.display = 'none';
+        pollSpinner.style.display = 'none';
         return;
       }
 
@@ -2002,9 +2008,7 @@
         var data = await res.json();
 
         if (data.status === 'confirmed') {
-          clearInterval(gumroadPollTimer);
-          gumroadPollTimer = null;
-          pollStatus.classList.add('hidden');
+          stopGumroadPolling();
 
           if (trackingMode) {
             document.getElementById('step3').classList.add('hidden');
@@ -2014,6 +2018,13 @@
             document.getElementById('successInquiryId').textContent = '案件編號：' + inquiryId;
             goToStep('success');
           }
+        } else if (data.status === 'rejected') {
+          // 金額不符或驗證失敗
+          stopGumroadPolling();
+          pollStatus.classList.remove('hidden');
+          pollText.textContent = '付款驗證失敗（金額不符），請重新操作或聯繫客服';
+          pollSpinner.style.display = 'none';
+          showError(3, '付款金額驗證失敗，請確認 Gumroad 付款金額是否正確，或改用銀行匯款');
         }
       } catch (err) {
         // 繼續輪詢
