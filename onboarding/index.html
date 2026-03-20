@@ -1823,7 +1823,7 @@
 
         goToStep(2);
       } else {
-        showError(1, data.message || '提交失敗，請稍後再試');
+        showError(1, data.error || data.message || '提交失敗，請稍後再試');
       }
     } catch (err) {
       // 開發模式：模擬 API 回應
