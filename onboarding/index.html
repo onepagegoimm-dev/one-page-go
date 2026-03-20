@@ -561,6 +561,50 @@
   .payment-info .info-row .info-label { color: var(--muted); }
   .payment-info .info-row .info-value { color: var(--text); font-weight: 600; }
 
+  /* ── 付款方式 tab ── */
+  .payment-tabs {
+    display: flex; gap: 0; margin-bottom: 1.2rem;
+  }
+  .payment-tab {
+    flex: 1; padding: 0.7rem 0.4rem; text-align: center; cursor: pointer;
+    border: 1.5px solid var(--blush); font-size: 0.78rem; font-weight: 600;
+    color: var(--muted); background: var(--cream); transition: all 0.3s;
+  }
+  .payment-tab:first-child { border-radius: 10px 0 0 10px; }
+  .payment-tab:last-child { border-radius: 0 10px 10px 0; border-left: none; }
+  .payment-tab.active { background: var(--rose); color: #fff; border-color: var(--rose); }
+  .payment-tab .tab-label { font-size: 0.82rem; }
+  .payment-tab .tab-sub { font-size: 0.68rem; font-weight: 400; margin-top: 2px; opacity: 0.85; }
+  .payment-tab-content { display: none; }
+  .payment-tab-content.active { display: block; }
+
+  .gumroad-info {
+    background: var(--cream); border: 1.5px solid var(--blush);
+    border-radius: 10px; padding: 1.2rem; margin-bottom: 1.2rem;
+  }
+  .gumroad-info .info-row {
+    display: flex; justify-content: space-between;
+    padding: 0.4rem 0; font-size: 0.82rem;
+    border-bottom: 1px dashed rgba(242,196,196,0.5);
+  }
+  .gumroad-info .info-row:last-child { border-bottom: none; }
+  .gumroad-info .info-row .info-label { color: var(--muted); }
+  .gumroad-info .info-row .info-value { color: var(--text); font-weight: 600; }
+  .gumroad-fee-note {
+    font-size: 0.75rem; color: var(--mauve); margin-bottom: 1rem;
+    padding: 0.5rem 0.8rem; background: rgba(242,196,196,0.1);
+    border-radius: 8px; line-height: 1.6;
+  }
+  .gumroad-poll-status {
+    text-align: center; padding: 1rem 0; font-size: 0.82rem; color: var(--muted);
+  }
+  .gumroad-poll-status .poll-spinner {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid var(--blush); border-top-color: var(--rose);
+    border-radius: 50%; animation: spin 0.8s linear infinite;
+    vertical-align: middle; margin-right: 6px;
+  }
+
   /* ── 成功畫面 ── */
   .success-screen {
     text-align: center;
@@ -1066,48 +1110,97 @@
     <button type="button" class="btn btn-secondary track-back-btn" id="trackBackFromSign" onclick="backToTracking()">返回查詢</button>
   </div>
 
-  <!-- ── Step 3: 確認付款 ── -->
+  <!-- ── Step 3: 選擇付款方式 ── -->
   <div id="step3" class="form-section fade-up hidden">
-    <h2>請儘速完成匯款</h2>
+    <h2>選擇付款方式</h2>
     <div class="divider"></div>
-    <p class="subtitle" style="color: var(--mauve); font-weight: 600;">請於簽約後 3 個工作天內完成匯款，逾期將自動取消訂單</p>
+    <p class="subtitle" style="color: var(--mauve); font-weight: 600;">請於簽約後 3 個工作天內完成付款，逾期將自動取消訂單</p>
 
     <div class="error-msg" id="error3"></div>
 
-    <div class="payment-info">
-      <h4>匯款資訊</h4>
-      <div class="info-row">
-        <span class="info-label">應付金額</span>
-        <span class="info-value" id="paymentAmount"></span>
+    <!-- 付款方式 Tab -->
+    <div class="payment-tabs">
+      <div class="payment-tab active" data-method="bank_transfer" onclick="selectPaymentMethod('bank_transfer')">
+        <div class="tab-label">&#127974; 銀行匯款</div>
+        <div class="tab-sub">免手續費</div>
       </div>
-      <div class="info-row">
-        <span class="info-label">銀行名稱</span>
-        <span class="info-value" id="bankName">中華郵政（700）</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">帳號</span>
-        <span class="info-value" id="bankAccount">03112960155314</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">戶名</span>
-        <span class="info-value" id="bankHolder">One Page Go 工作室</span>
+      <div class="payment-tab" data-method="gumroad" id="gumroadTab" onclick="selectPaymentMethod('gumroad')">
+        <div class="tab-label">&#128179; 線上刷卡</div>
+        <div class="tab-sub">含 10% 手續費・即時完成</div>
       </div>
     </div>
 
-    <div class="field">
-      <label>匯款帳號末五碼 <span class="required">*</span></label>
-      <input type="text" id="transferLast5" maxlength="5" placeholder="請輸入您匯款帳號的末五碼" />
+    <!-- 銀行匯款內容 -->
+    <div class="payment-tab-content active" data-method="bank_transfer">
+      <div class="payment-info">
+        <h4>匯款資訊</h4>
+        <div class="info-row">
+          <span class="info-label">應付金額</span>
+          <span class="info-value" id="paymentAmount"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">銀行名稱</span>
+          <span class="info-value" id="bankName">中華郵政（700）</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">帳號</span>
+          <span class="info-value" id="bankAccount">03112960155314</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">戶名</span>
+          <span class="info-value" id="bankHolder">One Page Go 工作室</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>匯款帳號末五碼 <span class="required">*</span></label>
+        <input type="text" id="transferLast5" maxlength="5" placeholder="請輸入您匯款帳號的末五碼" />
+      </div>
+
+      <div class="field">
+        <label>匯款日期 <span class="required">*</span></label>
+        <input type="date" id="transferDate" />
+      </div>
+
+      <button type="button" class="btn btn-primary" id="btnSubmitPayment">
+        <span class="btn-text">確認已匯款</span>
+        <div class="spinner"></div>
+      </button>
     </div>
 
-    <div class="field">
-      <label>匯款日期 <span class="required">*</span></label>
-      <input type="date" id="transferDate" />
+    <!-- Gumroad 線上刷卡內容 -->
+    <div class="payment-tab-content" data-method="gumroad">
+      <div class="gumroad-info">
+        <div class="info-row">
+          <span class="info-label">應付金額</span>
+          <span class="info-value" id="gumroadAmount" style="color: var(--mauve); font-size: 1rem;"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">費用明細</span>
+          <span class="info-value" id="gumroadBreakdown" style="font-weight: 400; font-size: 0.78rem;"></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">付款方式</span>
+          <span class="info-value">信用卡 / PayPal</span>
+        </div>
+      </div>
+
+      <div class="gumroad-fee-note">
+        線上刷卡由 Gumroad 提供安全金流服務。<br/>
+        點擊下方按鈕後將開啟新視窗完成付款，付款成功後此頁面會自動更新狀態。
+      </div>
+
+      <button type="button" class="btn btn-primary" id="btnGumroadPay">
+        <span class="btn-text">前往線上付款</span>
+        <div class="spinner"></div>
+      </button>
+
+      <div class="gumroad-poll-status hidden" id="gumroadPollStatus">
+        <span class="poll-spinner"></span>
+        <span id="gumroadPollText">等待付款確認中...</span>
+      </div>
     </div>
 
-    <button type="button" class="btn btn-primary" id="btnSubmitPayment">
-      <span class="btn-text">確認已匯款</span>
-      <div class="spinner"></div>
-    </button>
     <button type="button" class="btn btn-secondary track-back-btn" id="trackBackFromPay" onclick="backToTracking()">返回查詢</button>
   </div>
 
@@ -1190,6 +1283,13 @@
   let price = 0;
   let emailVerified = false;
   let customerName = '';
+
+  // ── Gumroad 付款狀態 ──
+  let selectedPaymentMethod = 'bank_transfer';
+  let gumroadPollTimer = null;
+  let gumroadAvailable = false;
+  let gumroadFeePercent = 10;
+  let gumroadAmount = 0;
 
   // ── DOM 元素 ──
   const steps = document.querySelectorAll('.step-item');
@@ -1746,9 +1846,13 @@
           // 正常流程：進入 Step 3
           document.getElementById('paymentAmount').textContent = formatPrice(price);
           if (data.bankName) document.getElementById('bankName').textContent = data.bankName;
-          if (data.bankBranch) document.getElementById('bankBranch').textContent = data.bankBranch;
           if (data.bankAccount) document.getElementById('bankAccount').textContent = data.bankAccount;
           if (data.bankHolder) document.getElementById('bankHolder').textContent = data.bankHolder;
+          // Gumroad 資訊
+          if (data.gumroadAvailable !== undefined) gumroadAvailable = data.gumroadAvailable;
+          if (data.gumroadFeePercent !== undefined) gumroadFeePercent = data.gumroadFeePercent;
+          setupGumroadDisplay(price);
+          selectPaymentMethod('bank_transfer');
           goToStep(3);
         }
       } else {
@@ -1761,6 +1865,8 @@
         document.getElementById('trackingSection').classList.remove('hidden');
       } else {
         document.getElementById('paymentAmount').textContent = formatPrice(price);
+        setupGumroadDisplay(price);
+        selectPaymentMethod('bank_transfer');
         goToStep(3);
       }
     } finally {
@@ -1768,7 +1874,89 @@
     }
   });
 
-  // ── Step 3: 確認付款 ──
+  // ── 付款方式 tab 切換 ──
+  function selectPaymentMethod(method) {
+    selectedPaymentMethod = method;
+    document.querySelectorAll('.payment-tab').forEach(t =>
+      t.classList.toggle('active', t.dataset.method === method));
+    document.querySelectorAll('.payment-tab-content').forEach(c =>
+      c.classList.toggle('active', c.dataset.method === method));
+    clearError(3);
+  }
+
+  // ── 設定 Step 3 的 Gumroad 金額顯示 ──
+  function setupGumroadDisplay(contractPrice) {
+    if (gumroadAvailable) {
+      document.getElementById('gumroadTab').classList.remove('hidden');
+      gumroadAmount = Math.round(contractPrice * (1 + gumroadFeePercent / 100));
+      document.getElementById('gumroadAmount').textContent = formatPrice(gumroadAmount);
+      document.getElementById('gumroadBreakdown').textContent =
+        '原價 ' + formatPrice(contractPrice) + ' + ' + gumroadFeePercent + '% 手續費';
+    } else {
+      document.getElementById('gumroadTab').classList.add('hidden');
+      // 如果 Gumroad 不可用，確保選中銀行匯款
+      selectPaymentMethod('bank_transfer');
+    }
+  }
+
+  // ── Gumroad 輪詢 ──
+  function startGumroadPolling(paymentId) {
+    var attempts = 0;
+    var maxAttempts = 60; // 5 分鐘
+    var pollStatus = document.getElementById('gumroadPollStatus');
+    var pollText = document.getElementById('gumroadPollText');
+    pollStatus.classList.remove('hidden');
+
+    gumroadPollTimer = setInterval(async () => {
+      attempts++;
+      pollText.textContent = '等待付款確認中... (' + attempts + '/' + maxAttempts + ')';
+
+      if (attempts > maxAttempts) {
+        clearInterval(gumroadPollTimer);
+        gumroadPollTimer = null;
+        pollText.textContent = '偵測逾時，請至「訂單查詢」確認付款狀態';
+        pollStatus.querySelector('.poll-spinner').style.display = 'none';
+        return;
+      }
+
+      try {
+        var res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ action: 'checkPaymentStatus', payment_id: paymentId })
+        });
+        var data = await res.json();
+
+        if (data.status === 'confirmed') {
+          clearInterval(gumroadPollTimer);
+          gumroadPollTimer = null;
+          pollStatus.classList.add('hidden');
+
+          if (trackingMode) {
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('trackingSection').classList.remove('hidden');
+            await loadMyInquiries(trackEmail);
+          } else {
+            document.getElementById('successInquiryId').textContent = '案件編號：' + inquiryId;
+            goToStep('success');
+          }
+        }
+      } catch (err) {
+        // 繼續輪詢
+      }
+    }, 5000);
+  }
+
+  function stopGumroadPolling() {
+    if (gumroadPollTimer) {
+      clearInterval(gumroadPollTimer);
+      gumroadPollTimer = null;
+    }
+    var pollStatus = document.getElementById('gumroadPollStatus');
+    if (pollStatus) pollStatus.classList.add('hidden');
+  }
+
+  // ── Step 3: 銀行匯款提交 ──
   document.getElementById('btnSubmitPayment').addEventListener('click', async () => {
     clearError(3);
 
@@ -1800,6 +1988,7 @@
         body: JSON.stringify({
           action: 'submitPayment',
           contract_id: contractId,
+          payment_method: 'bank_transfer',
           transfer_last5: transferLast5,
           transfer_date: transferDate,
           email: (trackingMode ? trackEmail : document.getElementById('email').value.trim().toLowerCase()),
@@ -1832,6 +2021,44 @@
         document.getElementById('successInquiryId').textContent = '案件編號：' + inquiryId;
         goToStep('success');
       }
+    } finally {
+      setLoading(btn, false);
+    }
+  });
+
+  // ── Step 3: Gumroad 線上付款 ──
+  document.getElementById('btnGumroadPay').addEventListener('click', async () => {
+    clearError(3);
+
+    const btn = document.getElementById('btnGumroadPay');
+    setLoading(btn, true);
+
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          action: 'submitPayment',
+          contract_id: contractId,
+          payment_method: 'gumroad',
+          email: (trackingMode ? trackEmail : document.getElementById('email').value.trim().toLowerCase()),
+          sessionToken: getSessionToken()
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.success && data.paymentUrl) {
+        // 開新視窗到 Gumroad 付款
+        window.open(data.paymentUrl, '_blank');
+        // 啟動輪詢
+        startGumroadPolling(data.paymentId);
+      } else {
+        showError(3, data.error || '無法建立付款，請稍後再試');
+      }
+    } catch (err) {
+      console.warn('API 未連線', err);
+      showError(3, '無法連線，請稍後再試');
     } finally {
       setLoading(btn, false);
     }
@@ -1908,6 +2135,8 @@
     document.getElementById('agreeTerms').checked = false;
     document.getElementById('agreeCustomized').checked = false;
     document.getElementById('transferLast5').value = '';
+    // 清除 Gumroad 輪詢
+    stopGumroadPolling();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -2139,7 +2368,18 @@
       const data = JSON.parse(text);
 
       if (data.payment) {
-        document.getElementById('paymentAmount').textContent = formatPrice(data.payment.amount);
+        price = data.payment.amount;
+        document.getElementById('paymentAmount').textContent = formatPrice(price);
+        if (data.payment.bankName) document.getElementById('bankName').textContent = data.payment.bankName;
+        if (data.payment.bankAccount) document.getElementById('bankAccount').textContent = data.payment.bankAccount;
+        if (data.payment.bankHolder) document.getElementById('bankHolder').textContent = data.payment.bankHolder;
+        // Gumroad 資訊
+        if (data.gumroadAvailable !== undefined) gumroadAvailable = data.gumroadAvailable;
+        if (data.gumroadFeePercent !== undefined) gumroadFeePercent = data.gumroadFeePercent;
+        setupGumroadDisplay(price);
+        selectPaymentMethod('bank_transfer');
+        stopGumroadPolling();
+
         document.getElementById('trackingSection').classList.add('hidden');
         document.getElementById('step3').classList.remove('hidden');
         document.getElementById('trackBackFromPay').classList.add('show');
