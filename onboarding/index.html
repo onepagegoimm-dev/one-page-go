@@ -1018,7 +1018,8 @@
         <div class="addon-combo" id="addonCombo">
           雙通知組合優惠：Telegram + LINE 只要 +NT$250（省 NT$50）
         </div>
-        <div class="addon-item" style="margin-top: 6px; border-top: 1.5px solid rgba(242,196,196,0.4); padding-top: 10px;">
+        <!-- 金流加購（暫時隱藏） -->
+        <div class="addon-item hidden" style="margin-top: 6px; border-top: 1.5px solid rgba(242,196,196,0.4); padding-top: 10px;">
           <input type="checkbox" id="addonGumroad" />
           <div class="addon-info">
             <div class="addon-name">Gumroad 金流串接</div>
@@ -1029,13 +1030,13 @@
             <a href="../demos/payment/" target="_blank" rel="noopener" style="font-size:11px;color:var(--mauve);text-decoration:underline;text-underline-offset:2px;white-space:nowrap;">金流測試 &rarr;</a>
           </div>
         </div>
-        <div style="font-size:12px;color:var(--brown);opacity:0.65;line-height:1.6;margin-top:10px;padding:8px 10px;background:rgba(242,196,196,0.1);border-radius:6px;">
+        <div class="hidden" style="font-size:12px;color:var(--brown);opacity:0.65;line-height:1.6;margin-top:10px;padding:8px 10px;background:rgba(242,196,196,0.1);border-radius:6px;">
           其他金流方案：<strong>綠界 ECPay</strong>（+NT$3,000）或 <strong>Stripe</strong>（+NT$3,000）亦可客製串接，需註冊帳號及公司/商號，詳情請於備註說明。
         </div>
       </div>
 
-      <!-- 付款方式選擇 -->
-      <div class="addon-section" id="paymentMethodSection">
+      <!-- 付款方式選擇（金流功能暫時隱藏） -->
+      <div class="addon-section hidden" id="paymentMethodSection">
         <h4>付款方式</h4>
         <div class="payment-tabs" style="margin-bottom:0;">
           <div class="payment-tab active" data-method="bank_transfer" onclick="selectPaymentMethodStep1('bank_transfer')">
@@ -1137,8 +1138,8 @@
 
     <div class="error-msg" id="error3"></div>
 
-    <!-- 付款方式 Tab -->
-    <div class="payment-tabs">
+    <!-- 付款方式 Tab（金流功能暫時隱藏） -->
+    <div class="payment-tabs hidden">
       <div class="payment-tab active" data-method="bank_transfer">
         <div class="tab-label">&#127974; 銀行匯款</div>
         <div class="tab-sub">免手續費</div>
