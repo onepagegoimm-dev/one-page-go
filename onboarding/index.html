@@ -104,7 +104,8 @@
     display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem;
   }
 
-  .logo-icon { font-size: 2rem; line-height: 1; animation: float 3s ease-in-out infinite; }
+  .logo-icon { line-height: 1; animation: float 3s ease-in-out infinite; }
+  .logo-icon img { width: 80px; height: 80px; border-radius: 18px; }
 
   @keyframes float {
     0%,100% { transform: translateY(0); }
@@ -819,7 +820,7 @@
 <header>
   <a href="../index.html" class="back-link">&larr; 返回首頁</a>
   <div class="logo-wrap">
-    <div class="logo-icon">&#127968;</div>
+    <div class="logo-icon"><img src="../one_page_go.png" alt="One Page Go"></div>
     <div class="logo-name">One Page Go</div>
     <div class="logo-sub">Client Onboarding</div>
     <div class="track-link" onclick="showTracking()">已有訂單？查詢進度</div>
