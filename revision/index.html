@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="manifest" href="../site.webmanifest">
+<title>One Page Go — 專案調整</title>
+<meta name="description" content="One Page Go 專案調整需求。付款完成後，線上提交專案調整說明，即時追蹤處理進度。" />
+<meta name="author" content="One Page Go" />
+<link rel="canonical" href="https://bolin9159-gif.github.io/one-page-go/revision/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="One Page Go — 專案調整" />
+<meta property="og:description" content="付款完成後，線上提交專案調整說明，即時追蹤處理進度。" />
+<meta property="og:url" content="https://bolin9159-gif.github.io/one-page-go/revision/" />
+<meta property="og:locale" content="zh_TW" />
+<meta property="og:site_name" content="One Page Go" />
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "One Page Go — 專案調整",
+    "url": "https://bolin9159-gif.github.io/one-page-go/revision/",
+    "description": "One Page Go 專案調整需求頁面",
+    "inLanguage": "zh-TW",
+    "isPartOf": {
+        "@type": "WebSite",
+        "name": "One Page Go",
+        "url": "https://bolin9159-gif.github.io/one-page-go/"
+    }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── 色票 ── */
+  :root {
+    --cream:   #fdf6ee;
+    --warm:    #f5e6d3;
+    --blush:   #f2c4c4;
+    --rose:    #e8a0a0;
+    --mauve:   #c97d7d;
+    --brown:   #7a4f3a;
+    --text:    #4a3428;
+    --muted:   #9c7b6e;
+    --white:   #fffcf8;
+    --shadow:  rgba(122,79,58,0.12);
+    --green:   #7dba6a;
+    --blue:    #5b8fc9;
+    --yellow:  #d4a843;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Noto Serif TC', serif;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(242,196,196,0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(245,230,211,0.4) 0%, transparent 50%),
+      radial-gradient(circle at 60% 10%, rgba(253,246,238,0.5) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 2rem 1.5rem 1.2rem;
+    background: linear-gradient(180deg, var(--warm) 0%, transparent 100%);
+  }
+
+  .back-link {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--brown); }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--brown);
+    margin-bottom: 0.3rem;
+  }
+  header p {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* ── 主容器 ── */
+  .container {
+    position: relative; z-index: 10;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 1.2rem 3rem;
+  }
+
+  /* ── 卡片 ── */
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--warm);
+  }
+
+  /* ── 表單元素 ── */
+  .form-group { margin-bottom: 1rem; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1.5px solid var(--warm);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.3s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--mauve);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .char-count {
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* ── 按鈕 ── */
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--mauve), var(--rose));
+    color: var(--white);
+    width: 100%;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--mauve);
+    border: 1.5px solid var(--mauve);
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  .btn-outline:hover { background: var(--mauve); color: var(--white); }
+  .btn-outline:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ── 驗證碼 inline ── */
+  .verify-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .verify-row input { flex: 1; }
+  .verify-row .btn { white-space: nowrap; flex-shrink: 0; }
+
+  .verify-status {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    min-height: 1.2em;
+  }
+
+  /* ── Session 倒數 ── */
+  .session-timer {
+    position: fixed;
+    top: 0.8rem;
+    right: 0.8rem;
+    z-index: 100;
+    background: var(--white);
+    border: 1px solid var(--warm);
+    border-radius: 8px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    box-shadow: 0 1px 4px var(--shadow);
+  }
+  .session-timer.warning { color: var(--mauve); border-color: var(--mauve); }
+
+  /* ── 專案資訊卡 ── */
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+  }
+  .project-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--brown);
+  }
+  .project-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+  }
+  .status-in_progress { background: #e3f2fd; color: #1565c0; }
+  .status-delivered { background: #d6f0d3; color: #3a7a4f; }
+  .status-setup, .status-building, .status-testing { background: #e3f2fd; color: #1565c0; }
+
+  .project-meta {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .project-meta a {
+    color: var(--blue);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .project-meta a:hover { text-decoration: underline; }
+
+  /* ── 調整次數進度條 ── */
+  .revision-progress {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--warm);
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--warm);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--mauve));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  /* ── 調整歷史時間軸 ── */
+  .timeline { padding: 0; }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 1.2rem 1.5rem;
+    border-left: 2px solid var(--warm);
+  }
+  .timeline-item:last-child { border-left-color: transparent; padding-bottom: 0; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -6px;
+    top: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--warm);
+    background: var(--white);
+  }
+  .timeline-item.confirmed .timeline-dot {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .timeline-item.pending .timeline-dot {
+    background: var(--yellow);
+    border-color: var(--yellow);
+  }
+
+  .timeline-date {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+  .timeline-content {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--cream);
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+  }
+  .timeline-status {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    margin-top: 0.3rem;
+  }
+  .timeline-status.pending { background: #fff8e1; color: #856404; }
+  .timeline-status.confirmed { background: #d6f0d3; color: #3a7a4f; }
+
+  .timeline-note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    font-style: italic;
+  }
+
+  /* ── 鎖定提示 ── */
+  .lock-message {
+    text-align: center;
+    padding: 1rem;
+    background: var(--cream);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .lock-message.warning { color: var(--mauve); background: #fdf0f0; }
+
+  /* ── 錯誤 / 訊息 ── */
+  .error-msg {
+    color: var(--mauve);
+    font-size: 0.82rem;
+    margin-top: 0.5rem;
+    min-height: 1.2em;
+  }
+  .success-msg {
+    color: var(--green);
+    font-size: 0.82rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ── 空狀態 ── */
+  .empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* ── Loading ── */
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+  }
+  .spinner {
+    display: inline-block;
+    width: 24px; height: 24px;
+    border: 3px solid var(--warm);
+    border-top-color: var(--mauve);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 0.5rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── 隱藏 ── */
+  .hidden { display: none !important; }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    position: relative;
+    z-index: 10;
+  }
+  footer a { color: var(--mauve); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── 動畫 ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.5s ease both; }
+</style>
+</head>
+<body>
+
+<!-- Session 倒數 -->
+<div id="sessionTimer" class="session-timer hidden"></div>
+
+<header>
+  <a href="../" class="back-link">< 回首頁</a>
+  <h1>專案調整</h1>
+  <p>提交調整需求，追蹤處理進度</p>
+</header>
+
+<div class="container">
+
+  <!-- ═══ 驗證區塊 ═══ -->
+  <section id="authSection" class="fade-up">
+    <div class="card">
+      <div class="card-title">Email 驗證</div>
+      <div class="form-group">
+        <label>請輸入您下單時使用的 Email</label>
+        <div class="verify-row">
+          <input type="email" id="emailInput" placeholder="your@email.com" />
+          <button class="btn btn-outline" id="btnSendCode">發送驗證碼</button>
+        </div>
+        <div id="verifyStatus" class="verify-status"></div>
+      </div>
+      <div id="codeField" class="form-group hidden">
+        <div class="verify-row">
+          <input type="text" id="codeInput" maxlength="6" placeholder="6 位數驗證碼" />
+          <button class="btn btn-outline" id="btnVerifyCode">驗證</button>
+        </div>
+      </div>
+      <div id="authError" class="error-msg"></div>
+    </div>
+  </section>
+
+  <!-- ═══ 主內容區塊（驗證後顯示）═══ -->
+  <section id="mainSection" class="hidden">
+
+    <!-- Loading -->
+    <div id="loadingState" class="loading">
+      <div class="spinner"></div>
+      <div>載入專案資料中...</div>
+    </div>
+
+    <!-- 無專案 -->
+    <div id="emptyState" class="card hidden">
+      <div class="empty-state">
+        目前沒有進行中的專案。<br>
+        如果您已付款但未看到專案，請等待管理者確認收款。
+      </div>
+    </div>
+
+    <!-- 專案列表 -->
+    <div id="projectList"></div>
+
+  </section>
+
+</div>
+
+<footer>
+  <a href="../">One Page Go</a> &copy; 2025
+</footer>
+
+<script>
+  // ── API 設定 ──
+  const API_URL = "https://script.google.com/macros/s/AKfycbyryJRwHkIVrVPP2Nh_fIXGFbVPlaNQ6TkAF_snVH6XlYpceaLKYKQfjyXruzMSeGsc/exec";
+
+  // ── Session 管理 ──
+  let sessionToken = '';
+  let verifiedEmail = '';
+  let sessionExpireTime = 0;
+  let sessionTimerInterval = null;
+
+  function saveSession(email, token) {
+    sessionToken = token;
+    verifiedEmail = email;
+    sessionExpireTime = Date.now() + 30 * 60 * 1000; // 30 分鐘
+    sessionStorage.setItem('opg_rev_token', token);
+    sessionStorage.setItem('opg_rev_email', email);
+    sessionStorage.setItem('opg_rev_expire', String(sessionExpireTime));
+    startSessionTimer();
+  }
+
+  function loadSession() {
+    const token = sessionStorage.getItem('opg_rev_token');
+    const email = sessionStorage.getItem('opg_rev_email');
+    const expire = parseInt(sessionStorage.getItem('opg_rev_expire') || '0');
+    if (token && email && expire > Date.now()) {
+      sessionToken = token;
+      verifiedEmail = email;
+      sessionExpireTime = expire;
+      return true;
+    }
+    clearSession();
+    return false;
+  }
+
+  function clearSession() {
+    sessionToken = '';
+    verifiedEmail = '';
+    sessionExpireTime = 0;
+    sessionStorage.removeItem('opg_rev_token');
+    sessionStorage.removeItem('opg_rev_email');
+    sessionStorage.removeItem('opg_rev_expire');
+    if (sessionTimerInterval) clearInterval(sessionTimerInterval);
+    document.getElementById('sessionTimer').classList.add('hidden');
+  }
+
+  function startSessionTimer() {
+    const timerEl = document.getElementById('sessionTimer');
+    timerEl.classList.remove('hidden');
+
+    if (sessionTimerInterval) clearInterval(sessionTimerInterval);
+    sessionTimerInterval = setInterval(() => {
+      const remaining = Math.max(0, sessionExpireTime - Date.now());
+      const min = Math.floor(remaining / 60000);
+      const sec = Math.floor((remaining % 60000) / 1000);
+
+      if (remaining <= 0) {
+        clearInterval(sessionTimerInterval);
+        clearSession();
+        timerEl.classList.add('hidden');
+        // 回到驗證畫面
+        document.getElementById('authSection').classList.remove('hidden');
+        document.getElementById('mainSection').classList.add('hidden');
+        resetAuthUI();
+        showAuthError('驗證已過期，請重新驗證');
+        return;
+      }
+
+      timerEl.textContent = '驗證有效：' + min + ':' + String(sec).padStart(2, '0');
+      if (remaining < 5 * 60 * 1000) {
+        timerEl.classList.add('warning');
+      } else {
+        timerEl.classList.remove('warning');
+      }
+    }, 1000);
+  }
+
+  // ── API 呼叫 ──
+  async function apiCall(data) {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+    return await res.json();
+  }
+
+  // ── UI 工具 ──
+  function showAuthError(msg) {
+    document.getElementById('authError').textContent = msg;
+  }
+  function clearAuthError() {
+    document.getElementById('authError').textContent = '';
+  }
+
+  function resetAuthUI() {
+    document.getElementById('emailInput').disabled = false;
+    document.getElementById('emailInput').value = '';
+    document.getElementById('btnSendCode').disabled = false;
+    document.getElementById('btnSendCode').textContent = '發送驗證碼';
+    document.getElementById('codeField').classList.add('hidden');
+    document.getElementById('codeInput').value = '';
+    document.getElementById('verifyStatus').textContent = '';
+    clearAuthError();
+  }
+
+  function escapeText(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function statusLabel(status) {
+    const map = {
+      'in_progress': '製作中',
+      'setup': '設定中',
+      'building': '建置中',
+      'testing': '測試中',
+      'delivered': '已交付',
+      'maintained': '維護中'
+    };
+    return map[status] || status;
+  }
+
+  // ── 發送驗證碼 ──
+  document.getElementById('btnSendCode').addEventListener('click', async () => {
+    clearAuthError();
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showAuthError('請輸入有效的 Email 地址');
+      return;
+    }
+
+    const btn = document.getElementById('btnSendCode');
+    btn.disabled = true;
+    btn.textContent = '發送中...';
+
+    try {
+      const data = await apiCall({ action: 'sendVerifyCode', email, purpose: 'tracking' });
+      if (data.success) {
+        document.getElementById('codeField').classList.remove('hidden');
+        document.getElementById('verifyStatus').textContent = '驗證碼已發送至您的信箱';
+        document.getElementById('verifyStatus').style.color = 'var(--green)';
+      } else {
+        showAuthError(data.error || '發送失敗，請稍後再試');
+      }
+    } catch (err) {
+      showAuthError('連線失敗，請稍後再試');
+    }
+
+    // 60 秒倒數
+    let countdown = 60;
+    btn.textContent = countdown + 's';
+    const timer = setInterval(() => {
+      countdown--;
+      btn.textContent = countdown + 's';
+      if (countdown <= 0) {
+        clearInterval(timer);
+        btn.textContent = '重新發送';
+        btn.disabled = false;
+      }
+    }, 1000);
+  });
+
+  // ── 驗證碼確認 ──
+  document.getElementById('btnVerifyCode').addEventListener('click', async () => {
+    clearAuthError();
+    const email = document.getElementById('emailInput').value.trim();
+    const code = document.getElementById('codeInput').value.trim();
+
+    if (!code || code.length !== 6) {
+      showAuthError('請輸入 6 位數驗證碼');
+      return;
+    }
+
+    const btn = document.getElementById('btnVerifyCode');
+    btn.disabled = true;
+    btn.textContent = '驗證中...';
+
+    try {
+      const data = await apiCall({ action: 'verifyCode', email, code });
+      if (data.success) {
+        saveSession(email, data.sessionToken);
+        enterMainView();
+      } else {
+        showAuthError(data.error || '驗證碼錯誤');
+        btn.disabled = false;
+        btn.textContent = '驗證';
+      }
+    } catch (err) {
+      showAuthError('連線失敗，請稍後再試');
+      btn.disabled = false;
+      btn.textContent = '驗證';
+    }
+  });
+
+  // ── 進入主畫面 ──
+  function enterMainView() {
+    document.getElementById('authSection').classList.add('hidden');
+    document.getElementById('mainSection').classList.remove('hidden');
+    loadProjects();
+  }
+
+  // ── 載入專案資料 ──
+  async function loadProjects() {
+    document.getElementById('loadingState').classList.remove('hidden');
+    document.getElementById('emptyState').classList.add('hidden');
+    document.getElementById('projectList').innerHTML = '';
+
+    try {
+      const data = await apiCall({
+        action: 'getProjectForRevision',
+        email: verifiedEmail,
+        token: sessionToken
+      });
+
+      document.getElementById('loadingState').classList.add('hidden');
+
+      if (data.error) {
+        if (data.error.includes('身份驗證') || data.error.includes('驗證')) {
+          clearSession();
+          document.getElementById('authSection').classList.remove('hidden');
+          document.getElementById('mainSection').classList.add('hidden');
+          resetAuthUI();
+          showAuthError('驗證已過期，請重新驗證');
+        }
+        return;
+      }
+
+      const projects = data.projects || [];
+      if (projects.length === 0) {
+        document.getElementById('emptyState').classList.remove('hidden');
+        return;
+      }
+
+      renderProjects(projects);
+    } catch (err) {
+      document.getElementById('loadingState').classList.add('hidden');
+      document.getElementById('projectList').innerHTML =
+        '<div class="card"><div class="error-msg">載入失敗，請重新整理頁面</div></div>';
+    }
+  }
+
+  // ── 渲染專案列表 ──
+  function renderProjects(projects) {
+    const container = document.getElementById('projectList');
+    container.innerHTML = '';
+
+    projects.forEach((proj, idx) => {
+      const card = document.createElement('div');
+      card.className = 'card fade-up';
+      card.style.animationDelay = (idx * 0.1) + 's';
+
+      const statusClass = 'status-' + proj.status;
+      const remaining = proj.revision_limit - proj.revision_used;
+      const progressPercent = Math.min(100, (proj.revision_used / proj.revision_limit) * 100);
+
+      // 上線網址
+      let urlHtml = '';
+      if (proj.display_url) {
+        const safeUrl = proj.display_url.startsWith('https://') ? proj.display_url : '';
+        if (safeUrl) {
+          urlHtml = '<div class="project-meta">上線網址：<a href="' + escapeText(safeUrl) + '" target="_blank" rel="noopener">' + escapeText(safeUrl) + '</a></div>';
+        }
+      }
+
+      // 調整歷史
+      let historyHtml = '';
+      if (proj.revisions && proj.revisions.length > 0) {
+        historyHtml = '<div class="card-title" style="margin-top:0.5rem">調整紀錄</div><div class="timeline">';
+        // 按時間倒序
+        const sorted = [...proj.revisions].sort((a, b) => b.submitted_at.localeCompare(a.submitted_at));
+        sorted.forEach(rev => {
+          const statusText = rev.status === 'confirmed' ? '已確認' : '處理中';
+          const noteHtml = rev.admin_note
+            ? '<div class="timeline-note">開發者回覆：' + escapeText(rev.admin_note) + '</div>'
+            : '';
+          const confirmedHtml = rev.confirmed_at
+            ? '<div class="timeline-date">確認時間：' + escapeText(rev.confirmed_at) + '</div>'
+            : '';
+
+          historyHtml += '<div class="timeline-item ' + rev.status + '">'
+            + '<div class="timeline-dot"></div>'
+            + '<div class="timeline-date">' + escapeText(rev.submitted_at) + '</div>'
+            + '<div class="timeline-content">' + escapeText(rev.content) + '</div>'
+            + '<span class="timeline-status ' + rev.status + '">' + statusText + '</span>'
+            + confirmedHtml
+            + noteHtml
+            + '</div>';
+        });
+        historyHtml += '</div>';
+      }
+
+      // 填寫區或鎖定訊息
+      let actionHtml = '';
+      const projId = escapeText(proj.project_id);
+
+      if (proj.has_pending) {
+        actionHtml = '<div class="lock-message">等待開發者確認中，確認後即可提交下一次調整</div>';
+      } else if (remaining <= 0) {
+        actionHtml = '<div class="lock-message warning">調整次數已達上限（' + proj.revision_limit + ' 次），如需更多調整請聯繫客服</div>';
+      } else {
+        actionHtml = '<div class="card-title" style="margin-top:0.5rem">提交調整需求</div>'
+          + '<div class="form-group">'
+          + '<label>請詳細描述您需要調整的內容</label>'
+          + '<textarea id="content_' + projId + '" maxlength="1000" placeholder="例如：Logo 改成圓角、首頁標題文字改成..."></textarea>'
+          + '<div class="char-count"><span id="charCount_' + projId + '">0</span> / 1000</div>'
+          + '</div>'
+          + '<button class="btn btn-primary" id="btnSubmit_' + projId + '" data-project="' + projId + '">送出調整需求</button>'
+          + '<div id="submitMsg_' + projId + '" class="error-msg"></div>';
+      }
+
+      card.innerHTML = '<div class="project-header">'
+        + '<div class="project-name">' + escapeText(proj.client_name) + ' — ' + escapeText(proj.template_type) + '</div>'
+        + '<span class="project-status ' + statusClass + '">' + statusLabel(proj.status) + '</span>'
+        + '</div>'
+        + urlHtml
+        + '<div class="revision-progress">'
+        + '<div class="progress-label"><span>調整次數</span><span>' + proj.revision_used + ' / ' + proj.revision_limit + '</span></div>'
+        + '<div class="progress-bar"><div class="progress-fill" style="width:' + progressPercent + '%"></div></div>'
+        + '</div>'
+        + historyHtml
+        + actionHtml;
+
+      container.appendChild(card);
+
+      // 綁定事件
+      const textarea = document.getElementById('content_' + projId);
+      if (textarea) {
+        textarea.addEventListener('input', () => {
+          document.getElementById('charCount_' + projId).textContent = textarea.value.length;
+        });
+      }
+
+      const submitBtn = document.getElementById('btnSubmit_' + projId);
+      if (submitBtn) {
+        submitBtn.addEventListener('click', () => handleSubmit(proj.project_id));
+      }
+    });
+  }
+
+  // ── 送出調整需求 ──
+  async function handleSubmit(projectId) {
+    const safeId = escapeText(projectId);
+    const textarea = document.getElementById('content_' + safeId);
+    const btn = document.getElementById('btnSubmit_' + safeId);
+    const msgEl = document.getElementById('submitMsg_' + safeId);
+    const content = textarea.value.trim();
+
+    msgEl.textContent = '';
+    msgEl.className = 'error-msg';
+
+    if (!content) {
+      msgEl.textContent = '請輸入調整說明';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = '送出中...';
+
+    try {
+      const data = await apiCall({
+        action: 'submitRevision',
+        email: verifiedEmail,
+        sessionToken: sessionToken,
+        project_id: projectId,
+        content: content
+      });
+
+      if (data.success) {
+        msgEl.textContent = '調整需求已送出，開發者將盡快處理';
+        msgEl.className = 'success-msg';
+        // 重新載入專案資料
+        setTimeout(() => loadProjects(), 1500);
+      } else {
+        msgEl.textContent = data.error || '送出失敗，請稍後再試';
+        if (data.error && (data.error.includes('身份驗證') || data.error.includes('驗證'))) {
+          clearSession();
+          document.getElementById('authSection').classList.remove('hidden');
+          document.getElementById('mainSection').classList.add('hidden');
+          resetAuthUI();
+          showAuthError('驗證已過期，請重新驗證');
+          return;
+        }
+        btn.disabled = false;
+        btn.textContent = '送出調整需求';
+      }
+    } catch (err) {
+      msgEl.textContent = '連線失敗，請稍後再試';
+      btn.disabled = false;
+      btn.textContent = '送出調整需求';
+    }
+  }
+
+  // ── 頁面載入 ──
+  if (loadSession()) {
+    startSessionTimer();
+    enterMainView();
+  }
+</script>
+</body>
+</html>

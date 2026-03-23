@@ -919,7 +919,7 @@
 
     <div id="trackInquiryList" class="hidden"></div>
 
-    <button type="button" class="btn btn-secondary" onclick="hideTracking()" style="margin-top: 1rem;">返回接單流程</button>
+    <button type="button" class="btn btn-secondary" onclick="hideTracking()" style="margin-top: 1rem;">返回訂購頁面</button>
   </div>
 
   <!-- ── Step 1: 提交需求 ── -->
@@ -2375,8 +2375,13 @@
         actionHtml = `<button class="btn-action btn-action-primary" onclick="trackSubmitPayment('${inq.contract.contract_id}')">立即匯款並填寫後5碼完成合約</button>`;
       } else if (inq.next_action === 'wait_admin') {
         actionHtml = '<span class="wait-hint">等待管理者處理</span>';
+        // 已付款的訂單可以前往專案調整
+        if (['paid', 'confirmed', 'in_progress'].includes(inq.status)) {
+          actionHtml += '<a href="../revision/" class="btn-action btn-action-primary" style="text-decoration:none;text-align:center;margin-top:0.3rem;">前往專案調整</a>';
+        }
       } else if (inq.next_action === 'completed') {
-        actionHtml = '<span class="wait-hint" style="color:var(--green);">已完成</span>';
+        actionHtml = '<span class="wait-hint" style="color:var(--green);">已完成</span>'
+          + '<a href="../revision/" class="btn-action btn-action-primary" style="text-decoration:none;text-align:center;margin-top:0.3rem;">前往專案調整</a>';
       } else if (inq.next_action === 'cancelled') {
         actionHtml = '<span class="wait-hint" style="color:#7A3A3A;">已取消</span>';
       }
