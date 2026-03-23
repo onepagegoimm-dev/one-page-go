@@ -669,6 +669,55 @@
                 transform: translateY(-2px);
             }
 
+            /* ── 已是客戶區塊 ── */
+            .customer-section {
+                text-align: center;
+                padding: 36px 0 20px;
+                border-top: 1px solid var(--warm);
+                margin-top: 10px;
+            }
+            .customer-section p {
+                font-size: 0.88rem;
+                color: var(--muted);
+                margin-bottom: 16px;
+            }
+            .customer-links {
+                display: flex;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+            .customer-link {
+                display: inline-block;
+                padding: 10px 24px;
+                border-radius: 24px;
+                font-family: "Noto Serif TC", serif;
+                font-size: 0.88rem;
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.3s;
+            }
+            .customer-link-primary {
+                background: var(--white);
+                color: var(--brown);
+                border: 1.5px solid var(--brown);
+            }
+            .customer-link-primary:hover {
+                background: var(--brown);
+                color: var(--white);
+                transform: translateY(-1px);
+            }
+            .customer-link-secondary {
+                background: var(--white);
+                color: var(--mauve);
+                border: 1.5px solid var(--mauve);
+            }
+            .customer-link-secondary:hover {
+                background: var(--mauve);
+                color: var(--white);
+                transform: translateY(-1px);
+            }
+
             /* ── Footer ── */
             footer {
                 text-align: center;
@@ -695,7 +744,7 @@
         <nav>
             <div class="container">
                 <a href="#" class="nav-logo">One Page Go</a>
-                <a href="onboarding/index.html" class="nav-cta">立即開始</a>
+                <a href="onboarding/index.html" class="nav-cta">立即開始 / 訂單查詢</a>
             </div>
         </nav>
 
@@ -1172,6 +1221,14 @@
                     3 天
                 </p>
                 <a href="onboarding/index.html" class="cta-button">立即開始</a>
+
+                <div class="customer-section">
+                    <p>已是客戶？</p>
+                    <div class="customer-links">
+                        <a href="onboarding/index.html" class="customer-link customer-link-primary">查詢訂單進度</a>
+                        <a href="revision/index.html" class="customer-link customer-link-secondary">專案調整需求</a>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1179,7 +1236,6 @@
         <footer>
             <div class="container">
                 <p>One Page Go &copy; 2025</p>
-                <p style="margin-top:0.3rem;font-size:0.8rem;"><a href="revision/" style="color:#c97d7d;text-decoration:none;">已是客戶？前往專案調整</a></p>
             </div>
         </footer>
 
