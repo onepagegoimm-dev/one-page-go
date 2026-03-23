@@ -673,6 +673,45 @@
   }
   .track-link:hover { color: var(--brown); }
 
+  /* ── 客戶快捷入口 ── */
+  .customer-shortcuts {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .shortcut-btn {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1.5px solid;
+  }
+  .shortcut-btn-track {
+    color: var(--brown);
+    border-color: var(--brown);
+    background: transparent;
+  }
+  .shortcut-btn-track:hover {
+    background: var(--brown);
+    color: var(--white);
+  }
+  .shortcut-btn-revision {
+    color: var(--mauve);
+    border-color: var(--mauve);
+    background: transparent;
+  }
+  .shortcut-btn-revision:hover {
+    background: var(--mauve);
+    color: var(--white);
+  }
+
   .inquiry-card {
     background: var(--cream);
     border: 1.5px solid var(--blush);
@@ -867,7 +906,10 @@
     <div class="logo-icon"><img src="../one_page_go.png" alt="One Page Go"></div>
     <div class="logo-name">One Page Go</div>
     <div class="logo-sub">Client Onboarding</div>
-    <div class="track-link" onclick="showTracking()">已有訂單？查詢進度</div>
+    <div class="customer-shortcuts">
+      <button class="shortcut-btn shortcut-btn-track" onclick="showTracking()">查詢訂單進度</button>
+      <a href="../revision/index.html" class="shortcut-btn shortcut-btn-revision">專案調整需求</a>
+    </div>
   </div>
 </header>
 
