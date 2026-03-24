@@ -234,7 +234,45 @@
   }
   .session-timer.warning { color: var(--mauve); border-color: var(--mauve); }
 
-  /* ── 專案資訊卡 ── */
+  /* ── 專案資訊卡：收合/展開 ── */
+  .project-summary {
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s;
+  }
+  .project-summary:hover { opacity: 0.85; }
+
+  .project-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    margin-top: 0.6rem;
+    padding: 0.3rem 0;
+    font-size: 0.75rem;
+    color: var(--mauve);
+    border-top: 1px dashed var(--warm);
+    transition: color 0.3s;
+  }
+  .project-toggle:hover { color: var(--brown); }
+  .project-toggle .arrow {
+    display: inline-block;
+    transition: transform 0.3s;
+    font-size: 0.65rem;
+  }
+  .card.expanded .project-toggle .arrow { transform: rotate(180deg); }
+
+  .project-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+  .card.expanded .project-detail {
+    max-height: 2000px;
+    opacity: 1;
+  }
+
   .project-header {
     display: flex;
     justify-content: space-between;
@@ -799,7 +837,20 @@
           + '<div id="submitMsg_' + projId + '" class="error-msg"></div>';
       }
 
-      card.innerHTML = '<div class="project-header">'
+      // 收合摘要：狀態提示文字
+      let summaryHint = '';
+      if (proj.has_pending) {
+        summaryHint = '<div style="font-size:0.75rem;color:var(--yellow);margin-top:0.3rem">⏳ 有 1 筆調整等待確認中</div>';
+      } else if (remaining <= 0) {
+        summaryHint = '<div style="font-size:0.75rem;color:var(--mauve);margin-top:0.3rem">調整次數已達上限</div>';
+      } else if (remaining > 0) {
+        summaryHint = '<div style="font-size:0.75rem;color:var(--green);margin-top:0.3rem">可提交調整（剩餘 ' + remaining + ' 次）</div>';
+      }
+
+      const toggleText = '查看詳情';
+
+      card.innerHTML = '<div class="project-summary">'
+        + '<div class="project-header">'
         + '<div class="project-name">' + escapeText(proj.client_name) + ' — ' + escapeText(proj.template_type) + '</div>'
         + '<span class="project-status ' + statusClass + '">' + statusLabel(proj.status) + '</span>'
         + '</div>'
@@ -808,10 +859,21 @@
         + '<div class="progress-label"><span>調整次數</span><span>' + proj.revision_used + ' / ' + proj.revision_limit + '</span></div>'
         + '<div class="progress-bar"><div class="progress-fill" style="width:' + progressPercent + '%"></div></div>'
         + '</div>'
+        + summaryHint
+        + '<div class="project-toggle"><span class="toggle-text">' + toggleText + '</span> <span class="arrow">▼</span></div>'
+        + '</div>'
+        + '<div class="project-detail">'
         + historyHtml
-        + actionHtml;
+        + actionHtml
+        + '</div>';
 
       container.appendChild(card);
+
+      // 收合/展開
+      card.querySelector('.project-summary').addEventListener('click', () => {
+        const isExpanded = card.classList.toggle('expanded');
+        card.querySelector('.toggle-text').textContent = isExpanded ? '收起' : '查看詳情';
+      });
 
       // 綁定事件
       const textarea = document.getElementById('content_' + projId);
