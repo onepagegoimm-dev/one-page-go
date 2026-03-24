@@ -3,14 +3,23 @@
     <!-- 主頁 -->
     <url>
         <loc>https://bolin9159-gif.github.io/one-page-go/</loc>
+        <lastmod>2026-03-24</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <!-- 接單流程 -->
     <url>
         <loc>https://bolin9159-gif.github.io/one-page-go/onboarding/</loc>
+        <lastmod>2026-03-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
+    </url>
+    <!-- 專案調整 -->
+    <url>
+        <loc>https://bolin9159-gif.github.io/one-page-go/revision/</loc>
+        <lastmod>2026-03-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <!-- 設定指南 -->
     <url>

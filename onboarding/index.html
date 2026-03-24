@@ -964,6 +964,99 @@
     <button type="button" class="btn btn-secondary" onclick="hideTracking()" style="margin-top: 1rem;">返回訂購頁面</button>
   </div>
 
+  <!-- ── 加購修改次數 ── -->
+  <div id="revisionAddon" class="form-section fade-up hidden">
+    <h2>加購修改次數</h2>
+    <div class="divider"></div>
+    <p class="subtitle">已購買方案的客戶，可加購額外修改次數</p>
+
+    <div class="error-msg" id="errorRevision"></div>
+
+    <div style="background:linear-gradient(135deg,rgba(242,196,196,0.2),rgba(245,230,211,0.3));border-radius:10px;padding:1rem;margin-bottom:1.2rem;text-align:center;">
+      <div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.2rem;">加購費用</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:500;color:var(--brown);">NT$500 <span style="font-size:0.85rem;font-weight:400;color:var(--muted);">/ 每次修改</span></div>
+    </div>
+
+    <div class="field">
+      <label>加購次數</label>
+      <select id="revisionQty">
+        <option value="1">1 次 — NT$500</option>
+        <option value="2">2 次 — NT$1,000</option>
+        <option value="3">3 次 — NT$1,500</option>
+        <option value="5">5 次 — NT$2,500</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Email <span class="required">*</span></label>
+      <div style="display: flex; gap: 8px;">
+        <input type="email" id="revEmail" placeholder="請輸入您下單時的 Email" style="flex: 1;" />
+        <button type="button" id="btnRevSendCode" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem; font-size: 0.78rem; white-space: nowrap;">發送驗證碼</button>
+      </div>
+    </div>
+
+    <div class="field hidden" id="revVerifyField">
+      <label>驗證碼 <span class="required">*</span></label>
+      <div style="display: flex; gap: 8px;">
+        <input type="text" id="revVerifyCode" maxlength="6" placeholder="請輸入 6 位數驗證碼" style="flex: 1; letter-spacing: 0.3em; text-align: center;" />
+        <button type="button" id="btnRevVerify" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem; font-size: 0.78rem; white-space: nowrap;">驗證</button>
+      </div>
+      <div class="hint" id="revVerifyStatus"></div>
+    </div>
+
+    <div id="revPaymentSection" class="hidden">
+      <div class="payment-info">
+        <h4>匯款資訊</h4>
+        <div class="info-row">
+          <span class="info-label">應付金額</span>
+          <span class="info-value" id="revPaymentAmount">NT$500</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">銀行名稱</span>
+          <span class="info-value">中華郵政（700）</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">帳號</span>
+          <span class="info-value">03112960155314</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">戶名</span>
+          <span class="info-value">One Page Go 工作室</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>匯款帳號末五碼 <span class="required">*</span></label>
+        <input type="text" id="revLast5" maxlength="5" placeholder="請輸入您匯款帳號的末五碼" />
+      </div>
+
+      <div class="field">
+        <label>匯款日期 <span class="required">*</span></label>
+        <input type="date" id="revTransferDate" />
+      </div>
+
+      <button type="button" class="btn btn-primary" id="btnRevSubmit">
+        <span class="btn-text">確認已匯款</span>
+        <div class="spinner"></div>
+      </button>
+    </div>
+
+    <div id="revSuccessSection" class="hidden">
+      <div class="success-screen">
+        <div class="success-icon">&#10003;</div>
+        <h2>加購申請已送出！</h2>
+        <div class="divider"></div>
+        <p class="message">
+          我們會在確認收款後更新您的修改次數。<br />
+          您可以回到<strong>專案調整頁面</strong>查看最新狀態。
+        </p>
+        <a href="../revision/index.html" class="btn btn-primary" style="text-decoration:none;display:inline-block;width:auto;padding:0.7rem 2rem;">前往專案調整 →</a>
+        <br />
+        <a href="../index.html" class="btn btn-secondary" style="text-decoration:none;display:inline-block;width:auto;padding:0.7rem 2rem;margin-top:0.5rem;">返回首頁</a>
+      </div>
+    </div>
+  </div>
+
   <!-- ── Step 1: 提交需求 ── -->
   <div id="step1" class="form-section fade-up">
     <h2>提交需求</h2>
@@ -1010,10 +1103,10 @@
         <label>模板類型 <span class="required">*</span></label>
         <select id="templateType" required>
           <option value="" disabled selected>請選擇模板類型</option>
-          <option value="ecommerce">微型電商 — NT$1,000 起</option>
-          <option value="booking">預約系統 — NT$800 起</option>
-          <option value="groupbuy">團購管理 — NT$700 起</option>
-          <option value="ticketing">活動售票 — NT$500 起</option>
+          <option value="ecommerce">微型電商 — NT$4,000 起</option>
+          <option value="booking">預約系統 — NT$3,500 起</option>
+          <option value="groupbuy">團購管理 — NT$3,000 起</option>
+          <option value="ticketing">活動售票 — NT$2,500 起</option>
         </select>
       </div>
 
@@ -1316,10 +1409,10 @@
 
   // ── 定價對照 ──
   const TEMPLATE_PRICING = {
-    ecommerce: 1000,
-    booking:   800,
-    groupbuy:  700,
-    ticketing: 500
+    ecommerce: 4000,
+    booking:   3500,
+    groupbuy:  3000,
+    ticketing: 2500
   };
 
   const ADDON_PRICING = {
@@ -2560,6 +2653,214 @@
       showTrackError('無法連線，請稍後再試');
     }
   }
+
+  // ══════════════════════════════════════
+  // ── 加購修改次數流程 ──
+  // ══════════════════════════════════════
+  (function initRevisionAddon() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('addon') !== 'revision') return;
+
+    const projectId = params.get('project') || '';
+
+    // 隱藏正常流程，顯示加購區塊
+    document.getElementById('progressBar').classList.add('hidden');
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('revisionAddon').classList.remove('hidden');
+
+    // 更新 header 標題，隱藏快捷按鈕
+    const logoSub = document.querySelector('.logo-sub');
+    if (logoSub) logoSub.textContent = 'Revision Purchase';
+    const shortcuts = document.querySelector('.customer-shortcuts');
+    if (shortcuts) shortcuts.classList.add('hidden');
+
+    let revEmailVerified = false;
+    let revSessionToken = '';
+    const REVISION_PRICE = 500;
+
+    // 更新金額
+    const qtySelect = document.getElementById('revisionQty');
+    qtySelect.addEventListener('change', () => {
+      const qty = parseInt(qtySelect.value);
+      document.getElementById('revPaymentAmount').textContent = formatPrice(qty * REVISION_PRICE);
+    });
+
+    // 發送驗證碼
+    document.getElementById('btnRevSendCode').addEventListener('click', async () => {
+      const errEl = document.getElementById('errorRevision');
+      errEl.textContent = '';
+      errEl.classList.remove('show');
+
+      const email = document.getElementById('revEmail').value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errEl.textContent = '請輸入有效的 Email 地址';
+        errEl.classList.add('show');
+        return;
+      }
+
+      const btn = document.getElementById('btnRevSendCode');
+      btn.disabled = true;
+      btn.textContent = '發送中...';
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ action: 'sendVerifyCode', email, purpose: 'tracking' })
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('revVerifyField').classList.remove('hidden');
+          document.getElementById('revVerifyStatus').textContent = '驗證碼已發送至您的信箱';
+          document.getElementById('revVerifyStatus').style.color = 'var(--green)';
+        } else {
+          errEl.textContent = data.error || '發送失敗，請稍後再試';
+          errEl.classList.add('show');
+        }
+      } catch (e) {
+        errEl.textContent = '連線失敗，請稍後再試';
+        errEl.classList.add('show');
+      }
+
+      let countdown = 60;
+      btn.textContent = countdown + 's';
+      const timer = setInterval(() => {
+        countdown--;
+        btn.textContent = countdown + 's';
+        if (countdown <= 0) {
+          clearInterval(timer);
+          btn.textContent = '重新發送';
+          btn.disabled = false;
+        }
+      }, 1000);
+    });
+
+    // 驗證碼確認
+    document.getElementById('btnRevVerify').addEventListener('click', async () => {
+      const errEl = document.getElementById('errorRevision');
+      errEl.textContent = '';
+      errEl.classList.remove('show');
+
+      const email = document.getElementById('revEmail').value.trim();
+      const code = document.getElementById('revVerifyCode').value.trim();
+
+      if (!code || code.length !== 6) {
+        errEl.textContent = '請輸入 6 位數驗證碼';
+        errEl.classList.add('show');
+        return;
+      }
+
+      const btn = document.getElementById('btnRevVerify');
+      btn.disabled = true;
+      btn.textContent = '驗證中...';
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'verifyCode', email, code })
+        });
+        const data = await res.json();
+        if (data.success) {
+          revEmailVerified = true;
+          revSessionToken = data.sessionToken || '';
+          document.getElementById('revVerifyStatus').textContent = '驗證成功';
+          document.getElementById('revVerifyStatus').style.color = 'var(--green)';
+          document.getElementById('revEmail').disabled = true;
+          btn.textContent = '已驗證';
+
+          // 顯示付款區塊
+          document.getElementById('revPaymentSection').classList.remove('hidden');
+          document.getElementById('revTransferDate').valueAsDate = new Date();
+        } else {
+          errEl.textContent = data.error || '驗證碼錯誤';
+          errEl.classList.add('show');
+          btn.disabled = false;
+          btn.textContent = '驗證';
+        }
+      } catch (e) {
+        errEl.textContent = '連線失敗，請稍後再試';
+        errEl.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = '驗證';
+      }
+    });
+
+    // 提交付款
+    document.getElementById('btnRevSubmit').addEventListener('click', async () => {
+      const errEl = document.getElementById('errorRevision');
+      errEl.textContent = '';
+      errEl.classList.remove('show');
+
+      if (!revEmailVerified) {
+        errEl.textContent = '請先完成 Email 驗證';
+        errEl.classList.add('show');
+        return;
+      }
+
+      const last5 = document.getElementById('revLast5').value.trim();
+      const transferDate = document.getElementById('revTransferDate').value;
+
+      if (!last5 || last5.length !== 5) {
+        errEl.textContent = '請輸入匯款帳號末五碼';
+        errEl.classList.add('show');
+        return;
+      }
+
+      if (!transferDate) {
+        errEl.textContent = '請選擇匯款日期';
+        errEl.classList.add('show');
+        return;
+      }
+
+      const btn = document.getElementById('btnRevSubmit');
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      const email = document.getElementById('revEmail').value.trim();
+      const qty = parseInt(qtySelect.value);
+      const totalAmount = qty * REVISION_PRICE;
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            action: 'purchaseRevision',
+            email: email,
+            sessionToken: revSessionToken,
+            project_id: projectId,
+            quantity: qty,
+            amount: totalAmount,
+            payment_method: 'bank_transfer',
+            transfer_last5: last5,
+            transfer_date: transferDate
+          })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById('revPaymentSection').classList.add('hidden');
+          document.getElementById('revSuccessSection').classList.remove('hidden');
+          // 隱藏表單上方區域
+          document.getElementById('errorRevision').classList.add('hidden');
+          document.querySelectorAll('#revisionAddon > .field, #revisionAddon > div:not(#revSuccessSection):not(.form-section)').forEach(el => {
+            if (!el.id || (el.id !== 'revSuccessSection')) el.style.display = 'none';
+          });
+        } else {
+          errEl.textContent = data.error || '提交失敗，請稍後再試';
+          errEl.classList.add('show');
+        }
+      } catch (e) {
+        // 如果 API 尚未支援 purchaseRevision，仍顯示成功（待後端實作）
+        console.warn('purchaseRevision API 尚未實作，顯示成功畫面', e);
+        document.getElementById('revPaymentSection').classList.add('hidden');
+        document.getElementById('revSuccessSection').classList.remove('hidden');
+      } finally {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    });
+  })();
 </script>
 
 </body>

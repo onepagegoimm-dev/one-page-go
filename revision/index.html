@@ -825,7 +825,10 @@
       if (proj.has_pending) {
         actionHtml = '<div class="lock-message">等待開發者確認中，確認後即可提交下一次調整</div>';
       } else if (remaining <= 0) {
-        actionHtml = '<div class="lock-message warning">調整次數已達上限（' + proj.revision_limit + ' 次），如需更多調整請聯繫客服</div>';
+        actionHtml = '<div class="lock-message warning">調整次數已達上限（' + proj.revision_limit + ' 次）</div>'
+          + '<div style="text-align:center;margin-top:0.8rem;">'
+          + '<a href="../onboarding/index.html?addon=revision&project=' + projId + '" class="btn btn-primary" style="display:inline-block;width:auto;padding:0.6rem 1.5rem;font-size:0.85rem;text-decoration:none;">加購修改次數（NT$500 / 次）</a>'
+          + '</div>';
       } else {
         actionHtml = '<div class="card-title" style="margin-top:0.5rem">提交調整需求</div>'
           + '<div class="form-group">'
@@ -842,7 +845,7 @@
       if (proj.has_pending) {
         summaryHint = '<div style="font-size:0.75rem;color:var(--yellow);margin-top:0.3rem">⏳ 有 1 筆調整等待確認中</div>';
       } else if (remaining <= 0) {
-        summaryHint = '<div style="font-size:0.75rem;color:var(--mauve);margin-top:0.3rem">調整次數已達上限</div>';
+        summaryHint = '<div style="font-size:0.75rem;color:var(--mauve);margin-top:0.3rem">調整次數已達上限 — 可加購</div>';
       } else if (remaining > 0) {
         summaryHint = '<div style="font-size:0.75rem;color:var(--green);margin-top:0.3rem">可提交調整（剩餘 ' + remaining + ' 次）</div>';
       }
