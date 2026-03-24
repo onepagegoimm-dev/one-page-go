@@ -1140,7 +1140,7 @@
             <div class="addon-name">Telegram 即時通知</div>
             <div class="addon-desc">訂單即時推送到 Telegram，設定簡單快速</div>
           </div>
-          <div class="addon-price">+NT$100</div>
+          <div class="addon-price">+NT$500</div>
         </div>
         <div class="addon-item">
           <input type="checkbox" id="addonLine" />
@@ -1148,11 +1148,9 @@
             <div class="addon-name">LINE 即時通知</div>
             <div class="addon-desc">訂單推送到 LINE，需設定 LINE 官方帳號</div>
           </div>
-          <div class="addon-price">+NT$200</div>
+          <div class="addon-price">+NT$1,000</div>
         </div>
-        <div class="addon-combo" id="addonCombo">
-          雙通知組合優惠：Telegram + LINE 只要 +NT$250（省 NT$50）
-        </div>
+        <div class="addon-combo" id="addonCombo" style="display:none;"></div>
         <!-- 金流加購（暫時隱藏） -->
         <div class="addon-item hidden" style="margin-top: 6px; border-top: 1.5px solid rgba(242,196,196,0.4); padding-top: 10px;">
           <input type="checkbox" id="addonGumroad" />
@@ -1416,9 +1414,9 @@
   };
 
   const ADDON_PRICING = {
-    telegram: 100,
-    line: 200,
-    combo: 250,  // 雙通知組合價
+    telegram: 500,
+    line: 1000,
+    combo: 1500,  // 不再提供組合優惠，原價加總
     gumroad: 800
   };
 
