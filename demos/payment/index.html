@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
     <link rel="manifest" href="../../site.webmanifest">
-    <title>Pixel Pay Test - One Page Go 金流方案展示</title>
+    <title>Pixel Pay Test - One Page Go 綠界金流展示</title>
     <style>
         :root {
             --bg: #1a1a2e;
@@ -134,11 +134,6 @@
         .plan-badge.green {
             background: rgba(74, 222, 128, 0.15);
             color: var(--success);
-        }
-
-        .plan-badge.blue {
-            background: rgba(96, 165, 250, 0.15);
-            color: #60a5fa;
         }
 
         .plan-badge.purple {
@@ -317,9 +312,9 @@
             color: #fff;
         }
 
-        .btn-gumroad {
-            background: #FF90E8;
-            color: #000;
+        .btn-ecpay {
+            background: #2ECC71;
+            color: #fff;
             text-decoration: none;
             text-align: center;
             font-weight: 700;
@@ -520,11 +515,11 @@
         <div class="header">
             <div class="badge">POC TEST</div>
             <h1>Pixel Pay Test</h1>
-            <p class="subtitle">One Page Go 金流串接方案展示</p>
+            <p class="subtitle">One Page Go 綠界金流串接展示</p>
         </div>
 
-        <!-- ══ Gumroad 測試區 ══ -->
-        <div class="section-title">Gumroad 金流測試</div>
+        <!-- ══ 綠界 ECPay 測試區 ══ -->
+        <div class="section-title">綠界 ECPay 金流測試</div>
 
         <!-- Step 0: Email Verification -->
         <div class="card" id="step0">
@@ -560,17 +555,17 @@
 
             <div class="checkbox-row">
                 <input type="checkbox" id="confirmCheck">
-                <label for="confirmCheck">我了解這是金流測試，將進行 US$1 的真實付款</label>
+                <label for="confirmCheck">我了解這是正式環境金流測試，將進行 NT$5 的真實信用卡扣款</label>
             </div>
 
             <button class="btn btn-primary" id="btnCreate" onclick="createOrder()">
-                建立測試訂單（$1.00 USD）
+                建立測試訂單（NT$5）
             </button>
         </div>
 
         <!-- Step 2: Payment (hidden initially) -->
         <div class="card hidden" id="step2">
-            <h2>Step 3 — 前往 Gumroad 付款</h2>
+            <h2>Step 3 — 前往綠界付款</h2>
             <div class="order-info">
                 <div class="row">
                     <span class="label">訂單編號</span>
@@ -578,16 +573,16 @@
                 </div>
                 <div class="row">
                     <span class="label">金額</span>
-                    <span class="value">$1.00 USD</span>
+                    <span class="value">NT$5</span>
                 </div>
                 <div class="row">
                     <span class="label">狀態</span>
                     <span id="statusBadge" class="status-badge status-pending">pending</span>
                 </div>
             </div>
-            <a class="btn btn-gumroad" id="btnPay" href="#" target="_blank">
-                前往 Gumroad 付款
-            </a>
+            <button class="btn btn-ecpay" id="btnPay" onclick="submitToECPay()">
+                前往綠界付款
+            </button>
             <div class="poll-info" id="pollInfo">
                 <span class="dot"></span>
                 每 5 秒自動偵測付款狀態...（<span id="pollCount">0</span>/60）
@@ -599,7 +594,7 @@
             <div class="success-banner">
                 <div class="icon">&#10003;</div>
                 <h3>付款成功！</h3>
-                <p>Gumroad Webhook 已成功通知 Apps Script 更新訂單狀態</p>
+                <p>綠界 ECPay ReturnURL 已成功通知 Apps Script 更新訂單狀態</p>
             </div>
             <div class="order-info">
                 <div class="row">
@@ -630,49 +625,17 @@
         <!-- ══ 金流比較表 ══ -->
         <div class="section-title" style="margin-top: 20px;">金流方案比較</div>
 
-        <!-- Gumroad -->
-        <div class="plan-card recommended">
-            <span class="plan-badge green">推薦 - 最快上線</span>
-            <div class="plan-name">Gumroad</div>
-            <div class="plan-tagline">免開公司 / 免額外註冊 / 最適合快速驗證</div>
-            <div class="plan-price"><span class="currency">NT$</span>800</div>
-            <div class="plan-price-note">一次性串接設定費</div>
-            <ul class="plan-details">
-                <li>
-                    <span class="detail-label">平台手續費</span>
-                    <span class="detail-value">10%</span>
-                </li>
-                <li>
-                    <span class="detail-label">支援付款方式</span>
-                    <span class="detail-value">信用卡 / PayPal</span>
-                </li>
-                <li>
-                    <span class="detail-label">幣別</span>
-                    <span class="detail-value">USD 為主</span>
-                </li>
-                <li>
-                    <span class="detail-label">上線時間</span>
-                    <span class="detail-value">1-2 天</span>
-                </li>
-            </ul>
-            <div class="plan-tags">
-                <span class="plan-tag">最快上線</span>
-                <span class="plan-tag">免開公司</span>
-                <span class="plan-tag">免額外註冊</span>
-            </div>
-        </div>
-
         <!-- ECPay -->
-        <div class="plan-card">
-            <span class="plan-badge blue">台灣在地首選</span>
+        <div class="plan-card recommended">
+            <span class="plan-badge green">推薦 - 台灣在地首選</span>
             <div class="plan-name">綠界 ECPay</div>
-            <div class="plan-tagline">台灣在地金流 / 支援超商與 ATM</div>
-            <div class="plan-price"><span class="currency">NT$</span>3,000</div>
+            <div class="plan-tagline">免開公司 / 台幣直收 / 信用卡 + ATM + 超商</div>
+            <div class="plan-price"><span class="currency">NT$</span>500</div>
             <div class="plan-price-note">一次性串接設定費</div>
             <ul class="plan-details">
                 <li>
                     <span class="detail-label">平台手續費</span>
-                    <span class="detail-value">2.75%~5%</span>
+                    <span class="detail-value">2.75%</span>
                 </li>
                 <li>
                     <span class="detail-label">支援付款方式</span>
@@ -684,13 +647,18 @@
                 </li>
                 <li>
                     <span class="detail-label">上線時間</span>
-                    <span class="detail-value">7-14 天</span>
+                    <span class="detail-value">3-5 天</span>
+                </li>
+                <li>
+                    <span class="detail-label">月收款上限</span>
+                    <span class="detail-value">30 萬</span>
                 </li>
             </ul>
             <div class="plan-tags">
-                <span class="plan-tag">需註冊綠界帳號</span>
-                <span class="plan-tag">需公司或商號</span>
-                <span class="plan-tag">台灣在地金流首選</span>
+                <span class="plan-tag">免開公司</span>
+                <span class="plan-tag">台幣直收</span>
+                <span class="plan-tag">自動入帳通知</span>
+                <span class="plan-tag">CheckMacValue 安全驗證</span>
             </div>
         </div>
 
@@ -741,10 +709,7 @@
     // ══════════════════════════════════════════════════
     // 設定區（部署前必填）
     // ══════════════════════════════════════════════════
-    const API_URL = "https://script.google.com/macros/s/AKfycbxLI5e73w_u66wMCd2UcgfkzS8R-puhj2d2Q_qtScABlwcC5YaXuUzNjaLYXFEKqEx6/exec";  // ← 貼上你的 Apps Script Web App URL
-
-    // Gumroad 產品 URL（備用，如果 getPaymentLink API 失敗時使用）
-    const GUMROAD_FALLBACK_URL = "https://bolinspire3.gumroad.com/l/criyxr";  // ← 貼上你的 Gumroad 產品 URL
+    const API_URL = "https://script.google.com/macros/s/AKfycbw4M4HjEUpQYPOv3Fnmo0bocZ2JQXNqwVQuze_bvJXIfVU7-HcbSDy6vnNLUUeDxxmPKQ/exec";
 
     // ══════════════════════════════════════════════════
     // 狀態
@@ -755,6 +720,10 @@
     let pollTimer = null;
     let pollAttempts = 0;
     const MAX_POLL = 60;  // 最多 60 次 = 5 分鐘
+
+    // 綠界表單參數（createOrder 回傳後暫存）
+    let ecpayParams = null;
+    let ecpayActionUrl = null;
 
     // ══════════════════════════════════════════════════
     // Email 格式驗證
@@ -900,7 +869,7 @@
     }
 
     // ══════════════════════════════════════════════════
-    // 建立訂單
+    // 建立訂單 + 取得綠界表單參數
     // ══════════════════════════════════════════════════
     async function createOrder() {
         var checkbox = document.getElementById("confirmCheck");
@@ -933,61 +902,56 @@
 
             if (data.success) {
                 currentOrderId = data.orderId;
+                ecpayParams = data.ecpayParams;
+                ecpayActionUrl = data.ecpayActionUrl;
+
                 log("訂單建立成功：" + data.orderId, "ok");
+                log("綠界表單參數已就緒，點擊按鈕前往付款", "ok");
 
                 document.getElementById("orderId").textContent = data.orderId;
                 document.getElementById("step1").classList.add("hidden");
                 document.getElementById("step2").classList.remove("hidden");
 
-                await setupPaymentLink(data.orderId);
                 startPolling(data.orderId);
             } else {
                 log("建立失敗：" + data.error, "err");
                 btn.disabled = false;
-                btn.textContent = "建立測試訂單（$1.00 USD）";
+                btn.textContent = "建立測試訂單（NT$5）";
             }
         } catch (err) {
             log("網路錯誤：" + err.message, "err");
             btn.disabled = false;
-            btn.textContent = "建立測試訂單（$1.00 USD）";
+            btn.textContent = "建立測試訂單（NT$5）";
         }
     }
 
     // ══════════════════════════════════════════════════
-    // 階段二：設定付款連結
+    // 階段二：Form POST 導向綠界付款頁
     // ══════════════════════════════════════════════════
-    async function setupPaymentLink(orderId) {
-        try {
-            const res = await fetch(API_URL, {
-                method: "POST",
-                body: JSON.stringify({
-                    action: "getPaymentLink",
-                    order_id: orderId,
-                }),
-            });
-            const data = await res.json();
-
-            if (data.success && data.paymentUrl) {
-                document.getElementById("btnPay").href = data.paymentUrl;
-                log("付款連結已就緒", "ok");
-            } else {
-                // fallback：用本地設定的 URL
-                if (GUMROAD_FALLBACK_URL) {
-                    const fallbackUrl = GUMROAD_FALLBACK_URL + "?order_id=" + encodeURIComponent(orderId);
-                    document.getElementById("btnPay").href = fallbackUrl;
-                    log("使用備用付款連結", "warn");
-                } else {
-                    log("無法取得付款連結：" + (data.error || "未知錯誤"), "err");
-                }
-            }
-        } catch (err) {
-            log("取得付款連結失敗：" + err.message, "warn");
-            if (GUMROAD_FALLBACK_URL) {
-                const fallbackUrl = GUMROAD_FALLBACK_URL + "?order_id=" + encodeURIComponent(orderId);
-                document.getElementById("btnPay").href = fallbackUrl;
-                log("使用備用付款連結", "warn");
-            }
+    function submitToECPay() {
+        if (!ecpayParams || !ecpayActionUrl) {
+            log("缺少綠界表單參數，請重新建立訂單", "err");
+            return;
         }
+
+        log("正在開啟綠界付款頁（新分頁）...");
+
+        // 開新分頁，用隱藏表單提交到新分頁
+        var newWin = window.open("", "_blank");
+        if (!newWin) {
+            log("瀏覽器阻擋了彈出視窗，請允許後重試", "err");
+            return;
+        }
+
+        // 在新分頁中建立表單並提交
+        var html = '<html><body><form id="ecpayForm" method="POST" action="' + ecpayActionUrl + '">';
+        for (var key in ecpayParams) {
+            html += '<input type="hidden" name="' + key + '" value="' + ecpayParams[key] + '">';
+        }
+        html += '</form><script>document.getElementById("ecpayForm").submit();<\/script></body></html>';
+
+        newWin.document.write(html);
+        newWin.document.close();
     }
 
     // ══════════════════════════════════════════════════
@@ -1015,14 +979,14 @@
             }
 
             try {
-                const res = await fetch(API_URL, {
+                var res = await fetch(API_URL, {
                     method: "POST",
                     body: JSON.stringify({
                         action: "checkOrderStatus",
                         order_id: orderId,
                     }),
                 });
-                const data = await res.json();
+                var data = await res.json();
 
                 if (data.status === "paid") {
                     clearInterval(pollTimer);
@@ -1057,6 +1021,8 @@
         currentOrderId = null;
         currentEmail = null;
         sessionToken = null;
+        ecpayParams = null;
+        ecpayActionUrl = null;
         pollAttempts = 0;
 
         document.getElementById("step0").classList.remove("hidden");
@@ -1068,7 +1034,7 @@
 
         var btn = document.getElementById("btnCreate");
         btn.disabled = false;
-        btn.textContent = "建立測試訂單（$1.00 USD）";
+        btn.textContent = "建立測試訂單（NT$5）";
 
         var btnSend = document.getElementById("btnSendCode");
         btnSend.disabled = false;
@@ -1099,11 +1065,19 @@
         var el = document.getElementById("log");
         var time = new Date().toLocaleTimeString("zh-TW", { hour12: false });
         var cls = type || "";
-        el.innerHTML += '<div class="entry"><span class="time">[' + time + ']</span> <span class="' + cls + '">' + message + '</span></div>';
+        el.innerHTML += '<div class="entry"><span class="time">[' + time + ']</span> <span class="' + cls + '">' + escapeHtml(message) + '</span></div>';
         el.scrollTop = el.scrollHeight;
     }
 
-    // 啟動檢查
+    function escapeHtml(text) {
+        var div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // ══════════════════════════════════════════════════
+    // 頁面載入
+    // ══════════════════════════════════════════════════
     if (!API_URL) {
         log("API_URL 未設定，請在 script 最上方填入 Apps Script Web App URL", "err");
     } else {
