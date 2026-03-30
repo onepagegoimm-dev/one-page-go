@@ -555,11 +555,11 @@
 
             <div class="checkbox-row">
                 <input type="checkbox" id="confirmCheck">
-                <label for="confirmCheck">我了解這是正式環境金流測試，將進行 NT$5 的真實信用卡扣款</label>
+                <label for="confirmCheck">我了解這是正式環境金流測試，將進行 NT$30 的真實信用卡扣款</label>
             </div>
 
             <button class="btn btn-primary" id="btnCreate" onclick="createOrder()">
-                建立測試訂單（NT$5）
+                建立測試訂單（NT$30）
             </button>
         </div>
 
@@ -573,7 +573,7 @@
                 </div>
                 <div class="row">
                     <span class="label">金額</span>
-                    <span class="value">NT$5</span>
+                    <span class="value">NT$30</span>
                 </div>
                 <div class="row">
                     <span class="label">狀態</span>
@@ -916,12 +916,12 @@
             } else {
                 log("建立失敗：" + data.error, "err");
                 btn.disabled = false;
-                btn.textContent = "建立測試訂單（NT$5）";
+                btn.textContent = "建立測試訂單（NT$30）";
             }
         } catch (err) {
             log("網路錯誤：" + err.message, "err");
             btn.disabled = false;
-            btn.textContent = "建立測試訂單（NT$5）";
+            btn.textContent = "建立測試訂單（NT$30）";
         }
     }
 
@@ -1034,7 +1034,7 @@
 
         var btn = document.getElementById("btnCreate");
         btn.disabled = false;
-        btn.textContent = "建立測試訂單（NT$5）";
+        btn.textContent = "建立測試訂單（NT$30）";
 
         var btnSend = document.getElementById("btnSendCode");
         btnSend.disabled = false;
