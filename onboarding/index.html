@@ -1209,7 +1209,8 @@
     </div>
 
     <div style="font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 16px;padding:10px 12px;background:rgba(242,196,196,0.08);border-radius:8px;">
-      點擊下方按鈕後將開啟綠界付款頁面，完成信用卡付款後此頁面會自動更新狀態。
+      點擊下方按鈕後將開啟綠界付款頁面，完成信用卡付款後此頁面會自動更新狀態。<br>
+      <span style="color:var(--rose);font-weight:500;">⚠ 若付款頁面未開啟，請允許瀏覽器的「彈出式視窗」權限後再試一次。</span>
     </div>
 
     <button type="button" class="btn btn-primary" id="btnECPayCheckout">
@@ -1901,6 +1902,15 @@
     const btn = document.getElementById('btnECPayCheckout');
     setLoading(btn, true);
 
+    // 同步開啟新視窗（必須在 click 事件的同步流程中，否則會被瀏覽器擋）
+    const newWin = window.open('', '_blank');
+    if (!newWin) {
+      showError(3, '瀏覽器阻擋了彈出視窗，請點擊網址列右側的圖示允許彈出式視窗後再試一次');
+      setLoading(btn, false);
+      return;
+    }
+    newWin.document.write('<html><body style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;color:#888;">付款頁面載入中...</body></html>');
+
     const currentEmail = trackingMode
       ? trackEmail
       : document.getElementById('email').value.trim().toLowerCase();
@@ -1921,26 +1931,24 @@
       const data = await res.json();
 
       if (data.success) {
-        // 開新分頁跳轉綠界付款
-        const newWin = window.open('', '_blank');
-        if (!newWin) {
-          showError(3, '瀏覽器阻擋了彈出視窗，請允許後重試');
-          return;
-        }
+        // 將已開啟的視窗導向綠界付款表單
         let html = '<html><body><form id="f" method="POST" action="' + data.ecpayActionUrl + '">';
         for (const key in data.ecpayParams) {
           html += '<input type="hidden" name="' + key + '" value="' + data.ecpayParams[key] + '">';
         }
         html += '</form><script>document.getElementById("f").submit()<\/script></body></html>';
+        newWin.document.open();
         newWin.document.write(html);
         newWin.document.close();
 
         // 啟動輪詢
         startECPayPolling(data.paymentId);
       } else {
+        newWin.close();
         showError(3, data.error || '無法建立付款，請稍後再試');
       }
     } catch (err) {
+      newWin.close();
       showError(3, '無法連線，請稍後再試');
     } finally {
       setLoading(btn, false);
