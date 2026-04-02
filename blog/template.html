@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/one-page-go/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/one-page-go/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/one-page-go/favicon-16x16.png">
+        <link rel="manifest" href="/one-page-go/site.webmanifest">
+
+        <!--
+            ============================================================
+            One Page Go 部落格模板使用說明
+            ============================================================
+            使用方式：
+            1. 複製此檔案到 blog/ 資料夾下，命名為文章的 URL slug
+               例如：blog/one-page-website-cost/index.html
+            2. 搜尋並替換以下所有預留位置（標記為 {{...}}）：
+               - {{article-slug}}        → 文章 URL 路徑（如 one-page-website-cost）
+               - {{article-title}}       → 文章標題（如 一頁式網站費用完整指南）
+               - {{article-description}} → 文章摘要（60-160 字元）
+               - {{article-keywords}}    → 文章關鍵字（逗號分隔）
+               - {{publish-date}}        → 發布日期（YYYY-MM-DD 格式）
+               - {{modify-date}}         → 最後修改日期（YYYY-MM-DD 格式）
+               - {{reading-time}}        → 預估閱讀時間（如 5 分鐘）
+            3. 在「文章內容」區域填入實際內容
+            4. 在 FAQPage schema 中替換問答內容
+            5. 將文章加入 sitemap.xml
+            ============================================================
+        -->
+
+        <title>{{article-title}} — One Page Go 部落格</title>
+        <meta name="description" content="{{article-description}}" />
+        <meta name="keywords" content="{{article-keywords}}" />
+        <meta name="author" content="One Page Go" />
+        <link rel="canonical" href="https://bolin9159-gif.github.io/one-page-go/blog/{{article-slug}}/" />
+
+        <!-- Open Graph / 社群分享 -->
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="{{article-title}}" />
+        <meta property="og:description" content="{{article-description}}" />
+        <meta property="og:url" content="https://bolin9159-gif.github.io/one-page-go/blog/{{article-slug}}/" />
+        <meta property="og:locale" content="zh_TW" />
+        <meta property="og:site_name" content="One Page Go" />
+        <meta property="article:published_time" content="{{publish-date}}" />
+        <meta property="article:modified_time" content="{{modify-date}}" />
+        <meta property="article:author" content="One Page Go" />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="{{article-title}}" />
+        <meta name="twitter:description" content="{{article-description}}" />
+
+        <!-- 結構化資料：文章 Article -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "{{article-title}}",
+            "description": "{{article-description}}",
+            "datePublished": "{{publish-date}}",
+            "dateModified": "{{modify-date}}",
+            "author": {
+                "@type": "Organization",
+                "name": "One Page Go",
+                "url": "https://bolin9159-gif.github.io/one-page-go/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "One Page Go",
+                "url": "https://bolin9159-gif.github.io/one-page-go/"
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://bolin9159-gif.github.io/one-page-go/blog/{{article-slug}}/"
+            },
+            "inLanguage": "zh-TW"
+        }
+        </script>
+        <!-- 結構化資料：文章常見問題 FAQPage -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "{{faq-question-1}}",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "{{faq-answer-1}}"
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "{{faq-question-2}}",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "{{faq-answer-2}}"
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "{{faq-question-3}}",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "{{faq-answer-3}}"
+                    }
+                }
+            ]
+        }
+        </script>
+        <!-- 結構化資料：麵包屑 BreadcrumbList -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "首頁",
+                    "item": "https://bolin9159-gif.github.io/one-page-go/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "部落格",
+                    "item": "https://bolin9159-gif.github.io/one-page-go/blog/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "{{article-title}}",
+                    "item": "https://bolin9159-gif.github.io/one-page-go/blog/{{article-slug}}/"
+                }
+            ]
+        }
+        </script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            /* ── 色票（與主站一致）── */
+            :root {
+                --cream: #fdf6ee;
+                --warm: #f5e6d3;
+                --blush: #f2c4c4;
+                --rose: #e8a0a0;
+                --mauve: #c97d7d;
+                --brown: #7a4f3a;
+                --text: #4a3428;
+                --muted: #9c7b6e;
+                --white: #fffcf8;
+                --shadow: rgba(122, 79, 58, 0.12);
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background: var(--cream);
+                font-family: "Noto Serif TC", serif;
+                color: var(--text);
+                line-height: 1.7;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .container {
+                max-width: 680px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            /* ── 導覽列 ── */
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(253, 246, 238, 0.92);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                z-index: 100;
+                border-bottom: 1px solid var(--warm);
+            }
+            nav .container {
+                max-width: 680px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 56px;
+            }
+            .nav-logo {
+                font-family: "Playfair Display", serif;
+                font-size: 1.15rem;
+                font-weight: 500;
+                color: var(--brown);
+                text-decoration: none;
+            }
+            .nav-cta {
+                background: var(--brown);
+                color: var(--white);
+                border: none;
+                padding: 8px 18px;
+                border-radius: 20px;
+                font-family: "Noto Serif TC", serif;
+                font-size: 0.82rem;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background 0.3s;
+            }
+            .nav-cta:hover {
+                background: var(--mauve);
+            }
+
+            /* ── 麵包屑 ── */
+            .breadcrumb {
+                padding-top: 72px;
+                font-size: 0.82rem;
+                color: var(--muted);
+            }
+            .breadcrumb a {
+                color: var(--mauve);
+                text-decoration: none;
+            }
+            .breadcrumb a:hover {
+                text-decoration: underline;
+                text-underline-offset: 2px;
+            }
+            .breadcrumb span {
+                margin: 0 6px;
+            }
+
+            /* ── 文章標頭 ── */
+            .article-header {
+                padding: 24px 0 32px;
+                border-bottom: 1px solid var(--warm);
+                margin-bottom: 36px;
+            }
+            .article-header h1 {
+                font-family: "Playfair Display", serif;
+                font-size: 1.8rem;
+                font-weight: 500;
+                color: var(--brown);
+                line-height: 1.4;
+                margin-bottom: 12px;
+            }
+            .article-meta {
+                display: flex;
+                gap: 16px;
+                font-size: 0.82rem;
+                color: var(--muted);
+                flex-wrap: wrap;
+            }
+
+            /* ── 文章內容 ── */
+            .article-body {
+                padding-bottom: 48px;
+            }
+            .article-body h2 {
+                font-family: "Playfair Display", serif;
+                font-size: 1.35rem;
+                font-weight: 500;
+                color: var(--brown);
+                margin: 40px 0 16px;
+                padding-top: 16px;
+                border-top: 1px solid var(--warm);
+            }
+            .article-body h3 {
+                font-size: 1.05rem;
+                font-weight: 600;
+                color: var(--brown);
+                margin: 28px 0 12px;
+            }
+            .article-body p {
+                margin-bottom: 18px;
+                font-size: 0.95rem;
+                line-height: 1.9;
+            }
+            .article-body ul,
+            .article-body ol {
+                margin: 0 0 18px 20px;
+                font-size: 0.95rem;
+                line-height: 1.9;
+            }
+            .article-body li {
+                margin-bottom: 6px;
+            }
+            .article-body a {
+                color: var(--mauve);
+                text-decoration: underline;
+                text-underline-offset: 2px;
+            }
+            .article-body blockquote {
+                border-left: 3px solid var(--blush);
+                padding: 12px 16px;
+                margin: 18px 0;
+                background: var(--white);
+                border-radius: 0 8px 8px 0;
+                font-size: 0.92rem;
+                color: var(--muted);
+            }
+            .article-body table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 18px 0;
+                font-size: 0.88rem;
+            }
+            .article-body th,
+            .article-body td {
+                border: 1px solid var(--warm);
+                padding: 10px 12px;
+                text-align: left;
+            }
+            .article-body th {
+                background: var(--warm);
+                font-weight: 600;
+                color: var(--brown);
+            }
+
+            /* ── 文章內 FAQ ── */
+            .faq-section {
+                background: var(--white);
+                border-radius: 16px;
+                padding: 28px 24px;
+                margin: 40px 0;
+                box-shadow: 0 2px 12px var(--shadow);
+            }
+            .faq-section h2 {
+                border-top: none;
+                padding-top: 0;
+                margin-top: 0;
+                margin-bottom: 20px;
+            }
+            .faq-item {
+                border-bottom: 1px solid var(--warm);
+                padding: 16px 0;
+            }
+            .faq-item:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .faq-question {
+                font-weight: 600;
+                color: var(--brown);
+                margin-bottom: 8px;
+                font-size: 0.95rem;
+            }
+            .faq-answer {
+                font-size: 0.9rem;
+                color: var(--text);
+                line-height: 1.8;
+            }
+
+            /* ── CTA 區塊 ── */
+            .article-cta {
+                background: var(--white);
+                border: 2px solid var(--blush);
+                border-radius: 16px;
+                padding: 28px 24px;
+                text-align: center;
+                margin: 40px 0;
+            }
+            .article-cta h3 {
+                font-family: "Playfair Display", serif;
+                font-size: 1.15rem;
+                color: var(--brown);
+                margin-bottom: 8px;
+            }
+            .article-cta p {
+                font-size: 0.88rem;
+                color: var(--muted);
+                margin-bottom: 16px;
+            }
+            .article-cta a {
+                display: inline-block;
+                background: var(--brown);
+                color: var(--white);
+                padding: 12px 28px;
+                border-radius: 24px;
+                font-family: "Noto Serif TC", serif;
+                font-size: 0.92rem;
+                text-decoration: none;
+                transition: background 0.3s, transform 0.3s;
+            }
+            .article-cta a:hover {
+                background: var(--mauve);
+                transform: translateY(-1px);
+            }
+
+            /* ── Footer ── */
+            footer {
+                text-align: center;
+                padding: 30px 0;
+                border-top: 1px solid var(--warm);
+            }
+            footer p {
+                font-size: 0.75rem;
+                color: var(--muted);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ── 導覽列 ── -->
+        <nav>
+            <div class="container">
+                <a href="../" class="nav-logo">One Page Go</a>
+                <a href="../onboarding/index.html" class="nav-cta">立即開始</a>
+            </div>
+        </nav>
+
+        <!-- ── 麵包屑 ── -->
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../">首頁</a>
+                <span>/</span>
+                <a href="./">部落格</a>
+                <span>/</span>
+                {{article-title}}
+            </div>
+        </div>
+
+        <!-- ── 文章標頭 ── -->
+        <div class="container">
+            <header class="article-header">
+                <h1>{{article-title}}</h1>
+                <div class="article-meta">
+                    <span>One Page Go</span>
+                    <span>{{publish-date}}</span>
+                    <span>{{reading-time}}閱讀</span>
+                </div>
+            </header>
+        </div>
+
+        <!-- ── 文章內容 ── -->
+        <article class="container article-body">
+            <!--
+                GEO 寫作原則：
+                1. 開頭第一段（150 字內）直接回答標題的問題，用定義式語句
+                2. 加入具體數據和統計（研究顯示 +41% 曝光提升）
+                3. 引用可信外部來源（研究顯示 +115% 曝光提升）
+                4. 避免推銷語氣（推銷語氣與 AI 引用呈 -26% 負相關）
+                5. 使用 h2/h3 結構化標題，方便 AI 擷取段落
+            -->
+
+            <p>
+                <!-- 第一段：定義式開頭，直接回答問題，包含關鍵事實 -->
+                在此撰寫文章開頭段落。第一句話應直接定義或回答標題提出的問題。
+                接著補充 2-3 個具體數據點，讓 AI 搜尋引擎容易擷取。
+            </p>
+
+            <h2>第一個重點段落標題</h2>
+            <p>
+                段落內容。記得引用可信來源並加入具體數字。
+            </p>
+
+            <h2>第二個重點段落標題</h2>
+            <p>
+                段落內容。可使用表格呈現比較資料：
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>比較項目</th>
+                        <th>方案 A</th>
+                        <th>方案 B</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>項目 1</td>
+                        <td>數據</td>
+                        <td>數據</td>
+                    </tr>
+                    <tr>
+                        <td>項目 2</td>
+                        <td>數據</td>
+                        <td>數據</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>第三個重點段落標題</h2>
+            <p>
+                段落內容。可使用清單列舉重點：
+            </p>
+            <ul>
+                <li>重點一：搭配具體數據</li>
+                <li>重點二：引用來源佐證</li>
+                <li>重點三：提供可執行的建議</li>
+            </ul>
+
+            <!-- ── 文章內 FAQ 區塊（與 schema 同步）── -->
+            <div class="faq-section">
+                <h2>常見問題</h2>
+                <div class="faq-item">
+                    <div class="faq-question">{{faq-question-1}}</div>
+                    <div class="faq-answer">{{faq-answer-1}}</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">{{faq-question-2}}</div>
+                    <div class="faq-answer">{{faq-answer-2}}</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">{{faq-question-3}}</div>
+                    <div class="faq-answer">{{faq-answer-3}}</div>
+                </div>
+            </div>
+
+            <!-- ── 文末 CTA ── -->
+            <div class="article-cta">
+                <h3>需要一個專屬的網頁應用？</h3>
+                <p>NT$2,500 起，一次付清、終身免月費</p>
+                <a href="../onboarding/index.html">了解方案與定價</a>
+            </div>
+        </article>
+
+        <!-- ── Footer ── -->
+        <footer>
+            <div class="container">
+                <p>One Page Go &copy; 2025</p>
+            </div>
+        </footer>
+    </body>
+</html>

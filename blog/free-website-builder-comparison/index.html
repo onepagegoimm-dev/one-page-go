@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/one-page-go/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/one-page-go/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/one-page-go/favicon-16x16.png">
+        <link rel="manifest" href="/one-page-go/site.webmanifest">
+
+        <title>免費架站工具比較：GitHub Pages vs Wix vs Squarespace vs 開店平台 — One Page Go 部落格</title>
+        <meta name="description" content="比較 GitHub Pages、Wix、Squarespace、WACA 等架站工具的免費方案與付費方案差異。含各平台儲存空間、流量限制、功能比較與適用情境分析。" />
+        <meta name="keywords" content="免費架站,GitHub Pages,Wix免費,Squarespace,WACA免費方案,免費網站,架站工具比較,免費開店平台,Google Apps Script,靜態網站" />
+        <meta name="author" content="One Page Go" />
+        <link rel="canonical" href="https://bolin9159-gif.github.io/one-page-go/blog/free-website-builder-comparison/" />
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="免費架站工具比較：GitHub Pages vs Wix vs Squarespace vs 開店平台" />
+        <meta property="og:description" content="比較各架站工具的免費方案差異，含儲存空間、流量限制、功能與適用情境。" />
+        <meta property="og:url" content="https://bolin9159-gif.github.io/one-page-go/blog/free-website-builder-comparison/" />
+        <meta property="og:locale" content="zh_TW" />
+        <meta property="og:site_name" content="One Page Go" />
+        <meta property="article:published_time" content="2026-04-02" />
+        <meta property="article:modified_time" content="2026-04-02" />
+        <meta property="article:author" content="One Page Go" />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="免費架站工具比較：GitHub Pages vs Wix vs 開店平台" />
+        <meta name="twitter:description" content="比較各架站工具的免費方案差異與適用情境分析。" />
+
+        <!-- 結構化資料：Article -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "免費架站工具比較：GitHub Pages vs Wix vs Squarespace vs 開店平台",
+            "description": "比較 GitHub Pages、Wix、Squarespace、WACA 等架站工具的免費方案與付費方案差異。含各平台儲存空間、流量限制、功能比較與適用情境分析。",
+            "datePublished": "2026-04-02",
+            "dateModified": "2026-04-02",
+            "author": {
+                "@type": "Organization",
+                "name": "One Page Go",
+                "url": "https://bolin9159-gif.github.io/one-page-go/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "One Page Go",
+                "url": "https://bolin9159-gif.github.io/one-page-go/"
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://bolin9159-gif.github.io/one-page-go/blog/free-website-builder-comparison/"
+            },
+            "inLanguage": "zh-TW"
+        }
+        </script>
+        <!-- 結構化資料：FAQPage -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "GitHub Pages 可以拿來開店嗎？",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "GitHub Pages 本身只能託管靜態網頁（HTML、CSS、JavaScript），不提供後端或資料庫功能。但透過搭配 Google Apps Script（免費後端）和 Google Sheets（免費資料庫），可以實現商品展示、訂單處理和 Email 通知等完整的電商功能。One Page Go 正是採用這種三層免費架構來為小型商家建置網頁應用。"
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Wix 免費版和付費版差在哪裡？",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Wix 免費版提供 500MB 儲存空間，但會在網頁上顯示 Wix 廣告橫幅、無法綁定自訂網域（只能用 username.wixsite.com），且不支援電商功能。付費版（Core 方案 US$29/月起）移除廣告、支援自訂網域、提供 50GB 儲存空間和電商功能。"
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Google Sheets 當資料庫夠用嗎？",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Google Sheets 單一試算表支援最多 1,000 萬個儲存格。以典型的訂單記錄（每筆約 10 個欄位）計算，一張工作表可容納約 100 萬筆訂單。搭配 Google Apps Script 每日 20,000 次 HTTP 請求的額度，對於絕大多數小型商家的流量來說綽綽有餘。"
+                    }
+                }
+            ]
+        }
+        </script>
+        <!-- 結構化資料：BreadcrumbList -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "首頁",
+                    "item": "https://bolin9159-gif.github.io/one-page-go/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "部落格",
+                    "item": "https://bolin9159-gif.github.io/one-page-go/blog/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "免費架站工具比較",
+                    "item": "https://bolin9159-gif.github.io/one-page-go/blog/free-website-builder-comparison/"
+                }
+            ]
+        }
+        </script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+        <style>
+            :root {
+                --cream: #fdf6ee; --warm: #f5e6d3; --blush: #f2c4c4; --rose: #e8a0a0;
+                --mauve: #c97d7d; --brown: #7a4f3a; --text: #4a3428; --muted: #9c7b6e;
+                --white: #fffcf8; --shadow: rgba(122, 79, 58, 0.12);
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body { background: var(--cream); font-family: "Noto Serif TC", serif; color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+            .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
+            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(253, 246, 238, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--warm); }
+            nav .container { max-width: 680px; display: flex; justify-content: space-between; align-items: center; height: 56px; }
+            .nav-logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 500; color: var(--brown); text-decoration: none; }
+            .nav-cta { background: var(--brown); color: var(--white); border: none; padding: 8px 18px; border-radius: 20px; font-family: "Noto Serif TC", serif; font-size: 0.82rem; cursor: pointer; text-decoration: none; transition: background 0.3s; }
+            .nav-cta:hover { background: var(--mauve); }
+            .breadcrumb { padding-top: 72px; font-size: 0.82rem; color: var(--muted); }
+            .breadcrumb a { color: var(--mauve); text-decoration: none; }
+            .breadcrumb a:hover { text-decoration: underline; text-underline-offset: 2px; }
+            .breadcrumb span { margin: 0 6px; }
+            .article-header { padding: 24px 0 32px; border-bottom: 1px solid var(--warm); margin-bottom: 36px; }
+            .article-header h1 { font-family: "Playfair Display", serif; font-size: 1.8rem; font-weight: 500; color: var(--brown); line-height: 1.4; margin-bottom: 12px; }
+            .article-meta { display: flex; gap: 16px; font-size: 0.82rem; color: var(--muted); flex-wrap: wrap; }
+            .article-body { padding-bottom: 48px; }
+            .article-body h2 { font-family: "Playfair Display", serif; font-size: 1.35rem; font-weight: 500; color: var(--brown); margin: 40px 0 16px; padding-top: 16px; border-top: 1px solid var(--warm); }
+            .article-body h3 { font-size: 1.05rem; font-weight: 600; color: var(--brown); margin: 28px 0 12px; }
+            .article-body p { margin-bottom: 18px; font-size: 0.95rem; line-height: 1.9; }
+            .article-body ul, .article-body ol { margin: 0 0 18px 20px; font-size: 0.95rem; line-height: 1.9; }
+            .article-body li { margin-bottom: 6px; }
+            .article-body a { color: var(--mauve); text-decoration: underline; text-underline-offset: 2px; }
+            .article-body blockquote { border-left: 3px solid var(--blush); padding: 12px 16px; margin: 18px 0; background: var(--white); border-radius: 0 8px 8px 0; font-size: 0.92rem; color: var(--muted); }
+            .article-body table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.88rem; }
+            .article-body th, .article-body td { border: 1px solid var(--warm); padding: 10px 12px; text-align: left; }
+            .article-body th { background: var(--warm); font-weight: 600; color: var(--brown); }
+            .faq-section { background: var(--white); border-radius: 16px; padding: 28px 24px; margin: 40px 0; box-shadow: 0 2px 12px var(--shadow); }
+            .faq-section h2 { border-top: none; padding-top: 0; margin-top: 0; margin-bottom: 20px; }
+            .faq-item { border-bottom: 1px solid var(--warm); padding: 16px 0; }
+            .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+            .faq-question { font-weight: 600; color: var(--brown); margin-bottom: 8px; font-size: 0.95rem; }
+            .faq-answer { font-size: 0.9rem; color: var(--text); line-height: 1.8; }
+            .article-cta { background: var(--white); border: 2px solid var(--blush); border-radius: 16px; padding: 28px 24px; text-align: center; margin: 40px 0; }
+            .article-cta h3 { font-family: "Playfair Display", serif; font-size: 1.15rem; color: var(--brown); margin-bottom: 8px; }
+            .article-cta p { font-size: 0.88rem; color: var(--muted); margin-bottom: 16px; }
+            .article-cta a { display: inline-block; background: var(--brown); color: var(--white); padding: 12px 28px; border-radius: 24px; font-family: "Noto Serif TC", serif; font-size: 0.92rem; text-decoration: none; transition: background 0.3s, transform 0.3s; }
+            .article-cta a:hover { background: var(--mauve); transform: translateY(-1px); }
+            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--warm); }
+            footer p { font-size: 0.75rem; color: var(--muted); }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div class="container">
+                <a href="../../" class="nav-logo">One Page Go</a>
+                <a href="../../onboarding/index.html" class="nav-cta">立即開始</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../../">首頁</a><span>/</span><a href="../">部落格</a><span>/</span>免費架站工具比較
+            </div>
+        </div>
+
+        <div class="container">
+            <header class="article-header">
+                <h1>免費架站工具比較：GitHub Pages vs Wix vs Squarespace vs 開店平台</h1>
+                <div class="article-meta">
+                    <span>One Page Go</span>
+                    <span>2026-04-02</span>
+                    <span>8 分鐘閱讀</span>
+                </div>
+            </header>
+        </div>
+
+        <article class="container article-body">
+            <p>
+                免費架站工具是許多小型商家和個人品牌的起步選擇。目前市面上的免費方案大致分為三類：靜態網頁託管（如 GitHub Pages）、網站建置器（如 Wix、Squarespace）和電商開店平台（如 WACA）。這三類工具的設計目的不同，適合的使用場景也不同。根據 GitHub 官方文件，GitHub Pages 提供每個儲存庫 1GB 的儲存空間和每月 100GB 的流量額度，完全免費且支援自訂網域和 HTTPS。以下逐一比較各工具的免費方案限制與適用情境。
+            </p>
+
+            <h2>各平台免費方案功能比較</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>GitHub Pages</th>
+                        <th>Wix 免費版</th>
+                        <th>WACA 入門創業版</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>月費</td>
+                        <td>免費</td>
+                        <td>免費</td>
+                        <td>免費</td>
+                    </tr>
+                    <tr>
+                        <td>儲存空間</td>
+                        <td>1GB / 儲存庫</td>
+                        <td>500MB</td>
+                        <td>未公開限制</td>
+                    </tr>
+                    <tr>
+                        <td>月流量</td>
+                        <td>100GB</td>
+                        <td>未公開限制</td>
+                        <td>未公開限制</td>
+                    </tr>
+                    <tr>
+                        <td>自訂網域</td>
+                        <td>支援（免費）</td>
+                        <td>不支援</td>
+                        <td>需升級</td>
+                    </tr>
+                    <tr>
+                        <td>HTTPS</td>
+                        <td>支援（自動）</td>
+                        <td>支援</td>
+                        <td>支援</td>
+                    </tr>
+                    <tr>
+                        <td>平台廣告</td>
+                        <td>無</td>
+                        <td>有（Wix 橫幅廣告）</td>
+                        <td>無</td>
+                    </tr>
+                    <tr>
+                        <td>電商功能</td>
+                        <td>無（需搭配後端）</td>
+                        <td>不支援（需升級）</td>
+                        <td>支援（限 30 件商品）</td>
+                    </tr>
+                    <tr>
+                        <td>後端/資料庫</td>
+                        <td>無（靜態網頁）</td>
+                        <td>內建</td>
+                        <td>內建</td>
+                    </tr>
+                    <tr>
+                        <td>技術門檻</td>
+                        <td>需 HTML/CSS 知識</td>
+                        <td>視覺化拖拉編輯</td>
+                        <td>視覺化後台</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>GitHub Pages：免費靜態網頁託管</h2>
+            <p>
+                GitHub Pages 是 GitHub 提供的免費靜態網站託管服務，根據 GitHub 官方文件，其主要規格為：儲存庫大小建議上限 1GB、發布後網站大小上限 1GB、每月頻寬軟上限 100GB、每小時最多 10 次建置。
+            </p>
+            <p>
+                GitHub Pages 的優勢在於完全免費、無廣告、支援自訂網域和自動 HTTPS，且沒有平台鎖定的問題。但它只能託管靜態檔案（HTML、CSS、JavaScript），不提供後端程式執行環境或資料庫。
+            </p>
+
+            <h3>如何讓 GitHub Pages 具備後端功能？</h3>
+            <p>
+                搭配 Google Apps Script 和 Google Sheets，可以為靜態網站加上後端處理和資料儲存能力。Google Apps Script 免費帳號的主要額度為：每日 HTTP 請求 20,000 次、單次腳本執行時間上限 6 分鐘、每日觸發器執行總時間 90 分鐘。Google Sheets 單一試算表支援最多 1,000 萬個儲存格。
+            </p>
+            <p>
+                以典型的小型商家使用情境估算：假設每天 200 筆訂單，每筆訂單觸發 2 次 API 呼叫（寫入訂單 + 發送通知），每日約 400 次請求，遠低於 20,000 次的免費額度。Google Sheets 以每筆訂單 10 個欄位計算，一張工作表可容納約 100 萬筆訂單紀錄。這就是 One Page Go 採用的三層免費架構。
+            </p>
+
+            <h2>Wix：視覺化網站建置器</h2>
+            <p>
+                Wix 是全球最大的網站建置器之一，以拖拉式編輯器著稱，非技術人員也能自行建立網站。
+            </p>
+            <h3>免費版限制</h3>
+            <ul>
+                <li>500MB 儲存空間</li>
+                <li>網頁上方會顯示 Wix 廣告橫幅</li>
+                <li>網址只能使用 username.wixsite.com 格式，無法綁定自訂網域</li>
+                <li>不支援電商功能（無法上架商品或接受付款）</li>
+            </ul>
+            <h3>付費版價格</h3>
+            <p>
+                Wix 的付費方案以美元計價（年繳價格）：Light US$17/月、Core US$29/月、Business US$39/月、Business Elite US$159/月。以 Core 方案為例，年繳價格約為每年 US$348（約 NT$11,136），提供 50GB 儲存空間、自訂網域和基本電商功能。
+            </p>
+
+            <h2>Squarespace：設計導向建置器</h2>
+            <p>
+                Squarespace 以高品質設計模板著稱，適合重視視覺形象的品牌。與 Wix 不同的是，Squarespace 沒有免費方案，僅提供 14 天免費試用。
+            </p>
+            <h3>付費方案</h3>
+            <ul>
+                <li>Basic：US$16/月（年繳），電商交易收 3% 手續費</li>
+                <li>Core：US$23/月（年繳），免交易手續費</li>
+                <li>Plus：US$39/月（年繳），進階電商功能</li>
+                <li>Advanced：US$99/月（年繳），完整企業功能</li>
+            </ul>
+            <p>
+                Squarespace 的 Basic 方案兩年費用約 US$384（約 NT$12,288），且電商交易另收 3%。Core 方案兩年約 US$552（約 NT$17,664）。
+            </p>
+
+            <h2>WACA：台灣在地開店平台</h2>
+            <p>
+                WACA 是台灣本土的電商開店平台，主打不抽成、不綁約的收費模式。
+            </p>
+            <h3>入門創業版（免費）</h3>
+            <ul>
+                <li>永久免費</li>
+                <li>限 30 件商品上架、10 個分類、3 組優惠券</li>
+                <li>全方案不抽成（金流手續費由第三方收取）</li>
+                <li>支援信用卡（手續費 3.5%）和 ATM 虛擬帳號（每筆 NT$20）</li>
+            </ul>
+            <h3>付費方案</h3>
+            <p>
+                商務成長版 NT$3,099/月（年繳）支援 2,000 件商品和會員管理。高階領航版 NT$5,399/月（年繳）支援 6,000 件商品、會員分級和多幣別。全通路旗艦版 NT$8,099/月（年繳）支援 10,000 件商品和 POS 整合。
+            </p>
+
+            <h2>該選哪一個？依需求判斷</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>你的需求</th>
+                        <th>建議方案</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>只需要品牌展示頁面，不需電商功能</td>
+                        <td>GitHub Pages（免費）或 Wix 免費版</td>
+                    </tr>
+                    <tr>
+                        <td>需要電商但商品少於 30 件，想先測試市場</td>
+                        <td>WACA 入門創業版（免費）</td>
+                    </tr>
+                    <tr>
+                        <td>需要電商、預約或售票功能，預算有限</td>
+                        <td>One Page Go（NT$2,500-4,000 買斷）</td>
+                    </tr>
+                    <tr>
+                        <td>需要自行編輯網站內容，無技術背景</td>
+                        <td>Wix Core（US$29/月）或 Squarespace Core（US$23/月）</td>
+                    </tr>
+                    <tr>
+                        <td>商品超過 100 件，需要完整電商後台</td>
+                        <td>WACA 商務成長版（NT$3,099/月）或 Shopline</td>
+                    </tr>
+                    <tr>
+                        <td>重視資料所有權，不想被平台綁定</td>
+                        <td>GitHub Pages + Google Apps Script 架構（One Page Go 採用此方案）</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>隱藏成本提醒</h2>
+            <p>
+                選擇架站工具時，除了方案月費外，還有幾項容易忽略的成本：
+            </p>
+            <ul>
+                <li><strong>網域費用</strong>：自訂網域每年約 NT$300-800（.tw）或 US$10-15（.com）。GitHub Pages 免費支援自訂網域，但 Wix 免費版不支援。</li>
+                <li><strong>金流手續費</strong>：不論使用哪個平台，信用卡金流通常收取 2%-3.5% 手續費，這是支付服務商（如綠界、藍新）的費用，非平台費用。</li>
+                <li><strong>轉換成本</strong>：從一個平台搬到另一個平台需要時間和精力。某些平台的資料匯出功能有限，搬家時可能會遺失歷史訂單或會員資料。</li>
+                <li><strong>學習成本</strong>：GitHub Pages 需要基本的 HTML 知識，Wix 和 WACA 的視覺化編輯器學習曲線較低但功能也受限於平台提供的模組。</li>
+            </ul>
+
+            <div class="faq-section">
+                <h2>常見問題</h2>
+                <div class="faq-item">
+                    <div class="faq-question">GitHub Pages 可以拿來開店嗎？</div>
+                    <div class="faq-answer">
+                        GitHub Pages 本身只能託管靜態網頁（HTML、CSS、JavaScript），不提供後端或資料庫功能。但透過搭配 Google Apps Script（免費後端）和 Google Sheets（免費資料庫），可以實現商品展示、訂單處理和 Email 通知等完整的電商功能。One Page Go 正是採用這種三層免費架構來為小型商家建置網頁應用。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Wix 免費版和付費版差在哪裡？</div>
+                    <div class="faq-answer">
+                        Wix 免費版提供 500MB 儲存空間，但會在網頁上顯示 Wix 廣告橫幅、無法綁定自訂網域（只能用 username.wixsite.com），且不支援電商功能。付費版（Core 方案 US$29/月起）移除廣告、支援自訂網域、提供 50GB 儲存空間和電商功能。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Google Sheets 當資料庫夠用嗎？</div>
+                    <div class="faq-answer">
+                        Google Sheets 單一試算表支援最多 1,000 萬個儲存格。以典型的訂單記錄（每筆約 10 個欄位）計算，一張工作表可容納約 100 萬筆訂單。搭配 Google Apps Script 每日 20,000 次 HTTP 請求的額度，對於絕大多數小型商家的流量來說綽綽有餘。
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-cta">
+                <h3>用免費架構打造你的網頁應用</h3>
+                <p>GitHub Pages + Google Apps Script + Google Sheets，NT$2,500 起買斷，終身免月費</p>
+                <a href="../../onboarding/index.html">了解方案與定價</a>
+            </div>
+        </article>
+
+        <footer>
+            <div class="container">
+                <p>One Page Go &copy; 2025</p>
+            </div>
+        </footer>
+    </body>
+</html>

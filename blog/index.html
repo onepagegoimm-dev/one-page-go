@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/one-page-go/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/one-page-go/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/one-page-go/favicon-16x16.png">
+        <link rel="manifest" href="/one-page-go/site.webmanifest">
+
+        <title>部落格 — One Page Go</title>
+        <meta name="description" content="One Page Go 部落格：網路開店指南、架站工具比較、費用分析與小型商家經營策略。幫助台灣微型商家做出最適合的網路開店決策。" />
+        <meta name="keywords" content="網路開店,一頁式網站,架站工具,開店費用,小型商家,微型創業,電商平台比較" />
+        <meta name="author" content="One Page Go" />
+        <link rel="canonical" href="https://bolin9159-gif.github.io/one-page-go/blog/" />
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="部落格 — One Page Go" />
+        <meta property="og:description" content="網路開店指南、架站工具比較、費用分析與小型商家經營策略。" />
+        <meta property="og:url" content="https://bolin9159-gif.github.io/one-page-go/blog/" />
+        <meta property="og:locale" content="zh_TW" />
+        <meta property="og:site_name" content="One Page Go" />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="部落格 — One Page Go" />
+        <meta name="twitter:description" content="網路開店指南、架站工具比較、費用分析與小型商家經營策略。" />
+
+        <!-- 結構化資料：WebPage -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "One Page Go 部落格",
+            "description": "網路開店指南、架站工具比較、費用分析與小型商家經營策略",
+            "url": "https://bolin9159-gif.github.io/one-page-go/blog/",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": "One Page Go",
+                "url": "https://bolin9159-gif.github.io/one-page-go/"
+            },
+            "inLanguage": "zh-TW"
+        }
+        </script>
+        <!-- 結構化資料：BreadcrumbList -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "首頁",
+                    "item": "https://bolin9159-gif.github.io/one-page-go/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "部落格",
+                    "item": "https://bolin9159-gif.github.io/one-page-go/blog/"
+                }
+            ]
+        }
+        </script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+        <style>
+            :root {
+                --cream: #fdf6ee; --warm: #f5e6d3; --blush: #f2c4c4; --rose: #e8a0a0;
+                --mauve: #c97d7d; --brown: #7a4f3a; --text: #4a3428; --muted: #9c7b6e;
+                --white: #fffcf8; --shadow: rgba(122, 79, 58, 0.12);
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body { background: var(--cream); font-family: "Noto Serif TC", serif; color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+            .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
+            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(253, 246, 238, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--warm); }
+            nav .container { max-width: 680px; display: flex; justify-content: space-between; align-items: center; height: 56px; }
+            .nav-logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 500; color: var(--brown); text-decoration: none; }
+            .nav-cta { background: var(--brown); color: var(--white); border: none; padding: 8px 18px; border-radius: 20px; font-family: "Noto Serif TC", serif; font-size: 0.82rem; cursor: pointer; text-decoration: none; transition: background 0.3s; }
+            .nav-cta:hover { background: var(--mauve); }
+            .breadcrumb { padding-top: 72px; font-size: 0.82rem; color: var(--muted); }
+            .breadcrumb a { color: var(--mauve); text-decoration: none; }
+            .breadcrumb a:hover { text-decoration: underline; text-underline-offset: 2px; }
+            .breadcrumb span { margin: 0 6px; }
+            .page-header { padding: 32px 0 40px; text-align: center; }
+            .page-header h1 { font-family: "Playfair Display", serif; font-size: 1.8rem; font-weight: 500; color: var(--brown); margin-bottom: 8px; }
+            .page-header p { font-size: 0.92rem; color: var(--muted); }
+            .post-list { padding-bottom: 48px; }
+            .post-card {
+                background: var(--white); border-radius: 16px; padding: 28px 24px;
+                margin-bottom: 20px; box-shadow: 0 2px 12px var(--shadow);
+                text-decoration: none; display: block; transition: transform 0.3s, box-shadow 0.3s;
+            }
+            .post-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px var(--shadow); }
+            .post-card h2 {
+                font-family: "Playfair Display", serif; font-size: 1.2rem; font-weight: 500;
+                color: var(--brown); margin-bottom: 8px; line-height: 1.4;
+            }
+            .post-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+            .post-meta { display: flex; gap: 12px; font-size: 0.78rem; color: var(--muted); }
+            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--warm); }
+            footer p { font-size: 0.75rem; color: var(--muted); }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div class="container">
+                <a href="../" class="nav-logo">One Page Go</a>
+                <a href="../onboarding/index.html" class="nav-cta">立即開始</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../">首頁</a><span>/</span>部落格
+            </div>
+        </div>
+
+        <div class="container">
+            <header class="page-header">
+                <h1>One Page Go 部落格</h1>
+                <p>網路開店指南、費用比較與經營策略</p>
+            </header>
+        </div>
+
+        <div class="container post-list">
+            <a href="one-page-website-cost/" class="post-card">
+                <h2>一頁式網站費用完整比較：月租 vs 買斷，哪個划算？</h2>
+                <p>台灣一頁式網站費用從免費到數萬元不等。比較 Shopline、WACA、Wix、Squarespace 與 One Page Go 的實際費用，含月費、年費、抽成與兩年總成本試算。</p>
+                <div class="post-meta">
+                    <span>2026-04-02</span>
+                    <span>6 分鐘閱讀</span>
+                </div>
+            </a>
+
+            <a href="small-business-website-guide/" class="post-card">
+                <h2>小型商家需要網站嗎？2026 台灣網路開店完整指南</h2>
+                <p>台灣超過 171 萬家中小企業，但多數微型商家仍只靠社群平台經營。分析社群平台與自有網站的差異，幫助你做出最適合的決策。</p>
+                <div class="post-meta">
+                    <span>2026-04-02</span>
+                    <span>7 分鐘閱讀</span>
+                </div>
+            </a>
+
+            <a href="free-website-builder-comparison/" class="post-card">
+                <h2>免費架站工具比較：GitHub Pages vs Wix vs Squarespace vs 開店平台</h2>
+                <p>比較 GitHub Pages、Wix、Squarespace、WACA 等架站工具的免費方案與付費方案差異，含儲存空間、流量限制、功能比較與適用情境。</p>
+                <div class="post-meta">
+                    <span>2026-04-02</span>
+                    <span>8 分鐘閱讀</span>
+                </div>
+            </a>
+        </div>
+
+        <footer>
+            <div class="container">
+                <p>One Page Go &copy; 2025</p>
+            </div>
+        </footer>
+    </body>
+</html>
