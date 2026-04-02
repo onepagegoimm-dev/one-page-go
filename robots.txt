@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bolin9159-gif.github.io/one-page-go/sitemap.xml
+Sitemap: https://onepagegoimm-dev.github.io/one-page-go/sitemap.xml
