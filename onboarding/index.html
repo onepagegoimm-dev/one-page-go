@@ -358,6 +358,86 @@
     background: var(--warm);
   }
 
+  /* ── 圖片網址轉換器 ── */
+  .img-guide-card {
+    background: linear-gradient(135deg, rgba(242,196,196,0.08), rgba(245,230,211,0.15));
+    border: 2px dashed var(--blush);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-top: 1.2rem;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .img-guide-card .guide-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 0.6rem;
+  }
+  .img-guide-card p {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 0.6rem;
+  }
+  .img-guide-card ol {
+    margin: 0.5rem 0 1rem 1.3rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.9;
+  }
+  .img-guide-card ol li { margin-bottom: 0.3rem; }
+  .img-guide-card code {
+    background: var(--warm);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: var(--brown);
+    font-family: "SFMono-Regular", Consolas, monospace;
+  }
+  .img-guide-card .converter-block {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.8rem;
+    border: 1px solid var(--warm);
+  }
+  .img-guide-card .converter-block label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+  .img-guide-card .converter-block input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1.5px solid var(--warm);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.82rem;
+    color: var(--text);
+    background: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .img-guide-card .converter-block input:focus { outline: none; border-color: var(--mauve); }
+  .img-guide-card .converter-output {
+    background: var(--cream);
+    border: 1px solid var(--warm);
+    border-radius: 8px;
+    padding: 0.6rem;
+    margin-top: 0.5rem;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.78rem;
+    color: var(--brown);
+    word-break: break-all;
+    line-height: 1.5;
+  }
+  .img-guide-card .converter-error {
+    color: var(--rose);
+    font-size: 0.78rem;
+    margin-top: 0.4rem;
+  }
+
   /* ── Loading Spinner ── */
   @keyframes spin {
     to { transform: rotate(360deg); }
@@ -933,6 +1013,33 @@
     </div>
 
     <div id="trackInquiryList" class="hidden"></div>
+
+    <!-- ── 商品圖片設定教學（僅驗證後顯示）── -->
+    <div id="trackImgGuide" class="img-guide-card hidden">
+      <div class="guide-title">🖼️ 商品圖片設定教學</div>
+      <p>
+        商品照片可上傳到 Google 雲端硬碟，取得連結後即可填入 Google Sheet 的 <code>image_url</code> 欄位。
+      </p>
+      <ol>
+        <li>將圖片上傳到你的 <b>Google 雲端硬碟</b></li>
+        <li>右鍵點擊該圖片 → <b>共用</b> → 將權限改為「<b>知道連結的任何人</b>」→ 檢視者</li>
+        <li>複製分享連結（格式類似 <code>https://drive.google.com/file/d/xxxx/view?usp=sharing</code>）</li>
+        <li>貼到下方的轉換器，自動取得可用網址</li>
+        <li>將轉換後的網址填入 Google Sheet 的 <code>image_url</code> 欄位</li>
+      </ol>
+
+      <div class="converter-block">
+        <label>貼上 Google Drive 分享連結</label>
+        <input type="text" id="driveUrlInput" placeholder="https://drive.google.com/file/d/.../view?usp=sharing" />
+        <button type="button" class="btn btn-secondary" id="btnConvertUrl" style="width:100%;">轉換為圖片網址</button>
+        <div id="convertError" class="converter-error hidden"></div>
+        <div id="convertResult" class="hidden">
+          <label style="margin-top:0.8rem;">✓ 可用於 image_url 的網址</label>
+          <div class="converter-output" id="convertedUrlText"></div>
+          <button type="button" class="btn btn-secondary" id="btnCopyConvertedUrl" style="width:100%;margin-top:0.5rem;">複製網址</button>
+        </div>
+      </div>
+    </div>
 
     <button type="button" class="btn btn-secondary" onclick="hideTracking()" style="margin-top: 1rem;">返回訂購頁面</button>
   </div>
@@ -2054,6 +2161,7 @@
     document.getElementById('btnTrackVerify').disabled = false;
     document.getElementById('trackInquiryList').classList.add('hidden');
     document.getElementById('trackInquiryList').innerHTML = '';
+    document.getElementById('trackImgGuide').classList.add('hidden');
     document.getElementById('trackBackFromSign').classList.remove('show');
     document.getElementById('trackBackFromPay').classList.remove('show');
     clearError('Track');
@@ -2207,6 +2315,16 @@
   function renderInquiryList(inquiries) {
     const container = document.getElementById('trackInquiryList');
     container.classList.remove('hidden');
+
+    // 圖片設定教學僅付款完成客戶可見
+    const PAID_STATUSES = ['paid', 'in_progress', 'delivered'];
+    const hasPaidOrder = inquiries.some(inq => PAID_STATUSES.includes(inq.status));
+    const imgGuideEl = document.getElementById('trackImgGuide');
+    if (hasPaidOrder) {
+      imgGuideEl.classList.remove('hidden');
+    } else {
+      imgGuideEl.classList.add('hidden');
+    }
 
     if (inquiries.length === 0) {
       container.innerHTML = '<div class="empty-state">此 Email 目前沒有任何訂單</div>';
@@ -2564,6 +2682,38 @@
         btn.classList.remove('loading');
         btn.disabled = false;
       }
+    });
+  })();
+
+  // ── 圖片網址轉換器（Google Drive → image_url）──
+  (function initImageUrlConverter() {
+    const btnConvert = document.getElementById('btnConvertUrl');
+    const btnCopy = document.getElementById('btnCopyConvertedUrl');
+    if (!btnConvert) return;
+
+    btnConvert.addEventListener('click', () => {
+      const input = document.getElementById('driveUrlInput').value.trim();
+      const errorEl = document.getElementById('convertError');
+      const resultEl = document.getElementById('convertResult');
+      const match = input.match(/[-\w]{25,}/);
+      if (!match) {
+        errorEl.textContent = '無法辨識，請確認是否為有效的 Google Drive 分享連結';
+        errorEl.classList.remove('hidden');
+        resultEl.classList.add('hidden');
+        return;
+      }
+      errorEl.classList.add('hidden');
+      const url = `https://drive.google.com/thumbnail?id=${match[0]}&sz=w1000`;
+      document.getElementById('convertedUrlText').textContent = url;
+      resultEl.classList.remove('hidden');
+    });
+
+    btnCopy.addEventListener('click', () => {
+      const url = document.getElementById('convertedUrlText').textContent;
+      navigator.clipboard.writeText(url).then(() => {
+        btnCopy.textContent = '✓ 已複製';
+        setTimeout(() => { btnCopy.textContent = '複製網址'; }, 2000);
+      });
     });
   })();
 </script>
