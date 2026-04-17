@@ -9,3 +9,8 @@ Thumbs.db
 # Temp
 *.tmp
 *.bak
+
+# Secrets (絕對不可 push)
+TOKENS.md
+tokens.md
+*.secret.md
