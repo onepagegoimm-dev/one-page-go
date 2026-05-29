@@ -36,28 +36,30 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,800;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet" />
 <style>
-  /* ── 色票：Industrial Minimalist ── */
+  /* ── 色票：暖砂 Warm Sand ── */
   :root {
-    --bg:       #F5F3F0;
-    --card:     #FFFFFF;
-    --border:   #E0DCD8;
-    --primary:  #2C2C2C;
-    --accent:   #D4A574;
-    --gold:     #8B6914;
-    --text:     #1A1A1A;
-    --muted:    #6B6560;
-    --white:    #FFFFFF;
-    --green:    #4A7A5A;
-    --error:    #8B3A3A;
+    --bg:       #f2ede4;
+    --card:     #fbf8f2;
+    --border:   #e0d6c6;
+    --primary:  #3a352d;
+    --accent:   #9c5a30;
+    --gold:     #8a6326;
+    --text:     #3a352d;
+    --muted:    #79705f;
+    --white:    #ffffff;
+    --green:    #6f8f5c;
+    --error:    #9e4127;
+    --btn:      #8c5635;
+    --on-btn:   #ffffff;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     background: var(--bg);
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     font-weight: 300;
     color: var(--text);
     min-height: 100vh;
@@ -77,7 +79,7 @@
   }
 
   .logo-tagline-top {
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     font-size: 0.65rem;
     font-weight: 300;
     letter-spacing: 0.3em;
@@ -97,7 +99,7 @@
   }
 
   .logo-name {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 2.2rem;
     font-weight: 800;
     color: var(--primary);
@@ -123,7 +125,7 @@
 
   /* ── Section 標題 ── */
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.2rem;
     font-weight: 800;
     color: var(--primary);
@@ -155,7 +157,7 @@
 
   .product-img {
     width: 110px; min-height: 110px;
-    background: linear-gradient(135deg, #2C2C2C, #D4A574);
+    background: linear-gradient(135deg, #3a352d, #9c5a30);
     display: flex; align-items: center; justify-content: center;
     font-size: 2.8rem;
     flex-shrink: 0;
@@ -173,7 +175,7 @@
   .product-name { font-weight: 800; font-size: 1rem; color: var(--primary); }
   .product-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; font-weight: 300; }
   .product-price {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.1rem;
     color: var(--gold);
     margin-top: auto;
@@ -233,7 +235,7 @@
   }
   .cart-total-label { font-size: 0.85rem; color: var(--muted); font-weight: 300; }
   .cart-total-amount {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.4rem; color: var(--gold);
     font-weight: 800;
   }
@@ -247,7 +249,7 @@
   #recommend-section.show { display: block; }
 
   .recommend-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1rem;
     font-weight: 800;
     color: var(--primary);
@@ -288,7 +290,7 @@
     line-height: 1.3;
   }
   .recommend-price {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 0.85rem;
     color: var(--gold);
   }
@@ -298,7 +300,7 @@
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 0;
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     font-size: 0.72rem;
     font-weight: 300;
     color: var(--primary);
@@ -334,7 +336,7 @@
     border: 1px solid var(--border);
     border-radius: 0;
     padding: 0.7rem 1rem;
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     font-size: 0.95rem;
     font-weight: 300;
     color: var(--text);
@@ -370,7 +372,7 @@
     color: var(--primary);
     border: none;
     border-radius: 0;
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     font-size: 0.82rem;
     font-weight: 300;
     cursor: pointer;
@@ -379,19 +381,19 @@
     flex-shrink: 0;
     letter-spacing: 0.05em;
   }
-  .verify-btn:hover:not(:disabled) { background: #c49464; }
+  .verify-btn:hover:not(:disabled) { background: #7e4624; }
   .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .verified-badge {
     display: inline-flex; align-items: center; gap: 0.4rem;
-    background: #e8f0ea; border: 1px solid #b5ccba;
+    background: #e7ece0; border: 1px solid #aebd9f;
     border-radius: 0; padding: 0.5rem 1rem;
     font-size: 0.85rem; color: var(--green);
     margin-top: 0.8rem;
   }
 
   .info-msg {
-    background: #f5f2ee; border: 1px solid var(--border);
+    background: #efe7da; border: 1px solid var(--border);
     border-radius: 0; padding: 0.8rem 1rem;
     font-size: 0.82rem; color: var(--muted); text-align: center;
     margin-top: 0.5rem;
@@ -405,7 +407,7 @@
     color: var(--white);
     border: none;
     border-radius: 0;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.05rem;
     font-weight: 800;
     letter-spacing: 0.15em;
@@ -414,7 +416,7 @@
     transition: transform 0.2s, background 0.2s;
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
   }
-  .submit-btn:hover:not(:disabled) { transform: translateY(-1px); background: #1a1a1a; }
+  .submit-btn:hover:not(:disabled) { transform: translateY(-1px); background: #2a2620; }
   .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   /* ── 成功畫面 ── */
@@ -427,7 +429,7 @@
   .success-icon { font-size: 3.5rem; margin-bottom: 1rem; animation: pop 0.4s ease 0.1s both; }
   @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   .success-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--primary);
@@ -447,7 +449,7 @@
     border: 1px solid var(--primary);
     border-radius: 0;
     color: var(--primary);
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     font-weight: 300;
     cursor: pointer;
     font-size: 0.9rem;
@@ -474,7 +476,7 @@
 
   /* 錯誤 */
   .error-msg {
-    background: #f5eeee; border: 1px solid #d4bfbf;
+    background: #efe7da; border: 1px solid #ddd2c2;
     border-radius: 0; padding: 0.8rem 1rem;
     font-size: 0.85rem; color: var(--error); text-align: center;
   }

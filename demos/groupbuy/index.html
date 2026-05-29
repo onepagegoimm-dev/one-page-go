@@ -36,29 +36,30 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
 <style>
+  /* 主題:繽紛果汁 Juicy Pop(語意對應原變數角色) */
   :root {
-    --leaf:    #2ecc71;
-    --leaf-d:  #27ae60;
-    --lime:    #a8e6cf;
-    --sunny:   #ffd93d;
-    --sunny-d: #f0c929;
-    --orange:  #ff6b35;
+    --leaf:    #ff6b4a;   /* 主色:珊瑚(原品牌綠) */
+    --leaf-d:  #e8492a;   /* 深珊瑚:hover/強調 */
+    --lime:    #16b6a8;   /* 點綴:湖水綠(裝飾圓點) */
+    --sunny:   #ffc83d;   /* 陽光黃 */
+    --sunny-d: #f0b400;
+    --orange:  #e8492a;   /* 金額/強調 */
     --white:   #ffffff;
-    --bg:      #f0faf4;
+    --bg:      #fffdf7;   /* 頁面底 */
     --card:    #ffffff;
-    --text:    #2d3436;
-    --muted:   #636e72;
-    --light:   #b2bec3;
-    --green:   #27ae60;
+    --text:    #3a4150;
+    --muted:   #6e7787;
+    --light:   #c2c9d4;
+    --green:   #16b35a;   /* 成團/成功 */
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     background: var(--bg);
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     font-weight: 400;
     color: var(--text);
     min-height: 100vh;
@@ -74,7 +75,7 @@
       radial-gradient(circle 5px at 85% 10%, var(--sunny) 100%, transparent 0),
       radial-gradient(circle 4px at 90% 70%, var(--lime) 100%, transparent 0),
       radial-gradient(circle 3px at 15% 80%, var(--sunny) 100%, transparent 0),
-      radial-gradient(circle 6px at 50% 5%, rgba(46,204,113,0.15) 100%, transparent 0);
+      radial-gradient(circle 6px at 50% 5%, rgba(255,107,74,0.18) 100%, transparent 0);
     opacity: 0.6;
     pointer-events: none;
   }
@@ -83,7 +84,7 @@
     position: relative; z-index: 10;
     text-align: center;
     padding: 2rem 1.5rem 1rem;
-    background: linear-gradient(180deg, rgba(168,230,207,0.4) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(255,200,61,0.30) 0%, transparent 100%);
   }
 
   .logo-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; }
@@ -94,7 +95,7 @@
     75% { transform: translateY(-4px) rotate(3deg); }
   }
   .logo-name {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 1.5rem;
     font-weight: 500;
     color: var(--text);
@@ -136,7 +137,7 @@
     overflow: hidden;
     border-left: 5px solid var(--leaf);
   }
-  .campaign-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46,204,113,0.12); }
+  .campaign-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,74,0.16); }
   .campaign-card.selected { border-left-color: var(--orange); box-shadow: 0 4px 20px rgba(255,107,53,0.15); }
 
   .campaign-card-inner { padding: 1.2rem; }
@@ -154,15 +155,15 @@
     font-weight: 600;
     letter-spacing: 0.03em;
   }
-  .campaign-status.open { background: rgba(46,204,113,0.12); color: var(--leaf-d); }
-  .campaign-status.reached { background: rgba(52,152,219,0.12); color: #2980b9; }
+  .campaign-status.open { background: rgba(255,107,74,0.12); color: var(--leaf-d); }
+  .campaign-status.reached { background: rgba(22,179,90,0.14); color: #0f8a44; }
 
   /* ── 進度條 ── */
   .progress-wrap { margin-bottom: 0.5rem; }
   .progress-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.3rem; }
   .progress-bar {
     height: 10px;
-    background: #e8f5e9;
+    background: #ffe3d6;
     border-radius: 5px;
     overflow: hidden;
   }
@@ -192,7 +193,7 @@
     padding: 0.25rem 0.7rem;
     border-radius: 20px;
   }
-  .countdown-badge.urgent { background: #ff7675; color: white; }
+  .countdown-badge.urgent { background: #d6213f; color: white; }
 
   /* ── 數量選擇 ── */
   .qty-section {
@@ -222,7 +223,7 @@
     transition: all 0.2s;
     font-weight: 700;
   }
-  .qty-btn:hover { background: var(--leaf); color: white; }
+  .qty-btn:hover { background: var(--leaf); color: #1b1b18; }
   .qty-display {
     font-size: 1.5rem;
     font-weight: 600;
@@ -264,7 +265,7 @@
     border: none;
     border-radius: 10px;
     background: var(--leaf);
-    color: white;
+    color: #1b1b18;
     font-family: inherit;
     font-size: 0.8rem;
     font-weight: 600;
@@ -289,7 +290,7 @@
   .form-section input, .form-section textarea {
     width: 100%;
     padding: 0.6rem 0.7rem;
-    border: 2px solid #e8f5e9;
+    border: 2px solid #ffe3d6;
     border-radius: 10px;
     font-family: inherit;
     font-size: 0.85rem;
@@ -317,7 +318,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     letter-spacing: 0.03em;
   }
-  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(46,204,113,0.25); }
+  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,107,74,0.30); }
   .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
   /* ── 成功畫面 ── */
@@ -329,7 +330,7 @@
   }
   .success-icon { font-size: 3rem; animation: pop 0.6s ease; }
   @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
-  .success-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--text); margin: 0.8rem 0 0.5rem; }
+  .success-title { font-family: 'Fredoka', sans-serif; font-size: 1.4rem; color: var(--text); margin: 0.8rem 0 0.5rem; }
   .success-msg { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; }
   .success-badge {
     display: inline-block;
@@ -353,13 +354,13 @@
     cursor: pointer;
     transition: all 0.2s;
   }
-  .new-order-btn:hover { background: var(--leaf); color: white; }
+  .new-order-btn:hover { background: var(--leaf); color: #1b1b18; }
 
   /* ── Loading / Error ── */
   .loading-wrap { text-align: center; padding: 2rem; }
-  .spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid #e8f5e9; border-top-color: var(--leaf); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid #ffe3d6; border-top-color: var(--leaf); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .error-msg { background: #ffeaa7; color: #6c5000; padding: 0.6rem 1rem; border-radius: 10px; font-size: 0.8rem; margin-bottom: 1rem; text-align: center; font-weight: 600; }
+  .error-msg { background: #ffe9c2; color: #7a4a00; padding: 0.6rem 1rem; border-radius: 10px; font-size: 0.8rem; margin-bottom: 1rem; text-align: center; font-weight: 600; }
 
   .hidden { display: none !important; }
 

@@ -36,28 +36,29 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
 <style>
+  /* 主題:霓夜 Neon Night */
   :root {
-    --primary:   #FF0066;
-    --secondary: #00FF88;
-    --accent:    #FFE600;
-    --bg:        #0A0A0A;
-    --card:      #1A1A2E;
-    --border:    #333366;
-    --text:      #FFFFFF;
-    --muted:     #AAAACC;
-    --green:     #00FF88;
-    --orange:    #FF9800;
-    --red:       #FF0066;
+    --primary:   #ff2e88;   /* 霓虹桃紅 */
+    --secondary: #2de2e6;   /* 霓虹青 */
+    --accent:    #ffe600;   /* 霓虹黃點綴 */
+    --bg:        #0e0e14;   /* 近黑底 */
+    --card:      #1a1a26;   /* 深色卡片 */
+    --border:    #2f2f4a;
+    --text:      #ffffff;
+    --muted:     #a0a0b8;
+    --green:     #3ef0a0;   /* 成功 */
+    --orange:    #ff9f1c;
+    --red:       #ff2e88;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     background: var(--bg);
-    font-family: 'Noto Serif TC', serif;
-    font-weight: 300;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
@@ -90,7 +91,7 @@
     position: relative; z-index: 10;
     text-align: center;
     padding: 2.5rem 1.5rem 1.5rem;
-    background: linear-gradient(180deg, rgba(51,51,102,0.3) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(47,47,74,0.3) 0%, transparent 100%);
   }
 
   .logo-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; }
@@ -98,7 +99,7 @@
     font-size: 2.8rem;
     line-height: 1;
     animation: crt-flicker 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 12px rgba(255,0,102,0.6));
+    filter: drop-shadow(0 0 12px rgba(255,46,136,0.6));
   }
   @keyframes crt-flicker {
     0%, 100% { opacity: 1; }
@@ -109,16 +110,16 @@
     54%      { opacity: 1; }
   }
   .logo-name {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--primary);
     letter-spacing: 3px;
-    text-shadow: 0 0 10px rgba(255,0,102,0.5), 0 0 30px rgba(255,0,102,0.3);
+    text-shadow: 0 0 10px rgba(255,46,136,0.5), 0 0 30px rgba(255,46,136,0.3);
     text-transform: uppercase;
   }
   .logo-sub {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.72rem;
     color: var(--accent);
     letter-spacing: 0.25em;
@@ -127,11 +128,11 @@
 
   .deco-line {
     margin-top: 0.8rem;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.75rem;
     color: var(--secondary);
     letter-spacing: 0.3em;
-    text-shadow: 0 0 6px rgba(0,255,136,0.4);
+    text-shadow: 0 0 6px rgba(45,226,230,0.4);
   }
 
   .main {
@@ -143,7 +144,7 @@
 
   .section-title {
     text-align: center;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 1.1rem;
     font-weight: 700;
     margin: 1.5rem 0 1rem;
@@ -158,8 +159,8 @@
     box-shadow:
       inset 1px 1px 0 var(--border),
       inset -1px -1px 0 var(--border),
-      2px 2px 0 rgba(51,51,102,0.5),
-      -1px -1px 0 rgba(51,51,102,0.3);
+      2px 2px 0 rgba(47,47,74,0.5),
+      -1px -1px 0 rgba(47,47,74,0.3);
   }
 
   /* -- 活動卡片 -- */
@@ -173,30 +174,30 @@
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     animation: fadeUp 0.5s ease both;
     box-shadow:
-      inset 1px 1px 0 rgba(51,51,102,0.6),
-      inset -1px -1px 0 rgba(51,51,102,0.3),
+      inset 1px 1px 0 rgba(47,47,74,0.6),
+      inset -1px -1px 0 rgba(47,47,74,0.3),
       0 2px 12px rgba(0,0,0,0.4);
   }
   .event-card:hover {
     transform: translateY(-3px);
     box-shadow:
-      0 0 15px rgba(255,0,102,0.3),
-      0 0 30px rgba(255,0,102,0.15),
-      inset 1px 1px 0 rgba(255,0,102,0.3);
+      0 0 15px rgba(255,46,136,0.3),
+      0 0 30px rgba(255,46,136,0.15),
+      inset 1px 1px 0 rgba(255,46,136,0.3);
     border-color: var(--primary);
   }
   .event-card.selected {
     border: 2px solid var(--primary);
     box-shadow:
-      0 0 20px rgba(255,0,102,0.4),
-      0 0 40px rgba(255,0,102,0.2),
-      inset 0 0 15px rgba(255,0,102,0.05);
+      0 0 20px rgba(255,46,136,0.4),
+      0 0 40px rgba(255,46,136,0.2),
+      inset 0 0 15px rgba(255,46,136,0.05);
   }
 
   .event-img { font-size: 2.5rem; text-align: center; margin-bottom: 0.6rem; }
   .event-img img { width: 100%; border-radius: 4px; border: 1px solid var(--border); }
   .event-name {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-weight: 700;
     font-size: 1rem;
     margin-bottom: 0.3rem;
@@ -206,13 +207,13 @@
   .event-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
   .event-info { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.3rem; }
   .event-badge {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.7rem;
     padding: 0.2rem 0.6rem;
     border-radius: 2px;
-    background: rgba(0,255,136,0.08);
+    background: rgba(45,226,230,0.08);
     color: var(--secondary);
-    border: 1px solid rgba(0,255,136,0.2);
+    border: 1px solid rgba(45,226,230,0.2);
   }
 
   /* -- 座位區域選擇器 -- */
@@ -224,12 +225,12 @@
     margin-bottom: 1rem;
     animation: fadeUp 0.5s ease both;
     box-shadow:
-      inset 1px 1px 0 rgba(51,51,102,0.6),
+      inset 1px 1px 0 rgba(47,47,74,0.6),
       0 2px 12px rgba(0,0,0,0.4);
   }
   .zone-section > label {
     display: block;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.85rem;
     margin-bottom: 0.8rem;
     color: var(--accent);
@@ -248,7 +249,7 @@
   }
   .venue-stage {
     text-align: center;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
     color: var(--primary);
@@ -257,8 +258,8 @@
     margin-bottom: 0.8rem;
     border: 1px dashed var(--primary);
     border-radius: 2px;
-    text-shadow: 0 0 8px rgba(255,0,102,0.5);
-    background: rgba(255,0,102,0.05);
+    text-shadow: 0 0 8px rgba(255,46,136,0.5);
+    background: rgba(255,46,136,0.05);
   }
 
   .zone-card {
@@ -277,29 +278,29 @@
     cursor: pointer;
     margin-bottom: 0.5rem;
     transition: all 0.3s;
-    box-shadow: inset 1px 1px 0 rgba(51,51,102,0.4);
+    box-shadow: inset 1px 1px 0 rgba(47,47,74,0.4);
   }
   .zone-card:hover {
-    background: rgba(255,0,102,0.08);
+    background: rgba(255,46,136,0.08);
     border-color: var(--primary);
-    box-shadow: 0 0 10px rgba(255,0,102,0.2);
+    box-shadow: 0 0 10px rgba(255,46,136,0.2);
   }
   .zone-card.selected {
-    background: rgba(255,0,102,0.15);
+    background: rgba(255,46,136,0.15);
     color: white;
     border-color: var(--primary);
     box-shadow:
-      0 0 15px rgba(255,0,102,0.4),
-      0 0 30px rgba(255,0,102,0.2);
+      0 0 15px rgba(255,46,136,0.4),
+      0 0 30px rgba(255,46,136,0.2);
     animation: pixel-pulse 1.5s ease-in-out infinite;
   }
   @keyframes pixel-pulse {
-    0%, 100% { box-shadow: 0 0 15px rgba(255,0,102,0.4), 0 0 30px rgba(255,0,102,0.2); }
-    50%      { box-shadow: 0 0 20px rgba(255,0,102,0.6), 0 0 40px rgba(255,0,102,0.3); }
+    0%, 100% { box-shadow: 0 0 15px rgba(255,46,136,0.4), 0 0 30px rgba(255,46,136,0.2); }
+    50%      { box-shadow: 0 0 20px rgba(255,46,136,0.6), 0 0 40px rgba(255,46,136,0.3); }
   }
 
   .zone-name {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-weight: 700;
     color: var(--accent);
     text-shadow: 0 0 4px rgba(255,230,0,0.3);
@@ -307,13 +308,13 @@
   .zone-card.selected .zone-name { color: var(--accent); }
   .zone-meta { text-align: right; }
   .zone-price {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-weight: 700;
     color: var(--secondary);
-    text-shadow: 0 0 4px rgba(0,255,136,0.3);
+    text-shadow: 0 0 4px rgba(45,226,230,0.3);
   }
   .zone-remaining {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.7rem;
     display: block;
   }
@@ -337,12 +338,12 @@
     margin-bottom: 1rem;
     animation: fadeUp 0.5s ease both;
     box-shadow:
-      inset 1px 1px 0 rgba(51,51,102,0.6),
+      inset 1px 1px 0 rgba(47,47,74,0.6),
       0 2px 12px rgba(0,0,0,0.4);
   }
   .ticket-section label {
     display: block;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.85rem;
     margin-bottom: 0.6rem;
     color: var(--accent);
@@ -367,22 +368,22 @@
     cursor: pointer;
     margin-bottom: 0.5rem;
     transition: all 0.3s;
-    box-shadow: inset 1px 1px 0 rgba(51,51,102,0.4);
+    box-shadow: inset 1px 1px 0 rgba(47,47,74,0.4);
   }
   .ticket-type-btn:hover {
-    background: rgba(255,0,102,0.08);
+    background: rgba(255,46,136,0.08);
     border-color: var(--primary);
-    box-shadow: 0 0 10px rgba(255,0,102,0.2);
+    box-shadow: 0 0 10px rgba(255,46,136,0.2);
   }
   .ticket-type-btn.selected {
-    background: rgba(255,0,102,0.15);
+    background: rgba(255,46,136,0.15);
     color: white;
     border-color: var(--primary);
-    box-shadow: 0 0 15px rgba(255,0,102,0.4), 0 0 30px rgba(255,0,102,0.2);
+    box-shadow: 0 0 15px rgba(255,46,136,0.4), 0 0 30px rgba(255,46,136,0.2);
   }
 
   .ticket-type-name {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-weight: 700;
     color: var(--accent);
     text-shadow: 0 0 4px rgba(255,230,0,0.3);
@@ -390,14 +391,14 @@
   .ticket-type-btn.selected .ticket-type-name { color: var(--accent); }
   .ticket-type-meta { text-align: right; }
   .ticket-type-price {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-weight: 700;
     color: var(--secondary);
-    text-shadow: 0 0 4px rgba(0,255,136,0.3);
+    text-shadow: 0 0 4px rgba(45,226,230,0.3);
   }
   .ticket-type-btn.selected .ticket-type-price { color: var(--secondary); }
   .remaining-badge {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.7rem;
     opacity: 0.8;
     display: block;
@@ -414,12 +415,12 @@
     margin-bottom: 1rem;
     animation: fadeUp 0.5s ease both;
     box-shadow:
-      inset 1px 1px 0 rgba(51,51,102,0.6),
+      inset 1px 1px 0 rgba(47,47,74,0.6),
       0 2px 12px rgba(0,0,0,0.4);
   }
   .qty-section label {
     display: block;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.85rem;
     margin-bottom: 0.6rem;
     color: var(--accent);
@@ -438,20 +439,20 @@
     border: 1px solid var(--primary);
     border-radius: 4px;
     background: var(--card);
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 1.2rem;
     color: var(--primary);
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: all 0.3s;
-    box-shadow: 0 0 8px rgba(255,0,102,0.15);
+    box-shadow: 0 0 8px rgba(255,46,136,0.15);
   }
   .qty-btn:hover {
-    background: rgba(255,0,102,0.15);
-    box-shadow: 0 0 15px rgba(255,0,102,0.4);
+    background: rgba(255,46,136,0.15);
+    box-shadow: 0 0 15px rgba(255,46,136,0.4);
   }
   .qty-display {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--accent);
@@ -460,7 +461,7 @@
     text-shadow: 0 0 8px rgba(255,230,0,0.4);
   }
   .qty-hint {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.7rem;
     color: var(--muted);
     text-align: center;
@@ -476,11 +477,11 @@
     margin-bottom: 1rem;
     animation: fadeUp 0.5s ease both;
     box-shadow:
-      inset 1px 1px 0 rgba(51,51,102,0.6),
+      inset 1px 1px 0 rgba(47,47,74,0.6),
       0 2px 12px rgba(0,0,0,0.4);
   }
   .summary-title {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
     margin-bottom: 0.6rem;
@@ -498,10 +499,10 @@
     border-top: 1px solid var(--border);
     padding-top: 0.5rem;
     margin-top: 0.5rem;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-weight: 700;
     color: var(--secondary);
-    text-shadow: 0 0 6px rgba(0,255,136,0.3);
+    text-shadow: 0 0 6px rgba(45,226,230,0.3);
   }
 
   /* -- Email 驗證 -- */
@@ -513,12 +514,12 @@
     margin-bottom: 1rem;
     animation: fadeUp 0.5s ease both;
     box-shadow:
-      inset 1px 1px 0 rgba(51,51,102,0.6),
+      inset 1px 1px 0 rgba(47,47,74,0.6),
       0 2px 12px rgba(0,0,0,0.4);
   }
   .verify-section > label {
     display: block;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.85rem;
     margin-bottom: 0.6rem;
     color: var(--accent);
@@ -532,19 +533,19 @@
     padding: 0.55rem 0.8rem;
     border: 1px solid var(--primary);
     border-radius: 4px;
-    background: rgba(255,0,102,0.15);
+    background: rgba(255,46,136,0.15);
     color: var(--primary);
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.8rem;
     font-weight: 700;
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.3s;
-    box-shadow: 0 0 10px rgba(255,0,102,0.2);
+    box-shadow: 0 0 10px rgba(255,46,136,0.2);
   }
   .verify-btn:hover {
-    background: rgba(255,0,102,0.3);
-    box-shadow: 0 0 20px rgba(255,0,102,0.4);
+    background: rgba(255,46,136,0.3);
+    box-shadow: 0 0 20px rgba(255,46,136,0.4);
   }
   .verify-btn:disabled {
     background: rgba(170,170,204,0.1);
@@ -564,12 +565,12 @@
     margin-bottom: 1.5rem;
     animation: fadeUp 0.5s ease both;
     box-shadow:
-      inset 1px 1px 0 rgba(51,51,102,0.6),
+      inset 1px 1px 0 rgba(47,47,74,0.6),
       0 2px 12px rgba(0,0,0,0.4);
   }
   .form-section label {
     display: block;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.8rem;
     margin-bottom: 0.3rem;
     color: var(--muted);
@@ -591,7 +592,7 @@
   }
   .form-section input:focus, .form-section textarea:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 10px rgba(255,0,102,0.2);
+    box-shadow: 0 0 10px rgba(255,46,136,0.2);
   }
   .form-section textarea { height: 70px; resize: vertical; }
 
@@ -601,21 +602,21 @@
     padding: 0.8rem;
     border: 2px solid var(--primary);
     border-radius: 4px;
-    background: rgba(255,0,102,0.15);
+    background: rgba(255,46,136,0.15);
     color: var(--primary);
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    box-shadow: 0 0 20px rgba(255,0,102,0.3);
-    text-shadow: 0 0 8px rgba(255,0,102,0.5);
+    box-shadow: 0 0 20px rgba(255,46,136,0.3);
+    text-shadow: 0 0 8px rgba(255,46,136,0.5);
   }
   .submit-btn:hover {
-    background: rgba(255,0,102,0.3);
-    box-shadow: 0 0 30px rgba(255,0,102,0.5), 0 0 60px rgba(255,0,102,0.2);
+    background: rgba(255,46,136,0.3);
+    box-shadow: 0 0 30px rgba(255,46,136,0.5), 0 0 60px rgba(255,46,136,0.2);
   }
   .submit-btn:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; text-shadow: none; }
 
@@ -629,23 +630,23 @@
   .success-icon { font-size: 3rem; animation: pop 0.6s ease; }
   @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
   .success-title {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--secondary);
     margin: 0.8rem 0 0.5rem;
     letter-spacing: 3px;
-    text-shadow: 0 0 12px rgba(0,255,136,0.5);
+    text-shadow: 0 0 12px rgba(45,226,230,0.5);
     text-transform: uppercase;
   }
   .success-msg { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; }
   .success-badge {
     display: inline-block;
-    background: rgba(0,255,136,0.08);
-    border: 1px solid rgba(0,255,136,0.3);
+    background: rgba(45,226,230,0.08);
+    border: 1px solid rgba(45,226,230,0.3);
     padding: 0.5rem 1.2rem;
     border-radius: 4px;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.85rem;
     color: var(--secondary);
     font-weight: 700;
@@ -653,7 +654,7 @@
   }
   .success-zone {
     display: inline-block;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
     color: var(--accent);
@@ -664,7 +665,7 @@
 
   .checkin-code-display {
     display: inline-block;
-    background: rgba(0,255,136,0.06);
+    background: rgba(45,226,230,0.06);
     border: 2px solid var(--secondary);
     padding: 0.8rem 1.5rem;
     border-radius: 4px;
@@ -673,12 +674,12 @@
     color: var(--secondary);
     letter-spacing: 0.3em;
     margin-bottom: 0.5rem;
-    font-family: 'Courier New', monospace;
-    box-shadow: 0 0 20px rgba(0,255,136,0.3), 0 0 40px rgba(0,255,136,0.15);
-    text-shadow: 0 0 10px rgba(0,255,136,0.5);
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+    box-shadow: 0 0 20px rgba(45,226,230,0.3), 0 0 40px rgba(45,226,230,0.15);
+    text-shadow: 0 0 10px rgba(45,226,230,0.5);
   }
   .checkin-label {
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.8rem;
     color: var(--muted);
     margin-bottom: 1.5rem;
@@ -690,7 +691,7 @@
     border-radius: 4px;
     background: transparent;
     color: var(--secondary);
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
     cursor: pointer;
@@ -699,8 +700,8 @@
     text-transform: uppercase;
   }
   .new-order-btn:hover {
-    background: rgba(0,255,136,0.15);
-    box-shadow: 0 0 20px rgba(0,255,136,0.4);
+    background: rgba(45,226,230,0.15);
+    box-shadow: 0 0 20px rgba(45,226,230,0.4);
   }
 
   /* -- Loading / Error -- */
@@ -715,12 +716,12 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   .error-msg {
-    background: rgba(255,0,102,0.1);
-    border: 1px solid rgba(255,0,102,0.3);
+    background: rgba(255,46,136,0.1);
+    border: 1px solid rgba(255,46,136,0.3);
     color: var(--primary);
     padding: 0.6rem 1rem;
     border-radius: 4px;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.8rem;
     margin-bottom: 1rem;
     text-align: center;
@@ -731,7 +732,7 @@
   footer {
     position: relative; z-index: 5;
     text-align: center; padding: 1.5rem;
-    font-family: 'Courier New', monospace;
+    font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
     font-size: 0.65rem;
     color: rgba(170,170,204,0.4);
     letter-spacing: 2px;

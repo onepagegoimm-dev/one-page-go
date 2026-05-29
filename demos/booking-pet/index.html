@@ -36,26 +36,29 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
+  /* 主題:粉彩 Pastel Dream */
   :root {
-    --primary:   #E8919A;
-    --secondary: #A8D8E8;
-    --accent:    #F5C842;
-    --bg:        #FFF8FA;
-    --card:      #FFFFFF;
-    --border:    #F0D6DA;
-    --text:      #4A3F42;
-    --muted:     #8A7D80;
-    --primary-l: #F2B3BA;
-    --success:   #7EC8A0;
+    --primary:   #8a4fb0;
+    --secondary: #7fb8e6;
+    --accent:    #ff9fc0;
+    --bg:        #fdf2f6;
+    --card:      #ffffff;
+    --border:    #ecddf5;
+    --text:      #564a63;
+    --muted:     #7f7390;
+    --primary-l: #c6a3e0;
+    --success:   #5cbf86;
+    --btn:       #8a4fb0;
+    --on-btn:    #ffffff;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     background: var(--bg);
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     font-weight: 300;
     color: var(--text);
     min-height: 100vh;
@@ -97,7 +100,7 @@
   header {
     text-align: center;
     padding: 3rem 1.5rem 1.8rem;
-    background: linear-gradient(135deg, var(--primary), #D87A84);
+    background: linear-gradient(135deg, var(--primary), #6f3f9e);
     color: #fff;
     position: relative;
   }
@@ -117,7 +120,7 @@
   .logo-icon { font-size: 2.2rem; line-height: 1; animation: float 4s ease-in-out infinite; }
   @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
   .logo-name {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Quicksand', sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
     color: #fff;
@@ -174,12 +177,12 @@
   }
   .service-card:hover {
     transform: scale(1.02) translateY(-2px);
-    box-shadow: 0 6px 20px rgba(232,145,154,0.15);
+    box-shadow: 0 6px 20px rgba(138,79,176,0.15);
   }
   .service-card.selected {
     border-color: var(--primary);
-    background: rgba(232,145,154,0.04);
-    box-shadow: 0 0 0 3px rgba(232,145,154,0.15);
+    background: rgba(138,79,176,0.04);
+    box-shadow: 0 0 0 3px rgba(138,79,176,0.15);
   }
 
   .service-name {
@@ -235,7 +238,7 @@
     transition: all 0.3s;
     font-weight: 400;
   }
-  .addon-btn:hover { border-color: var(--primary-l); background: rgba(232,145,154,0.04); }
+  .addon-btn:hover { border-color: var(--primary-l); background: rgba(138,79,176,0.04); }
   .addon-btn.active {
     border-color: var(--success);
     background: rgba(126,200,160,0.08);
@@ -310,7 +313,7 @@
     text-align: center;
     transition: all 0.3s;
   }
-  .time-slot-btn:hover { border-color: var(--primary-l); background: rgba(232,145,154,0.04); }
+  .time-slot-btn:hover { border-color: var(--primary-l); background: rgba(138,79,176,0.04); }
   .time-slot-btn.selected { background: var(--primary); color: #fff; border-color: var(--primary); }
   .time-slot-btn .remaining { display: block; font-size: 0.58rem; color: var(--muted); margin-top: 0.15rem; letter-spacing: 0.05em; }
   .time-slot-btn.selected .remaining { color: rgba(255,255,255,0.7); }
@@ -420,7 +423,7 @@
     border-radius: 12px;
     font-weight: 600;
   }
-  .verify-btn:hover { background: #D87A84; }
+  .verify-btn:hover { background: #6f3f9e; }
   .verify-btn:disabled { background: var(--muted); cursor: not-allowed; opacity: 0.6; }
   .verify-status { font-size: 0.72rem; margin-top: 0.3rem; }
 
@@ -429,7 +432,7 @@
     width: 100%;
     padding: 0.85rem;
     border: none;
-    background: linear-gradient(135deg, var(--primary), #D87A84);
+    background: linear-gradient(135deg, var(--primary), #6f3f9e);
     color: #fff;
     font-family: inherit;
     font-size: 0.85rem;
@@ -439,7 +442,7 @@
     letter-spacing: 0.15em;
     border-radius: 30px;
   }
-  .submit-btn:hover { transform: scale(1.02); box-shadow: 0 4px 16px rgba(232,145,154,0.3); }
+  .submit-btn:hover { transform: scale(1.02); box-shadow: 0 4px 16px rgba(138,79,176,0.3); }
   .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
 
   /* ── 成功畫面 ── */
@@ -453,7 +456,7 @@
   .success-icon { font-size: 2.8rem; animation: pop 0.6s ease; }
   @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
   .success-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Quicksand', sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--primary);
@@ -511,7 +514,7 @@
   .loading-wrap { text-align: center; padding: 2rem; }
   .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .error-msg { background: #fce8e8; color: #7a3a3a; padding: 0.6rem 1rem; border: 1px solid #f0c5c5; border-radius: 12px; font-size: 0.78rem; margin-bottom: 0.8rem; text-align: center; }
+  .error-msg { background: #f6ecff; color: #8a2f4a; padding: 0.6rem 1rem; border: 1px solid #e3cdf2; border-radius: 12px; font-size: 0.78rem; margin-bottom: 0.8rem; text-align: center; }
 
   .hidden { display: none !important; }
 
@@ -793,7 +796,7 @@ document.getElementById('booking-date').addEventListener('change', async functio
       </button>
     `).join('');
   } catch (err) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#7a3a3a;font-size:0.8rem;">載入時段失敗</div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#8a2f4a;font-size:0.8rem;">載入時段失敗</div>';
   }
 });
 
@@ -869,7 +872,7 @@ async function sendCode() {
     if (data.success) {
       document.getElementById('code-row').classList.remove('hidden');
       document.getElementById('verify-status').textContent = '驗證碼已寄出，請查看信箱';
-      document.getElementById('verify-status').style.color = '#3A7A4F';
+      document.getElementById('verify-status').style.color = '#2f6e4a';
       let sec = 60;
       btn.textContent = `${sec}s`;
       const timer = setInterval(() => {
@@ -925,7 +928,7 @@ async function verifyEmail() {
 
 function showVerified() {
   document.getElementById('verify-status').textContent = '✅ 驗證成功';
-  document.getElementById('verify-status').style.color = '#3A7A4F';
+  document.getElementById('verify-status').style.color = '#2f6e4a';
   document.getElementById('email').disabled = true;
   document.getElementById('verify-code').disabled = true;
   document.getElementById('verify-btn').disabled = true;
