@@ -149,6 +149,25 @@
   .service-card.selected { border-color: var(--forest); border-width: 1.5px; background: rgba(93,140,114,0.04); }
 
   .service-img { font-size: 2rem; text-align: center; margin-bottom: 0.5rem; }
+
+  /* ── 服務影片（16:9 響應式內嵌）── */
+  .service-video {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;      /* 16:9 */
+    margin-bottom: 0.6rem;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000;
+  }
+  .service-video iframe,
+  .service-video video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
   .service-name { font-weight: 400; font-size: 1rem; margin-bottom: 0.3rem; color: var(--ink); }
   .service-desc { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.6rem; line-height: 1.6; }
   .service-meta { display: flex; justify-content: space-between; align-items: center; }
@@ -445,6 +464,14 @@ const API_URL = "https://script.google.com/macros/s/AKfycbxXHqT4oC4ko6IVOu2tOVIs
 
 const SPA_EMOJI = ["💆","🧖","🌿","🕯️","🌸"];
 
+// DEMO 用示範影片：前端硬塞，讓畫面看得到影片欄位效果。
+// 正式上線時刪除這些常數，改由後台 Google Sheet 的 video_url 欄位提供。
+// 第 1 張卡用 YouTube、第 2 張卡用 Google Drive 分享連結。
+// 注意：YouTube 在 file:// 直開時會出現「錯誤 153」，部署到 https（GitHub Pages）即正常。
+const DEMO_VIDEO_YOUTUBE = "https://www.youtube.com/watch?v=AAHrh6m1i2Q&list=PLEWjcoTWbzxJLV-Eld2bM5fvjqSyQMgk2";
+const DEMO_VIDEO_DRIVE   = "https://drive.google.com/file/d/18gpGvAjRw4AHHt8hRpr4Abwr9HLbAA46/view?usp=sharing";
+const DEMO_VIDEOS = [DEMO_VIDEO_YOUTUBE, DEMO_VIDEO_DRIVE];
+
 let services = [];
 let selectedService = null;
 let selectedDate = '';
@@ -473,6 +500,33 @@ async function loadServices() {
   }
 }
 
+// 將影片分享連結轉成可內嵌的播放器（支援 YouTube / Google Drive / 直接影片檔）
+function buildVideoEmbed(url) {
+  if (!url) return '';
+  const u = String(url).trim();
+
+  // YouTube：watch?v= / youtu.be / embed / shorts，取 11 碼影片 ID
+  const yt = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+  if (yt) {
+    return `<div class="service-video"><iframe src="https://www.youtube-nocookie.com/embed/${yt[1]}?rel=0" title="服務影片" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div>`;
+  }
+
+  // Google Drive：擷取檔案 ID，改用 /preview 端點以 iframe 播放
+  if (/drive\.google\.com/.test(u)) {
+    const m = u.match(/[-\w]{25,}/);
+    if (m) {
+      return `<div class="service-video"><iframe src="https://drive.google.com/file/d/${m[0]}/preview" title="服務影片" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe></div>`;
+    }
+  }
+
+  // 直接影片檔（.mp4 / .webm / .ogg）
+  if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(u)) {
+    return `<div class="service-video"><video src="${u}" controls playsinline></video></div>`;
+  }
+
+  return '';
+}
+
 function renderServices() {
   const container = document.getElementById('services-container');
   if (!services.length) {
@@ -481,12 +535,17 @@ function renderServices() {
   }
   container.innerHTML = services.map((s, i) => {
     const emoji = SPA_EMOJI[i % SPA_EMOJI.length];
+    // 影片來源：優先用後台的 video_url；DEMO 時前兩張卡分別塞 YouTube / Drive 示範片
+    const videoUrl = s.video_url || DEMO_VIDEOS[i] || '';
+    const videoHtml = buildVideoEmbed(videoUrl);
     const imgHtml = s.image_url
       ? `<img src="${s.image_url}" alt="${s.name}" style="width:100%;border-radius:10px;" />`
       : emoji;
+    // 有影片就顯示影片，否則維持原本的圖片 / emoji
+    const mediaHtml = videoHtml || `<div class="service-img">${imgHtml}</div>`;
     return `
       <div class="service-card" id="svc-${s.id}" onclick="selectService('${s.id}')" style="animation-delay:${i*0.08}s">
-        <div class="service-img">${imgHtml}</div>
+        ${mediaHtml}
         <div class="service-name">${s.name}</div>
         <div class="service-desc">${s.description || ''}</div>
         <div class="service-meta">
