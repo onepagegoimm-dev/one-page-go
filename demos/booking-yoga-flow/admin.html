@@ -61,6 +61,13 @@
   .toast.show { opacity:1; }
   a.back { color:var(--coral); text-decoration:none; font-size:0.74rem; }
   code { background:rgba(255,255,255,0.08); padding:0 0.3em; border-radius:4px; font-size:0.9em; }
+  .ts-day { margin-bottom:0.7rem; }
+  .ts-day-label { font-size:0.72rem; color:var(--coral); font-weight:600; margin-bottom:0.35rem; }
+  .ts-chips { display:flex; flex-wrap:wrap; gap:0.4rem; }
+  .ts-chip { display:inline-flex; align-items:center; gap:0.45rem; font-size:0.74rem; padding:0.3rem 0.55rem; border:1px solid var(--card-br); border-radius:100px; background:rgba(255,255,255,0.04); }
+  .ts-chip.full { opacity:0.45; }
+  .ts-chip .cap { color:var(--muted); font-size:0.66rem; }
+  .ts-chip .x { cursor:pointer; color:var(--danger); font-weight:700; line-height:1; }
 </style>
 </head>
 <body>
@@ -128,6 +135,23 @@
     <div id="list"><p class="muted">Loading…</p></div>
   </div>
 
+  <div class="card">
+    <div class="card-title">⏰ Booking time slots</div>
+    <label>Date range</label>
+    <div class="row2">
+      <input type="date" id="ts-start" />
+      <input type="date" id="ts-end" />
+    </div>
+    <label>Times — comma separated, 24-hour</label>
+    <input type="text" id="ts-times" placeholder="09:00, 10:30, 14:00, 16:00" />
+    <div class="row2">
+      <div><label>Capacity each</label><input type="number" id="ts-cap" value="6" /></div>
+      <div style="display:flex; align-items:flex-end;"><button class="btn btn-block" id="gen-btn" onclick="generateSlots()">Add slots</button></div>
+    </div>
+    <div class="hint">Creates a slot for every date in the range × each time (duplicates skipped). These are the times visitors can pick on the booking page.</div>
+    <div id="ts-list" style="margin-top:0.9rem;"><p class="muted">Loading…</p></div>
+  </div>
+
   <div style="text-align:center; margin-top:1rem;"><a class="back" href="index.html">← View booking page</a></div>
 </div>
 
@@ -174,7 +198,13 @@ async function verifyAdminCode() {
 function enterMain() {
   document.getElementById('login').classList.add('hidden');
   document.getElementById('main').classList.remove('hidden');
+  const today = new Date().toISOString().split('T')[0];
+  const s = document.getElementById('ts-start'), e = document.getElementById('ts-end');
+  s.min = today; e.min = today;
+  if (!s.value) s.value = today;
+  if (!e.value) e.value = today;
   loadServices();
+  loadTimeSlots();
 }
 
 async function loadServices() {
@@ -183,6 +213,59 @@ async function loadServices() {
     services = d.services || [];
     renderList();
   } catch (e) { document.getElementById('list').innerHTML = '<p class="muted">Failed to load classes.</p>'; }
+}
+
+// ── Time slots ──
+async function loadTimeSlots() {
+  try {
+    const d = await api({ action:'adminListTimeSlots', token: adminToken });
+    renderTimeSlots(d.slots || []);
+  } catch (e) { document.getElementById('ts-list').innerHTML = '<p class="muted">Failed to load time slots.</p>'; }
+}
+
+function renderTimeSlots(slots) {
+  const el = document.getElementById('ts-list');
+  const today = new Date().toISOString().split('T')[0];
+  const upcoming = slots.filter(s => s.date >= today);
+  if (!upcoming.length) { el.innerHTML = '<p class="muted">No upcoming time slots. Add some above so visitors can book.</p>'; return; }
+  const byDate = {};
+  upcoming.forEach(s => { (byDate[s.date] = byDate[s.date] || []).push(s); });
+  el.innerHTML = Object.keys(byDate).sort().map(date => `
+    <div class="ts-day">
+      <div class="ts-day-label">${date}</div>
+      <div class="ts-chips">
+        ${byDate[date].map(s => `
+          <span class="ts-chip ${s.booked_count >= s.max_capacity ? 'full' : ''}">
+            ${s.time_slot}<span class="cap">${s.booked_count}/${s.max_capacity}</span>
+            <span class="x" title="Delete" onclick="deleteSlot(${s.rowNum})">×</span>
+          </span>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+async function generateSlots() {
+  const startDate = document.getElementById('ts-start').value;
+  const endDate = document.getElementById('ts-end').value;
+  const times = document.getElementById('ts-times').value.split(',').map(t => t.trim()).filter(Boolean);
+  const capacity = Number(document.getElementById('ts-cap').value) || 0;
+  if (!startDate || !endDate) return toast('Please choose a date range');
+  if (!times.length) return toast('Please enter at least one time');
+  const btn = document.getElementById('gen-btn'); btn.disabled = true; btn.textContent = 'Adding…';
+  try {
+    const d = await api({ action:'adminGenerateTimeSlots', token: adminToken, startDate, endDate, times, capacity });
+    if (d.success) { toast(`Added ${d.created} slot(s)` + (d.skipped ? `, skipped ${d.skipped}` : '')); await loadTimeSlots(); }
+    else { toast(d.error || 'Failed'); }
+  } catch (e) { toast('Connection failed'); }
+  btn.disabled = false; btn.textContent = 'Add slots';
+}
+
+async function deleteSlot(rowNum) {
+  if (!confirm('Delete this time slot?')) return;
+  try {
+    const d = await api({ action:'adminDeleteTimeSlot', token: adminToken, rowNum });
+    if (d.success) { toast('Deleted'); await loadTimeSlots(); }
+    else { toast(d.error || 'Delete failed'); }
+  } catch (e) { toast('Connection failed'); }
 }
 
 function extractDriveId(url) { const m = String(url||'').match(/[-\w]{25,}/); return m ? m[0] : null; }
