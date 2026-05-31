@@ -148,6 +148,9 @@
     </div>
     <div class="hint">Creates a slot for every date in the range × each time (duplicates skipped). These are the times visitors can pick on the booking page.</div>
     <div id="ts-list" style="margin-top:0.9rem;"><p class="muted">Loading…</p></div>
+    <div style="margin-top:0.7rem; text-align:right;">
+      <button class="btn btn-sm btn-ghost" id="dedupe-btn" onclick="dedupeSlots()">Remove duplicates</button>
+    </div>
   </div>
 
   <div style="text-align:center; margin-top:1rem;"><a class="back" href="index.html">← View booking page</a></div>
@@ -265,6 +268,17 @@ async function deleteSlot(rowNum) {
     if (d.success) { toast('Deleted'); await loadTimeSlots(); }
     else { toast(d.error || 'Delete failed'); }
   } catch (e) { toast('Connection failed'); }
+}
+
+async function dedupeSlots() {
+  if (!confirm('Remove duplicate time slots (same date & time)? The first of each is kept.')) return;
+  const btn = document.getElementById('dedupe-btn'); btn.disabled = true; btn.textContent = 'Cleaning…';
+  try {
+    const d = await api({ action:'adminDedupeTimeSlots', token: adminToken });
+    if (d.success) { toast(d.removed ? `Removed ${d.removed} duplicate(s)` : 'No duplicates found'); await loadTimeSlots(); }
+    else { toast(d.error || 'Failed'); }
+  } catch (e) { toast('Connection failed'); }
+  btn.disabled = false; btn.textContent = 'Remove duplicates';
 }
 
 // ── image helpers ──
