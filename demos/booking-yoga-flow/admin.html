@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Flow State — Studio Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:#14122b; --card:rgba(255,255,255,0.045); --card-br:rgba(255,255,255,0.10);
+    --text:#f3f0ff; --muted:#a39fc4; --violet:#6d5cff; --coral:#ff7a59;
+    --grad:linear-gradient(100deg,#6d5cff 0%,#b15cff 45%,#ff7a59 100%); --glow:rgba(109,92,255,0.35); --danger:#ff6b6b;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:radial-gradient(60% 40% at 15% 0%, rgba(109,92,255,0.22) 0%, transparent 60%), radial-gradient(50% 40% at 95% 8%, rgba(255,122,89,0.16) 0%, transparent 55%), var(--bg); font-family:'Inter',system-ui,sans-serif; font-weight:300; color:var(--text); min-height:100vh; }
+  .wrap { max-width:520px; margin:0 auto; padding:2rem 1.3rem 4rem; }
+  .top { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.4rem; }
+  .brand { font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .brand small { display:block; font-family:'Inter'; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); font-weight:500; -webkit-text-fill-color:var(--muted); }
+  .pill { font-size:0.64rem; color:var(--muted); border:1px solid var(--card-br); padding:0.3rem 0.7rem; border-radius:100px; background:var(--card); }
+  .card { background:var(--card); border:1px solid var(--card-br); border-radius:18px; padding:1.3rem 1.2rem; margin-bottom:1rem; backdrop-filter:blur(14px); }
+  .card-title { font-family:'Space Grotesk',sans-serif; font-size:0.84rem; font-weight:600; margin-bottom:0.9rem; }
+  label { display:block; font-size:0.72rem; color:var(--muted); margin-bottom:0.3rem; }
+  input, textarea { width:100%; padding:0.62rem 0.74rem; border:1px solid var(--card-br); border-radius:12px; font-family:inherit; font-size:0.85rem; color:var(--text); background:rgba(255,255,255,0.04); outline:none; transition:border-color 0.25s, box-shadow 0.25s; margin-bottom:0.8rem; }
+  input::placeholder, textarea::placeholder { color:#6d6890; }
+  input:focus, textarea:focus { border-color:var(--violet); box-shadow:0 0 0 3px rgba(109,92,255,0.18); }
+  textarea { height:64px; resize:vertical; }
+  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:0.7rem; }
+  .hint { font-size:0.68rem; color:var(--muted); margin:-0.5rem 0 0.7rem; }
+  .hint.success { color:#7fe0b0; }
+  .hint.warn { color:var(--danger); }
+  .verify-row { display:flex; gap:0.5rem; }
+  .verify-row input { flex:1; margin-bottom:0; }
+  .btn { padding:0.7rem 1rem; border:none; border-radius:12px; background:var(--grad); color:#fff; font-family:'Space Grotesk',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; transition:transform 0.15s; box-shadow:0 8px 22px -10px var(--glow); white-space:nowrap; }
+  .btn:hover { transform:translateY(-2px); }
+  .btn:disabled { opacity:0.45; cursor:not-allowed; transform:none; }
+  .btn-sm { padding:0.4rem 0.7rem; font-size:0.74rem; border-radius:9px; box-shadow:none; }
+  .btn-ghost { background:transparent; border:1px solid var(--card-br); color:var(--text); box-shadow:none; }
+  .btn-ghost:hover { border-color:var(--violet); }
+  .btn-danger { background:transparent; border:1px solid rgba(255,107,107,0.5); color:var(--danger); box-shadow:none; }
+  .btn-danger:hover { background:rgba(255,107,107,0.14); }
+  .btn-block { width:100%; }
+  .media-prev { position:relative; width:100%; padding-top:56.25%; border-radius:12px; overflow:hidden; background:#0e0c22; margin-bottom:0.8rem; }
+  .media-prev img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .media-prev.hidden { display:none; }
+  .item { display:flex; gap:0.8rem; align-items:flex-start; padding:0.85rem 0; border-bottom:1px solid var(--card-br); }
+  .item:last-child { border-bottom:none; }
+  .item-thumb { width:64px; height:64px; flex-shrink:0; border-radius:12px; overflow:hidden; background:#0e0c22; display:flex; align-items:center; justify-content:center; font-size:1.5rem; }
+  .item-thumb img { width:100%; height:100%; object-fit:cover; }
+  .item-main { flex:1; min-width:0; }
+  .item-name { font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:600; }
+  .item-sub { font-size:0.72rem; color:var(--muted); margin-top:0.12rem; }
+  .item-actions { display:flex; flex-direction:column; gap:0.4rem; }
+  .login { max-width:360px; margin:5rem auto; }
+  .muted { color:var(--muted); font-size:0.78rem; line-height:1.6; }
+  .hidden { display:none !important; }
+  .status { font-size:0.74rem; margin-top:0.4rem; }
+  .toast { position:fixed; left:50%; bottom:1.4rem; transform:translateX(-50%); background:#000; border:1px solid var(--card-br); color:#fff; font-size:0.78rem; padding:0.6rem 1.1rem; border-radius:100px; opacity:0; transition:opacity 0.3s; z-index:50; }
+  .toast.show { opacity:1; }
+  a.back { color:var(--coral); text-decoration:none; font-size:0.74rem; }
+  code { background:rgba(255,255,255,0.08); padding:0 0.3em; border-radius:4px; font-size:0.9em; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+  後端：直接連結 SPA demo（demos/booking）的 Apps Script。
+  此後台需要該 Apps Script 提供以下管理端點（若尚未有，請在同一個專案補上）：
+    adminSendCode    { email }                         → { success }
+    adminVerifyCode  { email, code }                   → { success, token }
+    adminListServices{ token }                          → { services:[{rowNum,id,name,description,price,duration_min,image_url}] }
+    adminSaveService { token, service:{rowNum?,id?,name,description,price,duration_min,image_url} } → { success }
+    adminDeleteService { token, rowNum }                → { success }
+  管理員 Email 清單建議存在 Apps Script 的 Script Properties（伺服器端，前端看不到）。
+  影片在預約頁是寫死的，不存進 Sheet，故此處不編輯影片。
+═════════════════════════════════════════════════════════════ -->
+
+<div class="login" id="login">
+  <div class="brand" style="text-align:center;margin-bottom:1.2rem;">Flow State<small>Studio Admin</small></div>
+  <div class="card">
+    <div class="card-title">Sign in</div>
+    <label>Admin email</label>
+    <div class="verify-row">
+      <input type="email" id="login-email" placeholder="admin@email.com" />
+      <button class="btn" id="send-btn" onclick="sendAdminCode()">Send code</button>
+    </div>
+    <div class="verify-row hidden" id="code-row" style="margin-top:0.7rem;">
+      <input type="text" id="login-code" placeholder="6-digit code" maxlength="6" />
+      <button class="btn" id="verify-btn" onclick="verifyAdminCode()">Verify</button>
+    </div>
+    <div class="status" id="login-status"></div>
+  </div>
+  <p class="muted">Admin access is verified by email code against the shared booking backend. Only emails on the studio's admin list will receive a code.</p>
+</div>
+
+<div class="wrap hidden" id="main">
+  <div class="top">
+    <div class="brand">Flow State<small>Class Editor</small></div>
+    <span class="pill">SPA backend</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title" id="form-title">＋ Add a class</div>
+    <input type="hidden" id="f-row" />
+    <input type="hidden" id="f-id" />
+    <label>Class name</label>
+    <input type="text" id="f-name" placeholder="e.g. Power Yoga" />
+    <label>Description</label>
+    <textarea id="f-desc" placeholder="Short description shown on the card"></textarea>
+    <div class="row2">
+      <div><label>Price (USD)</label><input type="number" id="f-price" placeholder="30" /></div>
+      <div><label>Duration (min)</label><input type="number" id="f-duration" placeholder="60" /></div>
+    </div>
+    <label>Image URL (optional) — paste a Google Drive share link, it auto-converts</label>
+    <input type="text" id="f-image" placeholder="https://drive.google.com/file/d/.../view" oninput="onImageInput()" />
+    <div class="hint" id="img-hint">Shown on the booking card when there is no hardcoded video.</div>
+    <div class="media-prev hidden" id="media-prev"></div>
+    <div style="display:flex; gap:0.6rem;">
+      <button class="btn" id="save-btn" onclick="saveService()">Save class</button>
+      <button class="btn btn-ghost hidden" id="cancel-btn" onclick="resetForm()">Cancel</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Current classes <span id="count" class="muted"></span></div>
+    <div id="list"><p class="muted">Loading…</p></div>
+  </div>
+
+  <div style="text-align:center; margin-top:1rem;"><a class="back" href="index.html">← View booking page</a></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxXHqT4oC4ko6IVOu2tOVIsNoeSf0S_YLOnUZGE00XZ_ZQULplziLIAeITqFf5DBU4gHQ/exec";
+
+let adminToken = '';
+let services = [];
+
+async function api(payload) {
+  const res = await fetch(API_URL, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify(payload) });
+  return JSON.parse(await res.text());
+}
+
+async function sendAdminCode() {
+  const email = document.getElementById('login-email').value.trim();
+  if (!email) return setStatus('Please enter your admin email', true);
+  const btn = document.getElementById('send-btn'); btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    const d = await api({ action:'adminSendCode', email });
+    if (d.success) {
+      document.getElementById('code-row').classList.remove('hidden');
+      setStatus('Code sent — check your inbox.');
+      let sec = 60; btn.textContent = `${sec}s`;
+      const t = setInterval(() => { sec--; btn.textContent = `${sec}s`; if (sec<=0){ clearInterval(t); btn.disabled=false; btn.textContent='Resend'; } }, 1000);
+    } else { setStatus(d.error || 'Could not send code', true); btn.disabled=false; btn.textContent='Send code'; }
+  } catch (e) { setStatus('Connection failed', true); btn.disabled=false; btn.textContent='Send code'; }
+}
+
+async function verifyAdminCode() {
+  const email = document.getElementById('login-email').value.trim();
+  const code = document.getElementById('login-code').value.trim();
+  if (!code) return setStatus('Please enter the code', true);
+  const btn = document.getElementById('verify-btn'); btn.disabled = true; btn.textContent = 'Verifying…';
+  try {
+    const d = await api({ action:'adminVerifyCode', email, code });
+    if (d.success && d.token) { adminToken = d.token; enterMain(); }
+    else { setStatus(d.error || 'Verification failed', true); btn.disabled=false; btn.textContent='Verify'; }
+  } catch (e) { setStatus('Connection failed', true); btn.disabled=false; btn.textContent='Verify'; }
+}
+
+function enterMain() {
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('main').classList.remove('hidden');
+  loadServices();
+}
+
+async function loadServices() {
+  try {
+    const d = await api({ action:'adminListServices', token: adminToken });
+    services = d.services || [];
+    renderList();
+  } catch (e) { document.getElementById('list').innerHTML = '<p class="muted">Failed to load classes.</p>'; }
+}
+
+function extractDriveId(url) { const m = String(url||'').match(/[-\w]{25,}/); return m ? m[0] : null; }
+function isDriveShare(url) { return /drive\.google\.com\/(file\/d\/|open\?|uc\?)/.test(url||'') && !String(url).includes('drive.google.com/thumbnail'); }
+function toThumb(id) { return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`; }
+function onImageInput() {
+  const inp = document.getElementById('f-image'); const hint = document.getElementById('img-hint'); const v = inp.value.trim();
+  if (isDriveShare(v)) { const id = extractDriveId(v); if (id) { inp.value = toThumb(id); hint.textContent = '✓ Converted Google Drive link to image URL'; hint.className = 'hint success'; } }
+  else { hint.textContent = 'Shown on the booking card when there is no hardcoded video.'; hint.className = 'hint'; }
+  updatePreview();
+}
+function updatePreview() {
+  const image = document.getElementById('f-image').value.trim();
+  const box = document.getElementById('media-prev');
+  if (image) { box.innerHTML = `<img src="${image}" alt="preview" onerror="this.parentElement.classList.add('hidden')" />`; box.classList.remove('hidden'); }
+  else { box.innerHTML = ''; box.classList.add('hidden'); }
+}
+
+function renderList() {
+  document.getElementById('count').textContent = `(${services.length})`;
+  const el = document.getElementById('list');
+  if (!services.length) { el.innerHTML = '<p class="muted">No classes yet. Add one above.</p>'; return; }
+  el.innerHTML = services.map((s, i) => {
+    const thumb = s.image_url ? `<img src="${s.image_url}" alt="" />` : '🧘';
+    return `
+      <div class="item">
+        <div class="item-thumb">${thumb}</div>
+        <div class="item-main">
+          <div class="item-name">${s.name}</div>
+          <div class="item-sub">$${s.price} · ${s.duration_min} min</div>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-sm btn-ghost" onclick="editService(${i})">Edit</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteService(${i})">Delete</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function editService(i) {
+  const s = services[i]; if (!s) return;
+  document.getElementById('f-row').value = s.rowNum || '';
+  document.getElementById('f-id').value = s.id || '';
+  document.getElementById('f-name').value = s.name || '';
+  document.getElementById('f-desc').value = s.description || '';
+  document.getElementById('f-price').value = s.price || '';
+  document.getElementById('f-duration').value = s.duration_min || '';
+  document.getElementById('f-image').value = s.image_url || '';
+  document.getElementById('form-title').textContent = '✎ Edit class';
+  document.getElementById('cancel-btn').classList.remove('hidden');
+  updatePreview();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetForm() {
+  ['f-row','f-id','f-name','f-desc','f-price','f-duration','f-image'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('form-title').textContent = '＋ Add a class';
+  document.getElementById('cancel-btn').classList.add('hidden');
+  document.getElementById('img-hint').textContent = 'Shown on the booking card when there is no hardcoded video.'; document.getElementById('img-hint').className = 'hint';
+  updatePreview();
+}
+
+async function saveService() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) return toast('Please enter a class name');
+  const service = {
+    rowNum: document.getElementById('f-row').value || undefined,
+    id: document.getElementById('f-id').value || undefined,
+    name,
+    description: document.getElementById('f-desc').value.trim(),
+    price: Number(document.getElementById('f-price').value) || 0,
+    duration_min: Number(document.getElementById('f-duration').value) || 60,
+    image_url: document.getElementById('f-image').value.trim(),
+  };
+  const btn = document.getElementById('save-btn'); btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    const d = await api({ action:'adminSaveService', token: adminToken, service });
+    if (d.success) { toast('Saved ✓'); resetForm(); await loadServices(); }
+    else { toast(d.error || 'Save failed'); }
+  } catch (e) { toast('Connection failed'); }
+  btn.disabled = false; btn.textContent = 'Save class';
+}
+
+async function deleteService(i) {
+  const s = services[i]; if (!s) return;
+  if (!confirm('Delete this class?')) return;
+  try {
+    const d = await api({ action:'adminDeleteService', token: adminToken, rowNum: s.rowNum });
+    if (d.success) { toast('Deleted'); await loadServices(); }
+    else { toast(d.error || 'Delete failed'); }
+  } catch (e) { toast('Connection failed'); }
+}
+
+function setStatus(m, isErr) { const s = document.getElementById('login-status'); s.textContent = m; s.style.color = isErr ? 'var(--danger)' : '#7fe0b0'; }
+let toastTimer;
+function toast(m) { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 1800); }
+</script>
+</body>
+</html>

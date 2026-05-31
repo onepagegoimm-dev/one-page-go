@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="manifest" href="../../site.webmanifest">
+<title>Flow State — Book Your Practice</title>
+<meta name="description" content="Flow State Sample — One Page Go booking demo. Modern, high-energy yoga studio with online class booking, mobile-first dark UI and video previews." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Flow State — Book Your Practice" />
+<meta property="og:description" content="Modern, high-energy yoga. Book your practice online." />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content="One Page Go" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:#14122b; --bg2:#1c1940; --card:rgba(255,255,255,0.045); --card-br:rgba(255,255,255,0.10);
+    --text:#f3f0ff; --muted:#a39fc4; --violet:#6d5cff; --coral:#ff7a59;
+    --grad:linear-gradient(100deg,#6d5cff 0%,#b15cff 45%,#ff7a59 100%); --glow:rgba(109,92,255,0.35);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(60% 40% at 15% 0%, rgba(109,92,255,0.22) 0%, transparent 60%), radial-gradient(50% 40% at 95% 8%, rgba(255,122,89,0.16) 0%, transparent 55%), var(--bg);
+    font-family: 'Inter', system-ui, sans-serif; font-weight: 300; color: var(--text); min-height: 100vh; overflow-x: hidden;
+  }
+  header { text-align: center; padding: 3.4rem 1.5rem 1.2rem; }
+  .logo-icon { font-size: 1.5rem; }
+  .logo-name { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.01em; margin-top: 0.4rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .logo-sub { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.4em; text-transform: uppercase; margin-top: 0.4rem; }
+
+  .main { max-width: 460px; margin: 0 auto; padding: 0 1.4rem 3rem; }
+  .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 600; margin: 2rem 0 1.2rem; }
+  .section-title span { color: var(--coral); }
+
+  .class-card { background: var(--card); border: 1px solid var(--card-br); border-radius: 20px; overflow: hidden; margin-bottom: 1rem; cursor: pointer; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; animation: slideUp 0.55s cubic-bezier(.2,.7,.3,1) both; }
+  .class-card:hover { transform: translateY(-4px); border-color: rgba(177,92,255,0.5); box-shadow: 0 16px 40px -12px var(--glow); }
+  .class-card.selected { border-color: var(--violet); box-shadow: 0 0 0 1px var(--violet), 0 16px 40px -12px var(--glow); }
+  .class-media { position: relative; width: 100%; padding-top: 56.25%; background: #0e0c22; }
+  .class-media iframe, .class-media video, .class-media img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
+  .class-media .emoji { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; }
+  .class-body { padding: 1rem 1.15rem 1.25rem; }
+  .class-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; }
+  .class-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0.35rem 0 0.8rem; }
+  .class-meta { display: flex; justify-content: space-between; align-items: center; }
+  .class-price { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 600; }
+  .class-price span { font-size: 0.68rem; color: var(--muted); font-family: 'Inter'; font-weight: 300; }
+  .duration-badge { font-size: 0.7rem; color: var(--muted); border: 1px solid var(--card-br); padding: 0.26rem 0.62rem; border-radius: 100px; }
+
+  .panel { background: var(--card); border: 1px solid var(--card-br); border-radius: 20px; padding: 1.3rem 1.2rem; margin-bottom: 1rem; backdrop-filter: blur(14px); animation: slideUp 0.5s cubic-bezier(.2,.7,.3,1) both; }
+  .panel-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; letter-spacing: 0.02em; margin-bottom: 0.85rem; color: var(--text); font-weight: 600; }
+
+  label { display: block; font-size: 0.74rem; color: var(--muted); margin-bottom: 0.35rem; }
+  input, textarea { width: 100%; padding: 0.68rem 0.78rem; border: 1px solid var(--card-br); border-radius: 12px; font-family: inherit; font-size: 0.86rem; color: var(--text); background: rgba(255,255,255,0.04); outline: none; transition: border-color 0.25s, box-shadow 0.25s; margin-bottom: 0.85rem; }
+  input::placeholder, textarea::placeholder { color: #6d6890; }
+  input:focus, textarea:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(109,92,255,0.18); }
+  textarea { height: 68px; resize: vertical; }
+  input[type="date"] { color-scheme: dark; }
+
+  .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 0.8rem; }
+  .slot { padding: 0.55rem 0.3rem; border: 1px solid var(--card-br); border-radius: 12px; background: rgba(255,255,255,0.04); font-family: inherit; font-size: 0.8rem; color: var(--text); cursor: pointer; text-align: center; transition: all 0.2s; }
+  .slot:hover { border-color: var(--coral); }
+  .slot.selected { background: var(--grad); border-color: transparent; color: #fff; }
+  .slot .rem { display: block; font-size: 0.6rem; color: var(--muted); margin-top: 0.15rem; }
+  .slot.selected .rem { color: rgba(255,255,255,0.85); }
+
+  .summary-row { display: flex; justify-content: space-between; font-size: 0.84rem; margin-bottom: 0.42rem; color: var(--text); }
+  .summary-row span:first-child { color: var(--muted); }
+  .summary-row.total { border-top: 1px solid var(--card-br); padding-top: 0.6rem; margin-top: 0.5rem; font-family: 'Space Grotesk'; font-weight: 600; }
+  .summary-row.total span:last-child { color: var(--coral); }
+
+  .verify-row { display: flex; gap: 0.5rem; }
+  .verify-row input { flex: 1; margin-bottom: 0; }
+  .verify-btn { padding: 0.68rem 0.95rem; border: none; border-radius: 12px; background: var(--grad); color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 600; cursor: pointer; white-space: nowrap; box-shadow: 0 8px 22px -10px var(--glow); }
+  .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .verify-status { font-size: 0.74rem; margin-top: 0.5rem; }
+
+  .btn { width: 100%; padding: 0.9rem; border: none; border-radius: 14px; background: var(--grad); color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; transition: transform 0.15s, box-shadow 0.25s; box-shadow: 0 10px 28px -10px var(--glow); }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -10px var(--glow); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+  .success { display: none; text-align: center; max-width: 460px; margin: 0 auto; padding: 4rem 1.5rem; }
+  .success-icon { font-size: 2.6rem; animation: pop 0.6s ease; }
+  @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.18); } 100% { transform: scale(1); } }
+  .success h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; margin: 0.8rem 0 0.4rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .success p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.3rem; }
+  .success-badge { display: inline-block; border: 1px solid var(--card-br); color: var(--text); padding: 0.5rem 1.4rem; border-radius: 100px; font-size: 0.82rem; margin-bottom: 1.8rem; font-family: 'Space Grotesk'; }
+
+  .loading-wrap { text-align: center; padding: 2rem; color: var(--muted); }
+  .spinner { display: inline-block; width: 22px; height: 22px; border: 2px solid var(--card-br); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error-msg { background: rgba(255,122,89,0.14); border: 1px solid rgba(255,122,89,0.4); color: #ffb9a6; padding: 0.6rem 0.9rem; border-radius: 12px; font-size: 0.8rem; margin-bottom: 0.8rem; text-align: center; }
+
+  .hidden { display: none !important; }
+  footer { text-align: center; padding: 2rem; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; }
+  footer a { color: var(--coral); text-decoration: none; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-icon">🔆</div>
+  <div class="logo-name">Flow State</div>
+  <div class="logo-sub">Move · Breathe · Rise</div>
+</header>
+
+<div class="main" id="shop-view">
+  <h2 class="section-title">Pick your <span>class</span></h2>
+  <div id="services-container"><div class="loading-wrap"><div class="spinner"></div></div></div>
+
+  <div id="date-time-section" class="panel hidden">
+    <div class="panel-title">📅 Choose a date</div>
+    <input type="date" id="booking-date" />
+    <div id="slots-wrap" class="hidden">
+      <label style="margin-top:0.4rem;">⏰ Available times</label>
+      <div class="slots" id="slots-grid"></div>
+    </div>
+  </div>
+
+  <div id="booking-summary" class="panel hidden">
+    <div class="panel-title">📋 Booking summary</div>
+    <div class="summary-row"><span>Class</span><span id="sum-class"></span></div>
+    <div class="summary-row"><span>Duration</span><span id="sum-duration"></span></div>
+    <div class="summary-row"><span>Date</span><span id="sum-date"></span></div>
+    <div class="summary-row"><span>Time</span><span id="sum-time"></span></div>
+    <div class="summary-row total"><span>Total</span><span id="sum-price"></span></div>
+  </div>
+
+  <div id="verify-section" class="panel hidden">
+    <div class="panel-title">📧 Email verification</div>
+    <div class="verify-row">
+      <input type="email" id="email" placeholder="you@email.com" />
+      <button class="verify-btn" id="send-code-btn" onclick="sendCode()">Send code</button>
+    </div>
+    <div id="code-row" class="verify-row hidden" style="margin-top:0.6rem;">
+      <input type="text" id="verify-code" placeholder="6-digit code" maxlength="6" />
+      <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">Verify</button>
+    </div>
+    <div class="verify-status" id="verify-status"></div>
+  </div>
+
+  <div id="form-section" class="panel hidden">
+    <div class="panel-title">👤 Your details</div>
+    <label>Full name</label>
+    <input type="text" id="name" placeholder="Your name" />
+    <label>Phone</label>
+    <input type="tel" id="phone" placeholder="+1 555 000 0000" />
+    <label>Notes (optional)</label>
+    <textarea id="note" placeholder="Anything we should know? Injuries, first time, etc."></textarea>
+    <button class="btn" id="submit-btn" onclick="submitBooking()">Confirm Booking</button>
+  </div>
+
+  <div id="error-msg" class="error-msg hidden"></div>
+</div>
+
+<div class="success" id="success-screen">
+  <div class="success-icon">⚡</div>
+  <h2>You're in!</h2>
+  <p>Your spot is locked in with Flow State.<br/>Bring water, leave your day at the door.</p>
+  <div class="success-badge" id="success-id"></div>
+  <br/>
+  <button class="btn" style="max-width:240px;margin:0 auto;display:block;" onclick="resetPage()">Book another class</button>
+</div>
+
+<footer>Flow State Sample — Powered by <a href="../../">One Page Go</a></footer>
+
+<script>
+// ════════════════════════════════════════════════════════════
+//  後端：直接連結 SPA demo（demos/booking）的 Apps Script，
+//  讀同一批產品、走完全一樣的預約流程。只有影片是寫死。
+// ════════════════════════════════════════════════════════════
+const API_URL = "https://script.google.com/macros/s/AKfycbxXHqT4oC4ko6IVOu2tOVIsNoeSf0S_YLOnUZGE00XZ_ZQULplziLIAeITqFf5DBU4gHQ/exec";
+
+// 影片寫死：依卡片順序套用（第 1 張 YouTube、第 2 張 Google Drive），其餘卡片用後端的圖片。
+const DEMO_VIDEOS = [
+  "https://www.youtube.com/watch?v=AAHrh6m1i2Q&list=PLEWjcoTWbzxJLV-Eld2bM5fvjqSyQMgk2",
+  "https://drive.google.com/file/d/18gpGvAjRw4AHHt8hRpr4Abwr9HLbAA46/view?usp=sharing",
+];
+
+const YOGA_EMOJI = ["🧘","🌀","⚡","🔥","🌙","💫"];
+
+let services = [];
+let selectedService = null, selectedDate = '', selectedTime = '';
+let emailVerified = false, verifiedEmail = '';
+
+function getSessionToken() { return sessionStorage.getItem('opg_session_token') || ''; }
+function saveSessionToken(t) { sessionStorage.setItem('opg_session_token', t); }
+
+function buildVideoEmbed(url) {
+  if (!url) return '';
+  const u = String(url).trim();
+  const yt = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+  if (yt) return `<iframe src="https://www.youtube-nocookie.com/embed/${yt[1]}?rel=0" title="Class video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>`;
+  if (/drive\.google\.com/.test(u)) { const m = u.match(/[-\w]{25,}/); if (m) return `<iframe src="https://drive.google.com/file/d/${m[0]}/preview" title="Class video" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>`; }
+  if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(u)) return `<video src="${u}" controls playsinline></video>`;
+  return '';
+}
+
+async function loadServices() {
+  try {
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getServices' }) });
+    const data = JSON.parse(await res.text());
+    services = data.services || [];
+    renderServices();
+  } catch (err) {
+    document.getElementById('services-container').innerHTML = '<div class="loading-wrap">No classes available right now.</div>';
+  }
+}
+
+function renderServices() {
+  const c = document.getElementById('services-container');
+  if (!services.length) { c.innerHTML = '<div class="loading-wrap">No classes available right now.</div>'; return; }
+  c.innerHTML = services.map((s, i) => {
+    const emoji = YOGA_EMOJI[i % YOGA_EMOJI.length];
+    const videoUrl = DEMO_VIDEOS[i] || s.video_url || '';   // 影片寫死，依順序套用
+    const video = buildVideoEmbed(videoUrl);
+    const media = video || (s.image_url ? `<img src="${s.image_url}" alt="${s.name}" />` : `<div class="emoji">${emoji}</div>`);
+    return `
+      <div class="class-card" id="svc-${s.id}" onclick="selectService('${s.id}')" style="animation-delay:${i*0.07}s">
+        <div class="class-media">${media}</div>
+        <div class="class-body">
+          <div class="class-name">${s.name}</div>
+          <div class="class-desc">${s.description || ''}</div>
+          <div class="class-meta">
+            <span class="class-price">$${s.price}<span> / class</span></span>
+            <span class="duration-badge">${s.duration_min} min</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function selectService(id) {
+  selectedService = services.find(s => String(s.id) === String(id));
+  if (!selectedService) return;
+  document.querySelectorAll('.class-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('svc-' + id).classList.add('selected');
+  document.getElementById('date-time-section').classList.remove('hidden');
+  document.getElementById('slots-wrap').classList.add('hidden');
+  document.getElementById('booking-summary').classList.add('hidden');
+  document.getElementById('verify-section').classList.add('hidden');
+  document.getElementById('form-section').classList.add('hidden');
+  const d = document.getElementById('booking-date');
+  d.min = new Date().toISOString().split('T')[0];
+  d.value = ''; selectedDate = ''; selectedTime = '';
+  d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+document.getElementById('booking-date').addEventListener('change', async function() {
+  selectedDate = this.value; selectedTime = '';
+  if (!selectedDate) return;
+  const wrap = document.getElementById('slots-wrap');
+  const grid = document.getElementById('slots-grid');
+  wrap.classList.remove('hidden');
+  grid.innerHTML = '<div class="loading-wrap" style="grid-column:1/-1;"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getTimeSlots', date: selectedDate }) });
+    const data = JSON.parse(await res.text());
+    const slots = data.slots || [];
+    if (!slots.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);font-size:0.85rem;padding:1rem;">No available times on this date.</div>'; return; }
+    grid.innerHTML = slots.map(s => `<button class="slot" onclick="selectTimeSlot('${s.time_slot}', this)">${s.time_slot}<span class="rem">${s.remaining} spots</span></button>`).join('');
+  } catch (err) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#ffb9a6;font-size:0.8rem;">Failed to load times.</div>';
+  }
+});
+
+function selectTimeSlot(time, el) {
+  selectedTime = time;
+  document.querySelectorAll('.slot').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('sum-class').textContent = selectedService.name;
+  document.getElementById('sum-duration').textContent = selectedService.duration_min + ' min';
+  document.getElementById('sum-date').textContent = selectedDate;
+  document.getElementById('sum-time').textContent = selectedTime;
+  document.getElementById('sum-price').textContent = '$' + selectedService.price;
+  document.getElementById('booking-summary').classList.remove('hidden');
+  document.getElementById('verify-section').classList.remove('hidden');
+  if (emailVerified) document.getElementById('form-section').classList.remove('hidden');
+}
+
+async function sendCode() {
+  const email = document.getElementById('email').value.trim();
+  if (!email) { showError('Please enter your email'); return; }
+  const btn = document.getElementById('send-code-btn');
+  btn.disabled = true; btn.textContent = 'Sending…'; hideError();
+  try {
+    const checkRes = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'checkMember', email }) });
+    const checkData = JSON.parse(await checkRes.text());
+    if (checkData.blocked) { showError('This email has been disabled. Please contact the studio.'); btn.disabled = false; btn.textContent = 'Send code'; return; }
+    if (checkData.hasActiveOrder) { showError('You have a pending booking. Please complete it first.'); btn.disabled = false; btn.textContent = 'Send code'; return; }
+    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'sendVerifyCode', email }) });
+    const data = JSON.parse(await res.text());
+    if (data.success) {
+      document.getElementById('code-row').classList.remove('hidden');
+      const st = document.getElementById('verify-status'); st.textContent = 'Code sent — please check your inbox.'; st.style.color = '#7fe0b0';
+      let sec = 60; btn.textContent = `${sec}s`;
+      const timer = setInterval(() => { sec--; btn.textContent = `${sec}s`; if (sec <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = 'Resend'; } }, 1000);
+    } else { showError(data.error || 'Failed to send code'); btn.disabled = false; btn.textContent = 'Send code'; }
+  } catch (err) { showError('Connection failed'); btn.disabled = false; btn.textContent = 'Send code'; }
+}
+
+async function verifyEmail() {
+  const email = document.getElementById('email').value.trim();
+  const code = document.getElementById('verify-code').value.trim();
+  if (!code) { showError('Please enter the code'); return; }
+  const btn = document.getElementById('verify-btn');
+  btn.disabled = true; btn.textContent = 'Verifying…';
+  try {
+    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'verifyCode', email, code }) });
+    const data = JSON.parse(await res.text());
+    if (data.success) {
+      emailVerified = true; verifiedEmail = email;
+      if (data.sessionToken) saveSessionToken(data.sessionToken);
+      showVerified();
+    } else { showError(data.error || 'Verification failed'); btn.disabled = false; btn.textContent = 'Verify'; }
+  } catch (err) { showError('Connection failed'); btn.disabled = false; btn.textContent = 'Verify'; }
+}
+
+function showVerified() {
+  const st = document.getElementById('verify-status'); st.textContent = '✅ Verified'; st.style.color = '#7fe0b0';
+  document.getElementById('email').disabled = true;
+  document.getElementById('verify-code').disabled = true;
+  document.getElementById('verify-btn').disabled = true; document.getElementById('verify-btn').textContent = 'Verified';
+  document.getElementById('send-code-btn').classList.add('hidden');
+  document.getElementById('code-row').classList.add('hidden');
+  document.getElementById('form-section').classList.remove('hidden');
+}
+
+async function submitBooking() {
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const note = document.getElementById('note').value.trim();
+  hideError();
+  if (!name) { showError('Please enter your name'); return; }
+  if (!phone) { showError('Please enter your phone number'); return; }
+  if (!selectedService || !selectedDate || !selectedTime) { showError('Please choose a class, date and time'); return; }
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true; btn.textContent = 'Booking…';
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST', headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        action: 'submitBooking', sessionToken: getSessionToken(), email: verifiedEmail,
+        name, phone, service_id: String(selectedService.id),
+        booking_date: selectedDate, booking_time: selectedTime, note
+      })
+    });
+    const data = JSON.parse(await res.text());
+    if (data.success) {
+      document.getElementById('shop-view').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+      document.getElementById('success-id').textContent = 'Booking ref: ' + data.bookingId;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else { showError(data.error || 'Booking failed'); btn.disabled = false; btn.textContent = 'Confirm Booking'; }
+  } catch (err) { showError('Connection failed'); btn.disabled = false; btn.textContent = 'Confirm Booking'; }
+}
+
+function resetPage() {
+  selectedService = null; selectedDate = ''; selectedTime = ''; emailVerified = false; verifiedEmail = '';
+  document.getElementById('success-screen').style.display = 'none';
+  document.getElementById('shop-view').style.display = 'block';
+  document.querySelectorAll('.class-card').forEach(c => c.classList.remove('selected'));
+  ['date-time-section','booking-summary','verify-section','form-section'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  const email = document.getElementById('email'); email.disabled = false; email.value = '';
+  const vc = document.getElementById('verify-code'); vc.disabled = false; vc.value = '';
+  const sc = document.getElementById('send-code-btn'); sc.classList.remove('hidden'); sc.disabled = false; sc.textContent = 'Send code';
+  const vb = document.getElementById('verify-btn'); vb.disabled = false; vb.textContent = 'Verify';
+  document.getElementById('code-row').classList.add('hidden');
+  document.getElementById('verify-status').textContent = '';
+  ['name','phone','note'].forEach(id => document.getElementById(id).value = '');
+  const sb = document.getElementById('submit-btn'); sb.disabled = false; sb.textContent = 'Confirm Booking';
+  document.getElementById('booking-date').value = '';
+  hideError();
+  renderServices();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showError(m) { const e = document.getElementById('error-msg'); e.textContent = m; e.classList.remove('hidden'); }
+function hideError() { document.getElementById('error-msg').classList.add('hidden'); }
+
+loadServices();
+</script>
+</body>
+</html>
