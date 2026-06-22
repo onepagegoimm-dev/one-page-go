@@ -3,7 +3,7 @@
     <!-- 主頁 -->
     <url>
         <loc>https://one-page-go.com/</loc>
-        <lastmod>2026-03-24</lastmod>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -24,96 +24,116 @@
     <!-- 設定指南 -->
     <url>
         <loc>https://one-page-go.com/guide/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <!-- 電商 Demo -->
     <url>
         <loc>https://one-page-go.com/demos/ecommerce/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://one-page-go.com/demos/ecommerce-tea/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://one-page-go.com/demos/ecommerce-coffee/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <!-- 預約 Demo -->
     <url>
         <loc>https://one-page-go.com/demos/booking/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://one-page-go.com/demos/booking-barber/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://one-page-go.com/demos/booking-pet/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <!-- 團購 Demo -->
     <url>
         <loc>https://one-page-go.com/demos/groupbuy/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://one-page-go.com/demos/groupbuy-dock/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://one-page-go.com/demos/groupbuy-kitchen/</loc>
+        <lastmod>2026-06-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <!-- 售票 Demo -->
+    <url>
+        <loc>https://one-page-go.com/demos/ticketing/</loc>
+        <lastmod>2026-06-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://one-page-go.com/demos/ticketing-arcade/</loc>
+        <lastmod>2026-06-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://one-page-go.com/demos/ticketing-yoga/</loc>
+        <lastmod>2026-06-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <!-- 金流 Demo -->
+    <url>
+        <loc>https://one-page-go.com/demos/payment/</loc>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <!-- 部落格 -->
     <url>
         <loc>https://one-page-go.com/blog/</loc>
-        <lastmod>2026-04-02</lastmod>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://one-page-go.com/blog/one-page-website-cost/</loc>
-        <lastmod>2026-04-02</lastmod>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://one-page-go.com/blog/small-business-website-guide/</loc>
-        <lastmod>2026-04-02</lastmod>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://one-page-go.com/blog/free-website-builder-comparison/</loc>
-        <lastmod>2026-04-02</lastmod>
+        <lastmod>2026-06-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
-    </url>
-    <!-- 售票 Demo -->
-    <url>
-        <loc>https://one-page-go.com/demos/ticketing/</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://one-page-go.com/demos/ticketing-arcade/</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://one-page-go.com/demos/ticketing-yoga/</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
     </url>
 </urlset>
