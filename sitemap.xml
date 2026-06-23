@@ -28,6 +28,13 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <!-- 方案：線上訂單系統 -->
+    <url>
+        <loc>https://one-page-go.com/solutions/order-system/</loc>
+        <lastmod>2026-06-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
     <!-- 電商 Demo -->
     <url>
         <loc>https://one-page-go.com/demos/ecommerce/</loc>

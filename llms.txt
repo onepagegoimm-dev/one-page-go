@@ -1,0 +1,19 @@
+# One Page Go
+
+> One Page Go 是台灣的單頁式網頁應用製作服務，為小型商家提供微型電商、線上訂單系統、線上預約、團購管理與活動售票等方案。採用 GitHub Pages + Google Apps Script + Google Sheets 免費架構，NT$2,500 起一次付清、終身免月費、無交易抽成，所有訂單與顧客資料存在商家自己的 Google 帳號。One Page Go is a Taiwan-based single-page web-app service for small businesses: online ordering systems, micro e-commerce, booking, group-buy and ticketing — pay once, no monthly fees, no transaction cut, data stays in the merchant's own Google account.
+
+## 方案 Solutions
+- [線上訂單系統（餐廳・飲料店・零售）](https://one-page-go.com/solutions/order-system/): 網路接單系統，手機下單、訂單追蹤、客戶訂單管理，免月費買斷 / online ordering & order management system for restaurants, drink shops and retail
+- [微型電商 Demo](https://one-page-go.com/demos/ecommerce/): 商品展示 + 多品項選購 + 訂單通知
+- [線上預約 Demo](https://one-page-go.com/demos/booking/): 服務項目 + 預約時段 + 容量管理
+- [團購 Demo](https://one-page-go.com/demos/groupbuy/): 開團 / 跟團 / 成團追蹤
+- [活動售票 Demo](https://one-page-go.com/demos/ticketing/): 線上購票 + 電子簽到
+
+## 內容 Articles
+- [一頁式網站費用完整比較：月租 vs 買斷](https://one-page-go.com/blog/one-page-website-cost/)
+- [小型商家需要網站嗎？2026 台灣網路開店完整指南](https://one-page-go.com/blog/small-business-website-guide/)
+- [免費架站工具比較：GitHub Pages vs Wix vs Squarespace vs 開店平台](https://one-page-go.com/blog/free-website-builder-comparison/)
+
+## 開始 Get started
+- [接單流程與定價](https://one-page-go.com/onboarding/)
+- [購買後設定指南](https://one-page-go.com/guide/)
