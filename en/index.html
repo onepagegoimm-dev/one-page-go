@@ -21,8 +21,8 @@
         <link rel="manifest" href="/site.webmanifest">
 
         <title>One Page Go — One-page websites for small businesses, pay once, no monthly fees</title>
-        <meta name="description" content="One Page Go builds single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once from NT$2,500 (~US$80), no monthly fees, no transaction cut. Your data stays in your own Google account." />
-        <meta name="keywords" content="one page website, single-page website builder, no monthly fee website, pay once website, small business landing page, online ordering system, Google Sheets website, GitHub Pages business site, Taiwan website" />
+        <meta name="description" content="One Page Go builds single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once from NT$2,500 (~US$80), no monthly fees, no transaction cut. Your data stays in your own dedicated Cloudflare D1 database, fully exportable." />
+        <meta name="keywords" content="one page website, single-page website builder, no monthly fee website, pay once website, small business landing page, online ordering system, GitHub Pages business site, Taiwan website" />
         <meta name="author" content="One Page Go" />
         <link rel="canonical" href="https://one-page-go.com/en/" />
         <link rel="alternate" hreflang="zh-Hant-TW" href="https://one-page-go.com/" />
@@ -32,7 +32,7 @@
         <!-- Open Graph -->
         <meta property="og:type" content="website" />
         <meta property="og:title" content="One Page Go — One-page websites for small businesses, pay once, no monthly fees" />
-        <meta property="og:description" content="Single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once, no monthly fees, your data in your own Google account." />
+        <meta property="og:description" content="Single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once, no monthly fees, your data in your own dedicated Cloudflare D1 database." />
         <meta property="og:url" content="https://one-page-go.com/en/" />
         <meta property="og:image" content="https://one-page-go.com/one_page_go.png" />
         <meta property="og:image:width" content="2490" />
@@ -112,7 +112,7 @@
                 {
                     "@type": "Question",
                     "name": "Where is my data stored?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Everything runs on GitHub Pages, Google Apps Script and Google Sheets. All orders and customer data are stored in your own Google account, so you are never locked into a platform and can export at any time." }
+                    "acceptedAnswer": { "@type": "Answer", "text": "Everything runs on GitHub Pages + Cloudflare Workers & D1 (free tier) + Resend (free tier). All orders and customer data are stored in your own dedicated Cloudflare D1 database, fully exportable, so you are never locked into a platform." }
                 },
                 {
                     "@type": "Question",
@@ -130,60 +130,65 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
         <style>
+            /* Design baseline: deep navy x gold (docs/standards/design.md) */
             :root {
-                --cream: #fdf6ee; --warm: #f5e6d3; --blush: #f2c4c4; --rose: #e8a0a0;
-                --mauve: #c97d7d; --brown: #7a4f3a; --text: #4a3428; --muted: #9c7b6e;
-                --white: #fffcf8; --shadow: rgba(122, 79, 58, 0.12); --green: #7dba6a;
+                --navy-950:#070C1E; --navy-900:#0A1124; --navy-800:#101A38; --navy-700:#182652;
+                --gold-500:#C9A063; --gold-400:#D8B478; --gold-300:#E7CD9C;
+                --ink:#F4F1EA; --muted:#A7ADC2;
+                --hairline:rgba(201,160,99,.28); --hairline-2:rgba(255,255,255,.08);
+                --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
             }
             * { box-sizing: border-box; margin: 0; padding: 0; }
-            body { background: var(--cream); font-family: "Noto Serif TC", serif; color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+            body { background: var(--navy-950); font-family: "Manrope", "Noto Sans TC", system-ui, sans-serif; color: var(--ink); line-height: 1.7; -webkit-font-smoothing: antialiased; }
             .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
-            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(253, 246, 238, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--warm); }
+            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(7, 12, 30, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--hairline-2); }
             nav .container { display: flex; justify-content: space-between; align-items: center; height: 56px; }
-            .nav-logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 500; color: var(--brown); text-decoration: none; }
+            .nav-logo { font-family: "Manrope", sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; text-decoration: none; }
             .nav-right { display: flex; align-items: center; gap: 14px; }
-            .nav-lang { font-size: 0.82rem; color: var(--mauve); text-decoration: none; }
-            .nav-lang:hover { text-decoration: underline; }
-            .nav-cta { background: var(--brown); color: var(--white); padding: 8px 18px; border-radius: 20px; font-size: 0.82rem; text-decoration: none; transition: background 0.3s; display: inline-flex; align-items: center; min-height: 36px; }
-            .nav-cta:hover { background: var(--mauve); }
+            .nav-lang { font-size: 0.82rem; color: var(--gold-300); text-decoration: none; }
+            .nav-lang:hover { color: var(--gold-400); text-decoration: underline; }
+            .nav-cta { background: var(--grad-gold); color: #131A36; font-weight: 700; padding: 8px 18px; border-radius: 20px; font-size: 0.82rem; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; display: inline-flex; align-items: center; min-height: 36px; }
+            .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201, 160, 99, 0.32); }
             .hero { text-align: center; padding: 88px 0 24px; }
-            .hero h1 { font-family: "Playfair Display", serif; font-size: clamp(1.9rem, 7vw, 2.5rem); font-weight: 500; color: var(--brown); line-height: 1.3; margin-bottom: 14px; }
-            .hero .tagline { font-size: 1.05rem; color: var(--text); margin-bottom: 20px; line-height: 1.8; }
+            .hero h1 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: clamp(1.9rem, 7vw, 2.5rem); font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 14px; }
+            .hero .tagline { font-size: 1.05rem; color: var(--muted); margin-bottom: 20px; line-height: 1.8; }
             .badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 26px; }
-            .badge { display: inline-block; background: var(--white); border: 1px solid var(--blush); color: var(--brown); border-radius: 999px; padding: 5px 14px; font-size: 0.8rem; }
-            .btn-primary { display: inline-block; background: var(--brown); color: var(--white); padding: 14px 32px; border-radius: 24px; min-height: 48px; font-size: 1rem; text-decoration: none; transition: background 0.3s, transform 0.3s; }
-            .btn-primary:hover { background: var(--mauve); transform: translateY(-1px); }
-            h2 { font-family: "Playfair Display", serif; font-size: 1.35rem; font-weight: 500; color: var(--brown); margin: 44px 0 16px; padding-top: 16px; border-top: 1px solid var(--warm); text-align: center; }
+            .badge { display: inline-block; background: rgba(201, 160, 99, 0.08); border: 1px solid var(--hairline); color: var(--gold-300); border-radius: 999px; padding: 5px 14px; font-size: 0.8rem; }
+            .btn-primary { display: inline-block; background: var(--grad-gold); color: #131A36; font-weight: 700; padding: 14px 32px; border-radius: 24px; min-height: 48px; font-size: 1rem; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 8px 24px rgba(201, 160, 99, 0.32); }
+            .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(201, 160, 99, 0.45); }
+            h2 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.35rem; font-weight: 800; color: #fff; margin: 44px 0 16px; padding-top: 16px; border-top: 1px solid var(--hairline-2); text-align: center; }
             p { margin-bottom: 18px; font-size: 0.95rem; line-height: 1.9; }
-            p a { color: var(--mauve); text-decoration: underline; text-underline-offset: 2px; }
+            p a { color: var(--gold-300); text-decoration: underline; text-underline-offset: 2px; }
+            p a:hover { color: var(--gold-400); }
             .solution-grid { display: grid; gap: 12px; margin: 8px 0 18px; }
             @media (min-width: 540px) { .solution-grid { grid-template-columns: 1fr 1fr; } }
-            .solution { display: block; background: var(--white); border: 1px solid var(--warm); border-radius: 14px; padding: 18px; text-decoration: none; color: var(--text); transition: border-color 0.2s, transform 0.2s; }
-            .solution:hover { border-color: var(--rose); transform: translateY(-1px); }
-            .solution h3 { font-family: "Playfair Display", serif; font-size: 1.05rem; font-weight: 500; color: var(--brown); margin-bottom: 6px; }
-            .solution p { font-size: 0.88rem; color: var(--text); margin: 0; line-height: 1.7; }
-            .solution .see { display: inline-block; margin-top: 8px; font-size: 0.82rem; color: var(--mauve); }
+            .solution { display: block; background: var(--navy-900); border: 1px solid var(--hairline-2); border-radius: 14px; padding: 18px; text-decoration: none; color: var(--ink); transition: border-color 0.2s, transform 0.2s; }
+            .solution:hover { border-color: var(--hairline); transform: translateY(-1px); }
+            .solution h3 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .solution p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.7; }
+            .solution .see { display: inline-block; margin-top: 8px; font-size: 0.82rem; color: var(--gold-300); }
             .check-list { list-style: none; margin: 4px auto 18px; max-width: 560px; }
             .check-list li { position: relative; padding-left: 26px; margin-bottom: 12px; font-size: 0.95rem; line-height: 1.8; }
-            .check-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--green); font-weight: 700; }
-            .check-list strong { color: var(--brown); }
-            .pricing { text-align: center; background: var(--white); border: 2px solid var(--blush); border-radius: 16px; padding: 26px 22px; margin: 28px 0; }
-            .pricing .price { font-family: "Playfair Display", serif; font-size: 2rem; color: var(--brown); }
+            .check-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--gold-400); font-weight: 700; }
+            .check-list strong { color: var(--gold-300); }
+            .pricing { text-align: center; background: linear-gradient(170deg, rgba(24, 38, 82, 0.55), rgba(10, 17, 36, 0.65)); border: 1.5px solid var(--gold-500); border-radius: 16px; padding: 26px 22px; margin: 28px 0; }
+            .pricing .price { font-family: "Manrope", sans-serif; font-size: 2rem; font-weight: 800; color: var(--gold-300); }
             .pricing .price small { font-size: 0.95rem; color: var(--muted); }
-            .faq-section { background: var(--white); border-radius: 16px; padding: 28px 24px; margin: 40px 0; box-shadow: 0 2px 12px var(--shadow); }
+            .faq-section { background: var(--navy-900); border: 1px solid var(--hairline-2); border-radius: 16px; padding: 28px 24px; margin: 40px 0; }
             .faq-section h2 { border-top: none; padding-top: 0; margin-top: 0; margin-bottom: 20px; }
-            .faq-item { border-bottom: 1px solid var(--warm); padding: 16px 0; }
+            .faq-item { border-bottom: 1px solid var(--hairline-2); padding: 16px 0; }
             .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
-            .faq-question { font-weight: 600; color: var(--brown); margin-bottom: 8px; font-size: 0.95rem; }
-            .faq-answer { font-size: 0.9rem; color: var(--text); line-height: 1.8; }
-            .cta { background: var(--white); border: 2px solid var(--blush); border-radius: 16px; padding: 30px 24px; text-align: center; margin: 40px 0; }
-            .cta h3 { font-family: "Playfair Display", serif; font-size: 1.2rem; color: var(--brown); margin-bottom: 10px; }
+            .faq-question { font-weight: 700; color: #fff; margin-bottom: 8px; font-size: 0.95rem; }
+            .faq-answer { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+            .cta { background: linear-gradient(170deg, rgba(24, 38, 82, 0.55), rgba(10, 17, 36, 0.65)); border: 1.5px solid var(--gold-500); border-radius: 16px; padding: 30px 24px; text-align: center; margin: 40px 0; }
+            .cta h3 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
             .cta p { font-size: 0.9rem; color: var(--muted); margin-bottom: 18px; }
-            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--warm); margin-top: 8px; }
+            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--hairline-2); margin-top: 8px; }
             footer .footer-links { margin-bottom: 10px; font-size: 0.82rem; }
-            footer .footer-links a { color: var(--mauve); text-decoration: none; }
+            footer .footer-links a { color: var(--gold-300); text-decoration: none; }
+            footer .footer-links a:hover { color: var(--gold-400); }
             footer p { font-size: 0.75rem; color: var(--muted); }
             @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
         </style>
@@ -203,7 +208,7 @@
             <section class="hero">
                 <h1>One-page websites for small businesses — pay once, no monthly fees</h1>
                 <p class="tagline">
-                    One Page Go builds single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once, own it forever, and keep your data in your own Google account.
+                    One Page Go builds single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once, own it forever, and keep your data in your own dedicated Cloudflare D1 database.
                 </p>
                 <div class="badges">
                     <span class="badge">One-time payment</span>
@@ -249,7 +254,7 @@
                 <h2>Why One Page Go</h2>
                 <ul class="check-list">
                     <li><strong>Pay once, no monthly fees.</strong> A one-time buyout instead of an endless subscription — far lower long-term cost than monthly platforms.</li>
-                    <li><strong>You own your data.</strong> Orders and customers live in your own Google Sheets; nothing is locked behind a platform.</li>
+                    <li><strong>You own your data.</strong> Orders and customers live in your own dedicated Cloudflare D1 database, fully exportable; nothing is locked behind a platform.</li>
                     <li><strong>No transaction cut.</strong> We don't take a percentage of your sales.</li>
                     <li><strong>Custom design.</strong> Layout and style are tailored to your brand.</li>
                     <li><strong>Fast to launch.</strong> From brief to live in about 3 days.</li>
@@ -272,7 +277,7 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Where is my data stored?</div>
-                    <div class="faq-answer">Everything runs on GitHub Pages, Google Apps Script and Google Sheets. All orders and customer data are stored in your own Google account, so you are never locked in and can export anytime.</div>
+                    <div class="faq-answer">Everything runs on GitHub Pages + Cloudflare Workers &amp; D1 (free tier) + Resend (free tier). All orders and customer data are stored in your own dedicated Cloudflare D1 database, fully exportable, so you are never locked in.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">What can One Page Go build?</div>

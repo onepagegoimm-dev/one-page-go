@@ -83,7 +83,7 @@
                     "name": "GitHub Pages 可以拿來開店嗎？",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "GitHub Pages 本身只能託管靜態網頁（HTML、CSS、JavaScript），不提供後端或資料庫功能。但透過搭配 Google Apps Script（免費後端）和 Google Sheets（免費資料庫），可以實現商品展示、訂單處理和 Email 通知等完整的電商功能。One Page Go 正是採用這種三層免費架構來為小型商家建置網頁應用。"
+                        "text": "GitHub Pages 本身只能託管靜態網頁（HTML、CSS、JavaScript），不提供後端或資料庫功能。但透過搭配 Google Apps Script（免費後端）和 Google Sheets（免費資料庫），可以實現商品展示、訂單處理和 Email 通知等完整的電商功能。One Page Go 也採用同樣的免費組合思路，以 GitHub Pages ＋ Cloudflare Workers 與 D1（免費方案）＋ Resend（免費額度）為小型商家建置網頁應用。"
                     }
                 },
                 {
@@ -134,51 +134,55 @@
         </script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
         <style>
+            /* ── 設計基準：深藍×金（docs/standards/design.md）── */
             :root {
-                --cream: #fdf6ee; --warm: #f5e6d3; --blush: #f2c4c4; --rose: #e8a0a0;
-                --mauve: #c97d7d; --brown: #7a4f3a; --text: #4a3428; --muted: #9c7b6e;
-                --white: #fffcf8; --shadow: rgba(122, 79, 58, 0.12);
+                --navy-950:#070C1E;--navy-900:#0A1124;--navy-800:#101A38;--navy-700:#182652;
+                --gold-500:#C9A063;--gold-400:#D8B478;--gold-300:#E7CD9C;
+                --ink:#F4F1EA;--muted:#A7ADC2;
+                --hairline:rgba(201,160,99,.28);--hairline-2:rgba(255,255,255,.08);
+                --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
             }
             * { box-sizing: border-box; margin: 0; padding: 0; }
-            body { background: var(--cream); font-family: "Noto Serif TC", serif; color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+            body { background: var(--navy-950); font-family: "Noto Sans TC","Manrope",system-ui,sans-serif; color: var(--ink); line-height: 1.7; -webkit-font-smoothing: antialiased; }
             .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
-            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(253, 246, 238, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--warm); }
-            nav .container { max-width: 680px; display: flex; justify-content: space-between; align-items: center; height: 56px; }
-            .nav-logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 500; color: var(--brown); text-decoration: none; }
-            .nav-cta { background: var(--brown); color: var(--white); border: none; padding: 8px 18px; border-radius: 20px; font-family: "Noto Serif TC", serif; font-size: 0.82rem; cursor: pointer; text-decoration: none; transition: background 0.3s; }
-            .nav-cta:hover { background: var(--mauve); }
+            body > nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(7,12,30,.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--hairline-2); }
+            body > nav .container { max-width: 680px; display: flex; justify-content: space-between; align-items: center; height: 56px; }
+            .nav-logo { font-family: "Manrope","Noto Sans TC",sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; text-decoration: none; }
+            .nav-cta { background: var(--grad-gold); color: #131A36; border: none; padding: 8px 18px; border-radius: 20px; font-family: "Noto Sans TC","Manrope",sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: box-shadow 0.3s; }
+            .nav-cta:hover { box-shadow: 0 6px 18px rgba(201,160,99,.35); }
             .breadcrumb { padding-top: 72px; font-size: 0.82rem; color: var(--muted); }
-            .breadcrumb a { color: var(--mauve); text-decoration: none; }
-            .breadcrumb a:hover { text-decoration: underline; text-underline-offset: 2px; }
+            .breadcrumb a { color: var(--gold-300); text-decoration: none; }
+            .breadcrumb a:hover { color: var(--gold-400); text-decoration: underline; text-underline-offset: 2px; }
             .breadcrumb span { margin: 0 6px; }
-            .article-header { padding: 24px 0 32px; border-bottom: 1px solid var(--warm); margin-bottom: 36px; }
-            .article-header h1 { font-family: "Playfair Display", serif; font-size: 1.8rem; font-weight: 500; color: var(--brown); line-height: 1.4; margin-bottom: 12px; }
+            .article-header { padding: 24px 0 32px; border-bottom: 1px solid var(--hairline-2); margin-bottom: 36px; }
+            .article-header h1 { font-size: 1.8rem; font-weight: 900; color: #fff; line-height: 1.4; margin-bottom: 12px; }
             .article-meta { display: flex; gap: 16px; font-size: 0.82rem; color: var(--muted); flex-wrap: wrap; }
             .article-body { padding-bottom: 48px; }
-            .article-body h2 { font-family: "Playfair Display", serif; font-size: 1.35rem; font-weight: 500; color: var(--brown); margin: 40px 0 16px; padding-top: 16px; border-top: 1px solid var(--warm); }
-            .article-body h3 { font-size: 1.05rem; font-weight: 600; color: var(--brown); margin: 28px 0 12px; }
+            .article-body h2 { font-size: 1.35rem; font-weight: 900; color: #fff; margin: 40px 0 16px; padding-top: 16px; border-top: 1px solid var(--hairline-2); }
+            .article-body h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin: 28px 0 12px; }
             .article-body p { margin-bottom: 18px; font-size: 0.95rem; line-height: 1.9; }
             .article-body ul, .article-body ol { margin: 0 0 18px 20px; font-size: 0.95rem; line-height: 1.9; }
             .article-body li { margin-bottom: 6px; }
-            .article-body a { color: var(--mauve); text-decoration: underline; text-underline-offset: 2px; }
-            .article-body blockquote { border-left: 3px solid var(--blush); padding: 12px 16px; margin: 18px 0; background: var(--white); border-radius: 0 8px 8px 0; font-size: 0.92rem; color: var(--muted); }
-            .article-body table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.88rem; }
-            .article-body th, .article-body td { border: 1px solid var(--warm); padding: 10px 12px; text-align: left; }
-            .article-body th { background: var(--warm); font-weight: 600; color: var(--brown); }
-            .faq-section { background: var(--white); border-radius: 16px; padding: 28px 24px; margin: 40px 0; box-shadow: 0 2px 12px var(--shadow); }
+            .article-body a { color: var(--gold-300); text-decoration: underline; text-underline-offset: 2px; }
+            .article-body a:hover { color: var(--gold-400); }
+            .article-body blockquote { border-left: 3px solid var(--gold-500); padding: 12px 16px; margin: 18px 0; background: var(--navy-900); border-radius: 0 8px 8px 0; font-size: 0.92rem; color: var(--muted); }
+            .article-body table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.88rem; display: block; max-width: 100%; overflow-x: auto; }
+            .article-body th, .article-body td { border: 1px solid rgba(255,255,255,.08); padding: 10px 12px; text-align: left; }
+            .article-body th { background: rgba(201,160,99,.08); font-weight: 700; color: var(--gold-300); }
+            .faq-section { background: linear-gradient(170deg,rgba(24,38,82,.55),rgba(10,17,36,.65)); border: 1px solid var(--hairline-2); border-radius: 16px; padding: 28px 24px; margin: 40px 0; }
             .faq-section h2 { border-top: none; padding-top: 0; margin-top: 0; margin-bottom: 20px; }
-            .faq-item { border-bottom: 1px solid var(--warm); padding: 16px 0; }
+            .faq-item { border-bottom: 1px solid var(--hairline-2); padding: 16px 0; }
             .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
-            .faq-question { font-weight: 600; color: var(--brown); margin-bottom: 8px; font-size: 0.95rem; }
-            .faq-answer { font-size: 0.9rem; color: var(--text); line-height: 1.8; }
-            .article-cta { background: var(--white); border: 2px solid var(--blush); border-radius: 16px; padding: 28px 24px; text-align: center; margin: 40px 0; }
-            .article-cta h3 { font-family: "Playfair Display", serif; font-size: 1.15rem; color: var(--brown); margin-bottom: 8px; }
+            .faq-question { font-weight: 700; color: var(--gold-300); margin-bottom: 8px; font-size: 0.95rem; }
+            .faq-answer { font-size: 0.9rem; color: var(--ink); line-height: 1.8; }
+            .article-cta { background: var(--navy-900); border: 2px solid var(--hairline); border-radius: 16px; padding: 28px 24px; text-align: center; margin: 40px 0; }
+            .article-cta h3 { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
             .article-cta p { font-size: 0.88rem; color: var(--muted); margin-bottom: 16px; }
-            .article-cta a { display: inline-block; background: var(--brown); color: var(--white); padding: 12px 28px; border-radius: 24px; font-family: "Noto Serif TC", serif; font-size: 0.92rem; text-decoration: none; transition: background 0.3s, transform 0.3s; }
-            .article-cta a:hover { background: var(--mauve); transform: translateY(-1px); }
-            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--warm); }
+            .article-cta a { display: inline-block; background: var(--grad-gold); color: #131A36; padding: 12px 28px; border-radius: 24px; font-family: "Noto Sans TC","Manrope",sans-serif; font-size: 0.92rem; font-weight: 700; text-decoration: none; transition: box-shadow 0.3s, transform 0.3s; }
+            .article-cta a:hover { box-shadow: 0 8px 22px rgba(201,160,99,.35); transform: translateY(-1px); }
+            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--hairline-2); }
             footer p { font-size: 0.75rem; color: var(--muted); }
         </style>
     </head>
@@ -293,7 +297,7 @@
                 搭配 Google Apps Script 和 Google Sheets，可以為靜態網站加上後端處理和資料儲存能力。Google Apps Script 免費帳號的主要額度為：每日 HTTP 請求 20,000 次、單次腳本執行時間上限 6 分鐘、每日觸發器執行總時間 90 分鐘。Google Sheets 單一試算表支援最多 1,000 萬個儲存格。
             </p>
             <p>
-                以典型的小型商家使用情境估算：假設每天 200 筆訂單，每筆訂單觸發 2 次 API 呼叫（寫入訂單 + 發送通知），每日約 400 次請求，遠低於 20,000 次的免費額度。Google Sheets 以每筆訂單 10 個欄位計算，一張工作表可容納約 100 萬筆訂單紀錄。這就是 One Page Go 採用的三層免費架構。
+                以典型的小型商家使用情境估算：假設每天 200 筆訂單，每筆訂單觸發 2 次 API 呼叫（寫入訂單 + 發送通知），每日約 400 次請求，遠低於 20,000 次的免費額度。Google Sheets 以每筆訂單 10 個欄位計算，一張工作表可容納約 100 萬筆訂單紀錄。One Page Go 也採用同樣的免費組合思路，實際架構為 GitHub Pages ＋ Cloudflare Workers 與 D1（免費方案）＋ Resend（免費額度）。
             </p>
 
             <h2>Wix：視覺化網站建置器</h2>
@@ -374,7 +378,7 @@
                     </tr>
                     <tr>
                         <td>重視資料所有權，不想被平台綁定</td>
-                        <td>GitHub Pages + Google Apps Script 架構（One Page Go 採用此方案）</td>
+                        <td>GitHub Pages + Google Apps Script 架構（One Page Go 採用同類架構：GitHub Pages ＋ Cloudflare Workers 與 D1）</td>
                     </tr>
                 </tbody>
             </table>
@@ -395,7 +399,7 @@
                 <div class="faq-item">
                     <div class="faq-question">GitHub Pages 可以拿來開店嗎？</div>
                     <div class="faq-answer">
-                        GitHub Pages 本身只能託管靜態網頁（HTML、CSS、JavaScript），不提供後端或資料庫功能。但透過搭配 Google Apps Script（免費後端）和 Google Sheets（免費資料庫），可以實現商品展示、訂單處理和 Email 通知等完整的電商功能。One Page Go 正是採用這種三層免費架構來為小型商家建置網頁應用。
+                        GitHub Pages 本身只能託管靜態網頁（HTML、CSS、JavaScript），不提供後端或資料庫功能。但透過搭配 Google Apps Script（免費後端）和 Google Sheets（免費資料庫），可以實現商品展示、訂單處理和 Email 通知等完整的電商功能。One Page Go 也採用同樣的免費組合思路，以 GitHub Pages ＋ Cloudflare Workers 與 D1（免費方案）＋ Resend（免費額度）為小型商家建置網頁應用。
                     </div>
                 </div>
                 <div class="faq-item">
@@ -412,16 +416,16 @@
                 </div>
             </div>
 
-            <nav class="related-posts" aria-label="延伸閱讀" style="margin:28px 0;padding-top:18px;border-top:1px solid #e7e0d8;">
-                <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:12px;color:var(--brown);">延伸閱讀</h3>
+            <nav class="related-posts" aria-label="延伸閱讀" style="margin:28px 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);">
+                <h3 style="font-size:1.05rem;margin-bottom:12px;color:#fff;font-weight:700;">延伸閱讀</h3>
                 <ul style="list-style:none;padding:0;margin:0;display:grid;gap:8px;">
-                    <li><a href="../one-page-website-cost/" style="color:var(--mauve);text-decoration:none;font-weight:600;">一頁式網站費用完整比較：月租 vs 買斷，哪個划算？</a></li>
-                    <li><a href="../small-business-website-guide/" style="color:var(--mauve);text-decoration:none;font-weight:600;">小型商家需要網站嗎？2026 台灣網路開店完整指南</a></li>
+                    <li><a href="../one-page-website-cost/" style="color:var(--gold-300);text-decoration:none;font-weight:600;">一頁式網站費用完整比較：月租 vs 買斷，哪個划算？</a></li>
+                    <li><a href="../small-business-website-guide/" style="color:var(--gold-300);text-decoration:none;font-weight:600;">小型商家需要網站嗎？2026 台灣網路開店完整指南</a></li>
                 </ul>
             </nav>
             <div class="article-cta">
                 <h3>用免費架構打造你的網頁應用</h3>
-                <p>GitHub Pages + Google Apps Script + Google Sheets，NT$2,500 起買斷，終身免月費</p>
+                <p>GitHub Pages ＋ Cloudflare Workers 與 D1（免費方案）＋ Resend（免費額度），NT$2,500 起買斷，終身免月費</p>
                 <a href="../../onboarding/index.html">了解方案與定價</a>
             </div>
         </article>

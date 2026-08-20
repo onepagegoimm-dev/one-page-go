@@ -21,7 +21,7 @@
         <link rel="manifest" href="/site.webmanifest">
 
         <title>Online ordering system for restaurants, cafés &amp; retail — pay once, no monthly fees | One Page Go</title>
-        <meta name="description" content="A single-page online ordering & order management system for restaurants, drink shops and retail. Mobile ordering, order tracking and customer order management. Orders go straight into your own Google Sheets. Pay once, no monthly fees, no transaction cut." />
+        <meta name="description" content="A single-page online ordering & order management system for restaurants, drink shops and retail. Mobile ordering, order tracking and customer order management. Orders go straight into your own dedicated Cloudflare D1 database. Pay once, no monthly fees, no transaction cut." />
         <meta name="keywords" content="online ordering system, online order-taking system, order management system, e-commerce order management, order tracking system, customer order management, custom order management system, restaurant online ordering, retail online ordering, no monthly fee ordering system" />
         <meta name="author" content="One Page Go" />
         <link rel="canonical" href="https://one-page-go.com/en/solutions/order-system/" />
@@ -32,7 +32,7 @@
         <!-- Open Graph -->
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Online ordering system for restaurants, cafés & retail — pay once, no monthly fees" />
-        <meta property="og:description" content="Single-page online ordering & order management system. Mobile ordering, order tracking, customer order management. Orders go into your own Google Sheets. Pay once, no monthly fees." />
+        <meta property="og:description" content="Single-page online ordering & order management system. Mobile ordering, order tracking, customer order management. Orders go into your own dedicated Cloudflare D1 database. Pay once, no monthly fees." />
         <meta property="og:url" content="https://one-page-go.com/en/solutions/order-system/" />
         <meta property="og:image" content="https://one-page-go.com/one_page_go.png" />
         <meta property="og:image:width" content="2490" />
@@ -45,7 +45,7 @@
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="Online ordering system — pay once, no monthly fees" />
-        <meta name="twitter:description" content="Single-page online ordering & order management for restaurants, cafés and retail. Orders into your own Google Sheets." />
+        <meta name="twitter:description" content="Single-page online ordering & order management for restaurants, cafés and retail. Orders into your own dedicated Cloudflare D1 database." />
 
         <!-- Structured data: Service -->
         <script type="application/ld+json">
@@ -54,7 +54,7 @@
             "@type": "Service",
             "serviceType": "Online ordering system",
             "name": "One Page Go online ordering system",
-            "description": "A single-page online ordering and order management system for restaurants, drink shops and retail. Mobile ordering, order tracking and customer order management, with all orders stored in the merchant's own Google Sheets. Pay once, no monthly fees, no transaction cut.",
+            "description": "A single-page online ordering and order management system for restaurants, drink shops and retail. Mobile ordering, order tracking and customer order management, with all orders stored in the merchant's own dedicated Cloudflare D1 database, fully exportable. Pay once, no monthly fees, no transaction cut.",
             "provider": { "@type": "Organization", "name": "One Page Go", "url": "https://one-page-go.com/" },
             "areaServed": { "@type": "Country", "name": "TW" },
             "offers": { "@type": "Offer", "price": "4000", "priceCurrency": "TWD", "description": "One-time payment, lifetime no monthly fee and no transaction cut" },
@@ -80,7 +80,7 @@
                 {
                     "@type": "Question",
                     "name": "Where are the orders stored? Can I export them?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Every order is written instantly to your own Google Sheets — effectively a built-in customer order management and e-commerce order management back office. The data is entirely yours; you can view, filter and export it anytime, with no platform lock-in." }
+                    "acceptedAnswer": { "@type": "Answer", "text": "Every order is written instantly to your own dedicated Cloudflare D1 database, and you view orders in an admin dashboard — effectively a built-in customer order management and e-commerce order management back office. The data is entirely yours; you can view, filter and export it anytime, with no platform lock-in." }
                 },
                 {
                     "@type": "Question",
@@ -90,7 +90,7 @@
                 {
                     "@type": "Question",
                     "name": "How long does it take to launch?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "About 3 days from brief to launch. It runs on the free GitHub Pages + Google Apps Script + Google Sheets stack, handed over to you with no extra servers or monthly fees." }
+                    "acceptedAnswer": { "@type": "Answer", "text": "About 3 days from brief to launch. It runs on the GitHub Pages + Cloudflare Workers & D1 (free tier) + Resend (free tier) stack, handed over to you with no extra servers or monthly fees." }
                 }
             ]
         }
@@ -109,64 +109,69 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
         <style>
+            /* Design baseline: deep navy x gold (docs/standards/design.md) */
             :root {
-                --cream: #fdf6ee; --warm: #f5e6d3; --blush: #f2c4c4; --rose: #e8a0a0;
-                --mauve: #c97d7d; --brown: #7a4f3a; --text: #4a3428; --muted: #9c7b6e;
-                --white: #fffcf8; --shadow: rgba(122, 79, 58, 0.12); --green: #7dba6a;
+                --navy-950:#070C1E; --navy-900:#0A1124; --navy-800:#101A38; --navy-700:#182652;
+                --gold-500:#C9A063; --gold-400:#D8B478; --gold-300:#E7CD9C;
+                --ink:#F4F1EA; --muted:#A7ADC2;
+                --hairline:rgba(201,160,99,.28); --hairline-2:rgba(255,255,255,.08);
+                --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
             }
             * { box-sizing: border-box; margin: 0; padding: 0; }
-            body { background: var(--cream); font-family: "Noto Serif TC", serif; color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+            body { background: var(--navy-950); font-family: "Manrope", "Noto Sans TC", system-ui, sans-serif; color: var(--ink); line-height: 1.7; -webkit-font-smoothing: antialiased; }
             .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
-            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(253, 246, 238, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--warm); }
+            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(7, 12, 30, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--hairline-2); }
             nav .container { display: flex; justify-content: space-between; align-items: center; height: 56px; }
-            .nav-logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 500; color: var(--brown); text-decoration: none; }
+            .nav-logo { font-family: "Manrope", sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; text-decoration: none; }
             .nav-right { display: flex; align-items: center; gap: 14px; }
-            .nav-lang { font-size: 0.82rem; color: var(--mauve); text-decoration: none; }
-            .nav-lang:hover { text-decoration: underline; }
-            .nav-cta { background: var(--brown); color: var(--white); padding: 8px 18px; border-radius: 20px; font-size: 0.82rem; text-decoration: none; transition: background 0.3s; display: inline-flex; align-items: center; min-height: 36px; }
-            .nav-cta:hover { background: var(--mauve); }
+            .nav-lang { font-size: 0.82rem; color: var(--gold-300); text-decoration: none; }
+            .nav-lang:hover { color: var(--gold-400); text-decoration: underline; }
+            .nav-cta { background: var(--grad-gold); color: #131A36; font-weight: 700; padding: 8px 18px; border-radius: 20px; font-size: 0.82rem; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; display: inline-flex; align-items: center; min-height: 36px; }
+            .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201, 160, 99, 0.32); }
             .breadcrumb { padding-top: 72px; font-size: 0.82rem; color: var(--muted); }
-            .breadcrumb a { color: var(--mauve); text-decoration: none; }
-            .breadcrumb a:hover { text-decoration: underline; text-underline-offset: 2px; }
+            .breadcrumb a { color: var(--gold-300); text-decoration: none; }
+            .breadcrumb a:hover { color: var(--gold-400); text-decoration: underline; text-underline-offset: 2px; }
             .breadcrumb span { margin: 0 6px; }
-            .page-header { padding: 24px 0 32px; border-bottom: 1px solid var(--warm); margin-bottom: 36px; }
-            .page-header h1 { font-family: "Playfair Display", serif; font-size: clamp(1.6rem, 5.5vw, 2.1rem); font-weight: 500; color: var(--brown); line-height: 1.4; margin-bottom: 14px; }
-            .page-header .lede { font-size: 1rem; color: var(--text); line-height: 1.9; }
+            .page-header { padding: 24px 0 32px; border-bottom: 1px solid var(--hairline-2); margin-bottom: 36px; }
+            .page-header h1 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: clamp(1.6rem, 5.5vw, 2.1rem); font-weight: 800; color: #fff; line-height: 1.4; margin-bottom: 14px; }
+            .page-header .lede { font-size: 1rem; color: var(--muted); line-height: 1.9; }
             .meta-badges { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
-            .badge { display: inline-block; background: var(--white); border: 1px solid var(--blush); color: var(--brown); border-radius: 999px; padding: 5px 14px; font-size: 0.8rem; }
+            .badge { display: inline-block; background: rgba(201, 160, 99, 0.08); border: 1px solid var(--hairline); color: var(--gold-300); border-radius: 999px; padding: 5px 14px; font-size: 0.8rem; }
             section.block { padding-bottom: 12px; }
-            h2 { font-family: "Playfair Display", serif; font-size: 1.35rem; font-weight: 500; color: var(--brown); margin: 40px 0 16px; padding-top: 16px; border-top: 1px solid var(--warm); }
+            h2 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.35rem; font-weight: 800; color: #fff; margin: 40px 0 16px; padding-top: 16px; border-top: 1px solid var(--hairline-2); }
             p { margin-bottom: 18px; font-size: 0.95rem; line-height: 1.9; }
-            p a, li a { color: var(--mauve); text-decoration: underline; text-underline-offset: 2px; }
+            p a, li a { color: var(--gold-300); text-decoration: underline; text-underline-offset: 2px; }
+            p a:hover, li a:hover { color: var(--gold-400); }
             .usecase-grid { display: grid; gap: 14px; margin: 8px 0; }
             @media (min-width: 540px) { .usecase-grid { grid-template-columns: 1fr 1fr; } }
-            .card { background: var(--white); border-radius: 16px; padding: 20px 18px; box-shadow: 0 2px 12px var(--shadow); border: 1px solid var(--warm); }
-            .card h3 { font-family: "Playfair Display", serif; font-size: 1.08rem; font-weight: 500; color: var(--brown); margin-bottom: 8px; }
-            .card p { font-size: 0.9rem; color: var(--text); margin-bottom: 0; line-height: 1.8; }
+            .card { background: linear-gradient(170deg, rgba(24, 38, 82, 0.55), rgba(10, 17, 36, 0.65)); border-radius: 16px; padding: 20px 18px; border: 1px solid var(--hairline-2); }
+            .card h3 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.08rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+            .card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0; line-height: 1.8; }
             .check-list { list-style: none; margin: 4px 0 18px; }
             .check-list li { position: relative; padding-left: 26px; margin-bottom: 12px; font-size: 0.95rem; line-height: 1.8; }
-            .check-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--green); font-weight: 700; }
-            .check-list strong { color: var(--brown); }
+            .check-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--gold-400); font-weight: 700; }
+            .check-list strong { color: var(--gold-300); }
             .demo-links { display: grid; gap: 10px; margin: 8px 0 18px; }
-            .demo-links a { display: flex; justify-content: space-between; align-items: center; background: var(--white); border: 1px solid var(--warm); border-radius: 12px; padding: 14px 16px; text-decoration: none; color: var(--text); font-size: 0.92rem; transition: border-color 0.2s, transform 0.2s; }
-            .demo-links a:hover { border-color: var(--rose); transform: translateY(-1px); }
-            .demo-links .arrow { color: var(--mauve); }
-            .faq-section { background: var(--white); border-radius: 16px; padding: 28px 24px; margin: 40px 0; box-shadow: 0 2px 12px var(--shadow); }
+            .demo-links a { display: flex; justify-content: space-between; align-items: center; background: var(--navy-900); border: 1px solid var(--hairline-2); border-radius: 12px; padding: 14px 16px; text-decoration: none; color: var(--ink); font-size: 0.92rem; transition: border-color 0.2s, transform 0.2s; }
+            .demo-links a:hover { border-color: var(--hairline); transform: translateY(-1px); }
+            .demo-links .arrow { color: var(--gold-300); }
+            .faq-section { background: var(--navy-900); border: 1px solid var(--hairline-2); border-radius: 16px; padding: 28px 24px; margin: 40px 0; }
             .faq-section h2 { border-top: none; padding-top: 0; margin-top: 0; margin-bottom: 20px; }
-            .faq-item { border-bottom: 1px solid var(--warm); padding: 16px 0; }
+            .faq-item { border-bottom: 1px solid var(--hairline-2); padding: 16px 0; }
             .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
-            .faq-question { font-weight: 600; color: var(--brown); margin-bottom: 8px; font-size: 0.95rem; }
-            .faq-answer { font-size: 0.9rem; color: var(--text); line-height: 1.8; }
-            .cta { background: var(--white); border: 2px solid var(--blush); border-radius: 16px; padding: 28px 24px; text-align: center; margin: 40px 0; }
-            .cta h3 { font-family: "Playfair Display", serif; font-size: 1.15rem; color: var(--brown); margin-bottom: 8px; }
+            .faq-question { font-weight: 700; color: #fff; margin-bottom: 8px; font-size: 0.95rem; }
+            .faq-answer { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+            .cta { background: linear-gradient(170deg, rgba(24, 38, 82, 0.55), rgba(10, 17, 36, 0.65)); border: 1.5px solid var(--gold-500); border-radius: 16px; padding: 28px 24px; text-align: center; margin: 40px 0; }
+            .cta h3 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
             .cta p { font-size: 0.88rem; color: var(--muted); margin-bottom: 16px; }
-            .cta a { display: inline-block; background: var(--brown); color: var(--white); padding: 13px 30px; border-radius: 24px; min-height: 48px; font-size: 0.95rem; text-decoration: none; transition: background 0.3s, transform 0.3s; }
-            .cta a:hover { background: var(--mauve); transform: translateY(-1px); }
-            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--warm); margin-top: 8px; }
+            .cta a { display: inline-block; background: var(--grad-gold); color: #131A36; font-weight: 700; padding: 13px 30px; border-radius: 24px; min-height: 48px; font-size: 0.95rem; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 8px 24px rgba(201, 160, 99, 0.32); }
+            .cta a:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(201, 160, 99, 0.45); }
+            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--hairline-2); margin-top: 8px; }
             footer .footer-links { margin-bottom: 10px; font-size: 0.82rem; }
-            footer .footer-links a { color: var(--mauve); text-decoration: none; }
+            footer .footer-links a { color: var(--gold-300); text-decoration: none; }
+            footer .footer-links a:hover { color: var(--gold-400); }
             footer p { font-size: 0.75rem; color: var(--muted); }
             @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
         </style>
@@ -192,12 +197,12 @@
             <header class="page-header">
                 <h1>Online ordering system for restaurants, cafés &amp; retail</h1>
                 <p class="lede">
-                    One Page Go's online ordering system is a single-page online order-taking system built for restaurants, drink shops and retail. Customers browse, choose options and order from their phone; every order is written instantly to your own Google Sheets, where you handle customer order management and order tracking. No monthly e-commerce order management platform required — pay once and it's yours forever, with no transaction cut.
+                    One Page Go's online ordering system is a single-page online order-taking system built for restaurants, drink shops and retail. Customers browse, choose options and order from their phone; every order is written instantly to your own dedicated Cloudflare D1 database, and you handle customer order management and order tracking in an admin dashboard. No monthly e-commerce order management platform required — pay once and it's yours forever, with no transaction cut.
                 </p>
                 <div class="meta-badges">
                     <span class="badge">One-time payment</span>
                     <span class="badge">No transaction cut</span>
-                    <span class="badge">Data in your Google Sheets</span>
+                    <span class="badge">Data in your own D1 database</span>
                     <span class="badge">Live in ~3 days</span>
                 </div>
             </header>
@@ -207,7 +212,7 @@
             <section class="block">
                 <h2>Who it's for</h2>
                 <div class="usecase-grid">
-                    <div class="card"><h3>Restaurants &amp; food</h3><p>Online ordering and takeaway pages — customers pick items and notes themselves, the kitchen reads orders straight from Google Sheets.</p></div>
+                    <div class="card"><h3>Restaurants &amp; food</h3><p>Online ordering and takeaway pages — customers pick items and notes themselves, the kitchen reads orders straight from the admin dashboard.</p></div>
                     <div class="card"><h3>Cafés &amp; drink shops</h3><p>Drink orders with size, ice and topping options selected up front — steady order intake even at peak hours.</p></div>
                     <div class="card"><h3>Retail &amp; small shops</h3><p>Retail online ordering with multi-option products and quantities — great for vendors and small brands.</p></div>
                     <div class="card"><h3>Solo &amp; studios</h3><p>Custom or pre-order taking on a single page — no need to run a full e-commerce system.</p></div>
@@ -218,7 +223,7 @@
                 <h2>What this order management system does</h2>
                 <ul class="check-list">
                     <li><strong>Online order-taking system</strong>: mobile ordering, multi-item and option selection, instant submission on one page.</li>
-                    <li><strong>Customer order management</strong>: every order lands in Google Sheets — your e-commerce order management back office, filterable and exportable, fully owned by you.</li>
+                    <li><strong>Customer order management</strong>: every order lands in your own dedicated Cloudflare D1 database — view orders in an admin dashboard, filterable and exportable, fully owned by you.</li>
                     <li><strong>Order tracking system</strong>: update each order's status (received / preparing / ready / completed) and notify customers.</li>
                     <li><strong>Custom order management system</strong>: items, option fields, layout and style tailored to your shop.</li>
                     <li><strong>Buy once, no monthly fee</strong>: a one-time payment with no transaction cut — far cheaper long-term than subscription order management platforms.</li>
@@ -228,7 +233,7 @@
             <section class="block">
                 <h2>Why choose One Page Go over a monthly platform</h2>
                 <p>
-                    Most e-commerce order management platforms charge every month, and some take a cut of every transaction. One Page Go runs on the free GitHub Pages + Google Apps Script + Google Sheets stack, so you <strong>pay once and never pay a monthly fee</strong>, and all order and customer data stays in your own Google account — never locked into a platform.
+                    Most e-commerce order management platforms charge every month, and some take a cut of every transaction. One Page Go runs on the GitHub Pages + Cloudflare Workers &amp; D1 (free tier) + Resend (free tier) stack, so you <strong>pay once and never pay a monthly fee</strong>, and all order and customer data stays in your own dedicated Cloudflare D1 database, fully exportable — never locked into a platform.
                 </p>
             </section>
 
@@ -246,7 +251,7 @@
                 <h2>FAQ</h2>
                 <div class="faq-item"><div class="faq-question">Does an online ordering system have to charge a monthly fee?</div><div class="faq-answer">No. Most e-commerce order management platforms are subscription-based. One Page Go is a one-time buyout from NT$4,000 (about US$130) with no monthly fees and no transaction cut.</div></div>
                 <div class="faq-item"><div class="faq-question">Does it work for restaurants, cafés and retail?</div><div class="faq-answer">Yes — restaurant online ordering and takeaway, drink-shop orders with options, and retail online ordering. Items, options and layout are customisable, so it works as a custom order management system.</div></div>
-                <div class="faq-item"><div class="faq-question">Where are the orders stored? Can I export them?</div><div class="faq-answer">Every order is written instantly to your own Google Sheets — a built-in customer order management and e-commerce order management back office. The data is yours to view, filter and export anytime.</div></div>
+                <div class="faq-item"><div class="faq-question">Where are the orders stored? Can I export them?</div><div class="faq-answer">Every order is written instantly to your own dedicated Cloudflare D1 database — view orders in an admin dashboard, a built-in customer order management and e-commerce order management back office. The data is yours to view, filter and export anytime.</div></div>
                 <div class="faq-item"><div class="faq-question">Can it do order tracking?</div><div class="faq-answer">Yes. Update each order's status (received, preparing, ready, completed) and notify customers — the basics of an order tracking system.</div></div>
                 <div class="faq-item"><div class="faq-question">How long does it take to launch?</div><div class="faq-answer">About 3 days from brief to launch, handed over to you with no servers or monthly fees.</div></div>
             </section>

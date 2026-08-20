@@ -152,22 +152,17 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
             rel="stylesheet"
         />
         <style>
-            /* ── 色票（與主站一致）── */
+            /* ── 設計基準：深藍×金（docs/standards/design.md）── */
             :root {
-                --cream: #fdf6ee;
-                --warm: #f5e6d3;
-                --blush: #f2c4c4;
-                --rose: #e8a0a0;
-                --mauve: #c97d7d;
-                --brown: #7a4f3a;
-                --text: #4a3428;
-                --muted: #9c7b6e;
-                --white: #fffcf8;
-                --shadow: rgba(122, 79, 58, 0.12);
+                --navy-950:#070C1E;--navy-900:#0A1124;--navy-800:#101A38;--navy-700:#182652;
+                --gold-500:#C9A063;--gold-400:#D8B478;--gold-300:#E7CD9C;
+                --ink:#F4F1EA;--muted:#A7ADC2;
+                --hairline:rgba(201,160,99,.28);--hairline-2:rgba(255,255,255,.08);
+                --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
             }
 
             * {
@@ -177,9 +172,9 @@
             }
 
             body {
-                background: var(--cream);
-                font-family: "Noto Serif TC", serif;
-                color: var(--text);
+                background: var(--navy-950);
+                font-family: "Noto Sans TC", "Manrope", system-ui, sans-serif;
+                color: var(--ink);
                 line-height: 1.7;
                 -webkit-font-smoothing: antialiased;
             }
@@ -191,18 +186,18 @@
             }
 
             /* ── 導覽列 ── */
-            nav {
+            body > nav {
                 position: fixed;
                 top: 0;
                 left: 0;
                 right: 0;
-                background: rgba(253, 246, 238, 0.92);
+                background: rgba(7, 12, 30, 0.85);
                 backdrop-filter: blur(10px);
                 -webkit-backdrop-filter: blur(10px);
                 z-index: 100;
-                border-bottom: 1px solid var(--warm);
+                border-bottom: 1px solid var(--hairline-2);
             }
-            nav .container {
+            body > nav .container {
                 max-width: 680px;
                 display: flex;
                 justify-content: space-between;
@@ -210,26 +205,27 @@
                 height: 56px;
             }
             .nav-logo {
-                font-family: "Playfair Display", serif;
+                font-family: "Manrope", "Noto Sans TC", sans-serif;
                 font-size: 1.15rem;
-                font-weight: 500;
-                color: var(--brown);
+                font-weight: 800;
+                color: #fff;
                 text-decoration: none;
             }
             .nav-cta {
-                background: var(--brown);
-                color: var(--white);
+                background: var(--grad-gold);
+                color: #131A36;
+                font-weight: 700;
                 border: none;
                 padding: 8px 18px;
                 border-radius: 20px;
-                font-family: "Noto Serif TC", serif;
+                font-family: inherit;
                 font-size: 0.82rem;
                 cursor: pointer;
                 text-decoration: none;
-                transition: background 0.3s;
+                transition: transform 0.3s;
             }
             .nav-cta:hover {
-                background: var(--mauve);
+                transform: translateY(-1px);
             }
 
             /* ── 麵包屑 ── */
@@ -239,10 +235,11 @@
                 color: var(--muted);
             }
             .breadcrumb a {
-                color: var(--mauve);
+                color: var(--gold-300);
                 text-decoration: none;
             }
             .breadcrumb a:hover {
+                color: var(--gold-400);
                 text-decoration: underline;
                 text-underline-offset: 2px;
             }
@@ -253,14 +250,13 @@
             /* ── 文章標頭 ── */
             .article-header {
                 padding: 24px 0 32px;
-                border-bottom: 1px solid var(--warm);
+                border-bottom: 1px solid var(--hairline-2);
                 margin-bottom: 36px;
             }
             .article-header h1 {
-                font-family: "Playfair Display", serif;
                 font-size: 1.8rem;
-                font-weight: 500;
-                color: var(--brown);
+                font-weight: 900;
+                color: #fff;
                 line-height: 1.4;
                 margin-bottom: 12px;
             }
@@ -277,18 +273,17 @@
                 padding-bottom: 48px;
             }
             .article-body h2 {
-                font-family: "Playfair Display", serif;
                 font-size: 1.35rem;
-                font-weight: 500;
-                color: var(--brown);
+                font-weight: 700;
+                color: #fff;
                 margin: 40px 0 16px;
                 padding-top: 16px;
-                border-top: 1px solid var(--warm);
+                border-top: 1px solid var(--hairline-2);
             }
             .article-body h3 {
                 font-size: 1.05rem;
-                font-weight: 600;
-                color: var(--brown);
+                font-weight: 700;
+                color: #fff;
                 margin: 28px 0 12px;
             }
             .article-body p {
@@ -306,15 +301,18 @@
                 margin-bottom: 6px;
             }
             .article-body a {
-                color: var(--mauve);
+                color: var(--gold-300);
                 text-decoration: underline;
                 text-underline-offset: 2px;
             }
+            .article-body a:hover {
+                color: var(--gold-400);
+            }
             .article-body blockquote {
-                border-left: 3px solid var(--blush);
+                border-left: 3px solid var(--gold-500);
                 padding: 12px 16px;
                 margin: 18px 0;
-                background: var(--white);
+                background: var(--navy-900);
                 border-radius: 0 8px 8px 0;
                 font-size: 0.92rem;
                 color: var(--muted);
@@ -324,26 +322,29 @@
                 border-collapse: collapse;
                 margin: 18px 0;
                 font-size: 0.88rem;
+                display: block;
+                max-width: 100%;
+                overflow-x: auto;
             }
             .article-body th,
             .article-body td {
-                border: 1px solid var(--warm);
+                border: 1px solid var(--hairline-2);
                 padding: 10px 12px;
                 text-align: left;
             }
             .article-body th {
-                background: var(--warm);
+                background: var(--navy-800);
                 font-weight: 600;
-                color: var(--brown);
+                color: var(--gold-300);
             }
 
             /* ── 文章內 FAQ ── */
             .faq-section {
-                background: var(--white);
+                background: linear-gradient(170deg, rgba(24,38,82,.55), rgba(10,17,36,.65));
+                border: 1px solid var(--hairline-2);
                 border-radius: 16px;
                 padding: 28px 24px;
                 margin: 40px 0;
-                box-shadow: 0 2px 12px var(--shadow);
             }
             .faq-section h2 {
                 border-top: none;
@@ -352,7 +353,7 @@
                 margin-bottom: 20px;
             }
             .faq-item {
-                border-bottom: 1px solid var(--warm);
+                border-bottom: 1px solid var(--hairline-2);
                 padding: 16px 0;
             }
             .faq-item:last-child {
@@ -360,30 +361,30 @@
                 padding-bottom: 0;
             }
             .faq-question {
-                font-weight: 600;
-                color: var(--brown);
+                font-weight: 700;
+                color: #fff;
                 margin-bottom: 8px;
                 font-size: 0.95rem;
             }
             .faq-answer {
                 font-size: 0.9rem;
-                color: var(--text);
+                color: var(--ink);
                 line-height: 1.8;
             }
 
             /* ── CTA 區塊 ── */
             .article-cta {
-                background: var(--white);
-                border: 2px solid var(--blush);
+                background: linear-gradient(170deg, rgba(24,38,82,.55), rgba(10,17,36,.65));
+                border: 2px solid var(--hairline);
                 border-radius: 16px;
                 padding: 28px 24px;
                 text-align: center;
                 margin: 40px 0;
             }
             .article-cta h3 {
-                font-family: "Playfair Display", serif;
                 font-size: 1.15rem;
-                color: var(--brown);
+                font-weight: 700;
+                color: #fff;
                 margin-bottom: 8px;
             }
             .article-cta p {
@@ -393,17 +394,17 @@
             }
             .article-cta a {
                 display: inline-block;
-                background: var(--brown);
-                color: var(--white);
+                background: var(--grad-gold);
+                color: #131A36;
+                font-weight: 700;
                 padding: 12px 28px;
                 border-radius: 24px;
-                font-family: "Noto Serif TC", serif;
+                font-family: inherit;
                 font-size: 0.92rem;
                 text-decoration: none;
-                transition: background 0.3s, transform 0.3s;
+                transition: transform 0.3s;
             }
             .article-cta a:hover {
-                background: var(--mauve);
                 transform: translateY(-1px);
             }
 
@@ -411,7 +412,7 @@
             footer {
                 text-align: center;
                 padding: 30px 0;
-                border-top: 1px solid var(--warm);
+                border-top: 1px solid var(--hairline-2);
             }
             footer p {
                 font-size: 0.75rem;

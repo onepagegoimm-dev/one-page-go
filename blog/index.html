@@ -82,42 +82,46 @@
         </script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
         <style>
+            /* ── 設計基準：深藍×金（docs/standards/design.md）── */
             :root {
-                --cream: #fdf6ee; --warm: #f5e6d3; --blush: #f2c4c4; --rose: #e8a0a0;
-                --mauve: #c97d7d; --brown: #7a4f3a; --text: #4a3428; --muted: #9c7b6e;
-                --white: #fffcf8; --shadow: rgba(122, 79, 58, 0.12);
+                --navy-950:#070C1E;--navy-900:#0A1124;--navy-800:#101A38;--navy-700:#182652;
+                --gold-500:#C9A063;--gold-400:#D8B478;--gold-300:#E7CD9C;
+                --ink:#F4F1EA;--muted:#A7ADC2;
+                --hairline:rgba(201,160,99,.28);--hairline-2:rgba(255,255,255,.08);
+                --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
             }
             * { box-sizing: border-box; margin: 0; padding: 0; }
-            body { background: var(--cream); font-family: "Noto Serif TC", serif; color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+            body { background: var(--navy-950); font-family: "Noto Sans TC", "Manrope", system-ui, sans-serif; color: var(--ink); line-height: 1.7; -webkit-font-smoothing: antialiased; }
             .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
-            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(253, 246, 238, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--warm); }
+            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(7, 12, 30, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--hairline-2); }
             nav .container { max-width: 680px; display: flex; justify-content: space-between; align-items: center; height: 56px; }
-            .nav-logo { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 500; color: var(--brown); text-decoration: none; }
-            .nav-cta { background: var(--brown); color: var(--white); border: none; padding: 8px 18px; border-radius: 20px; font-family: "Noto Serif TC", serif; font-size: 0.82rem; cursor: pointer; text-decoration: none; transition: background 0.3s; }
-            .nav-cta:hover { background: var(--mauve); }
+            .nav-logo { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; text-decoration: none; }
+            .nav-cta { background: var(--grad-gold); color: #131A36; font-weight: 700; border: none; padding: 8px 18px; border-radius: 20px; font-family: inherit; font-size: 0.82rem; cursor: pointer; text-decoration: none; transition: transform 0.3s; }
+            .nav-cta:hover { transform: translateY(-1px); }
             .breadcrumb { padding-top: 72px; font-size: 0.82rem; color: var(--muted); }
-            .breadcrumb a { color: var(--mauve); text-decoration: none; }
-            .breadcrumb a:hover { text-decoration: underline; text-underline-offset: 2px; }
+            .breadcrumb a { color: var(--gold-300); text-decoration: none; }
+            .breadcrumb a:hover { color: var(--gold-400); text-decoration: underline; text-underline-offset: 2px; }
             .breadcrumb span { margin: 0 6px; }
             .page-header { padding: 32px 0 40px; text-align: center; }
-            .page-header h1 { font-family: "Playfair Display", serif; font-size: 1.8rem; font-weight: 500; color: var(--brown); margin-bottom: 8px; }
+            .page-header h1 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 8px; }
             .page-header p { font-size: 0.92rem; color: var(--muted); }
             .post-list { padding-bottom: 48px; }
             .post-card {
-                background: var(--white); border-radius: 16px; padding: 28px 24px;
-                margin-bottom: 20px; box-shadow: 0 2px 12px var(--shadow);
-                text-decoration: none; display: block; transition: transform 0.3s, box-shadow 0.3s;
+                background: linear-gradient(170deg, rgba(24,38,82,.55), rgba(10,17,36,.65));
+                border: 1px solid var(--hairline-2); border-radius: 16px; padding: 28px 24px;
+                margin-bottom: 20px;
+                text-decoration: none; display: block; transition: transform 0.3s, border-color 0.3s;
             }
-            .post-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px var(--shadow); }
+            .post-card:hover { transform: translateY(-2px); border-color: var(--hairline); }
             .post-card h2 {
-                font-family: "Playfair Display", serif; font-size: 1.2rem; font-weight: 500;
-                color: var(--brown); margin-bottom: 8px; line-height: 1.4;
+                font-size: 1.2rem; font-weight: 700;
+                color: #fff; margin-bottom: 8px; line-height: 1.4;
             }
             .post-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
             .post-meta { display: flex; gap: 12px; font-size: 0.78rem; color: var(--muted); }
-            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--warm); }
+            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--hairline-2); }
             footer p { font-size: 0.75rem; color: var(--muted); }
         </style>
     </head>
