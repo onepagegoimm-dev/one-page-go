@@ -39,9 +39,8 @@ one-page-go/                              ← GitHub Pages 公開展示
 ### Frontend (index.html)
 - 所有 CSS 寫在 `<style>` 內，所有 JS 寫在 `<script>` 內，不外連檔案
 - CSS 變數定義在 `:root`，色票統一管理
-- 字型：Playfair Display（標題）+ Noto Serif TC（內文）
-- 動畫：fadeUp 進場、float logo、spin loading
-- 手機優先設計，max-width: 480px 主容器
+- 首頁（index.html）採深藍×金設計基準（正本：`../docs/standards/design.md`）：navy／gold 色票變數、字型 Manrope（英數）+ Noto Sans TC（內文）、寬版容器 `min(1120px,92%)`、`.reveal` 進場動畫
+- demos 與其他子頁暫沿用原慣例（Playfair Display + Noto Serif TC、480px 主容器、fadeUp 進場）；子頁改版依任務 T-008～T-013 分批進行，demos 不改版
 - API 呼叫統一用 `fetch(API_URL)`，GET 用 query string，POST 用 JSON body
 
 ## Template Types

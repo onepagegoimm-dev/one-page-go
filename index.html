@@ -20,8 +20,8 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
         <title>One Page Go — 一頁搞定，生意啟動｜NT$2,500 起，終身免月費的網路開店方案</title>
-        <meta name="description" content="One Page Go 是台灣的單頁式網頁應用製作服務，提供微型電商、預約系統、團購管理、活動售票等功能模板，排版與風格皆可客製化。NT$2,500 起一次付清、終身免月費，採用 GitHub Pages + Google Apps Script + Google Sheets 免費架構，資料存在商家自己的 Google 帳號。" />
-        <meta name="keywords" content="網路開店,一頁式網站,免月費,單頁式網頁,微型電商,預約系統,團購,售票,Google Sheets,小型商家,免費架站" />
+        <meta name="description" content="One Page Go 是台灣的單頁式網頁應用製作服務，提供微型電商、預約系統、團購管理、活動售票等功能模板，排版與風格皆可客製化。NT$2,500 起一次付清、終身免月費，採用 GitHub Pages 與 Cloudflare Workers＋D1 免費架構，商家擁有專屬資料庫，信件通知用你自己的 Resend 帳號寄出。" />
+        <meta name="keywords" content="網路開店,一頁式網站,免月費,單頁式網頁,微型電商,預約系統,團購,售票,小型商家,免費架站" />
         <meta name="author" content="One Page Go" />
         <link rel="canonical" href="https://one-page-go.com/" />
         <link rel="alternate" hreflang="zh-Hant-TW" href="https://one-page-go.com/" />
@@ -31,7 +31,7 @@
         <!-- Open Graph / 社群分享 -->
         <meta property="og:type" content="website" />
         <meta property="og:title" content="One Page Go — 一次付清，終身免費的網路開店方案" />
-        <meta property="og:description" content="台灣的單頁式網頁應用製作服務，提供微型電商、預約、團購、售票等功能模板，排版與風格皆可客製化。NT$2,500 起一次付清，採免費技術架構終身零月費，資料存在你自己的 Google 帳號。" />
+        <meta property="og:description" content="台灣的單頁式網頁應用製作服務，提供微型電商、預約、團購、售票等功能模板，排版與風格皆可客製化。NT$2,500 起一次付清，採免費技術架構終身零月費，商家擁有專屬資料庫、資料可完整匯出。" />
         <meta property="og:url" content="https://one-page-go.com/" />
         <meta property="og:image" content="https://one-page-go.com/one_page_go.png" />
         <meta property="og:image:width" content="2490" />
@@ -43,7 +43,7 @@
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="One Page Go — 終身免月費的網路開店方案" />
-        <meta name="twitter:description" content="NT$2,500 起一次付清，微型電商、預約、團購、售票等功能模板，排版與風格皆可客製化。資料存在你自己的 Google 帳號。" />
+        <meta name="twitter:description" content="NT$2,500 起一次付清，微型電商、預約、團購、售票等功能模板，排版與風格皆可客製化。商家擁有專屬資料庫，資料可完整匯出。" />
 
         <!-- 結構化資料：網站 -->
         <script type="application/ld+json">
@@ -67,7 +67,7 @@
             "url": "https://one-page-go.com/",
             "logo": "https://one-page-go.com/one_page_go.png",
             "image": "https://one-page-go.com/one_page_go.png",
-            "description": "台灣的單頁式網頁應用製作服務，提供微型電商、線上訂單系統、線上預約、團購管理與活動售票等方案，一次付清、終身免月費，資料存在商家自己的 Google 帳號。",
+            "description": "台灣的單頁式網頁應用製作服務，提供微型電商、線上訂單系統、線上預約、團購管理與活動售票等方案，一次付清、終身免月費，商家擁有專屬資料庫與完整的資料匯出權。",
             "email": "Onepagegoimm@gmail.com",
             "areaServed": { "@type": "Country", "name": "TW" },
             "contactPoint": {
@@ -127,7 +127,7 @@
         }
         </script>
 
-        <!-- 結構化資料：常見問題 FAQPage -->
+        <!-- 結構化資料：常見問題 FAQPage（內容與頁面「常見問題」區一致） -->
         <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -138,7 +138,7 @@
                     "name": "One Page Go 是什麼？",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "One Page Go 是一項單頁式網頁應用製作服務，專為台灣小型商家設計。提供微型電商、預約系統、團購管理、活動售票四種模板，NT$2,500 起一次付清，上線後終身免月費。所有資料存在客戶自己的 Google 帳號，不被平台綁定。"
+                        "text": "One Page Go 是一項單頁式網頁應用製作服務，專為台灣小型商家設計。提供微型電商、預約系統、團購管理、活動售票四種模板，NT$2,500 起一次付清，上線後終身免月費。每個商家擁有專屬的資料庫，資料不與他人共用。"
                     }
                 },
                 {
@@ -154,7 +154,7 @@
                     "name": "為什麼 One Page Go 可以終身免費運作？",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "One Page Go 採用全免費技術架構：網頁託管使用 GitHub Pages（免費）、後端使用 Google Apps Script（免費）、資料庫使用 Google Sheets（免費）。三層架構皆為各平台的免費方案，因此上線後不會產生任何託管或維運費用。"
+                        "text": "One Page Go 採用免費技術架構：網頁託管使用 GitHub Pages（免費），後端與資料庫使用 Cloudflare Workers 與 D1（免費方案），信件通知使用 Resend（免費額度）。各層皆為免費方案，因此上線後不會產生任何託管或維運月費。"
                     }
                 },
                 {
@@ -162,7 +162,7 @@
                     "name": "我的訂單資料存在哪裡？安全嗎？",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "所有訂單、會員、預約等資料存在你自己的 Google 帳號裡的 Google Sheets。One Page Go 不持有任何客戶資料副本，你擁有完整的存取與管理權限，隨時可匯出或備份。"
+                        "text": "所有訂單、會員、預約等資料存放在你專屬的 Cloudflare D1 資料庫。每個商家一個獨立資料庫，不與其他商家共用，隨時可申請完整匯出與備份。"
                     }
                 },
                 {
@@ -170,7 +170,7 @@
                     "name": "One Page Go 和月租開店平台（如 Shopline、WACA）有什麼差別？",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "主要差別在費用結構與資料所有權。月租平台通常每月 NT$1,299 起，兩年累計超過 NT$31,000，且資料鎖在平台伺服器。One Page Go 一次付清 NT$2,500-4,000，之後零費用，且資料完全存在你自己的 Google 帳號，不受平台綁定。"
+                        "text": "主要差別在費用結構與資料所有權。月租平台通常每月 NT$1,299 起，兩年累計超過 NT$31,000，且資料鎖在平台伺服器。One Page Go 一次付清 NT$2,500-4,000，之後零費用，商家擁有專屬資料庫，資料可完整匯出，不受平台綁定。"
                     }
                 },
                 {
@@ -194,892 +194,432 @@
         </script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
             rel="stylesheet"
         />
         <style>
-            /* ── 色票 ── */
-            :root {
-                --cream: #fdf6ee;
-                --warm: #f5e6d3;
-                --blush: #f2c4c4;
-                --rose: #e8a0a0;
-                --mauve: #c97d7d;
-                --brown: #7a4f3a;
-                --text: #4a3428;
-                --muted: #8a6a5d;
-                --white: #fffcf8;
-                --shadow: rgba(122, 79, 58, 0.12);
-                --green: #7dba6a;
-                --btn: #a85659;
-                --on-btn: #ffffff;
-            }
+/* ── 設計基準：深藍×金（docs/standards/design.md）── */
+:root{
+  --navy-950:#070C1E;--navy-900:#0A1124;--navy-800:#101A38;--navy-700:#182652;
+  --gold-500:#C9A063;--gold-400:#D8B478;--gold-300:#E7CD9C;
+  --ink:#F4F1EA;--muted:#A7ADC2;
+  --hairline:rgba(201,160,99,.28);--hairline-2:rgba(255,255,255,.08);
+  --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
+  --r-lg:18px;--r-md:14px;--header-h:72px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Sans TC","Manrope",system-ui,sans-serif;background:var(--navy-950);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.en{font-family:"Manrope","Noto Sans TC",sans-serif}
+.container{width:min(1120px,92%);margin:0 auto}
+section{scroll-margin-top:calc(var(--header-h) + 8px)}
+.eyebrow{display:block;font-family:"Manrope";font-size:.78rem;font-weight:700;letter-spacing:.34em;color:var(--gold-400);text-transform:uppercase;margin-bottom:14px}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.orbit,.orbit-2,.orbit-dot{animation:none!important}}
 
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-            }
+/* ── Header ── */
+header{position:fixed;inset:0 0 auto;z-index:100;height:var(--header-h);display:flex;align-items:center;
+  background:rgba(7,12,30,.68);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline-2);transition:background .3s}
+header.scrolled{background:rgba(7,12,30,.94);border-bottom-color:var(--hairline)}
+.nav{display:flex;align-items:center;justify-content:space-between;width:min(1200px,94%);margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px}
+.logo-chip{flex:none;width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 1px var(--hairline),0 2px 12px rgba(0,0,0,.4)}
+.logo-chip img{width:26px;height:26px}
+.brand b{font-family:"Manrope";font-weight:800;font-size:1.15rem;color:#fff;white-space:nowrap}
+.nav-links{display:flex;gap:26px}
+.nav-links a{color:var(--muted);font-size:.94rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--gold-300)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.link-track{font-size:.92rem;color:var(--ink);border:1px solid var(--hairline);padding:7px 16px;border-radius:999px;transition:.2s;white-space:nowrap}
+.link-track:hover{border-color:var(--gold-400);color:var(--gold-300)}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.98rem;padding:12px 28px;border-radius:999px;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:var(--grad-gold);color:#131A36;box-shadow:0 8px 24px rgba(201,160,99,.32)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(201,160,99,.45)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(255,255,255,.35)}
+.btn-ghost:hover{border-color:var(--gold-400);color:var(--gold-300)}
+.btn-sm{padding:9px 20px;font-size:.9rem}
+.hamburger{display:none;background:none;border:0;cursor:pointer;padding:8px}
+.hamburger span{display:block;width:24px;height:2.5px;background:#fff;margin:5px 0;border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:var(--header-h);left:0;right:0;z-index:99;background:rgba(7,12,30,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline-2);padding:12px 6% 22px;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--ink);padding:12px 4px;font-size:1.02rem;border-bottom:1px solid var(--hairline-2)}
 
-            body {
-                background: var(--cream);
-                font-family: "Noto Serif TC", serif;
-                color: var(--text);
-                line-height: 1.7;
-                -webkit-font-smoothing: antialiased;
-            }
+/* ── Hero ── */
+.hero{position:relative;overflow:hidden;padding:calc(var(--header-h) + 84px) 0 110px;
+  background:radial-gradient(900px 480px at 78% 8%,rgba(201,160,99,.10),transparent 60%),
+             radial-gradient(700px 420px at -6% 100%,rgba(24,38,82,.7),transparent 65%),var(--navy-950)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(760px 520px at 68% 42%,#000 15%,transparent 78%);
+  -webkit-mask-image:radial-gradient(760px 520px at 68% 42%,#000 15%,transparent 78%)}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:900;letter-spacing:.03em;line-height:1.24;color:#fff}
+.hero h1 i{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{margin:22px 0 36px;font-size:clamp(1rem,1.6vw,1.12rem);color:var(--muted);max-width:30em}
+.hero p.lead b{color:var(--gold-300);font-weight:700}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:38px;margin-top:46px;padding-top:26px;border-top:1px solid var(--hairline-2)}
+.hero-stats b{display:block;font-family:"Manrope";font-size:1.5rem;font-weight:800;color:var(--gold-300)}
+.hero-stats span{font-size:.82rem;color:var(--muted)}
+.hero-seo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-            .container {
-                max-width: 480px;
-                margin: 0 auto;
-                padding: 0 20px;
-            }
+/* ── 軌道視覺：呼應 logo 的雙圓 ── */
+.orbit-wrap{position:relative;width:min(430px,86vw);aspect-ratio:1;margin-left:auto}
+.orbit,.orbit-2{position:absolute;inset:0;border-radius:50%}
+.orbit{border:1.5px dashed rgba(201,160,99,.45);animation:spin 42s linear infinite}
+.orbit-2{inset:11%;border:1px solid var(--hairline-2);animation:spin 30s linear infinite reverse}
+.orbit-ring-3{position:absolute;inset:24%;border-radius:50%;border:1px solid rgba(201,160,99,.2)}
+.orbit-core{position:absolute;inset:33%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#18244C,#0B1228 70%);
+  border:1px solid var(--hairline);display:grid;place-items:center;box-shadow:0 24px 70px rgba(0,0,0,.55),inset 0 0 40px rgba(201,160,99,.08)}
+.orbit-core .core-chip{width:56%;aspect-ratio:1;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 10px 34px rgba(0,0,0,.5)}
+.orbit-core img{width:62%}
+.orbit-dot{position:absolute;top:50%;left:50%;width:10px;height:10px;margin:-5px;border-radius:50%}
+.orbit-dot i{position:absolute;inset:0;border-radius:50%}
+.d1{animation:spin 42s linear infinite}.d1 i{background:var(--gold-400);transform:translateX(calc(min(430px,86vw)/2));box-shadow:0 0 14px rgba(201,160,99,.8)}
+.d2{animation:spin 30s linear infinite reverse}.d2 i{background:#5B79D9;transform:translateX(calc(min(430px,86vw)/2*.78));box-shadow:0 0 12px rgba(91,121,217,.8)}
+.orbit-tag{position:absolute;padding:8px 14px;border-radius:999px;font-size:.78rem;font-family:"Manrope";font-weight:700;letter-spacing:.06em;
+  background:rgba(16,26,56,.85);border:1px solid var(--hairline);backdrop-filter:blur(6px)}
+.tag-1{top:9%;right:2%;color:var(--gold-300)}
+.tag-2{bottom:12%;left:0;color:#9DB4F5}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-            /* ── 動畫 ── */
-            @keyframes fadeUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            @keyframes float {
-                0%,
-                100% {
-                    transform: translateY(0);
-                }
-                50% {
-                    transform: translateY(-8px);
-                }
-            }
-            .fade-up {
-                opacity: 0;
-                transform: translateY(30px);
-                transition:
-                    opacity 0.7s ease,
-                    transform 0.7s ease;
-            }
-            .fade-up.visible {
-                opacity: 1;
-                transform: translateY(0);
-            }
+/* ── 區塊通用 ── */
+.sec{padding:96px 0}
+.sec-deep{background:var(--navy-900)}
+.sec-head{text-align:center;max-width:42em;margin:0 auto 56px}
+.sec-head .eyebrow{margin-bottom:10px}
+.sec-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;letter-spacing:.06em;color:#fff}
+.sec-sub{color:var(--muted);margin-top:12px}
+.rule{width:56px;height:2px;background:var(--grad-gold);margin:18px auto 0;border-radius:2px}
 
-            /* ── 導覽列 ── */
-            nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                background: rgba(253, 246, 238, 0.92);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                z-index: 100;
-                border-bottom: 1px solid var(--warm);
-            }
-            nav .container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                height: 56px;
-            }
-            .nav-logo {
-                font-family: "Playfair Display", serif;
-                font-size: 1.15rem;
-                font-weight: 500;
-                color: var(--brown);
-                text-decoration: none;
-            }
-            .nav-cta {
-                background: var(--brown);
-                color: var(--white);
-                border: none;
-                padding: 8px 18px;
-                border-radius: 20px;
-                font-family: "Noto Serif TC", serif;
-                font-size: 0.82rem;
-                cursor: pointer;
-                text-decoration: none;
-                transition: background 0.3s;
-            }
-            .nav-cta:hover {
-                background: var(--btn);
-            }
+/* ── 服務特色 ── */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.feature{background:linear-gradient(170deg,rgba(24,38,82,.55),rgba(10,17,36,.65));border:1px solid var(--hairline-2);border-radius:var(--r-lg);padding:30px 26px;transition:border-color .25s,transform .25s}
+.feature:hover{border-color:var(--hairline);transform:translateY(-5px)}
+.feature .ico{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;margin-bottom:18px;background:rgba(201,160,99,.1);border:1px solid var(--hairline);font-size:1.5rem}
+.feature h3{font-size:1.06rem;font-weight:700;color:#fff;margin-bottom:8px}
+.feature p{font-size:.92rem;color:var(--muted)}
 
-            /* ── Hero ── */
-            .hero {
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-                padding: 80px 20px 60px;
-            }
-            .hero-logo {
-                margin-bottom: 10px;
-                animation: float 3s ease-in-out infinite;
-            }
-            .hero-logo img {
-                width: 160px;
-                height: 160px;
-                border-radius: 18px;
-            }
-            .hero h1 {
-                font-family: "Playfair Display", serif;
-                font-size: 2rem;
-                font-weight: 500;
-                color: var(--brown);
-                margin-bottom: 8px;
-                letter-spacing: 1px;
-            }
-            .hero-tagline {
-                font-size: 1.3rem;
-                font-weight: 600;
-                color: var(--mauve);
-                margin-bottom: 12px;
-            }
-            .hero-subtitle {
-                font-size: 0.95rem;
-                color: var(--muted);
-                margin-bottom: 36px;
-                line-height: 1.8;
-            }
-            .hero-seo {
-                position: absolute;
-                width: 1px;
-                height: 1px;
-                padding: 0;
-                margin: -1px;
-                overflow: hidden;
-                clip: rect(0, 0, 0, 0);
-                white-space: nowrap;
-                border: 0;
-            }
-            .hero-cta {
-                display: inline-block;
-                background: var(--brown);
-                color: var(--white);
-                padding: 14px 36px;
-                border-radius: 30px;
-                font-family: "Noto Serif TC", serif;
-                font-size: 1rem;
-                text-decoration: none;
-                transition:
-                    background 0.3s,
-                    transform 0.3s;
-                box-shadow: 0 4px 16px var(--shadow);
-            }
-            .hero-cta:hover {
-                background: var(--btn);
-                transform: translateY(-2px);
-            }
-            .hero-scroll-hint {
-                margin-top: 40px;
-                font-size: 0.8rem;
-                color: var(--muted);
-                animation: float 2s ease-in-out infinite;
-            }
+/* ── 功能模板 ── */
+.templates{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.tpl{background:var(--navy-900);border:1px solid var(--hairline-2);border-radius:var(--r-lg);padding:28px 26px;display:flex;gap:18px;align-items:flex-start;transition:border-color .25s,transform .25s}
+.tpl:hover{border-color:var(--hairline);transform:translateY(-4px)}
+.tpl-emoji{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:rgba(201,160,99,.1);border:1px solid var(--hairline);font-size:1.5rem}
+.tpl-info{flex:1;min-width:0}
+.tpl-info h3{font-size:1.06rem;font-weight:700;color:#fff;margin-bottom:6px}
+.tpl-info>p{font-size:.9rem;color:var(--muted);margin-bottom:12px}
+.variants{display:flex;flex-direction:column;gap:7px}
+.variant{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;color:var(--ink);transition:color .2s}
+.variant:hover{color:var(--gold-300)}
+.variant .v-style{font-size:.76rem;color:var(--muted)}
+.variant .arrow{color:var(--gold-400)}
+.tpl-admin{display:inline-block;margin-top:12px;font-size:.85rem;color:var(--gold-300);border-bottom:1px dashed var(--gold-500);padding-bottom:1px;transition:color .2s}
+.tpl-admin:hover{color:var(--gold-400)}
+.tpl-custom{grid-column:1 / -1;border:1.5px dashed var(--gold-500);background:linear-gradient(170deg,rgba(24,38,82,.4),rgba(10,17,36,.55))}
+.tpl-links{display:flex;gap:20px;flex-wrap:wrap;margin-top:6px}
+.tpl-link{font-size:.9rem;font-weight:700;color:var(--gold-300);border-bottom:1px dashed var(--gold-500);padding-bottom:1px;transition:color .2s}
+.tpl-link:hover{color:var(--gold-400)}
+.tpl-link.dim{color:var(--muted);border-bottom-color:var(--muted)}
+.tpl-link.dim:hover{color:var(--gold-300);border-bottom-color:var(--gold-500)}
 
-            /* ── 通用 Section ── */
-            section {
-                padding: 60px 0;
-            }
-            .section-title {
-                font-family: "Playfair Display", serif;
-                font-size: 1.5rem;
-                font-weight: 500;
-                color: var(--brown);
-                text-align: center;
-                margin-bottom: 8px;
-            }
-            .section-subtitle {
-                text-align: center;
-                color: var(--muted);
-                font-size: 0.88rem;
-                margin-bottom: 36px;
-            }
+/* ── Demo 即時數據 ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat{background:linear-gradient(170deg,rgba(24,38,82,.55),rgba(10,17,36,.65));border:1px solid var(--hairline-2);border-radius:var(--r-md);padding:26px 16px;text-align:center;transition:border-color .25s,transform .25s}
+.stat:hover{border-color:var(--hairline);transform:translateY(-4px)}
+.stat .s-emoji{font-size:1.6rem;margin-bottom:8px}
+.stat .s-count{font-family:"Manrope";font-size:2rem;font-weight:800;color:var(--gold-300);line-height:1.3}
+.stat .s-label{font-size:.82rem;color:var(--muted)}
 
-            /* ── 特色卡片 ── */
-            .features-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 14px;
-            }
-            .feature-card {
-                background: var(--white);
-                border-radius: 16px;
-                padding: 24px 16px;
-                text-align: center;
-                box-shadow: 0 2px 12px var(--shadow);
-                transition: transform 0.3s;
-            }
-            .feature-card:hover {
-                transform: translateY(-4px);
-            }
-            .feature-icon {
-                font-size: 2rem;
-                margin-bottom: 10px;
-            }
-            .feature-card h3 {
-                font-size: 0.95rem;
-                font-weight: 600;
-                color: var(--brown);
-                margin-bottom: 6px;
-            }
-            .feature-card p {
-                font-size: 0.78rem;
-                color: var(--muted);
-                line-height: 1.6;
-            }
+/* ── 技術架構 band ── */
+.band{position:relative;overflow:hidden;text-align:center;border-radius:24px;padding:60px 8% 54px;
+  background:linear-gradient(165deg,var(--navy-800),var(--navy-900));border:1px solid var(--hairline)}
+.band::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;border:1px solid rgba(201,160,99,.18);right:-140px;top:-180px}
+.band::after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;border:1px dashed rgba(255,255,255,.1);left:-90px;bottom:-120px}
+.band h2{font-size:clamp(1.4rem,2.8vw,1.9rem);font-weight:900;color:#fff;letter-spacing:.04em}
+.band .band-sub{color:var(--muted);margin:12px auto 0;max-width:34em}
+.tech-stack{position:relative;display:flex;justify-content:center;align-items:stretch;gap:14px;flex-wrap:wrap;margin:36px 0 8px}
+.tech-badge{background:rgba(255,255,255,.04);border:1px solid var(--hairline-2);border-radius:var(--r-md);padding:20px 18px;min-width:150px;transition:.25s}
+.tech-badge:hover{border-color:var(--hairline);transform:translateY(-3px)}
+.tech-badge .b-icon{width:42px;height:42px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;background:rgba(201,160,99,.1);border:1px solid var(--hairline);font-size:1.15rem}
+.tech-badge .b-name{font-size:.92rem;font-weight:700;color:#fff}
+.tech-badge .b-desc{font-size:.78rem;color:var(--muted)}
+.tech-plus{align-self:center;font-family:"Manrope";font-size:1.2rem;color:var(--gold-400);font-weight:800}
+.tech-note{position:relative;font-size:.92rem;color:var(--gold-300);font-weight:700;margin-top:18px}
 
-            /* ── 模板卡片 ── */
-            .template-list {
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-            }
-            .template-card {
-                background: var(--white);
-                border-radius: 16px;
-                padding: 24px 20px;
-                box-shadow: 0 2px 12px var(--shadow);
-                display: flex;
-                align-items: flex-start;
-                gap: 16px;
-                transition: transform 0.3s;
-            }
-            .template-card:hover {
-                transform: translateY(-3px);
-            }
-            .template-emoji {
-                font-size: 2.2rem;
-                flex-shrink: 0;
-                margin-top: 2px;
-            }
-            .template-info {
-                flex: 1;
-            }
-            .template-info h3 {
-                font-size: 1rem;
-                font-weight: 600;
-                color: var(--brown);
-                margin-bottom: 6px;
-            }
-            .template-info p {
-                font-size: 0.82rem;
-                color: var(--muted);
-                line-height: 1.6;
-                margin-bottom: 10px;
-            }
-            .template-link {
-                display: inline-block;
-                font-size: 0.82rem;
-                color: var(--mauve);
-                text-decoration: none;
-                font-weight: 600;
-                border-bottom: 1px dashed var(--mauve);
-                transition: color 0.3s;
-            }
-            .template-link:hover {
-                color: var(--brown);
-                border-bottom-color: var(--brown);
-            }
-            .template-link-admin {
-                color: var(--brown);
-                border-bottom-color: var(--brown);
-                margin-left: 1rem;
-                opacity: 0.7;
-            }
-            .template-link-admin:hover {
-                opacity: 1;
-            }
-            .demo-variants {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                margin-top: 8px;
-            }
-            .demo-variant-link {
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                font-size: 0.8rem;
-                color: var(--muted);
-                text-decoration: none;
-                transition: color 0.3s;
-            }
-            .demo-variant-link:hover {
-                color: var(--mauve);
-            }
-            .demo-variant-link .variant-emoji {
-                font-size: 0.9rem;
-            }
-            .demo-variant-link .variant-style {
-                font-size: 0.72rem;
-                color: var(--muted);
-                opacity: 0.7;
-            }
+/* ── 費用對比 ── */
+.compare-card{background:var(--navy-900);border:1px solid var(--hairline-2);border-radius:var(--r-lg);padding:36px 32px;max-width:640px;margin:0 auto}
+.compare-table{width:100%;border-collapse:collapse;margin:4px 0 20px}
+.compare-table th{font-size:.85rem;font-weight:700;padding:10px 8px;text-align:center;color:var(--muted)}
+.compare-table th:first-child{text-align:left}
+.compare-table th:nth-child(3){color:var(--gold-300)}
+.compare-table td{font-size:.95rem;padding:13px 8px;text-align:center;border-top:1px solid var(--hairline-2)}
+.compare-table td:first-child{text-align:left;color:var(--ink);font-weight:700;font-size:.86rem}
+.compare-table td:nth-child(2){color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(201,160,99,.6)}
+.compare-table td:nth-child(3){color:var(--gold-300);font-weight:700;font-family:"Manrope"}
+.compare-highlight{background:linear-gradient(135deg,rgba(201,160,99,.16),rgba(24,38,82,.35));border:1px solid var(--hairline);border-radius:var(--r-md);padding:18px;text-align:center}
+.compare-highlight .save-amount{font-family:"Manrope";font-size:1.9rem;font-weight:800;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.compare-highlight .save-label{font-size:.84rem;color:var(--ink);font-weight:700;margin-top:2px}
+.compare-note{font-size:.78rem;color:var(--muted);text-align:center;margin-top:16px;line-height:1.7}
 
-            /* ── Demo 統計 ── */
-            .stats-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 14px;
-            }
-            .stat-card {
-                background: var(--white);
-                border-radius: 16px;
-                padding: 20px 16px;
-                text-align: center;
-                box-shadow: 0 2px 12px var(--shadow);
-                transition: transform 0.3s;
-            }
-            .stat-card:hover {
-                transform: translateY(-4px);
-            }
-            .stat-emoji {
-                font-size: 1.8rem;
-                margin-bottom: 6px;
-            }
-            .stat-count {
-                font-family: "Playfair Display", serif;
-                font-size: 2rem;
-                font-weight: 500;
-                color: var(--mauve);
-                margin-bottom: 4px;
-            }
-            .stat-label {
-                font-size: 0.78rem;
-                color: var(--muted);
-            }
+/* ── 方案價格 ── */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.plan{position:relative;display:flex;flex-direction:column;background:linear-gradient(170deg,rgba(24,38,82,.45),rgba(10,17,36,.6));
+  border:1px solid var(--hairline-2);border-radius:var(--r-lg);padding:34px 28px 28px;transition:border-color .25s,transform .25s}
+.plan:hover{border-color:var(--hairline);transform:translateY(-4px)}
+.plan.hot{border:1.5px solid var(--gold-500);box-shadow:0 20px 60px rgba(201,160,99,.14);background:linear-gradient(170deg,rgba(41,52,96,.55),rgba(13,20,44,.7))}
+.plan.custom{border:1.5px dashed var(--gold-500)}
+.badge{position:absolute;top:-13px;right:22px;background:var(--grad-gold);color:#131A36;font-size:.76rem;font-weight:800;padding:5px 14px;border-radius:999px}
+.plan h3{font-size:1rem;font-weight:700;color:var(--muted);letter-spacing:.08em}
+.price{margin:12px 0 20px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.price small{font-size:.85rem;color:var(--muted);font-weight:700}
+.price b{font-family:"Manrope";font-size:2rem;font-weight:800;color:var(--gold-300)}
+.price .per{font-size:.82rem;color:var(--muted)}
+.plan ul{display:grid;gap:11px;flex:1}
+.plan li{display:flex;gap:10px;font-size:.9rem;color:var(--ink)}
+.plan li::before{content:"✓";flex:none;color:var(--gold-400);font-weight:700}
+.plan .plan-contact{margin-top:16px;font-size:.85rem;color:var(--muted)}
+.plan .plan-contact a{color:var(--gold-300);font-weight:700}
 
-            /* ── 技術架構 ── */
-            .tech-section {
-                background: var(--warm);
-                border-radius: 20px;
-                margin: 0 20px;
-                padding: 40px 24px;
-                text-align: center;
-            }
-            .tech-stack {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 10px;
-                flex-wrap: wrap;
-                margin: 24px 0;
-            }
-            .tech-badge {
-                background: var(--white);
-                border-radius: 12px;
-                padding: 14px 16px;
-                text-align: center;
-                box-shadow: 0 2px 8px var(--shadow);
-                min-width: 110px;
-            }
-            .tech-badge .badge-icon {
-                font-size: 1.6rem;
-                margin-bottom: 4px;
-            }
-            .tech-badge .badge-name {
-                font-size: 0.78rem;
-                font-weight: 600;
-                color: var(--brown);
-            }
-            .tech-badge .badge-desc {
-                font-size: 0.7rem;
-                color: var(--muted);
-            }
-            .tech-plus {
-                font-size: 1.2rem;
-                color: var(--mauve);
-                font-weight: 600;
-            }
-            .tech-note {
-                font-size: 0.85rem;
-                color: var(--brown);
-                font-weight: 600;
-                margin-top: 8px;
-            }
+/* ── FAQ ── */
+.faqs{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;align-items:start}
+.faq{background:var(--navy-950);border:1px solid var(--hairline-2);border-radius:12px;overflow:hidden}
+.sec-deep .faq{background:var(--navy-950)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;background:none;border:0;cursor:pointer;text-align:left;
+  padding:16px 18px;font:inherit;font-size:.95rem;font-weight:500;color:var(--ink)}
+.faq-q .chev{color:var(--gold-400);transition:transform .3s}
+.faq.open .chev{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{padding:0 18px 16px;font-size:.9rem;color:var(--muted)}
 
-            /* ── 費用對比 ── */
-            .compare-section {
-                background: var(--white);
-                border-radius: 20px;
-                margin: 0 20px;
-                padding: 40px 24px;
-                box-shadow: 0 2px 12px var(--shadow);
-            }
-            .compare-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 20px 0 16px;
-            }
-            .compare-table th {
-                font-size: 0.82rem;
-                font-weight: 600;
-                padding: 10px 8px;
-                text-align: center;
-            }
-            .compare-table th:first-child {
-                text-align: left;
-                color: var(--muted);
-            }
-            .compare-table th:nth-child(2) {
-                color: var(--muted);
-            }
-            .compare-table th:nth-child(3) {
-                color: var(--brown);
-            }
-            .compare-table td {
-                font-size: 0.88rem;
-                padding: 12px 8px;
-                text-align: center;
-                border-top: 1px solid var(--warm);
-            }
-            .compare-table td:first-child {
-                text-align: left;
-                color: var(--text);
-                font-weight: 600;
-                font-size: 0.82rem;
-            }
-            .compare-table td:nth-child(2) {
-                color: var(--muted);
-                text-decoration: line-through;
-                text-decoration-color: var(--rose);
-            }
-            .compare-table td:nth-child(3) {
-                color: var(--brown);
-                font-weight: 600;
-            }
-            .compare-highlight {
-                background: linear-gradient(135deg, #f5e6d3 0%, #fdf6ee 100%);
-                border-radius: 12px;
-                padding: 16px;
-                text-align: center;
-                margin-top: 8px;
-            }
-            .compare-highlight .save-amount {
-                font-family: "Playfair Display", serif;
-                font-size: 1.8rem;
-                font-weight: 500;
-                color: var(--mauve);
-            }
-            .compare-highlight .save-label {
-                font-size: 0.82rem;
-                color: var(--brown);
-                font-weight: 600;
-                margin-top: 4px;
-            }
-            .compare-note {
-                font-size: 0.75rem;
-                color: var(--muted);
-                text-align: center;
-                margin-top: 14px;
-                line-height: 1.6;
-            }
+/* ── CTA band ── */
+.cta-band{position:relative;overflow:hidden;text-align:center;border-radius:24px;padding:66px 8% 58px;
+  background:linear-gradient(165deg,var(--navy-800),var(--navy-900));border:1px solid var(--hairline)}
+.cta-band::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;border:1px solid rgba(201,160,99,.18);right:-140px;top:-180px}
+.cta-band::after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;border:1px dashed rgba(255,255,255,.1);left:-90px;bottom:-120px}
+.cta-band h2{font-size:clamp(1.4rem,2.8vw,1.9rem);font-weight:900;color:#fff;letter-spacing:.04em}
+.cta-band>p{color:var(--muted);margin:14px auto 30px;max-width:34em;position:relative}
+.cta-band .btn{position:relative}
+.customer{position:relative;margin-top:44px;padding-top:30px;border-top:1px solid var(--hairline-2)}
+.customer>p{font-size:.9rem;color:var(--muted);margin-bottom:16px}
+.customer-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.customer-link{display:inline-block;padding:10px 26px;border-radius:999px;font-size:.9rem;font-weight:700;transition:.25s;border:1.5px solid var(--gold-500);color:var(--gold-300)}
+.customer-link:hover{background:rgba(201,160,99,.12);transform:translateY(-2px)}
+.customer-link.alt{border-color:rgba(255,255,255,.35);color:var(--ink)}
+.customer-link.alt:hover{border-color:var(--gold-400);color:var(--gold-300);background:none}
 
-            /* ── 定價 ── */
-            .pricing-list {
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-            }
-            .pricing-card {
-                background: var(--white);
-                border-radius: 16px;
-                padding: 28px 24px;
-                text-align: center;
-                box-shadow: 0 2px 12px var(--shadow);
-                position: relative;
-                transition: transform 0.3s;
-            }
-            .pricing-card:hover {
-                transform: translateY(-3px);
-            }
-            .pricing-card.featured {
-                border: 2px solid var(--mauve);
-            }
-            .pricing-badge {
-                position: absolute;
-                top: -12px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: var(--btn);
-                color: var(--white);
-                font-size: 0.72rem;
-                padding: 4px 16px;
-                border-radius: 12px;
-                font-weight: 600;
-            }
-            .pricing-card h3 {
-                font-size: 1.05rem;
-                font-weight: 600;
-                color: var(--brown);
-                margin-bottom: 6px;
-            }
-            .pricing-price {
-                font-family: "Playfair Display", serif;
-                font-size: 2rem;
-                font-weight: 500;
-                color: var(--mauve);
-                margin-bottom: 4px;
-            }
-            .pricing-price span {
-                font-size: 0.85rem;
-                color: var(--muted);
-                font-family: "Noto Serif TC", serif;
-            }
-            .pricing-features {
-                list-style: none;
-                margin-top: 16px;
-                text-align: left;
-            }
-            .pricing-features li {
-                font-size: 0.82rem;
-                color: var(--text);
-                padding: 6px 0;
-                border-bottom: 1px solid var(--warm);
-            }
-            .pricing-features li::before {
-                content: "✓ ";
-                color: var(--green);
-                font-weight: 600;
-            }
+/* ── Footer ── */
+footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid var(--hairline-2)}
+.foot{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.foot-links{display:flex;gap:8px 18px;font-size:.85rem;flex-wrap:wrap;justify-content:center}
+.foot-links a{transition:color .2s}
+.foot-links a:hover{color:var(--gold-300)}
+.copy{font-size:.8rem}
+#toTop{position:fixed;right:22px;bottom:24px;z-index:90;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold-500);cursor:pointer;
+  background:rgba(10,17,36,.9);color:var(--gold-300);font-size:1.05rem;opacity:0;pointer-events:none;transition:opacity .3s}
+#toTop.show{opacity:1;pointer-events:auto}
 
-            /* ── CTA Section ── */
-            .cta-section {
-                text-align: center;
-                padding: 50px 0 40px;
-            }
-            .cta-section h2 {
-                font-family: "Playfair Display", serif;
-                font-size: 1.5rem;
-                font-weight: 500;
-                color: var(--brown);
-                margin-bottom: 12px;
-            }
-            .cta-section p {
-                font-size: 0.9rem;
-                color: var(--muted);
-                margin-bottom: 28px;
-                line-height: 1.8;
-            }
-            .cta-button {
-                display: inline-block;
-                background: var(--brown);
-                color: var(--white);
-                padding: 16px 48px;
-                border-radius: 30px;
-                font-family: "Noto Serif TC", serif;
-                font-size: 1.05rem;
-                font-weight: 600;
-                text-decoration: none;
-                transition:
-                    background 0.3s,
-                    transform 0.3s;
-                box-shadow: 0 4px 20px var(--shadow);
-            }
-            .cta-button:hover {
-                background: var(--btn);
-                transform: translateY(-2px);
-            }
-
-            /* ── 已是客戶區塊 ── */
-            .customer-section {
-                text-align: center;
-                padding: 36px 0 20px;
-                border-top: 1px solid var(--warm);
-                margin-top: 10px;
-            }
-            .customer-section p {
-                font-size: 0.88rem;
-                color: var(--muted);
-                margin-bottom: 16px;
-            }
-            .customer-links {
-                display: flex;
-                justify-content: center;
-                gap: 12px;
-                flex-wrap: wrap;
-            }
-            .customer-link {
-                display: inline-block;
-                padding: 10px 24px;
-                border-radius: 24px;
-                font-family: "Noto Serif TC", serif;
-                font-size: 0.88rem;
-                font-weight: 600;
-                text-decoration: none;
-                transition: all 0.3s;
-            }
-            .customer-link-primary {
-                background: var(--white);
-                color: var(--brown);
-                border: 1.5px solid var(--brown);
-            }
-            .customer-link-primary:hover {
-                background: var(--brown);
-                color: var(--white);
-                transform: translateY(-1px);
-            }
-            .customer-link-secondary {
-                background: var(--white);
-                color: var(--btn);
-                border: 1.5px solid var(--btn);
-            }
-            .customer-link-secondary:hover {
-                background: var(--btn);
-                color: var(--white);
-                transform: translateY(-1px);
-            }
-
-            /* ── Footer ── */
-            footer {
-                text-align: center;
-                padding: 30px 0;
-                border-top: 1px solid var(--warm);
-            }
-            footer p {
-                font-size: 0.75rem;
-                color: var(--muted);
-            }
-
-            /* ── Divider ── */
-            .divider {
-                width: 40px;
-                height: 3px;
-                background: var(--blush);
-                border-radius: 2px;
-                margin: 0 auto 30px;
-            }
+/* ── RWD ── */
+@media (max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.plans{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:920px){
+  .nav-links,.nav-right .btn,.nav-right .link-track{display:none}
+  .hamburger{display:block}
+  .hero{padding:calc(var(--header-h) + 48px) 0 80px}
+  .hero-grid{grid-template-columns:1fr;gap:52px}
+  .orbit-wrap{margin:0 auto}
+  .features{grid-template-columns:1fr}
+  .templates{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+  .faqs{grid-template-columns:1fr}
+  .hero-stats{gap:24px}
+  .compare-card{padding:28px 18px}
+}
+@media (max-width:520px){.sec{padding:66px 0}.stats{grid-template-columns:1fr 1fr;gap:12px}.hero-btns .btn{flex:1}.tpl{flex-direction:column}.tech-plus{display:none}}
         </style>
     </head>
     <body>
         <!-- ── 導覽列 ── -->
-        <nav>
-            <div class="container">
-                <a href="#" class="nav-logo">One Page Go</a>
-                <a href="onboarding/index.html" class="nav-cta">立即開始 / 訂單查詢</a>
+        <header id="hd">
+            <div class="nav">
+                <a class="brand" href="#top" aria-label="One Page Go 首頁">
+                    <span class="logo-chip"><img src="onepagego_mark_only_transparent.png" alt="One Page Go 標誌"></span>
+                    <b class="en">One Page Go</b>
+                </a>
+                <nav class="nav-links" aria-label="主選單">
+                    <a href="#features">服務特色</a><a href="#templates">功能模板</a><a href="#tech">免費架構</a>
+                    <a href="#pricing">方案價格</a><a href="#faq">常見問題</a>
+                </nav>
+                <div class="nav-right">
+                    <a class="link-track" href="onboarding/index.html">訂單查詢</a>
+                    <a class="btn btn-gold btn-sm" href="onboarding/index.html">立即開始</a>
+                    <button class="hamburger" id="menuBtn" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
+                </div>
             </div>
+        </header>
+        <nav class="mobile-menu" id="mobileMenu" aria-label="行動版選單">
+            <a href="#features">服務特色</a><a href="#templates">功能模板</a><a href="#tech">免費架構</a>
+            <a href="#pricing">方案價格</a><a href="#faq">常見問題</a>
+            <a href="onboarding/index.html">立即開始 / 訂單查詢</a>
+            <a href="revision/index.html">專案調整需求</a>
         </nav>
+
+        <main id="top">
 
         <!-- ── Hero ── -->
         <section class="hero" id="hero">
-            <div class="hero-logo"><img src="onepagego_mark_only_transparent.png" alt="One Page Go"></div>
-            <h1>One Page Go｜單頁式網頁應用，一次付清終身免月費</h1>
-            <p class="hero-tagline">一次製作，終身免費使用</p>
-            <p class="hero-subtitle">
-                專為小型商家打造的單頁式網頁應用<br />
-                NT$2,500 起一次付清，終身免月費<br />
-                <span style="color:var(--mauve);font-weight:600;">版型與風格可依需求客製討論</span>
-            </p>
-            <!-- GEO：完整描述供搜尋引擎擷取，視覺上不顯示 -->
-            <p class="hero-seo">
-                One Page Go 是一項台灣的單頁式網頁應用製作服務，為小型商家提供微型電商、預約系統、團購管理與活動售票四種方案。採用 GitHub Pages、Google Apps Script 與 Google Sheets 三層免費架構，NT$2,500 起一次付清後終身零月費運作。與月租開店平台相比，兩年可節省超過 NT$27,000，且所有營運資料存在商家自己的 Google 帳號，不受平台綁定。
-            </p>
-            <a href="#features" class="hero-cta">了解更多</a>
-            <div class="hero-scroll-hint">↓ 往下滑動</div>
+            <div class="container hero-grid">
+                <div class="reveal in">
+                    <span class="eyebrow en">One-Page Web App</span>
+                    <h1>一頁搞定，<br><i>生意啟動</i></h1>
+                    <p class="lead">專為小型商家打造的單頁式網頁應用：微型電商、預約、團購、售票。<b>NT$2,500 起一次付清，終身免月費</b>，版型與風格可依需求客製討論。</p>
+                    <!-- GEO：完整描述供搜尋引擎擷取，視覺上不顯示 -->
+                    <p class="hero-seo">
+                        One Page Go 是一項台灣的單頁式網頁應用製作服務，為小型商家提供微型電商、預約系統、團購管理與活動售票四種方案。採用 GitHub Pages、Cloudflare Workers 與 D1 免費架構，NT$2,500 起一次付清後終身零月費運作。與月租開店平台相比，兩年可節省超過 NT$27,000，且每個商家擁有獨立的專屬資料庫，資料可隨時完整匯出，不受平台綁定。
+                    </p>
+                    <div class="hero-btns">
+                        <a class="btn btn-gold" href="onboarding/index.html">立即開始</a>
+                        <a class="btn btn-ghost" href="#pricing">查看方案</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div><b class="en">3 天</b><span>最快上線</span></div>
+                        <div><b class="en">NT$2,500 起</b><span>一次付清</span></div>
+                        <div><b class="en">$0</b><span>上線後月費</span></div>
+                    </div>
+                </div>
+                <div class="hero-visual reveal in">
+                    <div class="orbit-wrap" aria-hidden="true">
+                        <div class="orbit"></div>
+                        <div class="orbit-2"></div>
+                        <div class="orbit-ring-3"></div>
+                        <div class="orbit-dot d1"><i></i></div>
+                        <div class="orbit-dot d2"><i></i></div>
+                        <div class="orbit-core"><div class="core-chip"><img src="onepagego_mark_only_transparent.png" alt=""></div></div>
+                        <div class="orbit-tag tag-1 en">ONE PAGE</div>
+                        <div class="orbit-tag tag-2 en">GO LIVE</div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- ── 服務特色 ── -->
-        <section id="features">
+        <section id="features" class="sec sec-deep">
             <div class="container">
-                <h2 class="section-title fade-up">為什麼選擇 One Page Go？</h2>
-                <div class="divider fade-up"></div>
-                <p class="section-subtitle fade-up">
-                    簡單、快速、經濟實惠的網路開店方案
-                </p>
-                <div class="features-grid">
-                    <div class="feature-card fade-up">
-                        <div class="feature-icon">📱</div>
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Why Us</span>
+                    <h2 class="sec-title">為什麼選擇 One Page Go？</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">簡單、快速、經濟實惠的網路開店方案</p>
+                </div>
+                <div class="features">
+                    <div class="feature reveal">
+                        <div class="ico">📱</div>
                         <h3>手機優先設計</h3>
                         <p>顧客直接手機瀏覽下單，不需下載 App</p>
                     </div>
-                    <div class="feature-card fade-up">
-                        <div class="feature-icon">⚡</div>
+                    <div class="feature reveal">
+                        <div class="ico">⚡</div>
                         <h3>快速上線</h3>
                         <p>最快 3 天交付，讓你的生意不用等</p>
                     </div>
-                    <div class="feature-card fade-up">
-                        <div class="feature-icon">💰</div>
+                    <div class="feature reveal">
+                        <div class="ico">💰</div>
                         <h3>終身零月費</h3>
                         <p>沒有月費、年費、續約費，上線後永久免費運作</p>
                     </div>
-                    <div class="feature-card fade-up">
-                        <div class="feature-icon">🔒</div>
-                        <h3>資料完全私有</h3>
-                        <p>
-                            所有資料存在你自己的 Google
-                            帳號，我們不持有任何客戶資料
-                        </p>
+                    <div class="feature reveal">
+                        <div class="ico">🔒</div>
+                        <h3>資料獨立私有</h3>
+                        <p>每個商家一個專屬資料庫，資料不與他人共用，隨時可申請完整匯出</p>
                     </div>
-                    <div class="feature-card fade-up">
-                        <div class="feature-icon">💳</div>
+                    <div class="feature reveal">
+                        <div class="ico">💳</div>
                         <h3>付款簡單安全</h3>
-                        <p>
-                            內建匯款確認機制，付款後自動通知管理者，輕鬆追蹤每筆訂單狀態。可加購綠界 ECPay 金流串接，支援信用卡、ATM 等多元付款方式
-                        </p>
+                        <p>內建匯款確認機制，付款後自動通知管理者，輕鬆追蹤每筆訂單狀態。可加購綠界 ECPay 金流串接，支援信用卡、ATM 等多元付款方式</p>
                     </div>
-                    <div class="feature-card fade-up">
-                        <div class="feature-icon">🔔</div>
+                    <div class="feature reveal">
+                        <div class="ico">🔔</div>
                         <h3>即時通知</h3>
-                        <p>
-                            可加購 Telegram 或 LINE 通知，新訂單即時推送到手機
-                        </p>
+                        <p>可加購 Telegram 或 LINE 通知，新訂單即時推送到手機</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ── 功能模板 ── -->
-        <section id="templates">
+        <section id="templates" class="sec">
             <div class="container">
-                <h2 class="section-title fade-up">功能模板</h2>
-                <div class="divider fade-up"></div>
-                <p class="section-subtitle fade-up">
-                    排版和風格可以客製化，選一個最接近你需求的模板開始
-                </p>
-                <div class="template-list">
-                    <div class="template-card fade-up">
-                        <div class="template-emoji">🧁</div>
-                        <div class="template-info">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Templates</span>
+                    <h2 class="sec-title">功能模板</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">排版和風格可以客製化，選一個最接近你需求的模板開始</p>
+                </div>
+                <div class="templates">
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🧁</div>
+                        <div class="tpl-info">
                             <h3>微型電商一頁店</h3>
-                            <p>
-                                商品展示、多品項選購、訂單自動通知，輕鬆開始你的網路商店
-                            </p>
-                            <div class="demo-variants">
-                                <a href="demos/ecommerce/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">🧁</span>
-                                    Bloom Bakery
-                                    <span class="variant-style">暖色手作風</span>
-                                    →
-                                </a>
-                                <a href="demos/ecommerce-coffee/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">☕</span>
-                                    Urban Drip Coffee
-                                    <span class="variant-style">工業極簡風</span>
-                                    →
-                                </a>
-                                <a href="demos/ecommerce-tea/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">🍵</span>
-                                    Jade Leaf Tea
-                                    <span class="variant-style">東方雅致風</span>
-                                    →
-                                </a>
+                            <p>商品展示、多品項選購、訂單自動通知，輕鬆開始你的網路商店</p>
+                            <div class="variants">
+                                <a href="demos/ecommerce/index.html" class="variant"><span>🧁</span>Bloom Bakery<span class="v-style">暖色手作風</span><span class="arrow">→</span></a>
+                                <a href="demos/ecommerce-coffee/index.html" class="variant"><span>☕</span>Urban Drip Coffee<span class="v-style">工業極簡風</span><span class="arrow">→</span></a>
+                                <a href="demos/ecommerce-tea/index.html" class="variant"><span>🍵</span>Jade Leaf Tea<span class="v-style">東方雅致風</span><span class="arrow">→</span></a>
                             </div>
-                            <a
-                                href="demos/ecommerce/admin.html"
-                                class="template-link template-link-admin"
-                                style="margin-left:0; margin-top:8px;"
-                                >管理後台 Demo →</a
-                            >
+                            <a href="demos/ecommerce/admin.html" class="tpl-admin">管理後台 Demo →</a>
                         </div>
                     </div>
-                    <div class="template-card fade-up">
-                        <div class="template-emoji">💆</div>
-                        <div class="template-info">
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">💆</div>
+                        <div class="tpl-info">
                             <h3>預約 + 容量管理</h3>
-                            <p>
-                                服務項目、時段選擇、容量管理，適合美容美髮、諮詢服務
-                            </p>
-                            <div class="demo-variants">
-                                <a href="demos/booking/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">💆</span>
-                                    Serenity Spa
-                                    <span class="variant-style">禪風綠金</span>
-                                    →
-                                </a>
-                                <a href="demos/booking-barber/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">💈</span>
-                                    Sharp Cuts Barber
-                                    <span class="variant-style">紳士俐落風</span>
-                                    →
-                                </a>
-                                <a href="demos/booking-pet/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">🐾</span>
-                                    Paws & Love Pet
-                                    <span class="variant-style">柔萌粉彩風</span>
-                                    →
-                                </a>
+                            <p>服務項目、時段選擇、容量管理，適合美容美髮、諮詢服務</p>
+                            <div class="variants">
+                                <a href="demos/booking/index.html" class="variant"><span>💆</span>Serenity Spa<span class="v-style">禪風綠金</span><span class="arrow">→</span></a>
+                                <a href="demos/booking-barber/index.html" class="variant"><span>💈</span>Sharp Cuts Barber<span class="v-style">紳士俐落風</span><span class="arrow">→</span></a>
+                                <a href="demos/booking-pet/index.html" class="variant"><span>🐾</span>Paws &amp; Love Pet<span class="v-style">柔萌粉彩風</span><span class="arrow">→</span></a>
                             </div>
                         </div>
                     </div>
-                    <div class="template-card fade-up">
-                        <div class="template-emoji">🍊</div>
-                        <div class="template-info">
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🍊</div>
+                        <div class="tpl-info">
                             <h3>團購管理系統</h3>
-                            <p>
-                                開團、跟團、進度追蹤、截止倒數，社群團購最佳幫手
-                            </p>
-                            <div class="demo-variants">
-                                <a href="demos/groupbuy/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">🍊</span>
-                                    Fruitbox Collective
-                                    <span class="variant-style">活力水果風</span>
-                                    →
-                                </a>
-                                <a href="demos/groupbuy-kitchen/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">🍳</span>
-                                    Mama's Kitchen
-                                    <span class="variant-style">家常溫馨風</span>
-                                    →
-                                </a>
-                                <a href="demos/groupbuy-dock/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">🐟</span>
-                                    Fisherman's Dock
-                                    <span class="variant-style">海洋漁港風</span>
-                                    →
-                                </a>
+                            <p>開團、跟團、進度追蹤、截止倒數，社群團購最佳幫手</p>
+                            <div class="variants">
+                                <a href="demos/groupbuy/index.html" class="variant"><span>🍊</span>Fruitbox Collective<span class="v-style">活力水果風</span><span class="arrow">→</span></a>
+                                <a href="demos/groupbuy-kitchen/index.html" class="variant"><span>🍳</span>Mama's Kitchen<span class="v-style">家常溫馨風</span><span class="arrow">→</span></a>
+                                <a href="demos/groupbuy-dock/index.html" class="variant"><span>🐟</span>Fisherman's Dock<span class="v-style">海洋漁港風</span><span class="arrow">→</span></a>
                             </div>
                         </div>
                     </div>
-                    <div class="template-card fade-up">
-                        <div class="template-emoji">🎪</div>
-                        <div class="template-info">
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🎪</div>
+                        <div class="tpl-info">
                             <h3>活動售票頁</h3>
-                            <p>
-                                票種管理、線上購票、電子簽到碼，辦活動就是這麼簡單
-                            </p>
-                            <div class="demo-variants">
-                                <a href="demos/ticketing/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">🎪</span>
-                                    Starlight Festival
-                                    <span class="variant-style">霓虹夜光風</span>
-                                    →
-                                </a>
-                                <a href="demos/ticketing-yoga/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">🧘</span>
-                                    Morning Yoga Retreat
-                                    <span class="variant-style">晨光療癒風</span>
-                                    →
-                                </a>
-                                <a href="demos/ticketing-arcade/index.html" class="demo-variant-link">
-                                    <span class="variant-emoji">🕹️</span>
-                                    Retro Arcade Night
-                                    <span class="variant-style">復古像素風</span>
-                                    →
-                                </a>
+                            <p>票種管理、線上購票、電子簽到碼，辦活動就是這麼簡單</p>
+                            <div class="variants">
+                                <a href="demos/ticketing/index.html" class="variant"><span>🎪</span>Starlight Festival<span class="v-style">霓虹夜光風</span><span class="arrow">→</span></a>
+                                <a href="demos/ticketing-yoga/index.html" class="variant"><span>🧘</span>Morning Yoga Retreat<span class="v-style">晨光療癒風</span><span class="arrow">→</span></a>
+                                <a href="demos/ticketing-arcade/index.html" class="variant"><span>🕹️</span>Retro Arcade Night<span class="v-style">復古像素風</span><span class="arrow">→</span></a>
                             </div>
                         </div>
                     </div>
-                    <div class="template-card fade-up" style="border:2px dashed var(--mauve);background:var(--cream);">
-                        <div class="template-emoji">✨</div>
-                        <div class="template-info">
+                    <div class="tpl tpl-custom reveal">
+                        <div class="tpl-emoji">✨</div>
+                        <div class="tpl-info">
                             <h3>不只這四種？也能客製你的專屬風格</h3>
-                            <p>
-                                喜歡某個 Demo 但想換配色？有自己的品牌 Logo、想要的版型或設計草圖？購買後可在需求表單中提出你想要的風格與細節，我們會依照你的品牌喜好客製設計。若有其他疑問，也歡迎直接來信討論
-                            </p>
-                            <a href="onboarding/index.html" class="template-link" style="color:var(--mauve);">
-                                開始提出需求 →
-                            </a>
-                            <a href="mailto:Onepagegoimm@gmail.com" class="template-link" style="color:var(--muted);margin-left:12px;border-bottom-color:var(--muted);">
-                                來信討論 →
-                            </a>
+                            <p>喜歡某個 Demo 但想換配色？有自己的品牌 Logo、想要的版型或設計草圖？購買後可在需求表單中提出你想要的風格與細節，我們會依照你的品牌喜好客製設計。若有其他疑問，也歡迎直接來信討論</p>
+                            <div class="tpl-links">
+                                <a href="onboarding/index.html" class="tpl-link">開始提出需求 →</a>
+                                <a href="mailto:Onepagegoimm@gmail.com" class="tpl-link dim">來信討論 →</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1087,111 +627,99 @@
         </section>
 
         <!-- ── Demo 即時數據 ── -->
-        <section id="demo-stats">
+        <section id="demo-stats" class="sec sec-deep">
             <div class="container">
-                <h2 class="section-title fade-up">Demo 即時訂單數據</h2>
-                <div class="divider fade-up"></div>
-                <p class="section-subtitle fade-up">
-                    以下數據來自 Demo 展示頁，試試看下單後數字會即時更新
-                </p>
-                <div class="stats-grid fade-up">
-                    <div class="stat-card">
-                        <div class="stat-emoji">🧁</div>
-                        <div class="stat-count" id="stat-ecommerce">-</div>
-                        <div class="stat-label">電商訂單</div>
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Live Demo</span>
+                    <h2 class="sec-title">Demo 即時訂單數據</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">以下數據來自 Demo 展示頁，試試看下單後數字會即時更新</p>
+                </div>
+                <div class="stats reveal">
+                    <div class="stat">
+                        <div class="s-emoji">🧁</div>
+                        <div class="s-count en" id="stat-ecommerce">-</div>
+                        <div class="s-label">電商訂單</div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-emoji">💆</div>
-                        <div class="stat-count" id="stat-booking">-</div>
-                        <div class="stat-label">預約訂單</div>
+                    <div class="stat">
+                        <div class="s-emoji">💆</div>
+                        <div class="s-count en" id="stat-booking">-</div>
+                        <div class="s-label">預約訂單</div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-emoji">🍊</div>
-                        <div class="stat-count" id="stat-groupbuy">-</div>
-                        <div class="stat-label">團購訂單</div>
+                    <div class="stat">
+                        <div class="s-emoji">🍊</div>
+                        <div class="s-count en" id="stat-groupbuy">-</div>
+                        <div class="s-label">團購訂單</div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-emoji">🎪</div>
-                        <div class="stat-count" id="stat-ticketing">-</div>
-                        <div class="stat-label">售票訂單</div>
+                    <div class="stat">
+                        <div class="s-emoji">🎪</div>
+                        <div class="s-count en" id="stat-ticketing">-</div>
+                        <div class="s-label">售票訂單</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ── 技術架構 ── -->
-        <section id="tech">
+        <section id="tech" class="sec">
             <div class="container">
-                <div class="tech-section fade-up">
-                    <h2 class="section-title">終身免費，零隱藏費用</h2>
-                    <div class="divider"></div>
-                    <p class="section-subtitle">
-                        不用租主機、不用買資料庫、不用付雲端月費
-                    </p>
+                <div class="band reveal">
+                    <span class="eyebrow en">Zero Monthly Fee</span>
+                    <h2>終身免費，零隱藏費用</h2>
+                    <p class="band-sub">不用租主機、不用買資料庫、沒有隱藏費用</p>
                     <div class="tech-stack">
                         <div class="tech-badge">
-                            <div class="badge-icon">🌐</div>
-                            <div class="badge-name">免費網頁託管</div>
-                            <div class="badge-desc">不用租主機</div>
+                            <div class="b-icon">🌐</div>
+                            <div class="b-name">免費網頁託管</div>
+                            <div class="b-desc">不用租主機</div>
                         </div>
                         <div class="tech-plus">+</div>
                         <div class="tech-badge">
-                            <div class="badge-icon">📊</div>
-                            <div class="badge-name">免費資料儲存</div>
-                            <div class="badge-desc">不用買資料庫</div>
+                            <div class="b-icon">🗄️</div>
+                            <div class="b-name">免費資料庫</div>
+                            <div class="b-desc">D1 免費方案，不用買資料庫</div>
                         </div>
                         <div class="tech-plus">+</div>
                         <div class="tech-badge">
-                            <div class="badge-icon">🚫</div>
-                            <div class="badge-name">零隱藏費</div>
-                            <div class="badge-desc">沒有額外收費</div>
+                            <div class="b-icon">✉️</div>
+                            <div class="b-name">免費寄信額度</div>
+                            <div class="b-desc">通知信用你自己的帳號寄出</div>
                         </div>
                     </div>
-                    <p class="tech-note">
-                        只付一次製作費，之後永久免費運作 — 真正的零成本
-                    </p>
+                    <p class="tech-note">只付一次製作費，之後永久免費運作 — 真正的零成本</p>
                 </div>
             </div>
         </section>
 
         <!-- ── 資料私有 ── -->
-        <section id="privacy">
+        <section id="privacy" class="sec sec-deep">
             <div class="container">
-                <h2 class="section-title fade-up">你的資料，只有你能看</h2>
-                <div class="divider fade-up"></div>
-                <p class="section-subtitle fade-up">
-                    不同於 SaaS 平台，你的資料不會被鎖在別人的伺服器裡
-                </p>
-                <div class="template-list">
-                    <div class="template-card fade-up">
-                        <div class="template-emoji">🔐</div>
-                        <div class="template-info">
-                            <h3>Google Sheet 資料歸你所有</h3>
-                            <p>
-                                訂單、會員、預約等資料全部存在你自己的 Google
-                                帳號裡。隨時可匯出、備份，我們不保留任何副本。
-                            </p>
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Data Ownership</span>
+                    <h2 class="sec-title">你的資料，只有你能看</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">不同於 SaaS 平台，你的資料不會被鎖在別人的伺服器裡</p>
+                </div>
+                <div class="templates">
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🔐</div>
+                        <div class="tpl-info">
+                            <h3>專屬資料庫，資料不混用</h3>
+                            <p>訂單、會員、預約等資料存放在你專屬的資料庫（Cloudflare D1 免費方案），不與其他商家共用，隨時可申請完整匯出與備份。</p>
                         </div>
                     </div>
-                    <div class="template-card fade-up">
-                        <div class="template-emoji">☁️</div>
-                        <div class="template-info">
-                            <h3>後端運行在你的帳號</h3>
-                            <p>
-                                系統部署在你自己的 Google
-                                帳號下，你擁有完整的管理權限，隨時可以查看或修改。
-                            </p>
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">✉️</div>
+                        <div class="tpl-info">
+                            <h3>通知信用你自己的帳號寄出</h3>
+                            <p>訂單與驗證通知信由你自己申請的 Resend 帳號寄出。寄信額度、寄件紀錄與收發權限，全部由你掌握。</p>
                         </div>
                     </div>
-                    <div class="template-card fade-up">
-                        <div class="template-emoji">🌐</div>
-                        <div class="template-info">
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🌐</div>
+                        <div class="tpl-info">
                             <h3>網頁託管可自行選擇</h3>
-                            <p>
-                                預設由 One Page Go
-                                託管（零操作），也可選擇用你自己的 GitHub
-                                帳號託管，完全自主控制。
-                            </p>
+                            <p>預設由 One Page Go 託管（零操作），也可選擇用你自己的 GitHub 帳號託管，完全自主控制。</p>
                         </div>
                     </div>
                 </div>
@@ -1199,14 +727,15 @@
         </section>
 
         <!-- ── 費用對比 ── -->
-        <section id="compare">
+        <section id="compare" class="sec">
             <div class="container">
-                <h2 class="section-title fade-up">算一筆帳，你就懂了</h2>
-                <div class="divider fade-up"></div>
-                <p class="section-subtitle fade-up">
-                    以微型電商為例，和月租開店平台比一比
-                </p>
-                <div class="compare-section fade-up">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Compare</span>
+                    <h2 class="sec-title">算一筆帳，你就懂了</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">以微型電商為例，和月租開店平台比一比</p>
+                </div>
+                <div class="compare-card reveal">
                     <table class="compare-table">
                         <thead>
                             <tr>
@@ -1251,172 +780,205 @@
         </section>
 
         <!-- ── 方案與定價 ── -->
-        <section id="pricing">
+        <section id="pricing" class="sec sec-deep">
             <div class="container">
-                <h2 class="section-title fade-up">方案與定價</h2>
-                <div class="divider fade-up"></div>
-                <p class="section-subtitle fade-up">
-                    一次付清，終身免費運作 — 沒有月費、年費、續約費
-                </p>
-                <div class="pricing-list">
-                    <div class="pricing-card featured fade-up">
-                        <div class="pricing-badge">最受歡迎</div>
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Pricing</span>
+                    <h2 class="sec-title">方案與定價</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">一次付清，終身免費運作 — 沒有月費、年費、續約費</p>
+                </div>
+                <div class="plans">
+                    <div class="plan hot reveal">
+                        <span class="badge">最受歡迎</span>
                         <h3>微型電商一頁店</h3>
-                        <div class="pricing-price">
-                            NT$4,000 <span>/ 一次付清</span>
-                        </div>
-                        <ul class="pricing-features">
+                        <div class="price"><small>NT$</small><b class="en">4,000</b><span class="per">/ 一次付清</span></div>
+                        <ul>
                             <li>商品展示 + 多品項選購 + 訂單通知</li>
                             <li>會員 Email 驗證</li>
                             <li>上線後終身免費，零月費零年費</li>
-                            <li>資料存在你自己的 Google 帳號</li>
+                            <li>商家專屬資料庫，資料可完整匯出</li>
                             <li>網頁託管可選擇自行管理或我們代管</li>
                             <li>手機響應式設計</li>
                         </ul>
                     </div>
-                    <div class="pricing-card fade-up">
+                    <div class="plan reveal">
                         <h3>預約 + 容量管理</h3>
-                        <div class="pricing-price">
-                            NT$3,500 <span>/ 一次付清</span>
-                        </div>
-                        <ul class="pricing-features">
+                        <div class="price"><small>NT$</small><b class="en">3,500</b><span class="per">/ 一次付清</span></div>
+                        <ul>
                             <li>服務項目展示 + 線上預約時段選擇</li>
                             <li>即時容量管理，防止超額預約</li>
                             <li>上線後終身免費，零月費零年費</li>
-                            <li>資料存在你自己的 Google 帳號</li>
+                            <li>商家專屬資料庫，資料可完整匯出</li>
                             <li>網頁託管可選擇自行管理或我們代管</li>
                             <li>手機響應式設計</li>
                         </ul>
                     </div>
-                    <div class="pricing-card fade-up">
+                    <div class="plan reveal">
                         <h3>團購管理系統</h3>
-                        <div class="pricing-price">
-                            NT$3,000 <span>/ 一次付清</span>
-                        </div>
-                        <ul class="pricing-features">
+                        <div class="price"><small>NT$</small><b class="en">3,000</b><span class="per">/ 一次付清</span></div>
+                        <ul>
                             <li>開團 + 跟團 + 成團進度追蹤</li>
                             <li>截止倒數 + 新訂單即時通知</li>
                             <li>上線後終身免費，零月費零年費</li>
-                            <li>資料存在你自己的 Google 帳號</li>
+                            <li>商家專屬資料庫，資料可完整匯出</li>
                             <li>網頁託管可選擇自行管理或我們代管</li>
                             <li>手機響應式設計</li>
                         </ul>
                     </div>
-                    <div class="pricing-card fade-up">
+                    <div class="plan reveal">
                         <h3>活動售票頁</h3>
-                        <div class="pricing-price">
-                            NT$2,500 <span>/ 一次付清</span>
-                        </div>
-                        <ul class="pricing-features">
+                        <div class="price"><small>NT$</small><b class="en">2,500</b><span class="per">/ 一次付清</span></div>
+                        <ul>
                             <li>票種管理 + 線上購票 + 票數管理</li>
                             <li>電子簽到碼自動產生</li>
                             <li>上線後終身免費，零月費零年費</li>
-                            <li>資料存在你自己的 Google 帳號</li>
+                            <li>商家專屬資料庫，資料可完整匯出</li>
                             <li>網頁託管可選擇自行管理或我們代管</li>
                             <li>手機響應式設計</li>
                         </ul>
                     </div>
-                    <div class="pricing-card fade-up">
+                    <div class="plan reveal">
                         <h3>售後修改加購</h3>
-                        <div class="pricing-price">
-                            NT$500 <span>/ 每次</span>
-                        </div>
-                        <ul class="pricing-features">
+                        <div class="price"><small>NT$</small><b class="en">500</b><span class="per">/ 每次</span></div>
+                        <ul>
                             <li>已購買方案的客戶專屬</li>
                             <li>文字、圖片、配色等內容調整</li>
                             <li>提交需求後最快 1 天完成</li>
                             <li>透過專案調整頁面提交並付款</li>
                         </ul>
                     </div>
-                    <div
-                        class="pricing-card fade-up"
-                        style="border: 2px dashed var(--mauve)"
-                    >
+                    <div class="plan custom reveal">
                         <h3>客製化方案</h3>
-                        <div class="pricing-price" style="font-size: 1.5rem">
-                            依需求報價
-                        </div>
-                        <ul class="pricing-features">
+                        <div class="price"><b style="font-size:1.4rem">依需求報價</b></div>
+                        <ul>
                             <li>完全客製化設計與配色</li>
                             <li>多功能模組整合</li>
                             <li>品牌 Logo 整合</li>
                             <li>自訂網域設定協助</li>
                             <li>進階互動效果</li>
                         </ul>
-                        <p
-                            style="
-                                margin-top: 12px;
-                                font-size: 0.82rem;
-                                color: var(--muted);
-                            "
-                        >
-                            聯繫信箱：<a
-                                href="mailto:Onepagegoimm@gmail.com"
-                                style="
-                                    color: var(--mauve);
-                                    text-decoration: none;
-                                    font-weight: 600;
-                                "
-                                >Onepagegoimm@gmail.com</a
-                            >
-                        </p>
+                        <p class="plan-contact">聯繫信箱：<a href="mailto:Onepagegoimm@gmail.com" class="en">Onepagegoimm@gmail.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 常見問題 ── -->
+        <section id="faq" class="sec">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">FAQ</span>
+                    <h2 class="sec-title">常見問題</h2>
+                    <div class="rule"></div>
+                </div>
+                <div class="faqs">
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">One Page Go 是什麼？<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>One Page Go 是一項單頁式網頁應用製作服務，專為台灣小型商家設計。提供微型電商、預約系統、團購管理、活動售票四種模板，NT$2,500 起一次付清，上線後終身免月費。每個商家擁有專屬的資料庫，資料不與他人共用。</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">費用是多少？需要月費嗎？<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>One Page Go 採一次付清制，無月費、年費或續約費。活動售票頁 NT$2,500、團購管理系統 NT$3,000、預約容量管理 NT$3,500、微型電商一頁店 NT$4,000。上線後使用免費託管與免費資料庫，營運成本為零。</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">為什麼可以終身免費運作？<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>One Page Go 採用免費技術架構：網頁託管使用 GitHub Pages（免費），後端與資料庫使用 Cloudflare Workers 與 D1（免費方案），信件通知使用 Resend（免費額度）。各層皆為免費方案，因此上線後不會產生任何託管或維運月費。</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">我的訂單資料存在哪裡？安全嗎？<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>所有訂單、會員、預約等資料存放在你專屬的 Cloudflare D1 資料庫。每個商家一個獨立資料庫，不與其他商家共用，隨時可申請完整匯出與備份。</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">和月租開店平台有什麼差別？<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>主要差別在費用結構與資料所有權。月租平台通常每月 NT$1,299 起，兩年累計超過 NT$31,000，且資料鎖在平台伺服器。One Page Go 一次付清 NT$2,500-4,000，之後零費用，商家擁有專屬資料庫，資料可完整匯出，不受平台綁定。</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">製作需要多久時間？<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>從需求確認到網站上線，最快 3 天即可完成。流程為：填寫需求表單 → 確認內容與簽約 → 付款 → 製作與交付 → 協助設定上線。</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">上線後需要修改內容怎麼辦？<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>已購買方案的客戶可透過專案調整頁面提交修改需求，每次修改費用為 NT$500，包含文字、圖片、配色等內容調整，提交後最快 1 天完成。</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ── CTA ── -->
-        <section class="cta-section" id="cta">
-            <div class="container fade-up">
-                <h2>準備好讓生意上線了嗎？</h2>
-                <p>
-                    填寫簡單的需求表單，我們會在 24 小時內與你聯繫<br />從需求確認到上線，最快只要
-                    3 天
-                </p>
-                <a href="onboarding/index.html" class="cta-button">立即開始</a>
-
-                <div class="customer-section">
-                    <p>已是客戶？</p>
-                    <div class="customer-links">
-                        <a href="onboarding/index.html" class="customer-link customer-link-primary">查詢訂單進度</a>
-                        <a href="revision/index.html" class="customer-link customer-link-secondary">專案調整需求</a>
+        <section id="cta" class="sec sec-deep">
+            <div class="container">
+                <div class="cta-band reveal">
+                    <span class="eyebrow en">Get Started</span>
+                    <h2>準備好讓生意上線了嗎？</h2>
+                    <p>填寫簡單的需求表單，我們會在 24 小時內與你聯繫。<br />從需求確認到上線，最快只要 3 天。</p>
+                    <a class="btn btn-gold" href="onboarding/index.html">立即開始</a>
+                    <div class="customer">
+                        <p>已是客戶？</p>
+                        <div class="customer-links">
+                            <a href="onboarding/index.html" class="customer-link">查詢訂單進度</a>
+                            <a href="revision/index.html" class="customer-link alt">專案調整需求</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        </main>
+
         <!-- ── Footer ── -->
         <footer>
-            <div class="container">
-                <p style="margin-bottom:10px;font-size:.85rem;">
-                    <a href="blog/index.html" style="color:inherit;text-decoration:none;">部落格</a> ·
-                    <a href="#templates" style="color:inherit;text-decoration:none;">功能模板</a> ·
-                    <a href="solutions/order-system/index.html" style="color:inherit;text-decoration:none;">線上訂單系統</a> ·
-                    <a href="#pricing" style="color:inherit;text-decoration:none;">方案與定價</a> ·
-                    <a href="onboarding/index.html" style="color:inherit;text-decoration:none;">開始接單</a> ·
-                    <a href="guide/index.html" style="color:inherit;text-decoration:none;">設定指南</a> ·
-                    <a href="/en/" style="color:inherit;text-decoration:none;">English</a>
+            <div class="container foot">
+                <a class="brand" href="#top" aria-label="回頂部"><span class="logo-chip"><img src="onepagego_mark_only_transparent.png" alt=""></span></a>
+                <p class="foot-links">
+                    <a href="blog/index.html">部落格</a>
+                    <a href="#templates">功能模板</a>
+                    <a href="solutions/order-system/index.html">線上訂單系統</a>
+                    <a href="#pricing">方案與定價</a>
+                    <a href="onboarding/index.html">開始接單</a>
+                    <a href="guide/index.html">設定指南</a>
+                    <a href="/en/">English</a>
                 </p>
-                <p>One Page Go &copy; 2026</p>
+                <p class="copy en">One Page Go &copy; 2026</p>
             </div>
         </footer>
 
-        <script>
-            /* ── Intersection Observer: fadeUp 動畫 ── */
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add("visible");
-                        }
-                    });
-                },
-                { threshold: 0.15 },
-            );
+        <button id="toTop" aria-label="回到頂部">↑</button>
 
-            document
-                .querySelectorAll(".fade-up")
-                .forEach((el) => observer.observe(el));
+        <script>
+            /* ── Header 捲動狀態與回頂按鈕 ── */
+            var hd = document.getElementById("hd"), toTop = document.getElementById("toTop");
+            window.addEventListener("scroll", function () {
+                hd.classList.toggle("scrolled", window.scrollY > 30);
+                toTop.classList.toggle("show", window.scrollY > 600);
+            }, { passive: true });
+            toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+            /* ── 行動版選單 ── */
+            var menuBtn = document.getElementById("menuBtn"), mobileMenu = document.getElementById("mobileMenu");
+            menuBtn.addEventListener("click", function () {
+                var open = mobileMenu.classList.toggle("open");
+                menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+            });
+            mobileMenu.querySelectorAll("a").forEach(function (a) {
+                a.addEventListener("click", function () { mobileMenu.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); });
+            });
+
+            /* ── Intersection Observer：reveal 進場 ── */
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+            }, { threshold: 0.12 });
+            document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+            /* ── FAQ 展開收合 ── */
+            document.querySelectorAll(".faq").forEach(function (f) {
+                var q = f.querySelector(".faq-q"), a = f.querySelector(".faq-a");
+                q.addEventListener("click", function () {
+                    var open = f.classList.toggle("open");
+                    q.setAttribute("aria-expanded", open ? "true" : "false");
+                    a.style.maxHeight = open ? a.scrollHeight + "px" : 0;
+                });
+            });
 
             /* ── Demo Stats ── */
             const DEMO_APIS = {
@@ -1443,22 +1005,6 @@
                 fetchStats(url, 3).then((data) => {
                     const el = document.getElementById(`stat-${key}`);
                     if (el) el.textContent = data && data.orderCount != null ? data.orderCount : 0;
-                });
-            });
-
-            /* ── Smooth Scroll ── */
-            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                anchor.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(
-                        this.getAttribute("href"),
-                    );
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                        });
-                    }
                 });
             });
         </script>
