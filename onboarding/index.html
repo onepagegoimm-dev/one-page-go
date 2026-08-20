@@ -1224,12 +1224,6 @@
         <div class="hint">交付時會邀請您為 collaborator，協助部署到您的 GitHub Pages。</div>
       </div>
 
-      <div class="field">
-        <label>Google Sheet 網址（選填）</label>
-        <input type="url" id="googleSheetUrl" placeholder="https://docs.google.com/spreadsheets/d/xxxxx/edit" />
-        <div class="hint">如已建立 Google Sheet，請貼上網址。尚未建立也沒關係，購買後可參考 <a href="../guide/index.html" target="_blank" rel="noopener" style="color:var(--mauve);text-decoration:underline;text-underline-offset:2px;">設定指南</a> 再提供。</div>
-      </div>
-
       <!-- 加購服務 -->
       <div class="addon-section">
         <h4>加購服務（選填）</h4>
@@ -1275,10 +1269,9 @@
       <!-- 購買前須知 -->
       <div style="background:linear-gradient(135deg,rgba(24,38,82,0.55),rgba(10,17,36,0.65));border-left:3px solid var(--gold-500);border-radius:0 8px 8px 0;padding:0.8rem 1rem;margin-bottom:1.2rem;font-size:0.78rem;line-height:1.7;color:var(--text);">
         <strong style="color:var(--brown);">購買前須知</strong><br/>
-        付款完成後，您需要自行建立以下帳號：<br/>
-        <span style="color:var(--brown);font-weight:600;">1.</span> <strong>GitHub 帳號</strong> — 用來託管您的網頁（免費）<br/>
-        <span style="color:var(--brown);font-weight:600;">2.</span> <strong>Google 帳號</strong> — 用來建立資料管理試算表（免費）<br/>
-        <span style="font-size:0.72rem;color:var(--muted);">所有資料存在您自己的帳號中，確保完全由您掌控。</span><br/>
+        <span style="color:var(--brown);font-weight:600;">1.</span> <strong>商家專屬資料庫</strong> — 訂單、會員等營運資料存放在您專屬的雲端資料庫，由我們建置，可隨時完整匯出<br/>
+        <span style="color:var(--brown);font-weight:600;">2.</span> <strong>GitHub 帳號</strong> — 只有選擇自行託管網頁時才需要（免費；預設由我們託管，免帳號）<br/>
+        <span style="font-size:0.72rem;color:var(--muted);">不需要建立 Google Sheet，也不需要提供任何試算表網址。</span><br/>
         <a href="../guide/index.html" target="_blank" rel="noopener" style="color:var(--mauve);font-weight:600;text-decoration:underline;text-underline-offset:2px;">→ 查看完整設定指南</a>
       </div>
 
@@ -1420,7 +1413,10 @@
 
 <script>
   // ── API 設定 ──
+  // 未搬遷 action（合約簽署、付款、訂單追蹤、加購）仍走 Apps Script
   const API_URL = "https://script.google.com/macros/s/AKfycbyryJRwHkIVrVPP2Nh_fIXGFbVPlaNQ6TkAF_snVH6XlYpceaLKYKQfjyXruzMSeGsc/exec";
+  // 已搬遷 action（T-008）：sendVerifyCode / verifyCode / submitInquiry 走正式 Worker（D1）
+  const WORKER_API_URL = "https://api.one-page-go.com/api";
 
 
   // ── 定價對照 ──
@@ -1752,14 +1748,20 @@
     btn.disabled = true;
     btn.textContent = '發送中...';
 
+    let sent = false;
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
-        body: JSON.stringify({ action: 'sendVerifyCode', email })
+        body: JSON.stringify({
+          action: 'sendVerifyCode',
+          email,
+          name: document.getElementById('name').value.trim(),
+          phone: document.getElementById('phone').value.trim()
+        })
       });
-      const text = await res.text();
-      const data = JSON.parse(text);
+      const data = await res.json();
       if (data.success) {
+        sent = true;
         document.getElementById('verifyCodeField').classList.remove('hidden');
         document.getElementById('verifyStatus').textContent = '驗證碼已發送至您的信箱';
         document.getElementById('verifyStatus').style.color = 'var(--green)';
@@ -1767,11 +1769,13 @@
         showError(1, data.error || data.message || '發送失敗，請稍後再試');
       }
     } catch (err) {
-      // 開發模式：模擬發送
-      console.warn('API 未連線，模擬驗證碼發送', err);
-      document.getElementById('verifyCodeField').classList.remove('hidden');
-      document.getElementById('verifyStatus').textContent = '（開發模式）請輸入任意 6 位數字';
-      document.getElementById('verifyStatus').style.color = 'var(--muted)';
+      showError(1, '無法連線驗證服務，請稍後再試');
+    }
+
+    if (!sent) {
+      btn.disabled = false;
+      btn.textContent = '發送驗證碼';
+      return;
     }
 
     // 60 秒倒數
@@ -1803,9 +1807,8 @@
     btn.textContent = '驗證中...';
 
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'verifyCode', email, code })
       });
       const data = await res.json();
@@ -1819,20 +1822,14 @@
         btn.textContent = '已驗證';
         document.getElementById('btnSendCode').classList.add('hidden');
       } else {
-        showError(1, data.message || '驗證碼錯誤');
+        showError(1, data.error || data.message || '驗證碼錯誤');
         btn.disabled = false;
         btn.textContent = '驗證';
       }
     } catch (err) {
-      // 開發模式：任意 6 碼通過
-      console.warn('API 未連線，模擬驗證通過', err);
-      emailVerified = true;
-      document.getElementById('verifyStatus').textContent = '（開發模式）驗證成功';
-      document.getElementById('verifyStatus').style.color = 'var(--green)';
-      document.getElementById('email').disabled = true;
-      document.getElementById('verifyCode').disabled = true;
-      btn.textContent = '已驗證';
-      document.getElementById('btnSendCode').classList.add('hidden');
+      showError(1, '無法連線驗證服務，請稍後再試');
+      btn.disabled = false;
+      btn.textContent = '驗證';
     }
   });
 
@@ -1849,7 +1846,6 @@
     const requirements = document.getElementById('requirements').value.trim();
     const githubHosting = document.getElementById('githubHosting').value;
     const githubUsername = document.getElementById('githubUsername').value.trim();
-    const googleSheetUrl = document.getElementById('googleSheetUrl').value.trim();
 
     // 驗證必填
     if (!name || !email || !phone || !businessName || !templateType) {
@@ -1889,9 +1885,8 @@
     setLoading(btn, true);
 
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           action: 'submitInquiry',
           sessionToken: getSessionToken(),
@@ -1904,8 +1899,7 @@
           budget: templateType,
           addons: addonsValue,
           github_hosting: githubHosting,
-          github_username: githubUsername || '',
-          google_sheet_url: googleSheetUrl || ''
+          github_username: githubUsername || ''
         })
       });
 
@@ -1915,18 +1909,9 @@
         inquiryId = data.inquiryId;
         contractId = data.contractId;
         baseBudget = subtotal;
-        price = totalBudget;
-        // 用 getContract 取得合約內容（受 session token 保護）
-        try {
-          const conRes = await fetch(API_URL, {
-            method: 'POST',
-            body: JSON.stringify({ action: 'getContract', id: contractId, email: email, token: getSessionToken() })
-          });
-          const conData = await conRes.json();
-          contractTermsText = (conData.contract && conData.contract.terms) || getDefaultContractTerms(name, businessName, templateType, price);
-        } catch (e) {
-          contractTermsText = getDefaultContractTerms(name, businessName, templateType, price);
-        }
+        price = data.price || totalBudget; // 金額以後端計算為準
+        // 合約內容由 submitInquiry 一併回傳（與 D1 contract_terms 表同一份）
+        contractTermsText = data.contractTerms || getDefaultContractTerms(name, businessName, templateType, price);
 
         // 填入 Step 2
         document.getElementById('contractPrice').textContent = formatPrice(price);
@@ -1937,18 +1922,7 @@
         showError(1, data.error || data.message || '提交失敗，請稍後再試');
       }
     } catch (err) {
-      // 開發模式：模擬 API 回應
-      console.warn('API 未連線，使用模擬資料', err);
-      inquiryId = 'INQ-' + Date.now().toString(36).toUpperCase();
-      contractId = 'CON-' + Date.now().toString(36).toUpperCase();
-      baseBudget = subtotal;
-      price = totalBudget;
-      contractTermsText = getDefaultContractTerms(name, businessName, templateType, price);
-
-      document.getElementById('contractPrice').textContent = formatPrice(price);
-      document.getElementById('contractTerms').textContent = contractTermsText;
-
-      goToStep(2);
+      showError(1, '無法連線訂單服務，請稍後再試');
     } finally {
       setLoading(btn, false);
     }
