@@ -55,29 +55,42 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
 <style>
   /* ── 色票 ── */
   :root {
-    --cream:   #fdf6ee;
-    --warm:    #f5e6d3;
-    --blush:   #f2c4c4;
-    --rose:    #e8a0a0;
-    --mauve:   #c97d7d;
-    --brown:   #7a4f3a;
-    --text:    #4a3428;
-    --muted:   #9c7b6e;
-    --white:   #fffcf8;
-    --shadow:  rgba(122,79,58,0.12);
-    --green:   #7dba6a;
+    /* 深藍×金設計基準（docs/standards/design.md） */
+    --navy-950: #070C1E;
+    --navy-900: #0A1124;
+    --navy-800: #101A38;
+    --navy-700: #182652;
+    --gold-500: #C9A063;
+    --gold-400: #D8B478;
+    --gold-300: #E7CD9C;
+    --ink:      #F4F1EA;
+    --muted:    #A7ADC2;
+    --hairline:   rgba(201,160,99,.28);
+    --hairline-2: rgba(255,255,255,.08);
+    --grad-gold: linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
+    /* 舊變數映射（沿用既有引用，值一律指向新色） */
+    --cream:   var(--navy-950);
+    --warm:    var(--navy-800);
+    --blush:   var(--hairline-2);
+    --rose:    var(--gold-500);
+    --mauve:   var(--gold-300);
+    --brown:   var(--gold-400);
+    --text:    var(--ink);
+    --white:   #fff;
+    --shadow:  rgba(0,0,0,.35);
+    --green:   #4ADE80;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--cream);
-    font-family: 'Noto Serif TC', serif;
-    color: var(--text);
+    background: var(--navy-950);
+    font-family: "Noto Sans TC","Manrope",system-ui,sans-serif;
+    color: var(--ink);
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -87,9 +100,9 @@
     content: '';
     position: fixed; inset: 0; z-index: 0;
     background-image:
-      radial-gradient(circle at 20% 20%, rgba(242,196,196,0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(245,230,211,0.4) 0%, transparent 50%),
-      radial-gradient(circle at 60% 10%, rgba(253,246,238,0.5) 0%, transparent 40%);
+      radial-gradient(circle at 20% 20%, rgba(24,38,82,0.5) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(201,160,99,0.07) 0%, transparent 50%),
+      radial-gradient(circle at 60% 10%, rgba(16,26,56,0.6) 0%, transparent 40%);
     pointer-events: none;
   }
 
@@ -98,7 +111,7 @@
     position: relative; z-index: 10;
     text-align: center;
     padding: 2rem 1.5rem 1.2rem;
-    background: linear-gradient(180deg, var(--warm) 0%, transparent 100%);
+    background: linear-gradient(180deg, var(--navy-900) 0%, transparent 100%);
   }
 
   .back-link {
@@ -110,14 +123,14 @@
     text-decoration: none;
     transition: color 0.3s;
   }
-  .back-link:hover { color: var(--brown); }
+  .back-link:hover { color: var(--gold-300); }
 
   .logo-wrap {
     display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem;
   }
 
   .logo-icon { line-height: 1; animation: float 3s ease-in-out infinite; }
-  .logo-icon img { width: 80px; height: 80px; border-radius: 18px; }
+  .logo-icon img { width: 80px; height: 80px; border-radius: 50%; background: #fff; padding: 14px; box-sizing: border-box; box-shadow: 0 0 0 1px var(--hairline), 0 6px 24px rgba(0,0,0,.4); }
 
   @keyframes float {
     0%,100% { transform: translateY(0); }
@@ -125,17 +138,17 @@
   }
 
   .logo-name {
-    font-family: 'Playfair Display', serif;
+    font-family: "Manrope","Noto Sans TC",sans-serif;
     font-size: 1.8rem;
-    font-weight: 500;
-    color: var(--brown);
+    font-weight: 700;
+    color: #fff;
     letter-spacing: 0.05em;
   }
 
   .logo-sub {
     font-size: 0.72rem;
     letter-spacing: 0.25em;
-    color: var(--mauve);
+    color: var(--gold-400);
     text-transform: uppercase;
   }
 
@@ -168,8 +181,8 @@
   .step-circle {
     width: 36px; height: 36px;
     border-radius: 50%;
-    background: var(--white);
-    border: 2.5px solid var(--blush);
+    background: var(--navy-800);
+    border: 2.5px solid var(--hairline-2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -182,16 +195,16 @@
   }
 
   .step-item.active .step-circle {
-    background: var(--rose);
-    border-color: var(--rose);
-    color: var(--white);
-    box-shadow: 0 0 0 4px rgba(232,160,160,0.25);
+    background: var(--grad-gold);
+    border-color: var(--gold-500);
+    color: #131A36;
+    box-shadow: 0 0 0 4px rgba(201,160,99,0.22);
   }
 
   .step-item.completed .step-circle {
     background: var(--green);
     border-color: var(--green);
-    color: var(--white);
+    color: #0A1124;
   }
 
   .step-label {
@@ -202,14 +215,14 @@
     transition: color 0.3s;
   }
 
-  .step-item.active .step-label { color: var(--brown); font-weight: 600; }
+  .step-item.active .step-label { color: var(--gold-300); font-weight: 700; }
   .step-item.completed .step-label { color: var(--green); }
 
   .step-line {
     position: absolute;
     top: 18px;
     height: 2.5px;
-    background: var(--blush);
+    background: var(--hairline-2);
     z-index: 1;
     transition: background 0.4s;
   }
@@ -221,7 +234,7 @@
   .step-connector {
     flex: 0.6;
     height: 2.5px;
-    background: var(--blush);
+    background: var(--hairline-2);
     margin-top: 17px;
     transition: background 0.4s ease;
   }
@@ -240,16 +253,17 @@
 
   /* ── 表單區塊 ── */
   .form-section {
-    background: var(--white);
+    background: linear-gradient(170deg, rgba(24,38,82,.55), rgba(10,17,36,.65));
+    border: 1px solid var(--hairline-2);
     border-radius: 16px;
     padding: 2rem 1.5rem;
-    box-shadow: 0 2px 16px var(--shadow);
   }
 
   .form-section h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: "Noto Sans TC","Manrope",system-ui,sans-serif;
     font-size: 1.35rem;
-    color: var(--brown);
+    font-weight: 900;
+    color: #fff;
     margin-bottom: 0.4rem;
   }
 
@@ -268,12 +282,12 @@
     display: block;
     font-size: 0.82rem;
     font-weight: 600;
-    color: var(--brown);
+    color: var(--ink);
     margin-bottom: 0.35rem;
   }
 
   .field label .required {
-    color: var(--rose);
+    color: var(--gold-400);
     margin-left: 2px;
   }
 
@@ -282,12 +296,12 @@
   .field textarea {
     width: 100%;
     padding: 0.7rem 0.9rem;
-    border: 1.5px solid var(--blush);
+    border: 1px solid var(--hairline-2);
     border-radius: 10px;
-    background: var(--cream);
-    font-family: 'Noto Serif TC', serif;
+    background: rgba(255,255,255,.05);
+    font-family: "Noto Sans TC","Manrope",system-ui,sans-serif;
     font-size: 0.88rem;
-    color: var(--text);
+    color: var(--ink);
     transition: border-color 0.3s, box-shadow 0.3s;
     outline: none;
   }
@@ -295,14 +309,14 @@
   .field input:focus,
   .field select:focus,
   .field textarea:focus {
-    border-color: var(--rose);
-    box-shadow: 0 0 0 3px rgba(232,160,160,0.15);
+    border-color: var(--gold-500);
+    box-shadow: 0 0 0 3px rgba(201,160,99,0.15);
   }
 
   .field input::placeholder,
   .field textarea::placeholder {
     color: var(--muted);
-    opacity: 0.6;
+    opacity: 0.8;
   }
 
   .field textarea {
@@ -312,7 +326,7 @@
 
   .field select {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239c7b6e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23A7ADC2' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.9rem center;
     padding-right: 2.2rem;
@@ -331,7 +345,7 @@
     padding: 0.85rem;
     border: none;
     border-radius: 12px;
-    font-family: 'Noto Serif TC', serif;
+    font-family: "Noto Sans TC","Manrope",system-ui,sans-serif;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
@@ -340,44 +354,45 @@
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, var(--rose), var(--mauve));
-    color: var(--white);
-    box-shadow: 0 4px 12px rgba(201,125,125,0.3);
+    background: var(--grad-gold);
+    color: #131A36;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(201,160,99,0.32);
   }
 
   .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(201,125,125,0.4);
+    box-shadow: 0 12px 30px rgba(201,160,99,0.45);
   }
 
   .btn-primary:active {
     transform: translateY(0);
   }
 
-  .btn-primary:disabled {
-    opacity: 0.6;
+  .btn:disabled {
+    opacity: 0.45;
     cursor: not-allowed;
     transform: none;
   }
 
   .btn-secondary {
-    background: var(--cream);
-    color: var(--brown);
-    border: 1.5px solid var(--blush);
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid rgba(255,255,255,.35);
   }
 
   .btn-secondary:hover {
-    background: var(--warm);
+    border-color: var(--gold-400);
+    color: var(--gold-300);
   }
 
   /* ── 圖片網址轉換器 ── */
   .img-guide-card {
-    background: linear-gradient(135deg, rgba(242,196,196,0.08), rgba(245,230,211,0.15));
-    border: 2px dashed var(--blush);
+    background: linear-gradient(135deg, rgba(201,160,99,0.08), rgba(24,38,82,0.35));
+    border: 2px dashed var(--hairline);
     border-radius: 16px;
     padding: 1.5rem;
     margin-top: 1.2rem;
-    box-shadow: 0 2px 12px var(--shadow);
   }
   .img-guide-card .guide-title {
     font-size: 1rem;
@@ -407,11 +422,11 @@
     font-family: "SFMono-Regular", Consolas, monospace;
   }
   .img-guide-card .converter-block {
-    background: var(--white);
+    background: var(--navy-900);
     border-radius: 10px;
     padding: 1rem;
     margin-top: 0.8rem;
-    border: 1px solid var(--warm);
+    border: 1px solid var(--hairline-2);
   }
   .img-guide-card .converter-block label {
     display: block;
@@ -423,18 +438,18 @@
   .img-guide-card .converter-block input {
     width: 100%;
     padding: 0.6rem;
-    border: 1.5px solid var(--warm);
+    border: 1px solid var(--hairline-2);
     border-radius: 8px;
     font-family: inherit;
     font-size: 0.82rem;
-    color: var(--text);
-    background: var(--cream);
+    color: var(--ink);
+    background: rgba(255,255,255,.05);
     margin-bottom: 0.5rem;
   }
-  .img-guide-card .converter-block input:focus { outline: none; border-color: var(--mauve); }
+  .img-guide-card .converter-block input:focus { outline: none; border-color: var(--gold-500); }
   .img-guide-card .converter-output {
-    background: var(--cream);
-    border: 1px solid var(--warm);
+    background: var(--navy-950);
+    border: 1px solid var(--hairline-2);
     border-radius: 8px;
     padding: 0.6rem;
     margin-top: 0.5rem;
@@ -445,7 +460,7 @@
     line-height: 1.5;
   }
   .img-guide-card .converter-error {
-    color: var(--rose);
+    color: #F87171;
     font-size: 0.78rem;
     margin-top: 0.4rem;
   }
@@ -458,8 +473,8 @@
   .spinner {
     display: none;
     width: 20px; height: 20px;
-    border: 2.5px solid rgba(255,252,248,0.3);
-    border-top-color: var(--white);
+    border: 2.5px solid rgba(19,26,54,0.3);
+    border-top-color: #131A36;
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
     margin: 0 auto;
@@ -470,8 +485,8 @@
 
   /* ── 合約區塊 ── */
   .contract-box {
-    background: var(--cream);
-    border: 1.5px solid var(--blush);
+    background: var(--navy-900);
+    border: 1px solid var(--hairline-2);
     border-radius: 10px;
     padding: 1.2rem;
     max-height: 240px;
@@ -484,14 +499,15 @@
   }
 
   .contract-box::-webkit-scrollbar { width: 5px; }
-  .contract-box::-webkit-scrollbar-track { background: var(--cream); border-radius: 3px; }
-  .contract-box::-webkit-scrollbar-thumb { background: var(--blush); border-radius: 3px; }
+  .contract-box::-webkit-scrollbar-track { background: var(--navy-900); border-radius: 3px; }
+  .contract-box::-webkit-scrollbar-thumb { background: rgba(201,160,99,.35); border-radius: 3px; }
 
   .price-display {
     text-align: center;
     padding: 1rem;
     margin-bottom: 1.2rem;
-    background: linear-gradient(135deg, rgba(242,196,196,0.2), rgba(245,230,211,0.3));
+    background: linear-gradient(135deg, rgba(24,38,82,0.55), rgba(10,17,36,0.65));
+    border: 1px solid var(--hairline-2);
     border-radius: 10px;
   }
 
@@ -502,10 +518,10 @@
   }
 
   .price-display .amount {
-    font-family: 'Playfair Display', serif;
+    font-family: "Manrope","Noto Sans TC",sans-serif;
     font-size: 1.6rem;
-    font-weight: 500;
-    color: var(--brown);
+    font-weight: 800;
+    color: var(--gold-300);
   }
 
   /* ── Checkbox ── */
@@ -533,8 +549,8 @@
 
   /* ── 加購服務 ── */
   .addon-section {
-    background: var(--cream);
-    border: 1.5px solid var(--blush);
+    background: var(--navy-900);
+    border: 1px solid var(--hairline-2);
     border-radius: 10px;
     padding: 1rem 1.2rem;
     margin-bottom: 1.2rem;
@@ -551,7 +567,7 @@
     align-items: center;
     gap: 0.6rem;
     padding: 0.6rem 0;
-    border-bottom: 1px dashed rgba(242,196,196,0.4);
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
   }
 
   .addon-item:last-child { border-bottom: none; }
@@ -589,7 +605,7 @@
   .addon-combo {
     margin-top: 0.5rem;
     padding: 0.5rem 0.8rem;
-    background: rgba(232,160,160,0.1);
+    background: rgba(201,160,99,0.1);
     border-radius: 8px;
     font-size: 0.72rem;
     color: var(--muted);
@@ -600,7 +616,8 @@
   .addon-combo.show { display: block; }
 
   .price-summary {
-    background: linear-gradient(135deg, rgba(242,196,196,0.2), rgba(245,230,211,0.3));
+    background: linear-gradient(135deg, rgba(24,38,82,0.55), rgba(10,17,36,0.65));
+    border: 1px solid var(--hairline-2);
     border-radius: 10px;
     padding: 0.8rem 1rem;
     margin-bottom: 1.2rem;
@@ -618,18 +635,18 @@
   }
 
   .price-row.total {
-    border-top: 1.5px solid var(--blush);
+    border-top: 1px solid var(--hairline);
     margin-top: 0.4rem;
     padding-top: 0.5rem;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.9rem;
-    color: var(--brown);
+    color: var(--gold-300);
   }
 
   /* ── 付款資訊 ── */
   .payment-info {
-    background: var(--cream);
-    border: 1.5px solid var(--blush);
+    background: var(--navy-900);
+    border: 1px solid var(--hairline-2);
     border-radius: 10px;
     padding: 1.2rem;
     margin-bottom: 1.5rem;
@@ -646,7 +663,7 @@
     justify-content: space-between;
     padding: 0.4rem 0;
     font-size: 0.82rem;
-    border-bottom: 1px dashed rgba(242,196,196,0.5);
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
   }
 
   .payment-info .info-row:last-child { border-bottom: none; }
@@ -659,12 +676,12 @@
   }
   .payment-tab {
     flex: 1; padding: 0.7rem 0.4rem; text-align: center; cursor: pointer;
-    border: 1.5px solid var(--blush); font-size: 0.78rem; font-weight: 600;
-    color: var(--muted); background: var(--cream); transition: all 0.3s;
+    border: 1.5px solid var(--hairline-2); font-size: 0.78rem; font-weight: 600;
+    color: var(--muted); background: var(--navy-900); transition: all 0.3s;
   }
   .payment-tab:first-child { border-radius: 10px 0 0 10px; }
   .payment-tab:last-child { border-radius: 0 10px 10px 0; border-left: none; }
-  .payment-tab.active { background: var(--rose); color: #fff; border-color: var(--rose); }
+  .payment-tab.active { background: var(--grad-gold); color: #131A36; border-color: var(--gold-500); }
   .payment-tab .tab-label { font-size: 0.82rem; }
   .payment-tab .tab-sub { font-size: 0.68rem; font-weight: 400; margin-top: 2px; opacity: 0.85; }
   .payment-tab-content { display: none; }
@@ -683,9 +700,10 @@
   }
 
   .success-screen h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: "Noto Sans TC","Manrope",system-ui,sans-serif;
     font-size: 1.5rem;
-    color: var(--brown);
+    font-weight: 900;
+    color: #fff;
     margin-bottom: 0.5rem;
   }
 
@@ -698,24 +716,24 @@
 
   .success-screen .inquiry-id {
     display: inline-block;
-    background: var(--cream);
-    border: 1.5px solid var(--blush);
+    background: var(--navy-900);
+    border: 1px solid var(--hairline);
     border-radius: 8px;
     padding: 0.5rem 1rem;
     font-size: 0.82rem;
-    color: var(--brown);
+    color: var(--gold-300);
     font-weight: 600;
     margin-bottom: 1.5rem;
   }
 
   /* ── 錯誤訊息 ── */
   .error-msg {
-    background: rgba(232,160,160,0.15);
-    border: 1px solid var(--rose);
+    background: rgba(248,113,113,0.12);
+    border: 1px solid rgba(248,113,113,0.45);
     border-radius: 8px;
     padding: 0.7rem 1rem;
     font-size: 0.8rem;
-    color: var(--mauve);
+    color: #F87171;
     margin-bottom: 1rem;
     display: none;
   }
@@ -759,33 +777,34 @@
     border: 1.5px solid;
   }
   .shortcut-btn-track {
-    color: var(--brown);
-    border-color: var(--brown);
+    color: var(--ink);
+    border-color: rgba(255,255,255,.35);
     background: transparent;
   }
   .shortcut-btn-track:hover {
-    background: var(--brown);
-    color: var(--white);
+    border-color: var(--gold-400);
+    color: var(--gold-300);
   }
   .shortcut-btn-revision {
-    color: var(--mauve);
-    border-color: var(--mauve);
+    color: var(--gold-300);
+    border-color: var(--hairline);
     background: transparent;
   }
   .shortcut-btn-revision:hover {
-    background: var(--mauve);
-    color: var(--white);
+    background: var(--grad-gold);
+    border-color: var(--gold-500);
+    color: #131A36;
   }
 
   .inquiry-card {
-    background: var(--cream);
-    border: 1.5px solid var(--blush);
+    background: linear-gradient(170deg, rgba(24,38,82,.55), rgba(10,17,36,.65));
+    border: 1px solid var(--hairline-2);
     border-radius: 12px;
     padding: 1rem 1.2rem;
     margin-bottom: 0.8rem;
-    transition: box-shadow 0.3s;
+    transition: border-color 0.3s;
   }
-  .inquiry-card:hover { box-shadow: 0 2px 12px var(--shadow); }
+  .inquiry-card:hover { border-color: var(--hairline); }
 
   .inquiry-header {
     display: flex;
@@ -808,10 +827,10 @@
     border-radius: 20px;
     white-space: nowrap;
   }
-  .status-yellow { background: #FFF8E1; color: #856404; }
-  .status-blue   { background: #E3F2FD; color: #1565C0; }
-  .status-green  { background: #D6F0D3; color: #3A7A4F; }
-  .status-red    { background: #FAD4D4; color: #7A3A3A; }
+  .status-yellow { background: rgba(250,204,21,0.14); color: #FACC15; }
+  .status-blue   { background: rgba(91,121,217,0.18); color: #9DB4F5; }
+  .status-green  { background: rgba(74,222,128,0.14); color: #4ADE80; }
+  .status-red    { background: rgba(248,113,113,0.14); color: #F87171; }
 
   .inquiry-body {
     margin-bottom: 0.6rem;
@@ -839,11 +858,11 @@
     align-items: center;
     flex-wrap: wrap;
     padding-top: 0.5rem;
-    border-top: 1px dashed rgba(242,196,196,0.5);
+    border-top: 1px dashed rgba(255,255,255,0.08);
   }
 
   .btn-action {
-    font-family: 'Noto Serif TC', serif;
+    font-family: "Noto Sans TC","Manrope",system-ui,sans-serif;
     font-size: 0.75rem;
     font-weight: 600;
     padding: 0.4rem 0.8rem;
@@ -855,21 +874,21 @@
   }
 
   .btn-action-primary {
-    border-color: var(--rose);
-    color: var(--mauve);
+    border-color: var(--gold-500);
+    color: var(--gold-300);
   }
   .btn-action-primary:hover {
-    background: var(--rose);
-    color: var(--white);
+    background: var(--grad-gold);
+    color: #131A36;
   }
 
   .btn-action-danger {
-    border-color: #e0a0a0;
-    color: #7A3A3A;
+    border-color: rgba(248,113,113,0.5);
+    color: #F87171;
     margin-left: auto;
   }
   .btn-action-danger:hover {
-    background: #FAD4D4;
+    background: rgba(248,113,113,0.15);
   }
 
   .wait-hint {
@@ -889,7 +908,7 @@
   .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(74,52,40,0.4);
+    background: rgba(0,0,0,.6);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -898,19 +917,21 @@
   }
 
   .modal-box {
-    background: var(--white);
+    background: var(--navy-900);
+    border: 1px solid var(--hairline-2);
     border-radius: 16px;
     padding: 2rem 1.5rem;
     max-width: 360px;
     width: 100%;
-    box-shadow: 0 8px 32px rgba(74,52,40,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     text-align: center;
   }
 
   .modal-box h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: "Noto Sans TC","Manrope",system-ui,sans-serif;
     font-size: 1.15rem;
-    color: var(--brown);
+    font-weight: 700;
+    color: #fff;
     margin-bottom: 0.6rem;
   }
 
@@ -929,12 +950,12 @@
   .modal-btns .btn { flex: 1; font-size: 0.85rem; padding: 0.7rem; }
 
   .btn-danger {
-    background: #e07070;
-    color: var(--white);
+    background: #DC2626;
+    color: #fff;
     border: none;
     border-radius: 12px;
   }
-  .btn-danger:hover { background: #c05050; }
+  .btn-danger:hover { background: #B91C1C; }
 
   .track-back-btn {
     display: none;
@@ -946,7 +967,7 @@
   .divider {
     width: 40px;
     height: 2px;
-    background: var(--blush);
+    background: var(--grad-gold);
     margin: 0 auto 1rem;
     border-radius: 1px;
   }
@@ -968,7 +989,7 @@
 <header>
   <a href="../index.html" class="back-link">&larr; 返回首頁</a>
   <div class="logo-wrap">
-    <div class="logo-icon"><img src="../one_page_go.png" alt="One Page Go"></div>
+    <div class="logo-icon"><img src="../onepagego_mark_only_transparent.png" alt="One Page Go"></div>
     <div class="logo-name">One Page Go</div>
     <div class="logo-sub">Client Onboarding</div>
     <div class="customer-shortcuts">
@@ -1064,9 +1085,9 @@
 
     <div class="error-msg" id="errorRevision"></div>
 
-    <div style="background:linear-gradient(135deg,rgba(242,196,196,0.2),rgba(245,230,211,0.3));border-radius:10px;padding:1rem;margin-bottom:1.2rem;text-align:center;">
+    <div style="background:linear-gradient(135deg,rgba(24,38,82,0.55),rgba(10,17,36,0.65));border-radius:10px;padding:1rem;margin-bottom:1.2rem;text-align:center;">
       <div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.2rem;">加購費用</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:500;color:var(--brown);">NT$500 <span style="font-size:0.85rem;font-weight:400;color:var(--muted);">/ 每次修改</span></div>
+      <div style="font-family:'Manrope','Noto Sans TC',sans-serif;font-size:1.6rem;font-weight:800;color:var(--gold-300);">NT$500 <span style="font-size:0.85rem;font-weight:400;color:var(--muted);">/ 每次修改</span></div>
     </div>
 
     <div class="field">
@@ -1109,7 +1130,7 @@
         </div>
       </div>
 
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 16px;padding:10px 12px;background:rgba(242,196,196,0.08);border-radius:8px;">
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 16px;padding:10px 12px;background:rgba(201,160,99,0.08);border-radius:8px;">
         修改次數用完時，將於<a href="../revision/" style="color:var(--mauve);text-decoration:underline;text-underline-offset:2px;">專案調整</a>頁面自動顯示加購連結。
       </div>
     </div>
@@ -1247,7 +1268,7 @@
       </div>
 
       <!-- 購買前須知 -->
-      <div style="background:linear-gradient(135deg,rgba(242,196,196,0.15),rgba(245,230,211,0.25));border-left:3px solid var(--rose);border-radius:0 8px 8px 0;padding:0.8rem 1rem;margin-bottom:1.2rem;font-size:0.78rem;line-height:1.7;color:var(--text);">
+      <div style="background:linear-gradient(135deg,rgba(24,38,82,0.55),rgba(10,17,36,0.65));border-left:3px solid var(--gold-500);border-radius:0 8px 8px 0;padding:0.8rem 1rem;margin-bottom:1.2rem;font-size:0.78rem;line-height:1.7;color:var(--text);">
         <strong style="color:var(--brown);">購買前須知</strong><br/>
         付款完成後，您需要自行建立以下帳號：<br/>
         <span style="color:var(--brown);font-weight:600;">1.</span> <strong>GitHub 帳號</strong> — 用來託管您的網頁（免費）<br/>
@@ -1327,7 +1348,7 @@
       </div>
     </div>
 
-    <div style="font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 16px;padding:10px 12px;background:rgba(242,196,196,0.08);border-radius:8px;">
+    <div style="font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 16px;padding:10px 12px;background:rgba(201,160,99,0.08);border-radius:8px;">
       點擊下方按鈕後將開啟綠界付款頁面，完成信用卡付款後此頁面會自動更新狀態。<br>
       <span style="color:var(--rose);font-weight:500;">⚠ 若付款頁面未開啟，請允許瀏覽器的「彈出式視窗」權限後再試一次。</span>
     </div>
@@ -1362,7 +1383,7 @@
         2. 一個 Google 帳號（用來存放您的訂單資料）<br/>
         3. 所有資料都存在您自己的帳號，我們不會保留任何副本
       </div>
-      <div style="background:linear-gradient(135deg,rgba(242,196,196,0.15),rgba(245,230,211,0.25));border:1.5px dashed var(--mauve);border-radius:10px;padding:1rem;text-align:left;font-size:0.8rem;color:var(--text);line-height:1.7;margin-bottom:1.2rem;">
+      <div style="background:linear-gradient(135deg,rgba(201,160,99,0.08),rgba(24,38,82,0.45));border:1.5px dashed var(--hairline);border-radius:10px;padding:1rem;text-align:left;font-size:0.8rem;color:var(--text);line-height:1.7;margin-bottom:1.2rem;">
         <strong style="color:var(--brown);">🖼️ 商品圖片設定</strong><br/>
         設定商品時，可至「<a href="../revision/" target="_blank" rel="noopener" style="color:var(--mauve);font-weight:600;">專案調整</a>」頁使用<strong>圖片網址轉換器</strong>——貼上 Google Drive 分享連結，一鍵取得可用的 <code style="background:var(--warm);padding:1px 5px;border-radius:3px;font-size:0.78rem;">image_url</code> 網址
       </div>
@@ -2368,7 +2389,7 @@
         actionHtml = '<span class="wait-hint" style="color:var(--green);">已完成</span>'
           + '<a href="../revision/" class="btn-action btn-action-primary" style="text-decoration:none;text-align:center;margin-top:0.3rem;">前往專案調整</a>';
       } else if (inq.next_action === 'cancelled') {
-        actionHtml = '<span class="wait-hint" style="color:#7A3A3A;">已取消</span>';
+        actionHtml = '<span class="wait-hint" style="color:#F87171;">已取消</span>';
       }
 
       // 取消按鈕

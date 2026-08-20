@@ -48,31 +48,27 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
 <style>
-  /* ── 色票 ── */
+  /* ── 色票（深藍×金設計基準，正本：docs/standards/design.md）── */
   :root {
-    --cream:   #fdf6ee;
-    --warm:    #f5e6d3;
-    --blush:   #f2c4c4;
-    --rose:    #e8a0a0;
-    --mauve:   #c97d7d;
-    --brown:   #7a4f3a;
-    --text:    #4a3428;
-    --muted:   #9c7b6e;
-    --white:   #fffcf8;
-    --shadow:  rgba(122,79,58,0.12);
-    --green:   #7dba6a;
-    --blue:    #5b8fc9;
-    --yellow:  #d4a843;
+    --navy-950:#070C1E;--navy-900:#0A1124;--navy-800:#101A38;--navy-700:#182652;
+    --gold-500:#C9A063;--gold-400:#D8B478;--gold-300:#E7CD9C;
+    --ink:#F4F1EA;--muted:#A7ADC2;
+    --hairline:rgba(201,160,99,.28);--hairline-2:rgba(255,255,255,.08);
+    --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
+    /* 語意色與舊變數映射（JS 字串引用，名稱保留） */
+    --green:  #4ADE80;
+    --yellow: #FBBF24;
+    --mauve:  var(--gold-400);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--cream);
-    font-family: 'Noto Serif TC', serif;
-    color: var(--text);
+    background: var(--navy-950);
+    font-family: "Noto Sans TC", "Manrope", system-ui, sans-serif;
+    color: var(--ink);
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -81,9 +77,9 @@
     content: '';
     position: fixed; inset: 0; z-index: 0;
     background-image:
-      radial-gradient(circle at 20% 20%, rgba(242,196,196,0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(245,230,211,0.4) 0%, transparent 50%),
-      radial-gradient(circle at 60% 10%, rgba(253,246,238,0.5) 0%, transparent 40%);
+      radial-gradient(circle at 20% 20%, rgba(24,38,82,0.45) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(201,160,99,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 60% 10%, rgba(16,26,56,0.55) 0%, transparent 40%);
     pointer-events: none;
   }
 
@@ -92,7 +88,7 @@
     position: relative; z-index: 10;
     text-align: center;
     padding: 2rem 1.5rem 1.2rem;
-    background: linear-gradient(180deg, var(--warm) 0%, transparent 100%);
+    background: linear-gradient(180deg, var(--navy-900) 0%, transparent 100%);
   }
 
   .back-link {
@@ -100,16 +96,17 @@
     top: 1.2rem;
     left: 1.2rem;
     font-size: 0.85rem;
-    color: var(--muted);
+    color: var(--gold-300);
     text-decoration: none;
     transition: color 0.3s;
   }
-  .back-link:hover { color: var(--brown); }
+  .back-link:hover { color: var(--gold-400); }
 
   header h1 {
-    font-family: 'Playfair Display', serif;
     font-size: 1.6rem;
-    color: var(--brown);
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    color: #fff;
     margin-bottom: 0.3rem;
   }
   header p {
@@ -127,20 +124,20 @@
 
   /* ── 卡片 ── */
   .card {
-    background: var(--white);
+    background: linear-gradient(160deg, var(--navy-800), var(--navy-900));
+    border: 1px solid var(--hairline-2);
     border-radius: 16px;
     padding: 1.5rem;
     margin-bottom: 1rem;
-    box-shadow: 0 2px 12px var(--shadow);
   }
 
   .card-title {
     font-size: 1rem;
-    font-weight: 600;
-    color: var(--brown);
+    font-weight: 700;
+    color: #fff;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--warm);
+    border-bottom: 1px solid var(--hairline-2);
   }
 
   /* ── 表單元素 ── */
@@ -157,19 +154,22 @@
   .form-group textarea {
     width: 100%;
     padding: 0.7rem;
-    border: 1.5px solid var(--warm);
+    border: 1px solid var(--hairline-2);
     border-radius: 10px;
     font-family: inherit;
     font-size: 0.9rem;
-    color: var(--text);
-    background: var(--white);
+    color: var(--ink);
+    background: rgba(255,255,255,.05);
     transition: border-color 0.3s;
   }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--muted); }
 
   .form-group input:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: var(--mauve);
+    border-color: var(--gold-500);
   }
 
   .form-group textarea {
@@ -198,55 +198,57 @@
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, var(--mauve), var(--rose));
-    color: var(--white);
+    background: var(--grad-gold);
+    color: #131A36;
+    font-weight: 700;
     width: 100%;
+    box-shadow: 0 8px 24px rgba(201,160,99,.32);
   }
-  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(201,160,99,.45); }
+  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
 
   .btn-outline {
     background: transparent;
-    color: var(--mauve);
-    border: 1.5px solid var(--mauve);
+    color: var(--ink);
+    border: 1.5px solid rgba(255,255,255,.35);
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
   }
-  .btn-outline:hover { background: var(--mauve); color: var(--white); }
-  .btn-outline:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-outline:hover { border-color: var(--gold-400); color: var(--gold-300); }
+  .btn-outline:disabled { opacity: 0.45; cursor: not-allowed; }
 
   /* ── 圖片網址轉換器 ── */
   .img-guide {
-    border: 2px dashed var(--blush);
-    background: linear-gradient(135deg, rgba(242,196,196,0.08), rgba(245,230,211,0.15));
+    border: 2px dashed var(--hairline);
+    background: linear-gradient(135deg, rgba(201,160,99,0.06), rgba(255,255,255,0.03));
   }
   .img-guide .guide-intro {
     font-size: 0.85rem;
-    color: var(--text);
+    color: var(--ink);
     line-height: 1.7;
     margin-bottom: 0.8rem;
   }
   .img-guide ol {
     margin: 0.5rem 0 1rem 1.3rem;
     font-size: 0.85rem;
-    color: var(--text);
+    color: var(--ink);
     line-height: 1.9;
   }
   .img-guide ol li { margin-bottom: 0.3rem; }
   .img-guide code {
-    background: var(--warm);
+    background: rgba(255,255,255,.08);
     padding: 1px 6px;
     border-radius: 4px;
     font-size: 0.82rem;
-    color: var(--brown);
+    color: var(--gold-300);
     font-family: "SFMono-Regular", Consolas, monospace;
   }
   .converter-block {
-    background: var(--white);
+    background: var(--navy-900);
     border-radius: 10px;
     padding: 1rem;
     margin-top: 0.8rem;
-    border: 1px solid var(--warm);
+    border: 1px solid var(--hairline-2);
   }
   .converter-block label {
     display: block;
@@ -258,29 +260,30 @@
   .converter-block input {
     width: 100%;
     padding: 0.6rem;
-    border: 1.5px solid var(--warm);
+    border: 1px solid var(--hairline-2);
     border-radius: 8px;
     font-family: inherit;
     font-size: 0.82rem;
-    color: var(--text);
-    background: var(--cream);
+    color: var(--ink);
+    background: rgba(255,255,255,.05);
     margin-bottom: 0.5rem;
   }
-  .converter-block input:focus { outline: none; border-color: var(--mauve); }
+  .converter-block input::placeholder { color: var(--muted); }
+  .converter-block input:focus { outline: none; border-color: var(--gold-500); }
   .converter-output {
-    background: var(--cream);
-    border: 1px solid var(--warm);
+    background: var(--navy-900);
+    border: 1px solid var(--hairline-2);
     border-radius: 8px;
     padding: 0.6rem;
     margin-top: 0.5rem;
     font-family: "SFMono-Regular", Consolas, monospace;
     font-size: 0.78rem;
-    color: var(--brown);
+    color: var(--gold-300);
     word-break: break-all;
     line-height: 1.5;
   }
   .converter-error {
-    color: var(--rose);
+    color: #F87171;
     font-size: 0.78rem;
     margin-top: 0.4rem;
   }
@@ -306,15 +309,14 @@
     top: 0.8rem;
     right: 0.8rem;
     z-index: 100;
-    background: var(--white);
-    border: 1px solid var(--warm);
+    background: var(--navy-800);
+    border: 1px solid var(--hairline);
     border-radius: 8px;
     padding: 0.3rem 0.6rem;
     font-size: 0.75rem;
-    color: var(--muted);
-    box-shadow: 0 1px 4px var(--shadow);
+    color: var(--gold-300);
   }
-  .session-timer.warning { color: var(--mauve); border-color: var(--mauve); }
+  .session-timer.warning { color: #F87171; border-color: rgba(248,113,113,.5); }
 
   /* ── 專案資訊卡：收合/展開 ── */
   .project-summary {
@@ -332,11 +334,11 @@
     margin-top: 0.6rem;
     padding: 0.3rem 0;
     font-size: 0.75rem;
-    color: var(--mauve);
-    border-top: 1px dashed var(--warm);
+    color: var(--gold-400);
+    border-top: 1px dashed var(--hairline-2);
     transition: color 0.3s;
   }
-  .project-toggle:hover { color: var(--brown); }
+  .project-toggle:hover { color: var(--gold-300); }
   .project-toggle .arrow {
     display: inline-block;
     transition: transform 0.3s;
@@ -363,8 +365,8 @@
   }
   .project-name {
     font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--brown);
+    font-weight: 700;
+    color: #fff;
   }
   .project-status {
     font-size: 0.75rem;
@@ -372,9 +374,9 @@
     padding: 0.2rem 0.6rem;
     border-radius: 6px;
   }
-  .status-in_progress { background: #e3f2fd; color: #1565c0; }
-  .status-delivered { background: #d6f0d3; color: #3a7a4f; }
-  .status-setup, .status-building, .status-testing { background: #e3f2fd; color: #1565c0; }
+  .status-in_progress { background: rgba(91,121,217,.18); color: #9DB4F5; }
+  .status-delivered { background: rgba(74,222,128,.15); color: #4ADE80; }
+  .status-setup, .status-building, .status-testing { background: rgba(91,121,217,.18); color: #9DB4F5; }
 
   .project-meta {
     font-size: 0.82rem;
@@ -382,17 +384,17 @@
     margin-bottom: 0.3rem;
   }
   .project-meta a {
-    color: var(--blue);
+    color: var(--gold-300);
     text-decoration: none;
     word-break: break-all;
   }
-  .project-meta a:hover { text-decoration: underline; }
+  .project-meta a:hover { color: var(--gold-400); text-decoration: underline; }
 
   /* ── 調整次數進度條 ── */
   .revision-progress {
     margin-top: 0.8rem;
     padding-top: 0.8rem;
-    border-top: 1px solid var(--warm);
+    border-top: 1px solid var(--hairline-2);
   }
   .progress-label {
     display: flex;
@@ -401,15 +403,16 @@
     color: var(--muted);
     margin-bottom: 0.4rem;
   }
+  .progress-label span:last-child { color: var(--gold-300); font-weight: 700; }
   .progress-bar {
     height: 6px;
-    background: var(--warm);
+    background: rgba(255,255,255,.08);
     border-radius: 3px;
     overflow: hidden;
   }
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--green), var(--mauve));
+    background: var(--grad-gold);
     border-radius: 3px;
     transition: width 0.5s ease;
   }
@@ -420,7 +423,7 @@
   .timeline-item {
     position: relative;
     padding: 0 0 1.2rem 1.5rem;
-    border-left: 2px solid var(--warm);
+    border-left: 2px solid var(--hairline-2);
   }
   .timeline-item:last-child { border-left-color: transparent; padding-bottom: 0; }
 
@@ -431,8 +434,8 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    border: 2px solid var(--warm);
-    background: var(--white);
+    border: 2px solid var(--hairline);
+    background: var(--navy-800);
   }
   .timeline-item.confirmed .timeline-dot {
     background: var(--green);
@@ -451,8 +454,9 @@
   .timeline-content {
     font-size: 0.85rem;
     line-height: 1.5;
-    color: var(--text);
-    background: var(--cream);
+    color: var(--ink);
+    background: var(--navy-900);
+    border: 1px solid var(--hairline-2);
     padding: 0.6rem 0.8rem;
     border-radius: 8px;
   }
@@ -464,8 +468,8 @@
     border-radius: 4px;
     margin-top: 0.3rem;
   }
-  .timeline-status.pending { background: #fff8e1; color: #856404; }
-  .timeline-status.confirmed { background: #d6f0d3; color: #3a7a4f; }
+  .timeline-status.pending { background: rgba(251,191,36,.15); color: #FBBF24; }
+  .timeline-status.confirmed { background: rgba(74,222,128,.15); color: #4ADE80; }
 
   .timeline-note {
     font-size: 0.8rem;
@@ -478,16 +482,17 @@
   .lock-message {
     text-align: center;
     padding: 1rem;
-    background: var(--cream);
+    background: var(--navy-900);
+    border: 1px solid var(--hairline-2);
     border-radius: 10px;
     font-size: 0.85rem;
     color: var(--muted);
   }
-  .lock-message.warning { color: var(--mauve); background: #fdf0f0; }
+  .lock-message.warning { color: var(--gold-400); background: rgba(201,160,99,.08); border-color: var(--hairline); }
 
   /* ── 錯誤 / 訊息 ── */
   .error-msg {
-    color: var(--mauve);
+    color: #F87171;
     font-size: 0.82rem;
     margin-top: 0.5rem;
     min-height: 1.2em;
@@ -515,8 +520,8 @@
   .spinner {
     display: inline-block;
     width: 24px; height: 24px;
-    border: 3px solid var(--warm);
-    border-top-color: var(--mauve);
+    border: 3px solid rgba(255,255,255,.12);
+    border-top-color: var(--gold-500);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin-bottom: 0.5rem;
@@ -535,8 +540,8 @@
     position: relative;
     z-index: 10;
   }
-  footer a { color: var(--mauve); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
+  footer a { color: var(--gold-300); text-decoration: none; }
+  footer a:hover { color: var(--gold-400); text-decoration: underline; }
 
   /* ── 動畫 ── */
   @keyframes fadeUp {
