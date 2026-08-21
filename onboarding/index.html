@@ -1382,10 +1382,10 @@
         開始為您打造專屬網頁。
       </p>
       <div style="background:var(--cream);border:1.5px solid var(--blush);border-radius:10px;padding:1rem;text-align:left;font-size:0.8rem;color:var(--text);line-height:1.7;margin-bottom:1rem;">
-        <strong style="color:var(--brown);">📋 接下來您需要準備：</strong><br/>
-        1. 一個 GitHub 帳號（用來託管您的網頁）<br/>
-        2. 一個 Google 帳號（用來存放您的訂單資料）<br/>
-        3. 所有資料都存在您自己的帳號，我們不會保留任何副本
+        <strong style="color:var(--brown);">📋 接下來的流程：</strong><br/>
+        1. 我們會與您確認網頁內容與素材（文案、商品圖、Logo）<br/>
+        2. 您的商家專屬資料庫由我們建置，訂單與會員資料都存在裡面，可隨時完整匯出<br/>
+        3. 只有選擇自行託管網頁時才需要 GitHub 帳號（免費；預設由我們託管）
       </div>
       <div style="background:linear-gradient(135deg,rgba(201,160,99,0.08),rgba(24,38,82,0.45));border:1.5px dashed var(--hairline);border-radius:10px;padding:1rem;text-align:left;font-size:0.8rem;color:var(--text);line-height:1.7;margin-bottom:1.2rem;">
         <strong style="color:var(--brown);">🖼️ 商品圖片設定</strong><br/>
@@ -1777,6 +1777,10 @@
     }
 
     if (!sent) {
+      // 清掉上一次成功留下的提示，避免誤導使用者以為新驗證碼已寄出
+      const st = document.getElementById('verifyStatus');
+      st.textContent = '發送失敗，請依上方訊息處理後重試';
+      st.style.color = 'var(--muted)';
       btn.disabled = false;
       btn.textContent = '發送驗證碼';
       return;
@@ -2041,8 +2045,7 @@
           action: 'createECPayOrder',
           contract_id: contractId,
           email: currentEmail,
-          sessionToken: getSessionToken(),
-          orderResultUrl: window.location.href.split('?')[0]
+          sessionToken: getSessionToken()
         })
       });
 
@@ -2235,6 +2238,9 @@
     }
 
     if (!sent) {
+      const st = document.getElementById('trackVerifyStatus');
+      st.textContent = '發送失敗，請稍候再試';
+      st.style.color = 'var(--muted)';
       btn.disabled = false;
       btn.textContent = '發送驗證碼';
       return;
@@ -2550,6 +2556,9 @@
       }
 
       if (!sent) {
+        const st = document.getElementById('revVerifyStatus');
+        st.textContent = '發送失敗，請稍候再試';
+        st.style.color = 'var(--muted)';
         btn.disabled = false;
         btn.textContent = '發送驗證碼';
         return;
