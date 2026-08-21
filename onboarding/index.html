@@ -1401,6 +1401,24 @@
 
 </div>
 
+<!-- ── 重新驗證 Modal（session 逾時自救，T-016）── -->
+<div id="reVerifyModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h3>驗證已逾時</h3>
+    <p style="margin-bottom:0.8rem;">為保護您的資料，身份驗證每 30 分鐘需更新一次。<br />您填寫的內容都還在，重新驗證後即可繼續。</p>
+    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.8rem;">驗證碼將寄到：<strong id="reVerifyEmail" style="color:var(--brown);"></strong></p>
+    <div style="display:flex; gap:8px; margin-bottom:0.4rem;">
+      <input type="text" id="reVerifyCode" maxlength="6" placeholder="請輸入 6 位數驗證碼" style="flex:1; letter-spacing:0.3em; text-align:center;" />
+      <button type="button" id="btnReVerifySend" class="btn btn-secondary" style="width:auto; padding:0.5rem 1rem; font-size:0.78rem; white-space:nowrap;">發送驗證碼</button>
+    </div>
+    <div class="hint" id="reVerifyStatus" style="min-height:1.2em;"></div>
+    <div class="modal-btns">
+      <button class="btn btn-secondary" onclick="closeReVerify()">取消</button>
+      <button class="btn btn-primary" id="btnReVerifyConfirm">驗證並繼續</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── 取消確認 Modal ── -->
 <div id="cancelModal" class="modal-overlay hidden">
   <div class="modal-box">
@@ -1444,6 +1462,114 @@
   function saveSessionToken(token) {
     sessionStorage.setItem('opg_session_token', token);
   }
+
+  // ── session 逾時自救（T-016）──
+  // worker 回「請先完成身份驗證」（session 過期）或「請先完成 Email 驗證」時，
+  // 開 Modal 就地重新驗證；成功後回寫 token，使用者再按一次原按鈕即可（讀取類自動重載）。
+  let reVerifyEmailValue = '';
+  let reVerifyOnSuccess = null;
+
+  function isSessionError(msg) {
+    return typeof msg === 'string' && (msg.indexOf('身份驗證') !== -1 || msg.indexOf('完成 Email 驗證') !== -1);
+  }
+
+  function openReVerify(email, onSuccess) {
+    reVerifyEmailValue = String(email || '').trim();
+    reVerifyOnSuccess = onSuccess || null;
+    document.getElementById('reVerifyEmail').textContent = reVerifyEmailValue;
+    document.getElementById('reVerifyCode').value = '';
+    const st = document.getElementById('reVerifyStatus');
+    st.textContent = '請先點「發送驗證碼」';
+    st.style.color = 'var(--muted)';
+    document.getElementById('reVerifyModal').classList.remove('hidden');
+  }
+
+  function closeReVerify() {
+    document.getElementById('reVerifyModal').classList.add('hidden');
+  }
+
+  // 各處理器的錯誤分支共用：是 session 錯誤就開自救 Modal 並回傳 true，否則回傳 false
+  function handleSessionError(errMsg, email, onSuccess) {
+    if (!isSessionError(errMsg)) return false;
+    openReVerify(email, onSuccess);
+    return true;
+  }
+
+  document.getElementById('btnReVerifySend').addEventListener('click', async () => {
+    const btn = document.getElementById('btnReVerifySend');
+    const st = document.getElementById('reVerifyStatus');
+    btn.disabled = true;
+    btn.textContent = '發送中...';
+    let sent = false;
+    try {
+      const res = await fetch(WORKER_API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'sendVerifyCode', email: reVerifyEmailValue, purpose: 'tracking' })
+      });
+      const data = await res.json();
+      if (data.success) {
+        sent = true;
+        st.textContent = '驗證碼已發送至您的信箱';
+        st.style.color = 'var(--green)';
+      } else {
+        st.textContent = data.error || '發送失敗，請稍後再試';
+        st.style.color = '#F87171';
+      }
+    } catch (e) {
+      st.textContent = '無法連線，請稍後再試';
+      st.style.color = '#F87171';
+    }
+    if (!sent) {
+      btn.disabled = false;
+      btn.textContent = '發送驗證碼';
+      return;
+    }
+    let countdown = 60;
+    btn.textContent = countdown + 's';
+    const timer = setInterval(() => {
+      countdown--;
+      btn.textContent = countdown + 's';
+      if (countdown <= 0) {
+        clearInterval(timer);
+        btn.textContent = '重新發送';
+        btn.disabled = false;
+      }
+    }, 1000);
+  });
+
+  document.getElementById('btnReVerifyConfirm').addEventListener('click', async () => {
+    const code = document.getElementById('reVerifyCode').value.trim();
+    const st = document.getElementById('reVerifyStatus');
+    if (!code || code.length !== 6) {
+      st.textContent = '請輸入 6 位數驗證碼';
+      st.style.color = '#F87171';
+      return;
+    }
+    const btn = document.getElementById('btnReVerifyConfirm');
+    btn.disabled = true;
+    try {
+      const res = await fetch(WORKER_API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'verifyCode', email: reVerifyEmailValue, code })
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (data.sessionToken) saveSessionToken(data.sessionToken);
+        const cb = reVerifyOnSuccess;
+        reVerifyOnSuccess = null;
+        closeReVerify();
+        if (cb) { try { cb(data.sessionToken || ''); } catch (e) { /* 提示失敗不影響流程 */ } }
+      } else {
+        st.textContent = data.error || '驗證碼錯誤';
+        st.style.color = '#F87171';
+      }
+    } catch (e) {
+      st.textContent = '無法連線，請稍後再試';
+      st.style.color = '#F87171';
+    } finally {
+      btn.disabled = false;
+    }
+  });
 
   // ── 狀態 ──
   let currentStep = 1;
@@ -1927,7 +2053,9 @@
 
         goToStep(2);
       } else {
-        showError(1, data.error || data.message || '提交失敗，請稍後再試');
+        if (!handleSessionError(data.error, email, () => showError(1, '已重新驗證，請再按一次「提交需求」'))) {
+          showError(1, data.error || data.message || '提交失敗，請稍後再試');
+        }
       }
     } catch (err) {
       showError(1, '無法連線訂單服務，請稍後再試');
@@ -2010,7 +2138,10 @@
           goToStep(3);
         }
       } else {
-        showError(2, data.error || data.message || '簽署失敗，請稍後再試');
+        const signEmail = trackingMode ? trackEmail : document.getElementById('email').value.trim().toLowerCase();
+        if (!handleSessionError(data.error, signEmail, () => showError(2, '已重新驗證，請再按一次「確認簽署」'))) {
+          showError(2, data.error || data.message || '簽署失敗，請稍後再試');
+        }
       }
     } catch (err) {
       showError(2, '無法連線訂單服務，請稍後再試');
@@ -2066,7 +2197,9 @@
         startECPayPolling(data.paymentId);
       } else {
         newWin.close();
-        showError(3, data.error || '無法建立付款，請稍後再試');
+        if (!handleSessionError(data.error, currentEmail, () => showError(3, '已重新驗證，請再按一次「前往信用卡付款」'))) {
+          showError(3, data.error || '無法建立付款，請稍後再試');
+        }
       }
     } catch (err) {
       newWin.close();
@@ -2315,6 +2448,15 @@
         body: JSON.stringify({ action: 'getMyInquiries', email: email, token: getSessionToken() })
       });
       const data = await res.json();
+      if (data.error) {
+        // 讀取類：重新驗證成功後直接自動重載清單
+        if (handleSessionError(data.error, email, () => loadMyInquiries(email))) {
+          container.innerHTML = '<div class="empty-state">驗證已逾時，請重新驗證</div>';
+        } else {
+          container.innerHTML = '<div class="empty-state">' + data.error + '</div>';
+        }
+        return;
+      }
       renderInquiryList(data.inquiries || []);
     } catch (err) {
       console.warn('API 未連線', err);
@@ -2419,7 +2561,9 @@
         document.getElementById('trackBackFromSign').classList.add('show');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        showTrackError(data.error || '無法載入合約');
+        if (!handleSessionError(data.error, trackEmail, () => showTrackError('已重新驗證，請再點一次「前往簽約」'))) {
+          showTrackError(data.error || '無法載入合約');
+        }
       }
     } catch (err) {
       showTrackError('無法連線，請稍後再試');
@@ -2446,7 +2590,9 @@
         document.getElementById('trackBackFromPay').classList.add('show');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        showTrackError(data.error || '無法載入付款資訊');
+        if (!handleSessionError(data.error, trackEmail, () => showTrackError('已重新驗證，請再點一次「前往信用卡付款」'))) {
+          showTrackError(data.error || '無法載入付款資訊');
+        }
       }
     } catch (err) {
       showTrackError('無法連線，請稍後再試');
@@ -2479,7 +2625,9 @@
       if (data.success) {
         await loadMyInquiries(trackEmail);
       } else {
-        showTrackError(data.error || '取消失敗');
+        if (!handleSessionError(data.error, trackEmail, () => showTrackError('已重新驗證，請再點一次「取消訂單」'))) {
+          showTrackError(data.error || '取消失敗');
+        }
       }
     } catch (err) {
       showTrackError('無法連線，請稍後再試');
@@ -2719,8 +2867,16 @@
           startRevPolling(data.purchase_id);
         } else {
           newWin.close();
-          errEl.textContent = data.error || '無法建立付款，請稍後再試';
-          errEl.classList.add('show');
+          // 加購流程的 token 存在區域變數，重新驗證成功後要一併回寫
+          const handled = handleSessionError(data.error, email, (newToken) => {
+            revSessionToken = newToken || getSessionToken();
+            errEl.textContent = '已重新驗證，請再按一次「前往信用卡付款」';
+            errEl.classList.add('show');
+          });
+          if (!handled) {
+            errEl.textContent = data.error || '無法建立付款，請稍後再試';
+            errEl.classList.add('show');
+          }
         }
       } catch (e) {
         newWin.close();
