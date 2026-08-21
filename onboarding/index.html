@@ -1090,7 +1090,7 @@
 
     <div class="error-msg" id="errorRevision"></div>
 
-    <div style="background:linear-gradient(135deg,rgba(24,38,82,0.55),rgba(10,17,36,0.65));border-radius:10px;padding:1rem;margin-bottom:1.2rem;text-align:center;">
+    <div id="revPriceBox" style="background:linear-gradient(135deg,rgba(24,38,82,0.55),rgba(10,17,36,0.65));border-radius:10px;padding:1rem;margin-bottom:1.2rem;text-align:center;">
       <div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.2rem;">加購費用</div>
       <div style="font-family:'Manrope','Noto Sans TC',sans-serif;font-size:1.6rem;font-weight:800;color:var(--gold-300);">NT$500 <span style="font-size:0.85rem;font-weight:400;color:var(--muted);">/ 每次修改</span></div>
     </div>
@@ -1131,23 +1131,29 @@
         </div>
         <div class="info-row">
           <span class="info-label">付款方式</span>
-          <span class="info-value">請聯繫客服完成付款</span>
+          <span class="info-value">線上信用卡（綠界 ECPay）</span>
         </div>
       </div>
 
+      <button type="button" class="btn btn-primary" id="btnRevECPay" style="margin-top:0.5rem;">
+        <span class="btn-text">前往信用卡付款</span>
+        <div class="spinner"></div>
+      </button>
+      <div class="hint hidden" id="revPollStatus" style="text-align:center;margin-top:0.6rem;"></div>
+
       <div style="font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 16px;padding:10px 12px;background:rgba(201,160,99,0.08);border-radius:8px;">
-        修改次數用完時，將於<a href="../revision/" style="color:var(--mauve);text-decoration:underline;text-underline-offset:2px;">專案調整</a>頁面自動顯示加購連結。
+        付款完成後修改次數自動增加。修改次數用完時，將於<a href="../revision/" style="color:var(--mauve);text-decoration:underline;text-underline-offset:2px;">專案調整</a>頁面自動顯示加購連結。
       </div>
     </div>
 
     <div id="revSuccessSection" class="hidden">
       <div class="success-screen">
         <div class="success-icon">&#10003;</div>
-        <h2>加購申請已送出！</h2>
+        <h2>付款完成，加購成功！</h2>
         <div class="divider"></div>
         <p class="message">
-          我們會在確認收款後更新您的修改次數。<br />
-          您可以回到<strong>專案調整頁面</strong>查看最新狀態。
+          修改次數已自動增加。<br />
+          您可以回到<strong>專案調整頁面</strong>繼續使用。
         </p>
         <a href="../revision/index.html" class="btn btn-primary" style="text-decoration:none;display:inline-block;width:auto;padding:0.7rem 2rem;">前往專案調整 →</a>
         <br />
@@ -1413,9 +1419,7 @@
 
 <script>
   // ── API 設定 ──
-  // 未搬遷 action（訂單追蹤、取消、加購）仍走 Apps Script；追蹤模式的舊訂單簽約與付款也走這裡
-  const API_URL = "https://script.google.com/macros/s/AKfycbyryJRwHkIVrVPP2Nh_fIXGFbVPlaNQ6TkAF_snVH6XlYpceaLKYKQfjyXruzMSeGsc/exec";
-  // 已搬遷 action（T-008／T-009）：主流程的驗證、需求單、合約、綠界付款走正式 Worker（D1）
+  // 全頁 action 一律走正式 Worker（D1）；Apps Script 已完全退出本頁（T-008～T-010）
   const WORKER_API_URL = "https://api.one-page-go.com/api";
 
 
@@ -1960,8 +1964,7 @@
     setLoading(btn, true);
 
     try {
-      // 追蹤模式（舊訂單，資料在 Sheet）走 Apps Script；主流程（新訂單，資料在 D1）走正式 Worker
-      const res = await fetch(trackingMode ? API_URL : WORKER_API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
         body: JSON.stringify({
           action: 'signContract',
@@ -2032,8 +2035,7 @@
       : document.getElementById('email').value.trim().toLowerCase();
 
     try {
-      // 追蹤模式（舊訂單）走 Apps Script；主流程走正式 Worker
-      const res = await fetch(trackingMode ? API_URL : WORKER_API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
         body: JSON.stringify({
           action: 'createECPayOrder',
@@ -2074,8 +2076,6 @@
   // ── ECPay 付款狀態輪詢 ──
   function startECPayPolling(paymentId) {
     stopECPayPolling();
-    // 付款單建在哪一邊，就輪詢哪一邊（啟動時鎖定，避免輪詢途中模式切換）
-    const pollApiUrl = trackingMode ? API_URL : WORKER_API_URL;
     let attempts = 0;
     const maxAttempts = 60;
     const pollStatus = document.getElementById('ecpayPollStatus');
@@ -2093,7 +2093,7 @@
       }
 
       try {
-        const res = await fetch(pollApiUrl, {
+        const res = await fetch(WORKER_API_URL, {
           method: 'POST',
           body: JSON.stringify({ action: 'checkPaymentStatus', payment_id: paymentId })
         });
@@ -2133,14 +2133,14 @@
 
   const STATUS_LABELS = {
     new: '需求已送出', contacted: '已聯繫', quoted: '已報價',
-    contracted: '已簽約', paid: '已付款', in_progress: '製作中',
-    delivered: '已交付', cancelled: '已取消'
+    contracted: '已簽約', paid: '已付款', confirmed: '付款完成',
+    in_progress: '製作中', delivered: '已交付', cancelled: '已取消'
   };
 
   const STATUS_COLORS = {
     new: 'yellow', contacted: 'blue', quoted: 'blue',
-    contracted: 'green', paid: 'green', in_progress: 'blue',
-    delivered: 'green', cancelled: 'red'
+    contracted: 'green', paid: 'green', confirmed: 'green',
+    in_progress: 'blue', delivered: 'green', cancelled: 'red'
   };
 
   const CANCELLABLE_STATUSES = ['new', 'contacted', 'quoted', 'contracted'];
@@ -2215,14 +2215,15 @@
     btn.disabled = true;
     btn.textContent = '發送中...';
 
+    let sent = false;
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
         body: JSON.stringify({ action: 'sendVerifyCode', email: email, purpose: 'tracking' })
       });
-      const text = await res.text();
-      const data = JSON.parse(text);
+      const data = await res.json();
       if (data.success) {
+        sent = true;
         document.getElementById('trackVerifyField').classList.remove('hidden');
         document.getElementById('trackVerifyStatus').textContent = '驗證碼已發送至您的信箱';
         document.getElementById('trackVerifyStatus').style.color = 'var(--green)';
@@ -2230,10 +2231,13 @@
         showTrackError(data.error || '發送失敗，請稍後再試');
       }
     } catch (err) {
-      console.warn('API 未連線，模擬驗證碼發送', err);
-      document.getElementById('trackVerifyField').classList.remove('hidden');
-      document.getElementById('trackVerifyStatus').textContent = '（開發模式）請輸入任意 6 位數字';
-      document.getElementById('trackVerifyStatus').style.color = 'var(--muted)';
+      showTrackError('無法連線驗證服務，請稍後再試');
+    }
+
+    if (!sent) {
+      btn.disabled = false;
+      btn.textContent = '發送驗證碼';
+      return;
     }
 
     let countdown = 60;
@@ -2265,9 +2269,8 @@
     btn.textContent = '驗證中...';
 
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'verifyCode', email, code })
       });
       const data = await res.json();
@@ -2288,16 +2291,9 @@
         btn.textContent = '驗證';
       }
     } catch (err) {
-      console.warn('API 未連線，模擬驗證通過', err);
-      trackEmailVerified = true;
-      trackEmail = email;
-      document.getElementById('trackVerifyStatus').textContent = '（開發模式）驗證成功';
-      document.getElementById('trackVerifyStatus').style.color = 'var(--green)';
-      document.getElementById('trackEmail').disabled = true;
-      document.getElementById('trackVerifyCode').disabled = true;
-      btn.textContent = '已驗證';
-      document.getElementById('btnTrackSendCode').classList.add('hidden');
-      await loadMyInquiries(email);
+      showTrackError('無法連線驗證服務，請稍後再試');
+      btn.disabled = false;
+      btn.textContent = '驗證';
     }
   });
 
@@ -2308,12 +2304,11 @@
     container.classList.remove('hidden');
 
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
         body: JSON.stringify({ action: 'getMyInquiries', email: email, token: getSessionToken() })
       });
-      const text = await res.text();
-      const data = JSON.parse(text);
+      const data = await res.json();
       renderInquiryList(data.inquiries || []);
     } catch (err) {
       console.warn('API 未連線', err);
@@ -2327,7 +2322,7 @@
     container.classList.remove('hidden');
 
     // 圖片設定教學僅付款完成客戶可見
-    const PAID_STATUSES = ['paid', 'in_progress', 'delivered'];
+    const PAID_STATUSES = ['paid', 'confirmed', 'in_progress', 'delivered'];
     const hasPaidOrder = inquiries.some(inq => PAID_STATUSES.includes(inq.status));
     const imgGuideEl = document.getElementById('trackImgGuide');
     if (hasPaidOrder) {
@@ -2401,12 +2396,11 @@
   async function trackSignContract(conId) {
     contractId = conId;
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
         body: JSON.stringify({ action: 'getContract', id: conId, email: trackEmail, token: getSessionToken() })
       });
-      const text = await res.text();
-      const data = JSON.parse(text);
+      const data = await res.json();
 
       if (data.contract) {
         price = data.contract.price;
@@ -2430,7 +2424,7 @@
   async function trackSubmitPayment(conId) {
     contractId = conId;
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
         body: JSON.stringify({ action: 'getPaymentInfo', id: conId, email: trackEmail, token: getSessionToken() })
       });
@@ -2470,9 +2464,8 @@
     modal.classList.add('hidden');
 
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(WORKER_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'cancelInquiry', inquiry_id: inqId, email: trackEmail, sessionToken: getSessionToken() })
       });
       const data = await res.json();
@@ -2535,14 +2528,15 @@
       btn.disabled = true;
       btn.textContent = '發送中...';
 
+      let sent = false;
       try {
-        const res = await fetch(API_URL, {
+        const res = await fetch(WORKER_API_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify({ action: 'sendVerifyCode', email, purpose: 'tracking' })
         });
         const data = await res.json();
         if (data.success) {
+          sent = true;
           document.getElementById('revVerifyField').classList.remove('hidden');
           document.getElementById('revVerifyStatus').textContent = '驗證碼已發送至您的信箱';
           document.getElementById('revVerifyStatus').style.color = 'var(--green)';
@@ -2553,6 +2547,12 @@
       } catch (e) {
         errEl.textContent = '連線失敗，請稍後再試';
         errEl.classList.add('show');
+      }
+
+      if (!sent) {
+        btn.disabled = false;
+        btn.textContent = '發送驗證碼';
+        return;
       }
 
       let countdown = 60;
@@ -2588,7 +2588,7 @@
       btn.textContent = '驗證中...';
 
       try {
-        const res = await fetch(API_URL, {
+        const res = await fetch(WORKER_API_URL, {
           method: 'POST',
           body: JSON.stringify({ action: 'verifyCode', email, code })
         });
@@ -2601,9 +2601,9 @@
           document.getElementById('revEmail').disabled = true;
           btn.textContent = '已驗證';
 
-          // 顯示付款區塊
+          // 顯示付款區塊並同步金額
           document.getElementById('revPaymentSection').classList.remove('hidden');
-          document.getElementById('revTransferDate').valueAsDate = new Date();
+          document.getElementById('revPaymentAmount').textContent = formatPrice(parseInt(qtySelect.value) * REVISION_PRICE);
         } else {
           errEl.textContent = data.error || '驗證碼錯誤';
           errEl.classList.add('show');
@@ -2618,8 +2618,46 @@
       }
     });
 
-    // 提交付款
-    document.getElementById('btnRevSubmit').addEventListener('click', async () => {
+    // 加購付款成功 → 收合表單、顯示成功畫面
+    function showRevSuccess() {
+      document.getElementById('revPaymentSection').classList.add('hidden');
+      document.getElementById('revPriceBox').style.display = 'none';
+      document.querySelectorAll('#revisionAddon .field').forEach(el => { el.style.display = 'none'; });
+      document.getElementById('errorRevision').classList.add('hidden');
+      document.getElementById('revSuccessSection').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 加購付款輪詢（同主流程：每 5 秒、最多 60 次）
+    function startRevPolling(purchaseId) {
+      let attempts = 0;
+      const maxAttempts = 60;
+      const pollEl = document.getElementById('revPollStatus');
+      pollEl.classList.remove('hidden');
+      const timer = setInterval(async () => {
+        attempts++;
+        pollEl.textContent = '等待付款確認中... (' + attempts + '/' + maxAttempts + ')';
+        if (attempts > maxAttempts) {
+          clearInterval(timer);
+          pollEl.textContent = '偵測逾時。付款完成後修改次數仍會自動增加，可稍後至專案調整頁面確認。';
+          return;
+        }
+        try {
+          const res = await fetch(WORKER_API_URL, {
+            method: 'POST',
+            body: JSON.stringify({ action: 'checkPaymentStatus', payment_id: purchaseId })
+          });
+          const data = await res.json();
+          if (data.status === 'confirmed') {
+            clearInterval(timer);
+            showRevSuccess();
+          }
+        } catch (e) { /* 繼續輪詢 */ }
+      }, 5000);
+    }
+
+    // 前往信用卡付款（綠界；流程同主流程 Step 3）
+    document.getElementById('btnRevECPay').addEventListener('click', async () => {
       const errEl = document.getElementById('errorRevision');
       errEl.textContent = '';
       errEl.classList.remove('show');
@@ -2630,67 +2668,57 @@
         return;
       }
 
-      const last5 = document.getElementById('revLast5').value.trim();
-      const transferDate = document.getElementById('revTransferDate').value;
+      const btn = document.getElementById('btnRevECPay');
+      setLoading(btn, true);
 
-      if (!last5 || last5.length !== 5) {
-        errEl.textContent = '請輸入匯款帳號末五碼';
+      // 同步開啟新視窗（必須在 click 事件的同步流程中，否則會被瀏覽器擋）
+      const newWin = window.open('', '_blank');
+      if (!newWin) {
+        errEl.textContent = '瀏覽器阻擋了彈出視窗，請允許彈出式視窗後再試一次';
         errEl.classList.add('show');
+        setLoading(btn, false);
         return;
       }
-
-      if (!transferDate) {
-        errEl.textContent = '請選擇匯款日期';
-        errEl.classList.add('show');
-        return;
-      }
-
-      const btn = document.getElementById('btnRevSubmit');
-      btn.classList.add('loading');
-      btn.disabled = true;
+      newWin.document.write('<html><body style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;color:#888;">付款頁面載入中...</body></html>');
 
       const email = document.getElementById('revEmail').value.trim();
       const qty = parseInt(qtySelect.value);
-      const totalAmount = qty * REVISION_PRICE;
 
       try {
-        const res = await fetch(API_URL, {
+        const res = await fetch(WORKER_API_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify({
             action: 'purchaseRevision',
             email: email,
             sessionToken: revSessionToken,
             project_id: projectId,
-            quantity: qty,
-            amount: totalAmount,
-            payment_method: 'bank_transfer',
-            transfer_last5: last5,
-            transfer_date: transferDate
+            quantity: qty
           })
         });
         const data = await res.json();
 
         if (data.success) {
-          document.getElementById('revPaymentSection').classList.add('hidden');
-          document.getElementById('revSuccessSection').classList.remove('hidden');
-          // 隱藏表單上方區域
-          document.getElementById('errorRevision').classList.add('hidden');
-          document.querySelectorAll('#revisionAddon > .field, #revisionAddon > div:not(#revSuccessSection):not(.form-section)').forEach(el => {
-            if (!el.id || (el.id !== 'revSuccessSection')) el.style.display = 'none';
-          });
+          let html = '<html><body><form id="f" method="POST" action="' + data.ecpayActionUrl + '">';
+          for (const key in data.ecpayParams) {
+            html += '<input type="hidden" name="' + key + '" value="' + data.ecpayParams[key] + '">';
+          }
+          html += '</form><script>document.getElementById("f").submit()<\/script></body></html>';
+          newWin.document.open();
+          newWin.document.write(html);
+          newWin.document.close();
+
+          startRevPolling(data.purchase_id);
         } else {
-          errEl.textContent = data.error || '提交失敗，請稍後再試';
+          newWin.close();
+          errEl.textContent = data.error || '無法建立付款，請稍後再試';
           errEl.classList.add('show');
         }
       } catch (e) {
-        // 如果 API 尚未支援 purchaseRevision，仍顯示成功（待後端實作）
-        console.warn('purchaseRevision API 尚未實作，顯示成功畫面', e);
-        document.getElementById('revPaymentSection').classList.add('hidden');
-        document.getElementById('revSuccessSection').classList.remove('hidden');
+        newWin.close();
+        errEl.textContent = '無法連線，請稍後再試';
+        errEl.classList.add('show');
       } finally {
-        btn.classList.remove('loading');
-        btn.disabled = false;
+        setLoading(btn, false);
       }
     });
   })();
