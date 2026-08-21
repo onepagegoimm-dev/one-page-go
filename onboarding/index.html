@@ -1413,9 +1413,9 @@
 
 <script>
   // ── API 設定 ──
-  // 未搬遷 action（合約簽署、付款、訂單追蹤、加購）仍走 Apps Script
+  // 未搬遷 action（訂單追蹤、取消、加購）仍走 Apps Script；追蹤模式的舊訂單簽約與付款也走這裡
   const API_URL = "https://script.google.com/macros/s/AKfycbyryJRwHkIVrVPP2Nh_fIXGFbVPlaNQ6TkAF_snVH6XlYpceaLKYKQfjyXruzMSeGsc/exec";
-  // 已搬遷 action（T-008）：sendVerifyCode / verifyCode / submitInquiry 走正式 Worker（D1）
+  // 已搬遷 action（T-008／T-009）：主流程的驗證、需求單、合約、綠界付款走正式 Worker（D1）
   const WORKER_API_URL = "https://api.one-page-go.com/api";
 
 
@@ -1960,9 +1960,9 @@
     setLoading(btn, true);
 
     try {
-      const res = await fetch(API_URL, {
+      // 追蹤模式（舊訂單，資料在 Sheet）走 Apps Script；主流程（新訂單，資料在 D1）走正式 Worker
+      const res = await fetch(trackingMode ? API_URL : WORKER_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           action: 'signContract',
           contract_id: contractId,
@@ -1988,7 +1988,7 @@
           // 正常流程：呼叫 getPaymentInfo 取得付款資訊
           const currentEmail = document.getElementById('email').value.trim().toLowerCase();
           try {
-            const payRes = await fetch(API_URL, {
+            const payRes = await fetch(WORKER_API_URL, {
               method: 'POST',
               body: JSON.stringify({ action: 'getPaymentInfo', id: contractId, email: currentEmail, token: getSessionToken() })
             });
@@ -2006,14 +2006,7 @@
         showError(2, data.error || data.message || '簽署失敗，請稍後再試');
       }
     } catch (err) {
-      console.warn('API 未連線，使用模擬流程', err);
-      if (trackingMode) {
-        document.getElementById('step2').classList.add('hidden');
-        document.getElementById('trackingSection').classList.remove('hidden');
-      } else {
-        document.getElementById('paymentAmount').textContent = formatPrice(baseBudget);
-        goToStep(3);
-      }
+      showError(2, '無法連線訂單服務，請稍後再試');
     } finally {
       setLoading(btn, false);
     }
@@ -2039,9 +2032,9 @@
       : document.getElementById('email').value.trim().toLowerCase();
 
     try {
-      const res = await fetch(API_URL, {
+      // 追蹤模式（舊訂單）走 Apps Script；主流程走正式 Worker
+      const res = await fetch(trackingMode ? API_URL : WORKER_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           action: 'createECPayOrder',
           contract_id: contractId,
@@ -2081,6 +2074,8 @@
   // ── ECPay 付款狀態輪詢 ──
   function startECPayPolling(paymentId) {
     stopECPayPolling();
+    // 付款單建在哪一邊，就輪詢哪一邊（啟動時鎖定，避免輪詢途中模式切換）
+    const pollApiUrl = trackingMode ? API_URL : WORKER_API_URL;
     let attempts = 0;
     const maxAttempts = 60;
     const pollStatus = document.getElementById('ecpayPollStatus');
@@ -2098,9 +2093,8 @@
       }
 
       try {
-        const res = await fetch(API_URL, {
+        const res = await fetch(pollApiUrl, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify({ action: 'checkPaymentStatus', payment_id: paymentId })
         });
         const data = await res.json();
