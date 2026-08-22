@@ -2515,6 +2515,28 @@
         cancelHtml = `<button class="btn-action btn-action-danger" onclick="confirmCancelInquiry('${inq.inquiry_id}')">取消訂單</button>`;
       }
 
+      // 資料庫設定（有專案才顯示；T-018／D-002：託管預設、自備進階）
+      let dbHtml = '';
+      if (inq.project) {
+        const pid2 = inq.project.project_id;
+        if (inq.project.db_status === 'verified') {
+          dbHtml = '<div style="margin-top:0.6rem;padding-top:0.6rem;border-top:1px dashed rgba(255,255,255,.12);font-size:0.78rem;color:var(--green);">✓ 自備資料庫已驗證（' + inq.project.db_masked + '）— 網站與資料庫部署在您自己的 Cloudflare 帳號</div>';
+        } else {
+          dbHtml = '<div style="margin-top:0.6rem;padding-top:0.6rem;border-top:1px dashed rgba(255,255,255,.12);">'
+            + '<div style="font-size:0.78rem;color:var(--muted);">🗄️ 資料庫託管中（預設，免費）'
+            + ' <a href="javascript:void(0)" onclick="toggleCfForm(\'' + pid2 + '\')" style="color:var(--mauve);text-decoration:underline;text-underline-offset:2px;">改放自己的 Cloudflare 帳號？</a></div>'
+            + '<div id="cfForm_' + pid2 + '" class="hidden" style="margin-top:0.5rem;">'
+            + '<div style="font-size:0.74rem;color:var(--muted);line-height:1.6;margin-bottom:0.5rem;">提交權限限縮的 Cloudflare API token，網站與資料庫將部署在您自己的帳號。作法見 <a href="../guide/index.html" target="_blank" rel="noopener" style="color:var(--mauve);text-decoration:underline;text-underline-offset:2px;">設定指南</a>。</div>'
+            + '<div style="display:flex;gap:6px;">'
+            + '<input type="text" id="cfToken_' + pid2 + '" placeholder="貼上 Cloudflare API token" style="flex:1;font-size:0.78rem;padding:0.45rem 0.6rem;" />'
+            + '<button class="btn-action btn-action-primary" style="margin:0;white-space:nowrap;" onclick="submitCfToken(\'' + pid2 + '\')">提交驗證</button>'
+            + '</div>'
+            + '<div id="cfMsg_' + pid2 + '" style="font-size:0.74rem;margin-top:0.4rem;min-height:1em;"></div>'
+            + '</div>'
+            + '</div>';
+        }
+      }
+
       // 寄信設定（有專案才顯示；T-011）
       let resendHtml = '';
       if (inq.project) {
@@ -2557,6 +2579,7 @@
             ${cancelHtml}
           </div>
           ${resendHtml}
+          ${dbHtml}
         </div>`;
     }
 
@@ -2649,6 +2672,49 @@
       if (data.success) {
         msgEl.style.color = 'var(--green)';
         msgEl.textContent = data.message || '金鑰驗證通過';
+        setTimeout(() => loadMyInquiries(trackEmail), 2000);
+      } else {
+        if (handleSessionError(data.error, trackEmail, () => { msgEl.style.color = 'var(--muted)'; msgEl.textContent = '已重新驗證，請再按一次「提交驗證」'; })) return;
+        msgEl.style.color = '#F87171';
+        msgEl.textContent = data.error || '驗證失敗，請稍後再試';
+      }
+    } catch (err) {
+      msgEl.style.color = '#F87171';
+      msgEl.textContent = '無法連線，請稍後再試';
+    }
+  }
+
+  // ── 提交 Cloudflare token（T-018：自備資料庫）──
+  function toggleCfForm(projectId) {
+    document.getElementById('cfForm_' + projectId).classList.toggle('hidden');
+  }
+
+  async function submitCfToken(projectId) {
+    const input = document.getElementById('cfToken_' + projectId);
+    const msgEl = document.getElementById('cfMsg_' + projectId);
+    const token = input.value.trim();
+    msgEl.style.color = '#F87171';
+    if (!token) {
+      msgEl.textContent = '請先貼上 token';
+      return;
+    }
+    msgEl.style.color = 'var(--muted)';
+    msgEl.textContent = '驗證中（確認 token 有效與權限）...';
+    try {
+      const res = await fetch(WORKER_API_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'submitCloudflareToken',
+          email: trackEmail,
+          sessionToken: getSessionToken(),
+          project_id: projectId,
+          token: token
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        msgEl.style.color = 'var(--green)';
+        msgEl.textContent = data.message || 'token 驗證通過';
         setTimeout(() => loadMyInquiries(trackEmail), 2000);
       } else {
         if (handleSessionError(data.error, trackEmail, () => { msgEl.style.color = 'var(--muted)'; msgEl.textContent = '已重新驗證，請再按一次「提交驗證」'; })) return;
