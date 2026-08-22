@@ -20,15 +20,15 @@
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="manifest" href="../site.webmanifest">
 <title>One Page Go — 購買後設定指南</title>
-<meta name="description" content="One Page Go 購買後設定指南。手把手教你設定 GitHub Pages 和 Google Sheets，輕鬆上線你的單頁式網頁應用。" />
-<meta name="keywords" content="設定指南,GitHub Pages,Google Sheets,One Page Go,網頁上線,教學" />
+<meta name="description" content="One Page Go 購買後設定指南。網頁與資料庫全託管，只要完成寄信設定（自己申請 Resend 金鑰，或選擇寄信託管），網站就能上線。" />
+<meta name="keywords" content="設定指南,Resend,寄信設定,One Page Go,網頁上線,教學" />
 <meta name="author" content="One Page Go" />
 <link rel="canonical" href="https://one-page-go.com/guide/" />
 
 <!-- Open Graph / 社群分享 -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="One Page Go — 購買後設定指南" />
-<meta property="og:description" content="手把手教你設定 GitHub Pages 和 Google Sheets，輕鬆上線你的單頁式網頁應用。" />
+<meta property="og:description" content="網頁與資料庫全託管，只要完成寄信設定，網站就能上線。" />
 <meta property="og:url" content="https://one-page-go.com/guide/" />
 <meta property="og:locale" content="zh_TW" />
 <meta property="og:site_name" content="One Page Go" />
@@ -36,7 +36,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="One Page Go — 購買後設定指南" />
-<meta name="twitter:description" content="手把手教你設定 GitHub Pages 和 Google Sheets，輕鬆上線你的單頁式網頁應用。" />
+<meta name="twitter:description" content="網頁與資料庫全託管，只要完成寄信設定，網站就能上線。" />
 
 <!-- 結構化資料 -->
 <script type="application/ld+json">
@@ -45,7 +45,7 @@
     "@type": "WebPage",
     "name": "One Page Go — 購買後設定指南",
     "url": "https://one-page-go.com/guide/",
-    "description": "One Page Go 購買後設定指南。手把手教你設定 GitHub Pages 和 Google Sheets，輕鬆上線你的單頁式網頁應用。",
+    "description": "One Page Go 購買後設定指南。網頁與資料庫全託管，只要完成寄信設定，網站就能上線。",
     "inLanguage": "zh-TW",
     "isPartOf": {
         "@type": "WebSite",
@@ -523,8 +523,8 @@
   <!-- ── 導覽 ── -->
   <nav class="guide-nav">
     <button class="guide-nav-btn active" onclick="showPage('overview')">總覽</button>
-    <button class="guide-nav-btn" onclick="showPage('github')">GitHub 設定</button>
-    <button class="guide-nav-btn" onclick="showPage('sheet')">Google Sheet</button>
+    <button class="guide-nav-btn" onclick="showPage('resend')">寄信設定</button>
+    <button class="guide-nav-btn" onclick="showPage('managed')">寄信託管</button>
     <button class="guide-nav-btn" onclick="showPage('checklist')">完成確認</button>
     <button class="guide-nav-btn" onclick="showPage('faq')">常見問題</button>
   </nav>
@@ -537,315 +537,228 @@
     <div class="section-card">
       <h2>歡迎！接下來要做什麼？</h2>
       <div class="divider"></div>
-      <p class="subtitle">感謝您購買 One Page Go 方案，以下是設定流程總覽</p>
+      <p class="subtitle">感謝您購買 One Page Go 方案，好消息是：幾乎不用設定</p>
 
-      <p>您的網頁需要兩個服務來運作：</p>
-      <br />
       <ol class="step-list">
         <li>
-          <strong>GitHub Pages</strong> — 網頁託管<br />
-          您的網頁會放在 GitHub 上，透過 GitHub Pages 免費提供全球訪問。
+          <strong>網頁託管</strong> — 我們負責<br />
+          網頁由我們部署與維護，您不需要建立任何帳號。
         </li>
         <li>
-          <strong>Google Sheet</strong> — 資料後台<br />
-          訂單、會員、商品等資料存在您自己的 Google Sheet，完全由您掌控。
+          <strong>商家專屬資料庫</strong> — 我們負責<br />
+          訂單、會員等營運資料存放在您專屬的雲端資料庫，由我們建置，可隨時完整匯出。
+        </li>
+        <li>
+          <strong>寄信設定</strong> — 唯一需要您參與的一步<br />
+          網站要寄訂單通知與驗證碼給您的客戶，需要一把寄信金鑰。二選一：<strong>自己申請（免費）</strong>或<strong>寄信託管（NT$199／月）</strong>。
         </li>
       </ol>
 
       <div class="tip-box">
-        <div class="tip-label">為什麼要自己建立帳號？</div>
-        所有資料都存放在您自己的帳號中，即使日後不再使用我們的服務，您的資料依然屬於您，不會遺失或被刪除。
+        <div class="tip-label">為什麼寄信要用您的金鑰？</div>
+        寄信額度與寄件身分綁定您自己的 Resend 帳號，額度不與其他商家共用，寄件紀錄也完全由您掌控。不想自己管理，選寄信託管即可。
       </div>
     </div>
 
     <div class="section-card">
-      <h2>設定流程一覽</h2>
+      <h2>寄信設定流程一覽</h2>
       <div class="divider"></div>
 
       <div class="flow-overview">
         <div class="flow-step">
           <span class="flow-icon">&#128100;</span>
-          建立 GitHub<br />帳號
+          註冊<br />Resend 帳號
         </div>
         <span class="flow-arrow">&#10132;</span>
         <div class="flow-step">
-          <span class="flow-icon">&#128230;</span>
-          建立<br />Repository
+          <span class="flow-icon">&#128273;</span>
+          建立<br />API 金鑰
         </div>
         <span class="flow-arrow">&#10132;</span>
         <div class="flow-step">
-          <span class="flow-icon">&#127760;</span>
-          開啟<br />GitHub Pages
-        </div>
-      </div>
-
-      <div class="flow-overview">
-        <div class="flow-step">
-          <span class="flow-icon">&#128196;</span>
-          建立 Google<br />Sheet
-        </div>
-        <span class="flow-arrow">&#10132;</span>
-        <div class="flow-step">
-          <span class="flow-icon">&#128279;</span>
-          共享<br />Sheet 給我們
-        </div>
-        <span class="flow-arrow">&#10132;</span>
-        <div class="flow-step">
-          <span class="flow-icon">&#127881;</span>
-          設定<br />完成！
+          <span class="flow-icon">&#9989;</span>
+          提交金鑰<br />自動驗證
         </div>
       </div>
 
       <div class="tip-box">
         <div class="tip-label">預估所需時間</div>
-        整個流程約需 10-15 分鐘。如果您已經有 Google 帳號，會更快。
+        自己申請約需 10 分鐘；提交後系統會自動驗證並寄一封測試信到您的信箱。選寄信託管則什麼都不用做，聯繫我們開通即可。
       </div>
     </div>
 
-    <button class="btn btn-primary" onclick="showPage('github')">開始設定 GitHub &rarr;</button>
+    <button class="btn btn-primary" onclick="showPage('resend')">開始寄信設定 &rarr;</button>
+    <button class="btn btn-secondary" onclick="showPage('managed')">或看看寄信託管方案</button>
   </div>
 
   <!-- ══════════════════════════════ -->
-  <!-- ── Page 2: GitHub 設定 ── -->
+  <!-- ── Page 2: Resend 寄信設定 ── -->
   <!-- ══════════════════════════════ -->
-  <div id="page-github" class="guide-page">
+  <div id="page-resend" class="guide-page">
 
     <div class="section-card">
-      <h2>Step 1：建立 GitHub 帳號</h2>
+      <h2>Step 1：註冊 Resend 帳號</h2>
       <div class="divider"></div>
-      <p class="subtitle">如果您已有 GitHub 帳號，可跳到 Step 2</p>
+      <p class="subtitle">Resend 是專業的寄信服務，免費方案就夠用</p>
 
       <ol class="step-list">
         <li>
-          前往 <strong>github.com</strong>，點擊右上角 <strong>Sign up</strong>
+          前往 <strong>resend.com</strong>，點擊 <strong>Sign up</strong>
         </li>
         <li>
-          輸入您的 <strong>Email 地址</strong>，設定密碼
+          用您的 <strong>Email</strong> 註冊（建議用下單時的同一個 Email）
         </li>
         <li>
-          選擇一個 <strong>使用者名稱</strong>（英文 + 數字，不含空格）<br />
-          <span style="font-size:0.75rem;color:var(--muted);">例如：my-bakery-shop、wang-studio</span>
-        </li>
-        <li>
-          完成驗證後，到信箱點擊 <strong>驗證連結</strong> 啟用帳號
+          到信箱點擊 <strong>驗證連結</strong> 啟用帳號
         </li>
       </ol>
 
       <div class="tip-box">
-        <div class="tip-label">使用者名稱建議</div>
-        GitHub 使用者名稱會出現在您的網址中（例如 <span class="code-inline">your-name.github.io</span>），建議使用品牌相關的簡短英文名稱。
-      </div>
-
-      <div class="warn-box">
-        <div class="warn-label">免費方案即可</div>
-        GitHub 免費方案已包含 GitHub Pages 功能，不需要付費升級。
+        <div class="tip-label">免費方案即可</div>
+        Resend 免費方案每天可寄 100 封、每月 3,000 封，一頁式網站的訂單通知綽綽有餘，不需要付費升級。
       </div>
     </div>
 
     <div class="section-card">
-      <h2>Step 2：建立 Repository</h2>
+      <h2>Step 2：建立 API 金鑰</h2>
       <div class="divider"></div>
-      <p class="subtitle">Repository（倉庫）是存放網頁檔案的地方</p>
+      <p class="subtitle">金鑰是網站代替您寄信的鑰匙</p>
 
       <ol class="step-list">
         <li>
-          登入 GitHub 後，點擊右上角 <strong>+</strong> 選擇 <strong>New repository</strong>
+          登入 Resend 後，點擊左側選單的 <strong>API Keys</strong>
         </li>
         <li>
-          Repository name 輸入：<br />
-          <span class="code-inline">你的使用者名稱.github.io</span><br />
-          <span style="font-size:0.75rem;color:var(--muted);">例如：my-bakery-shop.github.io</span>
+          點擊 <strong>Create API Key</strong>
         </li>
         <li>
-          確認選擇 <strong>Public</strong>（公開）
+          名稱輸入好記的文字（例如 <span class="code-inline">one-page-go</span>），權限建議選 <strong>Full access</strong>
         </li>
         <li>
-          勾選 <strong>Add a README file</strong>
-        </li>
-        <li>
-          點擊 <strong>Create repository</strong> 完成建立
+          點擊 <strong>Create</strong>，<strong>立刻複製</strong>畫面上 <span class="code-inline">re_</span> 開頭的完整金鑰
         </li>
       </ol>
 
       <div class="warn-box">
-        <div class="warn-label">名稱必須完全一致</div>
-        Repository 名稱必須是 <span class="code-inline">使用者名稱.github.io</span>，大小寫需一致，否則 GitHub Pages 無法自動啟用。
+        <div class="warn-label">金鑰只會顯示一次</div>
+        關閉視窗後就看不到完整金鑰了。如果忘了複製，直接刪掉重建一把即可，不影響任何東西。
       </div>
     </div>
 
     <div class="section-card">
-      <h2>Step 3：開啟 GitHub Pages</h2>
+      <h2>Step 3：在網站上提交金鑰</h2>
       <div class="divider"></div>
-      <p class="subtitle">讓您的網頁可以被全世界瀏覽</p>
+      <p class="subtitle">系統會自動驗證，並寄一封測試信給您</p>
 
       <ol class="step-list">
         <li>
-          進入剛建立的 repository 頁面
+          前往 <a href="../onboarding/index.html" style="color:var(--gold-300);font-weight:600;">查詢訂單進度</a>，輸入下單 Email 完成驗證登入
         </li>
         <li>
-          點擊上方的 <strong>Settings</strong>（齒輪圖示）
+          在您已付款的訂單卡片上找到「<strong>🔑 寄信設定</strong>」區塊
         </li>
         <li>
-          左側選單點擊 <strong>Pages</strong>
+          貼上 <span class="code-inline">re_</span> 開頭的金鑰，點擊 <strong>提交驗證</strong>
         </li>
         <li>
-          在 <strong>Source</strong> 區域確認設定為：<br />
-          Branch: <span class="code-inline">main</span> / Folder: <span class="code-inline">/ (root)</span>
-        </li>
-        <li>
-          點擊 <strong>Save</strong>，等待 1-2 分鐘後即可透過<br />
-          <span class="code-inline">https://你的名稱.github.io</span> 瀏覽
+          系統會用您的金鑰寄一封<strong>測試信</strong>到您的信箱；收到即代表設定成功，畫面會顯示「已驗證」
         </li>
       </ol>
 
       <div class="tip-box">
-        <div class="tip-label">邀請我們協作</div>
-        完成以上步驟後，請將您的 <strong>GitHub 使用者名稱</strong> 告知我們。我們會透過 collaborator 邀請的方式，將您的網頁檔案部署到此 repository。
+        <div class="tip-label">金鑰的保存方式</div>
+        金鑰以加密連線（https）傳輸並存放於您的商家專屬資料庫；畫面上只會顯示尾碼（例如 re_****ab12），不會回顯全文。想更換時到 Resend 後台重建一把再提交即可。
       </div>
     </div>
 
     <div class="section-card">
-      <h2>Step 4：接受 Collaborator 邀請</h2>
+      <h2>Step 4（進階）：驗證寄件網域</h2>
       <div class="divider"></div>
-      <p class="subtitle">我們會發送邀請，您只需接受</p>
+      <p class="subtitle">有自己網域的商家做這步，信才能寄給您的客戶</p>
 
       <ol class="step-list">
         <li>
-          告知我們您的 GitHub 使用者名稱後，您會收到一封<strong>邀請 Email</strong>
+          在 Resend 左側選單點擊 <strong>Domains</strong> &rarr; <strong>Add Domain</strong>，輸入您的網域（例如 <span class="code-inline">mybakery.com</span>）
         </li>
         <li>
-          點擊 Email 中的 <strong>View invitation</strong> 連結
+          Resend 會列出幾筆 <strong>DNS 記錄</strong>（DKIM、SPF 等）
         </li>
         <li>
-          在 GitHub 頁面點擊 <strong>Accept invitation</strong>
+          到您網域的 DNS 管理後台（購買網域的地方），照著把這幾筆記錄<strong>逐一新增</strong>
         </li>
         <li>
-          接受後，我們即可將網頁檔案部署到您的 repository。<br />部署完成後，您的網頁就正式上線了！
-        </li>
-      </ol>
-
-      <div class="tip-box">
-        <div class="tip-label">部署完成後</div>
-        您可以隨時在 repository 的 Settings &rarr; Collaborators 中移除我們的權限，網頁依然會正常運作。
-      </div>
-    </div>
-
-    <button class="btn btn-primary" onclick="showPage('sheet')">接下來：設定 Google Sheet &rarr;</button>
-    <button class="btn btn-secondary" onclick="showPage('overview')">&larr; 返回總覽</button>
-  </div>
-
-  <!-- ══════════════════════════════ -->
-  <!-- ── Page 3: Google Sheet 設定 ── -->
-  <!-- ══════════════════════════════ -->
-  <div id="page-sheet" class="guide-page">
-
-    <div class="section-card">
-      <h2>Step 1：建立 Google Sheet</h2>
-      <div class="divider"></div>
-      <p class="subtitle">用您自己的 Google 帳號建立資料表</p>
-
-      <ol class="step-list">
-        <li>
-          使用您的 Google 帳號登入 <strong>Google 雲端硬碟</strong><br />
-          <span style="font-size:0.75rem;color:var(--muted);">前往 drive.google.com</span>
-        </li>
-        <li>
-          點擊左上角 <strong>+ 新增</strong> &rarr; <strong>Google 試算表</strong> &rarr; <strong>空白試算表</strong>
-        </li>
-        <li>
-          為試算表命名，例如：<br />
-          <span class="code-inline">我的烘焙坊 - 訂單管理</span>
-        </li>
-      </ol>
-
-      <div class="tip-box">
-        <div class="tip-label">不需要手動建立欄位</div>
-        試算表的欄位和格式會由我們的系統自動建立，您只需要建立一個空白的試算表即可。
-      </div>
-    </div>
-
-    <div class="section-card">
-      <h2>Step 2：共享試算表給我們</h2>
-      <div class="divider"></div>
-      <p class="subtitle">讓我們的系統能讀寫您的訂單資料</p>
-
-      <ol class="step-list">
-        <li>
-          在試算表右上角點擊 <strong>共用</strong>（Share）按鈕
-        </li>
-        <li>
-          在「新增使用者和群組」欄位中，輸入我們提供的 <strong>服務帳號 Email</strong><br />
-          <span style="font-size:0.75rem;color:var(--muted);">我們會在確認訂單時提供此 Email</span>
-        </li>
-        <li>
-          權限設定為 <strong>編輯者</strong>
-        </li>
-        <li>
-          點擊 <strong>傳送</strong> 完成共享
+          回到 Resend 點擊 <strong>Verify</strong>；狀態變成 <strong>Verified</strong> 即完成
         </li>
       </ol>
 
       <div class="warn-box">
-        <div class="warn-label">請選擇「編輯者」權限</div>
-        系統需要「編輯者」權限才能自動建立欄位和寫入訂單資料。「檢視者」或「評論者」權限將無法正常運作。
-      </div>
-    </div>
-
-    <div class="section-card">
-      <h2>Step 3：複製試算表網址</h2>
-      <div class="divider"></div>
-      <p class="subtitle">我們需要網址來連結您的系統</p>
-
-      <ol class="step-list">
-        <li>
-          開啟您剛建立的試算表
-        </li>
-        <li>
-          複製瀏覽器網址列中的完整網址<br />
-          <span style="font-size:0.75rem;color:var(--muted);">格式類似：https://docs.google.com/spreadsheets/d/xxxxx/edit</span>
-        </li>
-        <li>
-          將網址傳送給我們
-        </li>
-      </ol>
-
-      <div class="tip-box">
-        <div class="tip-label">我們只需要網址中的 ID</div>
-        試算表網址中間的一長串英數字就是 Sheet ID，我們會用它來連結您的網頁後台。您不需要自己擷取，只要貼上完整網址即可。
-      </div>
-    </div>
-
-    <div class="section-card">
-      <h2>Step 4：等待系統設定</h2>
-      <div class="divider"></div>
-      <p class="subtitle">我們收到資訊後會完成最後設定</p>
-
-      <ol class="step-list">
-        <li>
-          我們收到您的試算表網址後，會<strong>自動建立所需的欄位和分頁</strong>
-        </li>
-        <li>
-          同時將您的網頁部署到 GitHub Pages
-        </li>
-        <li>
-          全部完成後，我們會通知您，並附上<strong>網頁網址</strong>和<strong>使用說明</strong>
-        </li>
-      </ol>
-
-      <div class="tip-box">
-        <div class="tip-label">資料完全在您的帳號中</div>
-        所有訂單、會員、商品資料都存在您自己的 Google Sheet。您可以隨時查看、匯出、備份，完全由您掌控。
-      </div>
-
-      <div class="tip-box" style="background:rgba(201,160,99,.08);border:1.5px dashed var(--gold-500);margin-top:1rem;">
-        <div class="tip-label" style="color:var(--gold-300);">🖼️ 商品圖片網址怎麼填？</div>
-        設定商品時，Google Sheet 的 <span class="code-inline">image_url</span> 欄位需要填入圖片網址。
-        付款完成後，可至「<a href="../revision/" target="_blank" rel="noopener" style="color:var(--gold-300);font-weight:600;text-decoration:underline;">專案調整</a>」頁使用內建的<strong>圖片網址轉換器</strong>——貼上 Google Drive 分享連結，一鍵自動產生可用的 <span class="code-inline">image_url</span> 網址。
+        <div class="warn-label">還沒有網域？</div>
+        未驗證網域的 Resend 帳號<strong>只能寄信給您自己的信箱</strong>，無法寄給您的客戶。網站正式對外前需要完成這步——沒有網域或不想處理 DNS，改用「<strong>寄信託管</strong>」方案即可，交付時我們也會再與您確認。
       </div>
     </div>
 
     <button class="btn btn-primary" onclick="showPage('checklist')">設定完成確認 &rarr;</button>
-    <button class="btn btn-secondary" onclick="showPage('github')">&larr; 返回 GitHub 設定</button>
+    <button class="btn btn-secondary" onclick="showPage('managed')">不想自己弄？看寄信託管</button>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- ── Page 3: 寄信託管方案 ── -->
+  <!-- ══════════════════════════════ -->
+  <div id="page-managed" class="guide-page">
+
+    <div class="section-card">
+      <h2>寄信託管是什麼？</h2>
+      <div class="divider"></div>
+      <p class="subtitle">不想申請帳號、不想動 DNS？交給我們</p>
+
+      <div style="background:var(--navy-900);border:1.5px solid var(--hairline);border-radius:10px;padding:1.2rem;text-align:center;margin-bottom:1rem;">
+        <div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.2rem;">寄信託管月費</div>
+        <div style="font-family:'Manrope','Noto Sans TC',sans-serif;font-size:1.8rem;font-weight:800;color:var(--gold-300);">NT$199 <span style="font-size:0.85rem;font-weight:400;color:var(--muted);">/ 月</span></div>
+      </div>
+
+      <ol class="step-list">
+        <li>
+          <strong>不用申請 Resend 帳號</strong> — 寄信由我們的帳號代管
+        </li>
+        <li>
+          <strong>不用驗證網域、不用動 DNS</strong> — 技術細節全部由我們處理
+        </li>
+        <li>
+          <strong>隨時可轉自管</strong> — 之後想改用自己的金鑰，照「寄信設定」提交即可，當月結束託管
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-label">怎麼選？</div>
+        願意花 10 分鐘照教學申請的，自己管完全免費；想省事、或沒有自己的網域，選寄信託管最單純。
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2>如何開通</h2>
+      <div class="divider"></div>
+      <p class="subtitle">聯繫我們即可，不用在網站上操作</p>
+
+      <ol class="step-list">
+        <li>
+          以下單時的 Email 來信，或透過 Line 聯繫我們，說明要開通<strong>寄信託管</strong>並附上您的<strong>訂單編號</strong>
+        </li>
+        <li>
+          我們確認後為您的專案開通，並回覆生效日期
+        </li>
+        <li>
+          費用採<strong>每月請款</strong>（目前未支援自動扣款），我們會每月寄送繳費通知
+        </li>
+      </ol>
+
+      <div class="warn-box">
+        <div class="warn-label">上線前必須二選一</div>
+        寄信設定（自己的金鑰通過驗證，或開通寄信託管）完成前，網站無法正式上線——因為訂單通知與驗證碼都寄不出去。
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="showPage('checklist')">設定完成確認 &rarr;</button>
+    <button class="btn btn-secondary" onclick="showPage('resend')">&larr; 返回寄信設定</button>
   </div>
 
   <!-- ══════════════════════════════ -->
@@ -856,45 +769,46 @@
     <div class="section-card">
       <h2>設定完成確認清單</h2>
       <div class="divider"></div>
-      <p class="subtitle">請確認以下項目都已完成</p>
+      <p class="subtitle">依您選的寄信方案，確認對應項目都已完成</p>
 
-      <h3 style="font-size:0.88rem;color:#fff;margin:1rem 0 0.5rem;">GitHub 部分</h3>
-      <ul class="checklist" id="checklistGithub">
-        <li onclick="toggleCheck(this)">已建立 GitHub 帳號</li>
-        <li onclick="toggleCheck(this)">已建立 <span class="code-inline">使用者名稱.github.io</span> repository</li>
-        <li onclick="toggleCheck(this)">已確認 Repository 為 Public</li>
-        <li onclick="toggleCheck(this)">已在 Settings &rarr; Pages 開啟 GitHub Pages</li>
-        <li onclick="toggleCheck(this)">已將 GitHub 使用者名稱告知我們</li>
-        <li onclick="toggleCheck(this)">已接受 Collaborator 邀請</li>
+      <h3 style="font-size:0.88rem;color:#fff;margin:1rem 0 0.5rem;">路線 A：自己申請 Resend 金鑰（免費）</h3>
+      <ul class="checklist" id="checklistResend">
+        <li onclick="toggleCheck(this)">已註冊 Resend 帳號並完成 Email 驗證</li>
+        <li onclick="toggleCheck(this)">已建立 <span class="code-inline">re_</span> 開頭的 API 金鑰</li>
+        <li onclick="toggleCheck(this)">已在「查詢訂單進度」提交金鑰，畫面顯示<strong>已驗證</strong></li>
+        <li onclick="toggleCheck(this)">已收到系統寄出的測試信</li>
+        <li onclick="toggleCheck(this)">（有自己網域者）已在 Resend 完成網域驗證</li>
       </ul>
 
-      <h3 style="font-size:0.88rem;color:#fff;margin:1rem 0 0.5rem;">Google Sheet 部分</h3>
-      <ul class="checklist" id="checklistSheet">
-        <li onclick="toggleCheck(this)">已用自己的 Google 帳號建立空白試算表</li>
-        <li onclick="toggleCheck(this)">已將試算表共享給我們的服務帳號（編輯者權限）</li>
-        <li onclick="toggleCheck(this)">已將試算表網址傳送給我們</li>
+      <h3 style="font-size:0.88rem;color:#fff;margin:1rem 0 0.5rem;">路線 B：寄信託管（NT$199／月）</h3>
+      <ul class="checklist" id="checklistManaged">
+        <li onclick="toggleCheck(this)">已來信或 Line 聯繫開通，並附上訂單編號</li>
+        <li onclick="toggleCheck(this)">已收到我們的開通確認回覆</li>
       </ul>
     </div>
 
     <div class="section-card">
-      <h2>需要提供給我們的資訊</h2>
+      <h2>需要提供給我們的素材</h2>
       <div class="divider"></div>
+      <p class="subtitle">網頁製作需要，透過接單 Email 或 Line 傳給我們</p>
 
       <div style="background:var(--navy-900);border:1.5px solid var(--hairline-2);border-radius:10px;padding:1rem;font-size:0.82rem;line-height:1.8;">
-        <strong style="color:var(--gold-300);">1. GitHub 使用者名稱</strong><br />
-        <span style="color:var(--muted);">例如：my-bakery-shop</span><br /><br />
-        <strong style="color:var(--gold-300);">2. Google Sheet 網址</strong><br />
-        <span style="color:var(--muted);">例如：https://docs.google.com/spreadsheets/d/xxxxx/edit</span>
+        <strong style="color:var(--gold-300);">1. 品牌文案</strong><br />
+        <span style="color:var(--muted);">店名、簡介、營業資訊、想放上網頁的文字</span><br /><br />
+        <strong style="color:var(--gold-300);">2. 商品或服務資料</strong><br />
+        <span style="color:var(--muted);">品項名稱、價格、說明</span><br /><br />
+        <strong style="color:var(--gold-300);">3. 圖片素材</strong><br />
+        <span style="color:var(--muted);">商品照片、品牌 Logo（沒有 Logo 也可以，先用文字呈現）</span>
       </div>
 
-      <div class="tip-box" style="margin-top:1rem;">
-        <div class="tip-label">傳送方式</div>
-        您可以透過接單時留下的 Email 或聯絡方式，將以上資訊傳送給我們。
+      <div class="tip-box" style="background:rgba(201,160,99,.08);border:1.5px dashed var(--gold-500);margin-top:1rem;">
+        <div class="tip-label" style="color:var(--gold-300);">🖼️ 上線後想換商品圖片？</div>
+        網站交付後，可至「<a href="../revision/" target="_blank" rel="noopener" style="color:var(--gold-300);font-weight:600;text-decoration:underline;">專案調整</a>」頁使用內建的<strong>圖片網址轉換器</strong>——貼上 Google Drive 分享連結，一鍵取得可用的圖片網址。
       </div>
     </div>
 
     <button class="btn btn-primary" onclick="showPage('faq')">查看常見問題 &rarr;</button>
-    <button class="btn btn-secondary" onclick="showPage('sheet')">&larr; 返回 Google Sheet 設定</button>
+    <button class="btn btn-secondary" onclick="showPage('resend')">&larr; 返回寄信設定</button>
   </div>
 
   <!-- ══════════════════════════════ -->
@@ -907,51 +821,58 @@
       <div class="divider"></div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">GitHub 免費帳號真的夠用嗎？</div>
+        <div class="faq-q">為什麼網站需要寄信功能？</div>
         <div class="faq-a">
-          完全夠用。GitHub 免費方案已包含 GitHub Pages 功能，支援自訂網域，而且沒有流量限制（合理使用範圍內）。一頁式網頁所需的儲存空間非常小，免費方案綽綽有餘。
+          您的網站會寄兩種信：客戶下單後的訂單通知，以及登入用的驗證碼。寄信設定沒完成，這兩種信都寄不出去，所以是上線前的必要步驟。
         </div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Google Sheet 共享給你們安全嗎？</div>
+        <div class="faq-q">Resend 免費方案夠用嗎？</div>
         <div class="faq-a">
-          非常安全。我們使用的是 Google 服務帳號（Service Account），只能存取您主動共享的那一份試算表，無法存取您帳號中的其他檔案。您也可以隨時在共享設定中移除我們的存取權限。
+          一般小型商家夠用：每天 100 封、每月 3,000 封。以一筆訂單寄 1–2 封信估算，每天可承接數十筆訂單。量更大時再升級 Resend 付費方案即可，網站不用改任何東西。
         </div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">可以用我已有的 GitHub / Google 帳號嗎？</div>
+        <div class="faq-q">金鑰交給你們安全嗎？</div>
         <div class="faq-a">
-          當然可以。如果您已有 GitHub 帳號，直接使用即可（跳到建立 Repository 步驟）。Google 帳號也是同理，只需要建立新的試算表並共享給我們。
+          金鑰以加密連線（https）提交，存放於您的商家專屬資料庫；畫面只顯示尾碼，不會回顯全文。金鑰只有寄信權限，拿不到您 Resend 帳號的其他控制權，而且您隨時可以在 Resend 後台刪除舊金鑰、重建一把再提交。
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">我沒有自己的網域，怎麼辦？</div>
+        <div class="faq-a">
+          未驗證網域的 Resend 帳號只能寄信給您自己，無法寄給您的客戶。兩個解法：買一個網域（一年幾百元）照 Step 4 完成驗證，或選擇寄信託管（NT$199／月）由我們處理。交付時我們也會與您確認最適合的作法。
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">寄信託管和自己申請差在哪？</div>
+        <div class="faq-a">
+          功能完全相同，差在誰管理：自己申請免費，但要註冊帳號、建金鑰，有網域的話還要設定 DNS；寄信託管 NT$199／月，全部由我們代管，您什麼都不用做。之後隨時可以互換。
         </div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">日後不想用了，資料會怎樣？</div>
         <div class="faq-a">
-          所有資料都在您自己的帳號中：網頁檔案在您的 GitHub repository，訂單資料在您的 Google Sheet。即使不再使用我們的服務，這些資料依然完整屬於您。您可以自由下載、備份或轉移。
-        </div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">可以用自己的網域名稱嗎？</div>
-        <div class="faq-a">
-          可以。GitHub Pages 支援自訂網域。如果您有自己的網域（例如 mybakery.com），可以在 GitHub Pages 設定中綁定。這是加購服務的一部分，我們會協助您完成 DNS 設定。
+          您的訂單、會員等營運資料存放在商家專屬資料庫，隨時可以要求完整匯出（通用格式），資料完全屬於您。Resend 帳號本來就是您自己的，金鑰刪除即失效。
         </div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">我完全不懂技術，能完成這些步驟嗎？</div>
         <div class="faq-a">
-          可以的！這份指南已盡量簡化步驟。如果您在任何步驟遇到困難，都可以隨時聯繫我們，我們會透過螢幕共享或通話協助您完成設定。
+          可以的！寄信設定只有「註冊、建金鑰、貼上提交」三步，系統會自動驗證並告訴您結果。遇到困難隨時聯繫我們，或直接選寄信託管，一步都不用做。
         </div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">設定完成後多久網頁會上線？</div>
         <div class="faq-a">
-          收到您的 GitHub 使用者名稱和 Google Sheet 網址後，我們通常在 1-2 個工作天內完成部署。部署完成後會立即通知您，並附上您的網頁網址。
+          素材齊全且寄信設定完成後，我們通常在 5–7 個工作天內完成製作與部署（依合約時程）。完成後會立即通知您，並附上您的網頁網址。
         </div>
       </div>
     </div>
@@ -974,7 +895,7 @@
 
     document.querySelectorAll('.guide-nav-btn').forEach(function(btn) { btn.classList.remove('active'); });
     var navBtns = document.querySelectorAll('.guide-nav-btn');
-    var pageMap = { overview: 0, github: 1, sheet: 2, checklist: 3, faq: 4 };
+    var pageMap = { overview: 0, resend: 1, managed: 2, checklist: 3, faq: 4 };
     if (pageMap[pageId] !== undefined) {
       navBtns[pageMap[pageId]].classList.add('active');
     }

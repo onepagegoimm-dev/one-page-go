@@ -1385,7 +1385,8 @@
         <strong style="color:var(--brown);">📋 接下來的流程：</strong><br/>
         1. 我們會與您確認網頁內容與素材（文案、商品圖、Logo）<br/>
         2. 您的商家專屬資料庫由我們建置，訂單與會員資料都存在裡面，可隨時完整匯出<br/>
-        3. 只有選擇自行託管網頁時才需要 GitHub 帳號（免費；預設由我們託管）
+        3. 網站上線前需完成<strong>寄信設定</strong>：自己申請 Resend 金鑰（免費，見設定指南），或加購寄信託管（NT$199／月）<br/>
+        <span style="font-size:0.72rem;color:var(--muted);">金鑰可隨時在「查詢訂單進度」提交；選擇自行託管網頁才需要 GitHub 帳號。</span>
       </div>
       <div style="background:linear-gradient(135deg,rgba(201,160,99,0.08),rgba(24,38,82,0.45));border:1.5px dashed var(--hairline);border-radius:10px;padding:1rem;text-align:left;font-size:0.8rem;color:var(--text);line-height:1.7;margin-bottom:1.2rem;">
         <strong style="color:var(--brown);">🖼️ 商品圖片設定</strong><br/>
@@ -2514,6 +2515,27 @@
         cancelHtml = `<button class="btn-action btn-action-danger" onclick="confirmCancelInquiry('${inq.inquiry_id}')">取消訂單</button>`;
       }
 
+      // 寄信設定（有專案才顯示；T-011）
+      let resendHtml = '';
+      if (inq.project) {
+        const pid = inq.project.project_id;
+        if (inq.project.resend_status === 'verified') {
+          resendHtml = '<div style="margin-top:0.6rem;padding-top:0.6rem;border-top:1px dashed rgba(255,255,255,.12);font-size:0.78rem;color:var(--green);">✓ 寄信金鑰已驗證（' + inq.project.resend_masked + '）</div>';
+        } else if (inq.project.resend_status === 'managed') {
+          resendHtml = '<div style="margin-top:0.6rem;padding-top:0.6rem;border-top:1px dashed rgba(255,255,255,.12);font-size:0.78rem;color:var(--green);">✓ 寄信託管中（月費方案，由我們代管）</div>';
+        } else {
+          resendHtml = '<div style="margin-top:0.6rem;padding-top:0.6rem;border-top:1px dashed rgba(255,255,255,.12);">'
+            + '<div style="font-size:0.78rem;color:var(--brown);font-weight:600;margin-bottom:0.4rem;">🔑 寄信設定（上線前需完成）</div>'
+            + '<div style="font-size:0.74rem;color:var(--muted);line-height:1.6;margin-bottom:0.5rem;">網站寄信（訂單通知、驗證碼）需要您的 Resend 金鑰，或改用寄信託管（NT$199／月）。作法見 <a href="../guide/index.html" target="_blank" rel="noopener" style="color:var(--mauve);text-decoration:underline;text-underline-offset:2px;">設定指南</a>。</div>'
+            + '<div style="display:flex;gap:6px;">'
+            + '<input type="text" id="resendToken_' + pid + '" placeholder="貼上 re_ 開頭的 API 金鑰" style="flex:1;font-size:0.78rem;padding:0.45rem 0.6rem;" />'
+            + '<button class="btn-action btn-action-primary" style="margin:0;white-space:nowrap;" onclick="submitResendToken(\'' + pid + '\')">提交驗證</button>'
+            + '</div>'
+            + '<div id="resendMsg_' + pid + '" style="font-size:0.74rem;margin-top:0.4rem;min-height:1em;"></div>'
+            + '</div>';
+        }
+      }
+
       // 格式化時間
       const dateStr = inq.timestamp ? new Date(inq.timestamp).toLocaleDateString('zh-TW') : '';
 
@@ -2534,6 +2556,7 @@
             ${actionHtml}
             ${cancelHtml}
           </div>
+          ${resendHtml}
         </div>`;
     }
 
@@ -2596,6 +2619,45 @@
       }
     } catch (err) {
       showTrackError('無法連線，請稍後再試');
+    }
+  }
+
+  // ── 提交寄信金鑰（T-011）──
+  async function submitResendToken(projectId) {
+    const input = document.getElementById('resendToken_' + projectId);
+    const msgEl = document.getElementById('resendMsg_' + projectId);
+    const token = input.value.trim();
+    msgEl.style.color = '#F87171';
+    if (!token) {
+      msgEl.textContent = '請先貼上金鑰';
+      return;
+    }
+    msgEl.style.color = 'var(--muted)';
+    msgEl.textContent = '驗證中（會寄一封測試信到您的信箱）...';
+    try {
+      const res = await fetch(WORKER_API_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'submitResendToken',
+          email: trackEmail,
+          sessionToken: getSessionToken(),
+          project_id: projectId,
+          token: token
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        msgEl.style.color = 'var(--green)';
+        msgEl.textContent = data.message || '金鑰驗證通過';
+        setTimeout(() => loadMyInquiries(trackEmail), 2000);
+      } else {
+        if (handleSessionError(data.error, trackEmail, () => { msgEl.style.color = 'var(--muted)'; msgEl.textContent = '已重新驗證，請再按一次「提交驗證」'; })) return;
+        msgEl.style.color = '#F87171';
+        msgEl.textContent = data.error || '驗證失敗，請稍後再試';
+      }
+    } catch (err) {
+      msgEl.style.color = '#F87171';
+      msgEl.textContent = '無法連線，請稍後再試';
     }
   }
 
