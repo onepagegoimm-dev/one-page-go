@@ -606,7 +606,7 @@
             <div class="success-banner">
                 <div class="icon">&#10003;</div>
                 <h3>付款成功！</h3>
-                <p>綠界 ECPay ReturnURL 已成功通知 Apps Script 更新訂單狀態</p>
+                <p>綠界 ECPay ReturnURL 已成功通知 demo Worker 更新訂單狀態</p>
             </div>
             <div class="order-info">
                 <div class="row">
@@ -721,7 +721,8 @@
     // ══════════════════════════════════════════════════
     // 設定區（部署前必填）
     // ══════════════════════════════════════════════════
-    const API_URL = "https://script.google.com/macros/s/AKfycbw4M4HjEUpQYPOv3Fnmo0bocZ2JQXNqwVQuze_bvJXIfVU7-HcbSDy6vnNLUUeDxxmPKQ/exec";
+    const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker (T-021)
+    const SITE_ID = "payment-demo";
 
     // ══════════════════════════════════════════════════
     // 狀態
@@ -800,12 +801,12 @@
         try {
             var res = await fetch(API_URL, {
                 method: "POST",
-                body: JSON.stringify({ action: "sendVerifyCode", email: email }),
+                body: JSON.stringify({ action: "sendVerifyCode", site_id: SITE_ID, email: email }),
             });
             var data = await res.json();
 
             if (data.success) {
-                log("驗證碼已寄出，請檢查信箱", "ok");
+                log(data.message || "驗證碼已寄出，請檢查信箱", "ok");
                 document.getElementById("codeSection").classList.remove("hidden");
                 document.getElementById("email").disabled = true;
                 // 60 秒倒數重新發送
@@ -854,7 +855,7 @@
         try {
             var res = await fetch(API_URL, {
                 method: "POST",
-                body: JSON.stringify({ action: "verifyCode", email: email, code: code }),
+                body: JSON.stringify({ action: "verifyCode", site_id: SITE_ID, email: email, code: code }),
             });
             var data = await res.json();
 
@@ -905,7 +906,7 @@
             var res = await fetch(API_URL, {
                 method: "POST",
                 body: JSON.stringify({
-                    action: "createOrder",
+                    action: "createOrder", site_id: SITE_ID,
                     email: currentEmail,
                     sessionToken: sessionToken,
                 }),
@@ -981,11 +982,11 @@
             if (pollAttempts > MAX_POLL) {
                 clearInterval(pollTimer);
                 pollTimer = null;
-                log("輪詢逾時（5 分鐘），請手動檢查 Sheet", "warn");
+                log("輪詢逾時（5 分鐘），請重新整理頁面再試", "warn");
                 document.getElementById("statusBadge").textContent = "timeout";
                 document.getElementById("statusBadge").className = "status-badge status-timeout";
                 document.getElementById("pollInfo").innerHTML =
-                    '<span style="color:var(--highlight)">輪詢逾時，請檢查 Google Sheet 或重新整理頁面</span>';
+                    '<span style="color:var(--highlight)">輪詢逾時，請重新整理頁面再試一次</span>';
                 document.getElementById("btnReset").classList.remove("hidden");
                 return;
             }
@@ -994,7 +995,7 @@
                 var res = await fetch(API_URL, {
                     method: "POST",
                     body: JSON.stringify({
-                        action: "checkOrderStatus",
+                        action: "checkOrderStatus", site_id: SITE_ID,
                         order_id: orderId,
                     }),
                 });
@@ -1091,7 +1092,7 @@
     // 頁面載入
     // ══════════════════════════════════════════════════
     if (!API_URL) {
-        log("API_URL 未設定，請在 script 最上方填入 Apps Script Web App URL", "err");
+        log("API_URL 未設定，請在 script 最上方填入 demo Worker API 網址", "err");
     } else {
         log("就緒。API: " + API_URL.substring(0, 50) + "...", "ok");
     }
