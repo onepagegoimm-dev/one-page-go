@@ -522,7 +522,8 @@
 
 <script>
 // ── 設定你的 Apps Script 網址 ──────────────────────────
-const API_URL = "https://script.google.com/macros/s/AKfycbxQWWF38lw7KPXn658C43fREy-hdKNAb3r_xaqPEDRADP9an0pipbDFcHVp8bUl2bkE/exec";
+const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker（T-019）
+const SITE_ID = "bloom-bakery";
 
 
 // ── 資料 ─────────────────────────────────────────────
@@ -551,7 +552,7 @@ async function loadProducts() {
   try {
     const res  = await fetch(API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'getProducts' })
+      body: JSON.stringify({ action: 'getProducts', site_id: SITE_ID })
     });
     const data = await res.json();
     products = data.products || [];
@@ -684,7 +685,7 @@ async function sendCode() {
     // 先檢查會員狀態
     const checkRes = await fetch(API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'checkMember', email })
+      body: JSON.stringify({ action: 'checkMember', site_id: SITE_ID, email })
     });
     const checkData = await checkRes.json();
 
@@ -710,13 +711,13 @@ async function sendCode() {
     // 發送驗證碼
     const res = await fetch(API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'sendVerifyCode', email })
+      body: JSON.stringify({ action: 'sendVerifyCode', site_id: SITE_ID, email })
     });
     const data = await res.json();
 
     if (data.success) {
       document.getElementById('code-section').style.display = 'block';
-      statusEl.innerHTML = `<div class="info-msg">驗證碼已寄到 ${email}，請查收信箱（含垃圾郵件）</div>`;
+      statusEl.innerHTML = `<div class="info-msg">${data.message || ('驗證碼已寄到 ' + email + '，請查收信箱')}</div>`;
       // 60 秒冷卻
       let cd = 60;
       btn.textContent = `${cd}s`;
@@ -758,7 +759,7 @@ async function verifyEmail() {
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'verifyCode', email, code })
+      body: JSON.stringify({ action: 'verifyCode', site_id: SITE_ID, email, code })
     });
     const data = await res.json();
 
@@ -818,6 +819,7 @@ async function submitOrder() {
       method: 'POST',
       body: JSON.stringify({
         action: 'submitOrder',
+        site_id: SITE_ID,
         sessionToken: getSessionToken(),
         email: verifiedEmail,
         customerName: name,

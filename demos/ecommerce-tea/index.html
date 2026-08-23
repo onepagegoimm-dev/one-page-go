@@ -609,7 +609,8 @@
 
 <script>
 // ── 設定你的 Apps Script 網址 ──────────────────────────
-const API_URL = "https://script.google.com/macros/s/AKfycbzYxbyT5EExBDO55vAjOc9Ug2kzdZE8tp7O_Gm2d2hNRXQLHvjnws2kYAM8i_WMSAJW/exec";
+const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker（T-019）
+const SITE_ID = "jade-leaf";
 
 // ── 資料 ─────────────────────────────────────────────
 let products = [];
@@ -661,7 +662,7 @@ async function loadProducts() {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'getProducts' })
+      body: JSON.stringify({ action: 'getProducts', site_id: SITE_ID })
     });
     const data = await res.json();
     products = data.products || [];
@@ -875,7 +876,7 @@ async function sendCode() {
     const checkRes = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'checkMember', email })
+      body: JSON.stringify({ action: 'checkMember', site_id: SITE_ID, email })
     });
     const checkData = await checkRes.json();
 
@@ -905,13 +906,13 @@ async function sendCode() {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'sendVerifyCode', email })
+      body: JSON.stringify({ action: 'sendVerifyCode', site_id: SITE_ID, email })
     });
     const data = await res.json();
 
     if (data.success) {
       document.getElementById('code-section').style.display = 'block';
-      statusEl.innerHTML = '<div class="info-msg">\u9A57\u8B49\u78BC\u5DF2\u5BC4\u5230 ' + email + '\uFF0C\u8ACB\u67E5\u6536\u4FE1\u7BB1\uFF08\u542B\u5783\u573E\u90F5\u4EF6\uFF09</div>';
+      statusEl.innerHTML = '<div class="info-msg">' + (data.message || ('\u9A57\u8B49\u78BC\u5DF2\u5BC4\u5230 ' + email + '\uFF0C\u8ACB\u67E5\u6536\u4FE1\u7BB1')) + '</div>';
       // 60 秒冷卻
       let cd = 60;
       btn.textContent = cd + 's';
@@ -954,7 +955,7 @@ async function verifyEmail() {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'verifyCode', email, code })
+      body: JSON.stringify({ action: 'verifyCode', site_id: SITE_ID, email, code })
     });
     const data = await res.json();
 
@@ -1020,6 +1021,7 @@ async function submitOrder() {
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({
         action: 'submitOrder',
+        site_id: SITE_ID,
         email: verifiedEmail,
         sessionToken,
         customerName: name,
