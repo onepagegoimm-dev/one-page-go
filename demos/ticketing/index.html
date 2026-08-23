@@ -494,7 +494,8 @@
 
 <script>
 // ── 設定你的 Apps Script 網址 ──────────────────────────
-const API_URL = "https://script.google.com/macros/s/AKfycbwsQeEcGI2BjQh50QzYHk2poaIHHQ7rRTSGsvZ0_4bWh-byiygjO0k0hqIiqOpNs_XZ/exec";
+const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker (T-020)
+const SITE_ID = "starlight";
 
 const EVENT_EMOJI = ["🎪","🎵","🎨","🎭","🎶","✨"];
 
@@ -515,7 +516,7 @@ async function loadEvents() {
   try {
     const res  = await fetch(API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'getEvents' })
+      body: JSON.stringify({ action: 'getEvents', site_id: SITE_ID })
     });
     const text = await res.text();
     const data = JSON.parse(text);
@@ -578,7 +579,7 @@ async function selectEvent(id) {
   try {
     const res  = await fetch(API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'getTicketTypes', event_id: id })
+      body: JSON.stringify({ action: 'getTicketTypes', site_id: SITE_ID, event_id: id })
     });
     const text = await res.text();
     const data = JSON.parse(text);
@@ -667,7 +668,7 @@ async function sendCode() {
     const checkRes = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'checkMember', email })
+      body: JSON.stringify({ action: 'checkMember', site_id: SITE_ID, email })
     });
     const checkData = JSON.parse(await checkRes.text());
 
@@ -677,13 +678,13 @@ async function sendCode() {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'sendVerifyCode', email })
+      body: JSON.stringify({ action: 'sendVerifyCode', site_id: SITE_ID, email })
     });
     const data = JSON.parse(await res.text());
 
     if (data.success) {
       document.getElementById('code-row').classList.remove('hidden');
-      document.getElementById('verify-status').textContent = '驗證碼已寄出，請查看信箱';
+      document.getElementById('verify-status').textContent = (data.message || '驗證碼已寄出，請查看信箱');
       document.getElementById('verify-status').style.color = 'var(--green)';
       let sec = 60;
       btn.textContent = `${sec}s`;
@@ -717,7 +718,7 @@ async function verifyEmail() {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'verifyCode', email, code })
+      body: JSON.stringify({ action: 'verifyCode', site_id: SITE_ID, email, code })
     });
     const data = JSON.parse(await res.text());
 
@@ -772,7 +773,7 @@ async function submitOrder() {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({
-        action: 'submitTicketOrder',
+        action: 'submitTicketOrder', site_id: SITE_ID,
         sessionToken: getSessionToken(),
         email: verifiedEmail,
         name,

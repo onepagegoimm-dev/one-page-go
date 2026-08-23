@@ -173,7 +173,8 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbxXHqT4oC4ko6IVOu2tOVIsNoeSf0S_YLOnUZGE00XZ_ZQULplziLIAeITqFf5DBU4gHQ/exec";
+const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker (T-020)
+const SITE_ID = "yoga-flow";
 
 let adminToken = '';
 let services = [];
@@ -188,10 +189,10 @@ async function sendAdminCode() {
   if (!email) return setStatus('Please enter your admin email', true);
   const btn = document.getElementById('send-btn'); btn.disabled = true; btn.textContent = 'Sending…';
   try {
-    const d = await api({ action:'adminSendCode', email });
+    const d = await api({ action: 'adminSendCode', site_id: SITE_ID, email });
     if (d.success) {
       document.getElementById('code-row').classList.remove('hidden');
-      setStatus('Code sent — check your inbox.');
+      setStatus(d.message || 'Code sent — check your inbox.');
       let sec = 60; btn.textContent = `${sec}s`;
       const t = setInterval(() => { sec--; btn.textContent = `${sec}s`; if (sec<=0){ clearInterval(t); btn.disabled=false; btn.textContent='Resend'; } }, 1000);
     } else { setStatus(d.error || 'Could not send code', true); btn.disabled=false; btn.textContent='Send code'; }
@@ -204,7 +205,7 @@ async function verifyAdminCode() {
   if (!code) return setStatus('Please enter the code', true);
   const btn = document.getElementById('verify-btn'); btn.disabled = true; btn.textContent = 'Verifying…';
   try {
-    const d = await api({ action:'adminVerifyCode', email, code });
+    const d = await api({ action: 'adminVerifyCode', site_id: SITE_ID, email, code });
     if (d.success && d.token) { adminToken = d.token; enterMain(); }
     else { setStatus(d.error || 'Verification failed', true); btn.disabled=false; btn.textContent='Verify'; }
   } catch (e) { setStatus('Connection failed', true); btn.disabled=false; btn.textContent='Verify'; }
@@ -224,7 +225,7 @@ function enterMain() {
 
 async function loadServices() {
   try {
-    const d = await api({ action:'adminListServices', token: adminToken });
+    const d = await api({ action: 'adminListServices', site_id: SITE_ID, token: adminToken });
     services = d.services || [];
     renderList();
   } catch (e) { document.getElementById('list').innerHTML = '<p class="muted">Failed to load classes.</p>'; }
@@ -233,7 +234,7 @@ async function loadServices() {
 // ── Time slots ──
 async function loadTimeSlots() {
   try {
-    const d = await api({ action:'adminListTimeSlots', token: adminToken });
+    const d = await api({ action: 'adminListTimeSlots', site_id: SITE_ID, token: adminToken });
     renderTimeSlots(d.slots || []);
   } catch (e) { document.getElementById('ts-list').innerHTML = '<p class="muted">Failed to load time slots.</p>'; }
 }
@@ -267,7 +268,7 @@ async function generateSlots() {
   if (!times.length) return toast('Please enter at least one time');
   const btn = document.getElementById('gen-btn'); btn.disabled = true; btn.textContent = 'Adding…';
   try {
-    const d = await api({ action:'adminGenerateTimeSlots', token: adminToken, startDate, endDate, times, capacity });
+    const d = await api({ action: 'adminGenerateTimeSlots', site_id: SITE_ID, token: adminToken, startDate, endDate, times, capacity });
     if (d.success) { toast(`Added ${d.created} slot(s)` + (d.skipped ? `, skipped ${d.skipped}` : '')); await loadTimeSlots(); }
     else { toast(d.error || 'Failed'); }
   } catch (e) { toast('Connection failed'); }
@@ -277,7 +278,7 @@ async function generateSlots() {
 async function deleteSlot(rowNum) {
   if (!confirm('Delete this time slot?')) return;
   try {
-    const d = await api({ action:'adminDeleteTimeSlot', token: adminToken, rowNum });
+    const d = await api({ action: 'adminDeleteTimeSlot', site_id: SITE_ID, token: adminToken, rowNum });
     if (d.success) { toast('Deleted'); await loadTimeSlots(); }
     else { toast(d.error || 'Delete failed'); }
   } catch (e) { toast('Connection failed'); }
@@ -287,7 +288,7 @@ async function dedupeSlots() {
   if (!confirm('Remove duplicate time slots (same date & time)? The first of each is kept.')) return;
   const btn = document.getElementById('dedupe-btn'); btn.disabled = true; btn.textContent = 'Cleaning…';
   try {
-    const d = await api({ action:'adminDedupeTimeSlots', token: adminToken });
+    const d = await api({ action: 'adminDedupeTimeSlots', site_id: SITE_ID, token: adminToken });
     if (d.success) { toast(d.removed ? `Removed ${d.removed} duplicate(s)` : 'No duplicates found'); await loadTimeSlots(); }
     else { toast(d.error || 'Failed'); }
   } catch (e) { toast('Connection failed'); }
@@ -368,7 +369,7 @@ async function saveService() {
   };
   const btn = document.getElementById('save-btn'); btn.disabled = true; btn.textContent = 'Saving…';
   try {
-    const d = await api({ action:'adminSaveService', token: adminToken, service });
+    const d = await api({ action: 'adminSaveService', site_id: SITE_ID, token: adminToken, service });
     if (d.success) { toast('Saved ✓'); resetForm(); await loadServices(); }
     else { toast(d.error || 'Save failed'); }
   } catch (e) { toast('Connection failed'); }
@@ -379,7 +380,7 @@ async function deleteService(i) {
   const s = services[i]; if (!s) return;
   if (!confirm('Delete this class?')) return;
   try {
-    const d = await api({ action:'adminDeleteService', token: adminToken, rowNum: s.rowNum });
+    const d = await api({ action: 'adminDeleteService', site_id: SITE_ID, token: adminToken, rowNum: s.rowNum });
     if (d.success) { toast('Deleted'); await loadServices(); }
     else { toast(d.error || 'Delete failed'); }
   } catch (e) { toast('Connection failed'); }

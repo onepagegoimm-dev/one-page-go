@@ -186,7 +186,8 @@
 //  後端：直接連結 SPA demo（demos/booking）的 Apps Script，
 //  讀同一批產品、走完全一樣的預約流程。只有影片是寫死。
 // ════════════════════════════════════════════════════════════
-const API_URL = "https://script.google.com/macros/s/AKfycbxXHqT4oC4ko6IVOu2tOVIsNoeSf0S_YLOnUZGE00XZ_ZQULplziLIAeITqFf5DBU4gHQ/exec";
+const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker (T-020)
+const SITE_ID = "yoga-flow";
 
 // 影片寫死：依卡片順序套用（第 1 張 YouTube、第 2 張 Google Drive），其餘卡片用後端的圖片。
 const DEMO_VIDEOS = [
@@ -215,7 +216,7 @@ function buildVideoEmbed(url) {
 
 async function loadServices() {
   try {
-    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getServices' }) });
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getServices', site_id: SITE_ID }) });
     const data = JSON.parse(await res.text());
     services = data.services || [];
     renderServices();
@@ -271,7 +272,7 @@ document.getElementById('booking-date').addEventListener('change', async functio
   wrap.classList.remove('hidden');
   grid.innerHTML = '<div class="loading-wrap" style="grid-column:1/-1;"><div class="spinner"></div></div>';
   try {
-    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getTimeSlots', date: selectedDate }) });
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getTimeSlots', site_id: SITE_ID, date: selectedDate }) });
     const data = JSON.parse(await res.text());
     const slots = data.slots || [];
     if (!slots.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);font-size:0.85rem;padding:1rem;">No available times on this date.</div>'; return; }
@@ -301,15 +302,15 @@ async function sendCode() {
   const btn = document.getElementById('send-code-btn');
   btn.disabled = true; btn.textContent = 'Sending…'; hideError();
   try {
-    const checkRes = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'checkMember', email }) });
+    const checkRes = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'checkMember', site_id: SITE_ID, email }) });
     const checkData = JSON.parse(await checkRes.text());
     if (checkData.blocked) { showError('This email has been disabled. Please contact the studio.'); btn.disabled = false; btn.textContent = 'Send code'; return; }
     if (checkData.hasActiveOrder) { showError('You have a pending booking. Please complete it first.'); btn.disabled = false; btn.textContent = 'Send code'; return; }
-    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'sendVerifyCode', email }) });
+    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'sendVerifyCode', site_id: SITE_ID, email }) });
     const data = JSON.parse(await res.text());
     if (data.success) {
       document.getElementById('code-row').classList.remove('hidden');
-      const st = document.getElementById('verify-status'); st.textContent = 'Code sent — please check your inbox.'; st.style.color = '#7fe0b0';
+      const st = document.getElementById('verify-status'); st.textContent = data.message || 'Code sent — please check your inbox.'; st.style.color = '#7fe0b0';
       let sec = 60; btn.textContent = `${sec}s`;
       const timer = setInterval(() => { sec--; btn.textContent = `${sec}s`; if (sec <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = 'Resend'; } }, 1000);
     } else { showError(data.error || 'Failed to send code'); btn.disabled = false; btn.textContent = 'Send code'; }
@@ -323,7 +324,7 @@ async function verifyEmail() {
   const btn = document.getElementById('verify-btn');
   btn.disabled = true; btn.textContent = 'Verifying…';
   try {
-    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'verifyCode', email, code }) });
+    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'verifyCode', site_id: SITE_ID, email, code }) });
     const data = JSON.parse(await res.text());
     if (data.success) {
       emailVerified = true; verifiedEmail = email;
@@ -357,7 +358,7 @@ async function submitBooking() {
     const res = await fetch(API_URL, {
       method: 'POST', headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({
-        action: 'submitBooking', sessionToken: getSessionToken(), email: verifiedEmail,
+        action: 'submitBooking', site_id: SITE_ID, sessionToken: getSessionToken(), email: verifiedEmail,
         name, phone, service_id: String(selectedService.id),
         booking_date: selectedDate, booking_time: selectedTime, note
       })

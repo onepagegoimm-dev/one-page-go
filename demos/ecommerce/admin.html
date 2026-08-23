@@ -352,7 +352,8 @@
 <footer>Bloom Bakery ✦ Admin Dashboard</footer>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbxQWWF38lw7KPXn658C43fREy-hdKNAb3r_xaqPEDRADP9an0pipbDFcHVp8bUl2bkE/exec";
+const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker (T-020)
+const SITE_ID = "bloom-bakery";
 
 let adminToken = '';
 let sessionExpiry = 0;
@@ -372,7 +373,7 @@ async function doLogin() {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'adminLogin', password })
+      body: JSON.stringify({ action: 'adminLogin', site_id: SITE_ID, password })
     });
     const data = await res.json();
 
@@ -426,7 +427,7 @@ async function loadOrders() {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'adminGetOrders', adminToken })
+      body: JSON.stringify({ action: 'adminGetOrders', site_id: SITE_ID, adminToken })
     });
     const data = await res.json();
 
