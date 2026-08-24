@@ -526,6 +526,7 @@
     <button class="guide-nav-btn" onclick="showPage('resend')">寄信設定</button>
     <button class="guide-nav-btn" onclick="showPage('managed')">寄信託管</button>
     <button class="guide-nav-btn" onclick="showPage('database')">資料庫設定</button>
+    <button class="guide-nav-btn" onclick="showPage('admin')">後台管理</button>
     <button class="guide-nav-btn" onclick="showPage('checklist')">完成確認</button>
     <button class="guide-nav-btn" onclick="showPage('faq')">常見問題</button>
   </nav>
@@ -552,6 +553,10 @@
         <li>
           <strong>寄信設定</strong> — 唯一需要您參與的一步<br />
           網站要寄訂單通知與驗證碼給您的客戶，需要一把寄信金鑰。二選一：<strong>自己申請（免費）</strong>或<strong>寄信託管（NT$199／月）</strong>。
+        </li>
+        <li>
+          <strong>商家後台</strong> — 交付後日常營運用<br />
+          改商品、看訂單、改狀態、匯出報表，都在您的專屬後台網頁完成，管理信箱收驗證碼即可登入（見「後台管理」）。
         </li>
       </ol>
 
@@ -818,12 +823,60 @@
       </div>
     </div>
 
-    <button class="btn btn-primary" onclick="showPage('checklist')">設定完成確認 &rarr;</button>
+    <button class="btn btn-primary" onclick="showPage('admin')">認識商家後台 &rarr;</button>
     <button class="btn btn-secondary" onclick="showPage('managed')">&larr; 返回寄信託管</button>
   </div>
 
   <!-- ══════════════════════════════ -->
-  <!-- ── Page 5: 完成確認 ── -->
+  <!-- ── Page 5: 後台管理（T-027） ── -->
+  <!-- ══════════════════════════════ -->
+  <div id="page-admin" class="guide-page">
+
+    <div class="section-card">
+      <h2>商家後台：改商品、看訂單都在這裡</h2>
+      <div class="divider"></div>
+      <p class="subtitle">交付時附一個專屬後台網頁，手機、電腦都能開</p>
+
+      <ol class="step-list">
+        <li>
+          <strong>登入</strong><br />
+          打開您的後台網址，輸入<strong>管理信箱</strong>（交付時和我們約定的那個）→ 收 6 位數驗證碼信 → 輸入即登入。<strong>沒有密碼要記</strong>；登入效期 30 分鐘，過期重新收碼即可。
+        </li>
+        <li>
+          <strong>訂單管理</strong><br />
+          所有訂單即時列出。每筆可直接改狀態（例如：待確認 &rarr; 已確認 &rarr; 已取貨），改完按「儲存」立即生效。
+        </li>
+        <li>
+          <strong>商品內容管理</strong><br />
+          新增、編輯、下架都在後台完成，前台立即更新。依方案類型：<br />
+          <span class="code-inline">電商</span> 商品（名稱、價格、圖片、排序、上下架）<br />
+          <span class="code-inline">預約</span> 服務項目＋可預約時段（可批次產生日期區間的時段）<br />
+          <span class="code-inline">團購</span> 團購檔（單價、成團門檻、數量上限、截止日、開團／截止）<br />
+          <span class="code-inline">售票</span> 活動＋票種（票價、總票數；已售數自動累計）
+        </li>
+        <li>
+          <strong>匯出報表</strong><br />
+          「匯出 CSV」一鍵下載全部訂單，Excel 直接開啟不會亂碼。
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-label">要換管理信箱？</div>
+        管理信箱是登入的唯一憑證，變更請直接聯繫我們，確認身分後為您更換。
+      </div>
+
+      <div class="warn-box">
+        <div class="warn-label">數量類欄位是自動的</div>
+        團購的「目前數量」與售票的「已售數」由客人下單自動累計，後台編輯不會覆寫；售票的總票數也不能改到低於已售數，避免超賣。
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="showPage('checklist')">設定完成確認 &rarr;</button>
+    <button class="btn btn-secondary" onclick="showPage('database')">&larr; 返回資料庫設定</button>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- ── Page 6: 完成確認 ── -->
   <!-- ══════════════════════════════ -->
   <div id="page-checklist" class="guide-page">
 
@@ -852,6 +905,12 @@
         <li onclick="toggleCheck(this)">已註冊 Cloudflare 帳號</li>
         <li onclick="toggleCheck(this)">已建立含 Workers Scripts／D1 兩項 Edit 權限的 API token</li>
         <li onclick="toggleCheck(this)">已在「查詢訂單進度」提交 token，畫面顯示<strong>已驗證</strong></li>
+      </ul>
+
+      <h3 style="font-size:0.88rem;color:#fff;margin:1rem 0 0.5rem;">商家後台（交付後）</h3>
+      <ul class="checklist" id="checklistAdmin">
+        <li onclick="toggleCheck(this)">已用管理信箱收驗證碼登入後台</li>
+        <li onclick="toggleCheck(this)">已試改一筆商品或訂單狀態，前台確認生效</li>
       </ul>
     </div>
 
@@ -938,6 +997,13 @@
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">上線後我要怎麼改商品、看訂單？</div>
+        <div class="faq-a">
+          都在您的商家後台網頁：管理信箱收驗證碼登入後，即可新增或編輯商品（依方案類型為商品／服務時段／團購檔／活動票種）、查看訂單並更改狀態、一鍵匯出 CSV 報表。操作說明見「後台管理」分頁。
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">我完全不懂技術，能完成這些步驟嗎？</div>
         <div class="faq-a">
           可以的！寄信設定只有「註冊、建金鑰、貼上提交」三步，系統會自動驗證並告訴您結果。遇到困難隨時聯繫我們，或直接選寄信託管，一步都不用做。
@@ -970,7 +1036,7 @@
 
     document.querySelectorAll('.guide-nav-btn').forEach(function(btn) { btn.classList.remove('active'); });
     var navBtns = document.querySelectorAll('.guide-nav-btn');
-    var pageMap = { overview: 0, resend: 1, managed: 2, database: 3, checklist: 4, faq: 5 };
+    var pageMap = { overview: 0, resend: 1, managed: 2, database: 3, admin: 4, checklist: 5, faq: 6 };
     if (pageMap[pageId] !== undefined) {
       navBtns[pageMap[pageId]].classList.add('active');
     }
