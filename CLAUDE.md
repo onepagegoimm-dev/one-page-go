@@ -21,9 +21,10 @@ one-page-go/                              ← GitHub Pages 公開展示
 │   ├── ticketing/index.html              # 售票 Demo（Starlight Festival Sample）
 │   ├── ticketing-yoga/index.html         # 售票 Demo（Morning Yoga Retreat Sample）
 │   ├── ticketing-arcade/index.html       # 售票 Demo（Retro Arcade Night Sample）
-│   └── payment/index.html                # 金流 Demo
+│   └── payment/index.html                # 金流 Demo（綠界測試環境）
+│   ※ 全部 demo 的資料層走 demo worker＋demo D1（demo-api.one-page-go.com），展示模式、每日重置
 ├── onboarding/index.html                 # 客戶接單流程（需求→簽約→付款）
-├── guide/index.html                      # 購買後設定指南（GitHub + Google Sheet）
+├── guide/index.html                      # 購買後設定指南（寄信／資料庫／後台管理）
 ├── sitemap.xml                           # SEO sitemap
 ├── robots.txt                            # SEO robots
 ├── favicon.ico                           # Favicon 系列
