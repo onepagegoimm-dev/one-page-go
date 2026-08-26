@@ -1,402 +1,501 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-55KYBQLNMV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-55KYBQLNMV');
-  document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
-    if (a) gtag('event', 'contact_email', { link_url: a.getAttribute('href') });
-  });
-</script>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-<link rel="manifest" href="../../site.webmanifest">
-<title>Flow State — Book Your Practice</title>
-<meta name="description" content="Flow State Sample — One Page Go booking demo. Modern, high-energy yoga studio with online class booking, mobile-first dark UI and video previews." />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Flow State — Book Your Practice" />
-<meta property="og:description" content="Modern, high-energy yoga. Book your practice online." />
-<meta property="og:locale" content="en_US" />
-<meta property="og:site_name" content="One Page Go" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flow State 瑜伽預約</title>
+<meta name="description" content="Flow State 瑜伽課程線上預約：選課程、挑時段，三分鐘完成。">
+<meta property="og:title" content="Flow State — Move · Breathe · Rise">
+<meta property="og:description" content="瑜伽課程線上預約，到館練習。">
+<meta property="og:image" content="https://one-page-go.com/demos/booking-yoga-flow/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+  /* ── 主題 token（霓夜）；版型＝行事曆優先（T-033 版型 2）──
+     交付其他品牌時換 :root token 與品牌文案，版型不動 */
   :root {
-    --bg:#14122b; --bg2:#1c1940; --card:rgba(255,255,255,0.045); --card-br:rgba(255,255,255,0.10);
-    --text:#f3f0ff; --muted:#a39fc4; --violet:#6d5cff; --coral:#ff7a59;
-    --grad:linear-gradient(100deg,#6d5cff 0%,#b15cff 45%,#ff7a59 100%); --glow:rgba(109,92,255,0.35);
+    --bg: #0e0e14; --surface: #1a1a26; --surface-alt: #25253a;
+    --primary: #ff2e88; --primary-dk: #d11f6e; --accent: #2de2e6; --extra: #2de2e6;
+    --heading: #ffffff; --text: #e6e6f0; --muted: #a0a0b8;
+    --success: #3ef0a0; --err: #ff5470; --shadow: rgba(0,0,0,.55);
+    --btn: #d11f6e; --on-btn: #ffffff; --radius: 14px;
+    --font-head: "Space Grotesk", "Noto Sans TC", sans-serif;
+    --font-body: "Noto Sans TC", sans-serif;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: radial-gradient(60% 40% at 15% 0%, rgba(109,92,255,0.22) 0%, transparent 60%), radial-gradient(50% 40% at 95% 8%, rgba(255,122,89,0.16) 0%, transparent 55%), var(--bg);
-    font-family: 'Inter', system-ui, sans-serif; font-weight: 300; color: var(--text); min-height: 100vh; overflow-x: hidden;
-  }
-  header { text-align: center; padding: 3.4rem 1.5rem 1.2rem; }
-  .logo-icon { font-size: 1.5rem; }
-  .logo-name { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.01em; margin-top: 0.4rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .logo-sub { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.4em; text-transform: uppercase; margin-top: 0.4rem; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-size:15.5px; line-height:1.8; min-height:100vh; overflow-x:hidden; }
+  .hidden { display:none !important; }
+  img { max-width:100%; }
+  .wrap { max-width:520px; margin:0 auto; padding:0 18px 140px; }
 
-  .main { max-width: 460px; margin: 0 auto; padding: 0 1.4rem 3rem; }
-  .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 600; margin: 2rem 0 1.2rem; }
-  .section-title span { color: var(--coral); }
+  header { text-align:center; padding:34px 0 10px; }
+  .logo-dot { width:60px; height:60px; margin:0 auto 10px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--primary)); display:grid; place-items:center; font-size:1.7rem; box-shadow:0 10px 24px var(--shadow); }
+  .kicker { font-size:.64rem; letter-spacing:.34em; color:var(--muted); font-weight:700; margin-bottom:2px; }
+  h1 { font-family:var(--font-head); font-size:1.9rem; font-weight:700; color:var(--heading); }
+  .tagline { font-size:.8rem; color:var(--muted); }
+  .proof { display:none; margin-top:8px; background:var(--surface-alt); border-radius:999px; padding:4px 16px; font-size:.76rem; color:var(--heading); }
+  .proof.show { display:inline-block; }
 
-  .class-card { background: var(--card); border: 1px solid var(--card-br); border-radius: 20px; overflow: hidden; margin-bottom: 1rem; cursor: pointer; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; animation: slideUp 0.55s cubic-bezier(.2,.7,.3,1) both; }
-  .class-card:hover { transform: translateY(-4px); border-color: rgba(177,92,255,0.5); box-shadow: 0 16px 40px -12px var(--glow); }
-  .class-card.selected { border-color: var(--violet); box-shadow: 0 0 0 1px var(--violet), 0 16px 40px -12px var(--glow); }
-  .class-media { position: relative; width: 100%; padding-top: 56.25%; background: #0e0c22; }
-  .class-media iframe, .class-media video, .class-media img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
-  .class-media .emoji { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; }
-  .class-body { padding: 1rem 1.15rem 1.25rem; }
-  .class-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; }
-  .class-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0.35rem 0 0.8rem; }
-  .class-meta { display: flex; justify-content: space-between; align-items: center; }
-  .class-price { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 600; }
-  .class-price span { font-size: 0.68rem; color: var(--muted); font-family: 'Inter'; font-weight: 300; }
-  .duration-badge { font-size: 0.7rem; color: var(--muted); border: 1px solid var(--card-br); padding: 0.26rem 0.62rem; border-radius: 100px; }
+  /* 服務膠囊橫滑 */
+  .svc-chips { display:flex; gap:8px; overflow-x:auto; padding:16px 0 4px; scrollbar-width:none; }
+  .svc-chips::-webkit-scrollbar { display:none; }
+  .svc-chip { flex-shrink:0; background:var(--surface); border:1.5px solid var(--surface-alt); border-radius:999px; padding:9px 18px; font-size:.84rem; cursor:pointer; white-space:nowrap; min-height:44px; font-family:inherit; color:var(--text); transition:all .18s; }
+  .svc-chip small { color:var(--muted); }
+  .svc-chip.on { background:var(--heading); border-color:var(--heading); color:#fff; }
+  .svc-chip.on small { color:rgba(255,255,255,.75); }
+  .svc-skeleton { height:44px; width:170px; border-radius:999px; flex-shrink:0; background:linear-gradient(90deg, var(--surface-alt) 25%, var(--surface) 50%, var(--surface-alt) 75%); background-size:200% 100%; animation:shimmer 1.2s infinite; }
+  @keyframes shimmer { to { background-position:-200% 0; } }
+  @media (prefers-reduced-motion: reduce) { .svc-skeleton { animation:none; } }
 
-  .panel { background: var(--card); border: 1px solid var(--card-br); border-radius: 20px; padding: 1.3rem 1.2rem; margin-bottom: 1rem; backdrop-filter: blur(14px); animation: slideUp 0.5s cubic-bezier(.2,.7,.3,1) both; }
-  .panel-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; letter-spacing: 0.02em; margin-bottom: 0.85rem; color: var(--text); font-weight: 600; }
+  /* 行事曆檯面（招牌時刻） */
+  .calendar { background:var(--surface); border-radius:22px; box-shadow:0 14px 34px var(--shadow); padding:18px 16px 20px; margin-top:14px; }
+  .cal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .cal-head b { font-family:var(--font-head); font-size:1.15rem; color:var(--heading); }
+  .cal-head .nav { display:flex; gap:6px; }
+  .cal-head .nav button { width:36px; height:36px; border-radius:50%; border:1.5px solid var(--surface-alt); background:#fff; color:var(--primary-dk); cursor:pointer; font-size:1rem; }
+  .dates { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; scroll-behavior:smooth; }
+  .dates::-webkit-scrollbar { display:none; }
+  .date-chip { flex-shrink:0; width:58px; text-align:center; background:var(--bg); border:1.5px solid var(--surface-alt); border-radius:14px; padding:8px 0 6px; cursor:pointer; min-height:56px; }
+  .date-chip .d { font-family:var(--font-head); font-size:1.15rem; font-weight:700; color:var(--heading); line-height:1.3; }
+  .date-chip .w { font-size:.68rem; color:var(--muted); }
+  .date-chip.on { background:var(--btn); border-color:var(--btn); }
+  .date-chip.on .d, .date-chip.on .w { color:#fff; }
+  .cal-divider { height:1.5px; background:var(--surface-alt); margin:14px 0; border-radius:2px; }
+  .slots { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+  .slot { text-align:center; background:var(--bg); border:1.5px solid var(--surface-alt); border-radius:14px; padding:10px 0 8px; cursor:pointer; min-height:52px; font-family:inherit; }
+  .slot b { font-size:.95rem; color:var(--heading); }
+  .slot small { display:block; font-size:.66rem; color:var(--muted); }
+  .slot.on { background:var(--btn); border-color:var(--btn); }
+  .slot.on b, .slot.on small { color:#fff; }
+  .slot.full { opacity:.4; cursor:not-allowed; }
+  .slot.full b { text-decoration:line-through; }
+  .slots-note { grid-column:1/-1; text-align:center; color:var(--muted); font-size:.82rem; padding:14px 0; }
+  .hintline { text-align:center; font-size:.74rem; color:var(--muted); margin-top:10px; }
 
-  label { display: block; font-size: 0.74rem; color: var(--muted); margin-bottom: 0.35rem; }
-  input, textarea { width: 100%; padding: 0.68rem 0.78rem; border: 1px solid var(--card-br); border-radius: 12px; font-family: inherit; font-size: 0.86rem; color: var(--text); background: rgba(255,255,255,0.04); outline: none; transition: border-color 0.25s, box-shadow 0.25s; margin-bottom: 0.85rem; }
-  input::placeholder, textarea::placeholder { color: #6d6890; }
-  input:focus, textarea:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(109,92,255,0.18); }
-  textarea { height: 68px; resize: vertical; }
-  input[type="date"] { color-scheme: dark; }
+  /* 預約資料卡 */
+  .card { background:var(--surface); border-radius:22px; padding:20px 18px 22px; margin-top:18px; box-shadow:0 14px 34px var(--shadow); }
+  .card h3 { font-family:var(--font-head); font-size:1.2rem; color:var(--heading); margin-bottom:8px; }
+  .sum-row { display:flex; justify-content:space-between; gap:12px; font-size:.86rem; margin-bottom:4px; }
+  .sum-row span:first-child { color:var(--muted); flex-shrink:0; }
+  .sum-row.total { border-top:1.5px dashed var(--surface-alt); margin-top:8px; padding-top:8px; }
+  .sum-row.total b { font-family:var(--font-head); font-size:1.25rem; color:var(--btn); }
+  label { display:block; font-size:.78rem; color:var(--muted); margin:12px 0 5px; }
+  input, textarea { width:100%; padding:11px 14px; border:1.5px solid var(--surface-alt); border-radius:12px; font-family:inherit; font-size:.92rem; background:#fff; color:var(--text); }
+  input:focus, textarea:focus { outline:2px solid rgba(45,226,230,.3); border-color:var(--primary); }
+  .btn-main { background:var(--btn); color:var(--on-btn); border:0; border-radius:999px; padding:12px 26px; font-weight:700; font-size:.94rem; cursor:pointer; font-family:inherit; box-shadow:0 8px 20px var(--shadow); transition:transform .15s, filter .2s; min-height:48px; }
+  .btn-main:hover { filter:brightness(1.08); } .btn-main:active { transform:translateY(2px) scale(.99); }
+  .btn-main:disabled { opacity:.55; cursor:not-allowed; }
+  .btn-line { background:var(--surface); border:1.5px solid var(--surface-alt); color:var(--text); border-radius:999px; padding:9px 18px; font-size:.86rem; cursor:pointer; font-family:inherit; transition:all .2s; min-height:42px; white-space:nowrap; }
+  .btn-line:hover { border-color:var(--primary); color:var(--primary-dk); }
+  .btn-line:disabled { opacity:.55; cursor:not-allowed; }
+  .verify-row { display:flex; gap:10px; }
+  .verify-row input { flex:1; min-width:0; }
+  .verify-row .btn-line { min-width:118px; }  /* 倒數字寬固定，避免每秒重排觸發捲動錨定跳動 */
+  .ok-chip { display:inline-flex; align-items:center; gap:6px; background:#eaf0e4; color:#4c6340; border-radius:999px; padding:5px 16px; font-size:.82rem; font-weight:700; }
+  .hint { font-size:.82rem; margin-top:8px; min-height:1.2em; }
+  .hint.ok { color:var(--success); } .hint.err { color:var(--err); }
 
-  .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 0.8rem; }
-  .slot { padding: 0.55rem 0.3rem; border: 1px solid var(--card-br); border-radius: 12px; background: rgba(255,255,255,0.04); font-family: inherit; font-size: 0.8rem; color: var(--text); cursor: pointer; text-align: center; transition: all 0.2s; }
-  .slot:hover { border-color: var(--coral); }
-  .slot.selected { background: var(--grad); border-color: transparent; color: #fff; }
-  .slot .rem { display: block; font-size: 0.6rem; color: var(--muted); margin-top: 0.15rem; }
-  .slot.selected .rem { color: rgba(255,255,255,0.85); }
+  /* 底部浮動摘要列 */
+  .sumbar { position:fixed; left:50%; transform:translateX(-50%) translateY(140%); bottom:16px; width:min(484px, calc(100% - 36px)); background:var(--heading); color:#fff; border-radius:22px; padding:12px 12px 12px 20px; display:flex; align-items:center; justify-content:space-between; gap:10px; box-shadow:0 18px 40px rgba(0,0,0,.6); z-index:50; transition:transform .3s cubic-bezier(.18,.89,.32,1.12); }
+  .sumbar.show { transform:translateX(-50%) translateY(0); }
+  .sumbar .info { font-size:.8rem; line-height:1.5; min-width:0; }
+  .sumbar .info b { font-family:var(--font-head); color:var(--extra); }
+  .sumbar .cta { background:var(--btn); color:#fff; border:0; border-radius:16px; padding:11px 22px; font-weight:700; font-size:.9rem; cursor:pointer; font-family:inherit; flex-shrink:0; min-height:44px; }
 
-  .summary-row { display: flex; justify-content: space-between; font-size: 0.84rem; margin-bottom: 0.42rem; color: var(--text); }
-  .summary-row span:first-child { color: var(--muted); }
-  .summary-row.total { border-top: 1px solid var(--card-br); padding-top: 0.6rem; margin-top: 0.5rem; font-family: 'Space Grotesk'; font-weight: 600; }
-  .summary-row.total span:last-child { color: var(--coral); }
+  /* 完成畫面（截圖時刻） */
+  #success-view { text-align:center; padding:8vh 18px 40px; }
+  .moment { max-width:360px; margin:0 auto; padding:32px 26px 28px; text-align:center; background:var(--surface); border-radius:22px; box-shadow:0 16px 40px var(--shadow); position:relative; overflow:hidden; }
+  .moment::before { content:""; position:absolute; top:0; left:0; right:0; height:6px; background:linear-gradient(90deg, var(--primary), var(--extra), var(--accent)); }
+  .moment .check { width:70px; height:70px; margin:8px auto 14px; border-radius:50%; background:var(--success); color:#fff; display:grid; place-items:center; font-size:2rem; animation:pop .5s cubic-bezier(.18,.89,.32,1.28); }
+  @keyframes pop { 0%{transform:scale(0)} 100%{transform:scale(1)} }
+  .moment h3 { font-family:var(--font-head); font-size:1.6rem; color:var(--heading); }
+  .moment .when { font-family:var(--font-head); font-size:1.1rem; color:var(--btn); margin:6px 0 2px; }
+  .moment p { color:var(--muted); font-size:.84rem; margin-bottom:10px; }
+  .moment .oid { display:inline-block; background:var(--surface-alt); border-radius:999px; padding:6px 18px; font-size:.84rem; font-weight:700; color:var(--heading); margin-bottom:16px; }
+  .confetti { position:absolute; top:-10px; width:8px; height:12px; border-radius:2px; animation:fall 1.2s ease-in forwards; }
+  @keyframes fall { to { transform:translateY(420px) rotate(360deg); opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .confetti { display:none; } .moment .check { animation:none; } .sumbar { transition:none; } }
 
-  .verify-row { display: flex; gap: 0.5rem; }
-  .verify-row input { flex: 1; margin-bottom: 0; }
-  .verify-btn { padding: 0.68rem 0.95rem; border: none; border-radius: 12px; background: var(--grad); color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 600; cursor: pointer; white-space: nowrap; box-shadow: 0 8px 22px -10px var(--glow); }
-  .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .verify-status { font-size: 0.74rem; margin-top: 0.5rem; }
+  footer { text-align:center; font-size:.76rem; color:var(--muted); padding:30px 0 8px; }
+  footer a { color:var(--primary-dk); }
 
-  .btn { width: 100%; padding: 0.9rem; border: none; border-radius: 14px; background: var(--grad); color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; transition: transform 0.15s, box-shadow 0.25s; box-shadow: 0 10px 28px -10px var(--glow); }
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -10px var(--glow); }
-  .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-
-  .success { display: none; text-align: center; max-width: 460px; margin: 0 auto; padding: 4rem 1.5rem; }
-  .success-icon { font-size: 2.6rem; animation: pop 0.6s ease; }
-  @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.18); } 100% { transform: scale(1); } }
-  .success h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; margin: 0.8rem 0 0.4rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .success p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.3rem; }
-  .success-badge { display: inline-block; border: 1px solid var(--card-br); color: var(--text); padding: 0.5rem 1.4rem; border-radius: 100px; font-size: 0.82rem; margin-bottom: 1.8rem; font-family: 'Space Grotesk'; }
-
-  .loading-wrap { text-align: center; padding: 2rem; color: var(--muted); }
-  .spinner { display: inline-block; width: 22px; height: 22px; border: 2px solid var(--card-br); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .error-msg { background: rgba(255,122,89,0.14); border: 1px solid rgba(255,122,89,0.4); color: #ffb9a6; padding: 0.6rem 0.9rem; border-radius: 12px; font-size: 0.8rem; margin-bottom: 0.8rem; text-align: center; }
-
-  .hidden { display: none !important; }
-  footer { text-align: center; padding: 2rem; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; }
-  footer a { color: var(--coral); text-decoration: none; }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  /* ── 霓夜深色 override ── */
+  input, textarea { background:#10101a; border-color:rgba(255,255,255,.14); }
+  input:focus, textarea:focus { outline:2px solid rgba(45,226,230,.35); border-color:var(--accent); }
+  .cal-head .nav button { background:var(--surface-alt); border-color:rgba(255,255,255,.14); color:var(--accent); }
+  .svc-chip.on { background:var(--primary); border-color:var(--primary); }
+  .slot, .date-chip { background:#10101a; border-color:rgba(255,255,255,.1); }
+  .sumbar { background:var(--surface-alt); box-shadow:0 18px 40px rgba(0,0,0,.6); }
+  .ok-chip { background:rgba(62,240,160,.14); color:var(--success); }
+  h1 { text-shadow:0 0 16px rgba(255,46,136,.45); }
+  .logo-dot { box-shadow:0 0 22px rgba(45,226,230,.35); }
+  .btn-main { box-shadow:0 0 16px rgba(255,46,136,.5); }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo-icon">🔆</div>
-  <div class="logo-name">Flow State</div>
-  <div class="logo-sub">Move · Breathe · Rise</div>
-</header>
+<div id="shop-view">
+  <div class="wrap">
+    <header>
+      <div class="logo-dot">🧘</div>
+      <div class="kicker">MOVE · BREATHE · RISE</div>
+      <h1>Flow State</h1>
+      <div class="tagline">瑜伽課程 ・ 線上預約 ・ 到館練習</div>
+      <span class="proof" id="proof-badge">已有預約 <b id="proof-count">0</b> 筆</span>
+    </header>
 
-<div class="main" id="shop-view">
-  <h2 class="section-title">Pick your <span>class</span></h2>
-  <div id="services-container"><div class="loading-wrap"><div class="spinner"></div></div></div>
+    <div class="svc-chips" id="svc-chips"><div class="svc-skeleton"></div><div class="svc-skeleton"></div></div>
 
-  <div id="date-time-section" class="panel hidden">
-    <div class="panel-title">📅 Choose a date</div>
-    <input type="date" id="booking-date" />
-    <div id="slots-wrap" class="hidden">
-      <label style="margin-top:0.4rem;">⏰ Available times</label>
-      <div class="slots" id="slots-grid"></div>
+    <div class="calendar">
+      <div class="cal-head"><b id="cal-month">選擇日期</b><span class="nav"><button aria-label="往前" onclick="scrollDates(-1)">‹</button><button aria-label="往後" onclick="scrollDates(1)">›</button></span></div>
+      <div class="dates" id="dates"></div>
+      <div class="cal-divider"></div>
+      <div class="slots" id="slots"><div class="slots-note">選擇日期後顯示可預約時段</div></div>
+      <div class="hintline">時段顯示剩餘名額，額滿自動劃線</div>
     </div>
-  </div>
 
-  <div id="booking-summary" class="panel hidden">
-    <div class="panel-title">📋 Booking summary</div>
-    <div class="summary-row"><span>Class</span><span id="sum-class"></span></div>
-    <div class="summary-row"><span>Duration</span><span id="sum-duration"></span></div>
-    <div class="summary-row"><span>Date</span><span id="sum-date"></span></div>
-    <div class="summary-row"><span>Time</span><span id="sum-time"></span></div>
-    <div class="summary-row total"><span>Total</span><span id="sum-price"></span></div>
-  </div>
+    <div class="card hidden" id="book-sec">
+      <h3 id="book-anchor">預約資料</h3>
+      <div class="sum-row"><span>課程</span><span id="sum-service"></span></div>
+      <div class="sum-row"><span>時間</span><span id="sum-when"></span></div>
+      <div class="sum-row total"><span>金額</span><b id="sum-price"></b></div>
 
-  <div id="verify-section" class="panel hidden">
-    <div class="panel-title">📧 Email verification</div>
-    <div class="verify-row">
-      <input type="email" id="email" placeholder="you@email.com" />
-      <button class="verify-btn" id="send-code-btn" onclick="sendCode()">Send code</button>
+      <label for="f-email">Email <span style="color:var(--err)">*</span></label>
+      <div class="verify-row">
+        <input type="email" id="f-email" placeholder="you@example.com" autocomplete="email">
+        <button class="btn-line" id="send-code-btn" onclick="sendVerifyCode()">發送驗證碼</button>
+      </div>
+      <div id="code-row" class="hidden">
+        <label for="f-code">驗證碼（6 碼）</label>
+        <div class="verify-row">
+          <input type="text" id="f-code" inputmode="numeric" maxlength="6">
+          <button class="btn-line" id="verify-btn" onclick="verifyEmail()">驗證</button>
+        </div>
+      </div>
+      <div id="verified-chip" class="hidden" style="margin-top:10px"><span class="ok-chip">✓ Email 已驗證</span></div>
+      <div class="hint" id="verify-hint"></div>
+
+      <label for="f-name">姓名 <span style="color:var(--err)">*</span></label>
+      <input type="text" id="f-name" autocomplete="name">
+      <label for="f-phone">電話 <span style="color:var(--err)">*</span></label>
+      <input type="tel" id="f-phone" placeholder="09xxxxxxxx" autocomplete="tel">
+      <label for="f-note">備註</label>
+      <textarea id="f-note" rows="2" placeholder="有什麼需要特別注意的嗎？"></textarea>
+
+      <div style="margin-top:18px; text-align:center">
+        <button class="btn-main" id="submit-btn" style="width:100%" onclick="submitBooking()">🧘 確認送出預約</button>
+        <div class="hint err" id="form-error"></div>
+      </div>
     </div>
-    <div id="code-row" class="verify-row hidden" style="margin-top:0.6rem;">
-      <input type="text" id="verify-code" placeholder="6-digit code" maxlength="6" />
-      <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">Verify</button>
-    </div>
-    <div class="verify-status" id="verify-status"></div>
+
+    <footer>Flow State ✦ Move · Breathe · Rise — Powered by <a href="https://one-page-go.com/" rel="noopener">One Page Go</a></footer>
   </div>
 
-  <div id="form-section" class="panel hidden">
-    <div class="panel-title">👤 Your details</div>
-    <label>Full name</label>
-    <input type="text" id="name" placeholder="Your name" />
-    <label>Phone</label>
-    <input type="tel" id="phone" placeholder="+1 555 000 0000" />
-    <label>Notes (optional)</label>
-    <textarea id="note" placeholder="Anything we should know? Injuries, first time, etc."></textarea>
-    <button class="btn" id="submit-btn" onclick="submitBooking()">Confirm Booking</button>
+  <div class="sumbar" id="sumbar">
+    <span class="info" id="sumbar-info"></span>
+    <button class="cta" onclick="goBook()">下一步 →</button>
   </div>
-
-  <div id="error-msg" class="error-msg hidden"></div>
 </div>
 
-<div class="success" id="success-screen">
-  <div class="success-icon">⚡</div>
-  <h2>You're in!</h2>
-  <p>Your spot is locked in with Flow State.<br/>Bring water, leave your day at the door.</p>
-  <div class="success-badge" id="success-id"></div>
-  <br/>
-  <button class="btn" style="max-width:240px;margin:0 auto;display:block;" onclick="resetPage()">Book another class</button>
+<div id="success-view" class="hidden">
+  <div class="moment" id="moment-card">
+    <div class="check">✓</div>
+    <h3>預約成功！</h3>
+    <div class="when" id="success-when"></div>
+    <p id="success-meta"></p>
+    <span class="oid" id="success-order-id"></span><br>
+    <button class="btn-main" onclick="shareThis()">分享給朋友 →</button>
+    <div style="margin-top:12px"><button class="btn-line" onclick="addToCalendar()">📅 加入行事曆</button>
+    <button class="btn-line" onclick="resetPage()">再次預約</button></div>
+  </div>
+  <footer>Flow State ✦ Powered by <a href="https://one-page-go.com/" rel="noopener">One Page Go</a></footer>
 </div>
-
-<footer>Flow State Sample — Powered by <a href="https://one-page-go.com/" rel="noopener">One Page Go</a></footer>
 
 <script>
-// ════════════════════════════════════════════════════════════
-//  後端：直接連結 SPA demo（demos/booking）的 Apps Script，
-//  讀同一批產品、走完全一樣的預約流程。只有影片是寫死。
-// ════════════════════════════════════════════════════════════
-const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker (T-020)
-const SITE_ID = "yoga-flow";
+// ── 設定：交付時替換為該站 worker 的 API 網址 ──
+const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker
+const SITE_ID = "yoga-flow"; // demo 接線：所有 action 帶 site_id
 
-// 影片寫死：依卡片順序套用（第 1 張 YouTube、第 2 張 Google Drive），其餘卡片用後端的圖片。
-const DEMO_VIDEOS = [
-  "https://www.youtube.com/watch?v=AAHrh6m1i2Q&list=PLEWjcoTWbzxJLV-Eld2bM5fvjqSyQMgk2",
-  "https://drive.google.com/file/d/18gpGvAjRw4AHHt8hRpr4Abwr9HLbAA46/view?usp=sharing",
-];
-
-const YOGA_EMOJI = ["🧘","🌀","⚡","🔥","🌙","💫"];
-
+const WEEK = ['週日','週一','週二','週三','週四','週五','週六'];
 let services = [];
-let selectedService = null, selectedDate = '', selectedTime = '';
-let emailVerified = false, verifiedEmail = '';
+let selectedService = null;
+let selectedDate = '';
+let selectedTime = '';
+let emailVerified = false;
+let verifiedEmail = '';
+let sessionToken = '';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function getSessionToken() { return sessionStorage.getItem('opg_session_token') || ''; }
-function saveSessionToken(t) { sessionStorage.setItem('opg_session_token', t); }
-
-function buildVideoEmbed(url) {
-  if (!url) return '';
-  const u = String(url).trim();
-  const yt = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
-  if (yt) return `<iframe src="https://www.youtube-nocookie.com/embed/${yt[1]}?rel=0" title="Class video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>`;
-  if (/drive\.google\.com/.test(u)) { const m = u.match(/[-\w]{25,}/); if (m) return `<iframe src="https://drive.google.com/file/d/${m[0]}/preview" title="Class video" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>`; }
-  if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(u)) return `<video src="${u}" controls playsinline></video>`;
-  return '';
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+}
+function setHint(id, msg, ok) {
+  const el = document.getElementById(id);
+  el.textContent = msg || "";
+  el.className = "hint " + (ok ? "ok" : "err");
+}
+function fmtWhen(dateStr, time) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return (d.getMonth() + 1) + '/' + d.getDate() + '（' + WEEK[d.getDay()].charAt(1) + '）' + time;
 }
 
+// ── 載入服務與統計 ──
 async function loadServices() {
   try {
     const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getServices', site_id: SITE_ID }) });
-    const data = JSON.parse(await res.text());
-    services = data.services || [];
-    renderServices();
-  } catch (err) {
-    document.getElementById('services-container').innerHTML = '<div class="loading-wrap">No classes available right now.</div>';
+    const data = await res.json();
+    services = (data.services || []).filter(s => s.available !== false);
+    renderServiceChips();
+  } catch (e) {
+    document.getElementById('svc-chips').innerHTML = '<span style="color:var(--muted);font-size:.84rem">課程載入失敗，請重新整理頁面</span>';
   }
 }
-
-function renderServices() {
-  const c = document.getElementById('services-container');
-  if (!services.length) { c.innerHTML = '<div class="loading-wrap">No classes available right now.</div>'; return; }
-  c.innerHTML = services.map((s, i) => {
-    const emoji = YOGA_EMOJI[i % YOGA_EMOJI.length];
-    const videoUrl = DEMO_VIDEOS[i] || s.video_url || '';   // 影片寫死，依順序套用
-    const video = buildVideoEmbed(videoUrl);
-    const media = video || (s.image_url ? `<img src="${s.image_url}" alt="${s.name}" />` : `<div class="emoji">${emoji}</div>`);
-    return `
-      <div class="class-card" id="svc-${s.id}" onclick="selectService('${s.id}')" style="animation-delay:${i*0.07}s">
-        <div class="class-media">${media}</div>
-        <div class="class-body">
-          <div class="class-name">${s.name}</div>
-          <div class="class-desc">${s.description || ''}</div>
-          <div class="class-meta">
-            <span class="class-price">$${s.price}<span> / class</span></span>
-            <span class="duration-badge">${s.duration_min} min</span>
-          </div>
-        </div>
-      </div>`;
-  }).join('');
+async function loadStats() {
+  try {
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getStats', site_id: SITE_ID }) });
+    const data = await res.json();
+    const n = parseInt(data.orderCount, 10) || 0;
+    if (n >= 3) {
+      document.getElementById('proof-count').textContent = n;
+      document.getElementById('proof-badge').classList.add('show');
+    }
+  } catch (e) { /* 統計失敗不影響預約 */ }
 }
-
+function renderServiceChips() {
+  const box = document.getElementById('svc-chips');
+  if (!services.length) { box.innerHTML = '<span style="color:var(--muted);font-size:.84rem">目前暫無可預約課程</span>'; return; }
+  box.innerHTML = services.map(s =>
+    '<button class="svc-chip" id="svc-' + esc(s.id) + '" onclick="selectService(\'' + esc(s.id) + '\')">' +
+    esc(s.name) + ' <small>' + (parseInt(s.duration_min, 10) || 0) + ' 分・$' + (parseInt(s.price, 10) || 0).toLocaleString() + '</small></button>').join("");
+}
 function selectService(id) {
   selectedService = services.find(s => String(s.id) === String(id));
   if (!selectedService) return;
-  document.querySelectorAll('.class-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('svc-' + id).classList.add('selected');
-  document.getElementById('date-time-section').classList.remove('hidden');
-  document.getElementById('slots-wrap').classList.add('hidden');
-  document.getElementById('booking-summary').classList.add('hidden');
-  document.getElementById('verify-section').classList.add('hidden');
-  document.getElementById('form-section').classList.add('hidden');
-  const d = document.getElementById('booking-date');
-  d.min = new Date().toISOString().split('T')[0];
-  d.value = ''; selectedDate = ''; selectedTime = '';
-  d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  document.querySelectorAll('.svc-chip').forEach(c => c.classList.remove('on'));
+  document.getElementById('svc-' + id).classList.add('on');
+  updateSumbar();
 }
 
-document.getElementById('booking-date').addEventListener('change', async function() {
-  selectedDate = this.value; selectedTime = '';
-  if (!selectedDate) return;
-  const wrap = document.getElementById('slots-wrap');
-  const grid = document.getElementById('slots-grid');
-  wrap.classList.remove('hidden');
-  grid.innerHTML = '<div class="loading-wrap" style="grid-column:1/-1;"><div class="spinner"></div></div>';
-  try {
-    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getTimeSlots', site_id: SITE_ID, date: selectedDate }) });
-    const data = JSON.parse(await res.text());
-    const slots = data.slots || [];
-    if (!slots.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);font-size:0.85rem;padding:1rem;">No available times on this date.</div>'; return; }
-    grid.innerHTML = slots.map(s => `<button class="slot" onclick="selectTimeSlot('${s.time_slot}', this)">${s.time_slot}<span class="rem">${s.remaining} spots</span></button>`).join('');
-  } catch (err) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#ffb9a6;font-size:0.8rem;">Failed to load times.</div>';
+// ── 日期條（今起 14 天）──
+function renderDates() {
+  const box = document.getElementById('dates');
+  let html = '';
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(Date.now() + i * 86400000);
+    const iso = d.toISOString().slice(0, 10);
+    html += '<div class="date-chip" id="date-' + iso + '" onclick="selectDate(\'' + iso + '\')">' +
+      '<div class="d">' + d.getDate() + '</div><div class="w">' + WEEK[d.getDay()] + '</div></div>';
   }
-});
-
-function selectTimeSlot(time, el) {
+  box.innerHTML = html;
+  const first = new Date();
+  document.getElementById('cal-month').textContent = first.getFullYear() + ' 年 ' + (first.getMonth() + 1) + ' 月';
+}
+function scrollDates(dir) {
+  document.getElementById('dates').scrollBy({ left: dir * 200, behavior: 'smooth' });
+}
+async function selectDate(iso) {
+  selectedDate = iso;
+  selectedTime = '';
+  updateSumbar();
+  document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('on'));
+  document.getElementById('date-' + iso).classList.add('on');
+  const d = new Date(iso + 'T00:00:00');
+  document.getElementById('cal-month').textContent = d.getFullYear() + ' 年 ' + (d.getMonth() + 1) + ' 月';
+  const grid = document.getElementById('slots');
+  grid.innerHTML = '<div class="slots-note">時段載入中…</div>';
+  try {
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getTimeSlots', site_id: SITE_ID, date: iso }) });
+    const data = await res.json();
+    const slots = data.slots || [];
+    if (!slots.length) { grid.innerHTML = '<div class="slots-note">此日期暫無可預約時段</div>'; return; }
+    grid.innerHTML = slots.map(s => {
+      const remaining = parseInt(s.remaining, 10) || 0;
+      const full = remaining <= 0;
+      return '<button class="slot' + (full ? ' full' : '') + '" ' + (full ? 'disabled' : '') +
+        ' onclick="selectSlot(this, \'' + esc(s.time_slot) + '\')"><b>' + esc(s.time_slot) + '</b>' +
+        '<small>' + (full ? '已額滿' : '剩 ' + remaining + ' 位') + '</small></button>';
+    }).join("");
+  } catch (e) {
+    grid.innerHTML = '<div class="slots-note">載入時段失敗，請重試</div>';
+  }
+}
+function selectSlot(el, time) {
   selectedTime = time;
-  document.querySelectorAll('.slot').forEach(b => b.classList.remove('selected'));
-  el.classList.add('selected');
-  document.getElementById('sum-class').textContent = selectedService.name;
-  document.getElementById('sum-duration').textContent = selectedService.duration_min + ' min';
-  document.getElementById('sum-date').textContent = selectedDate;
-  document.getElementById('sum-time').textContent = selectedTime;
-  document.getElementById('sum-price').textContent = '$' + selectedService.price;
-  document.getElementById('booking-summary').classList.remove('hidden');
-  document.getElementById('verify-section').classList.remove('hidden');
-  if (emailVerified) document.getElementById('form-section').classList.remove('hidden');
+  document.querySelectorAll('.slot').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  updateSumbar();
 }
 
-async function sendCode() {
-  const email = document.getElementById('email').value.trim();
-  if (!email) { showError('Please enter your email'); return; }
+// ── 底部摘要列 ──
+function updateSumbar() {
+  const bar = document.getElementById('sumbar');
+  if (selectedService && selectedDate && selectedTime) {
+    document.getElementById('sumbar-info').innerHTML =
+      esc(selectedService.name) + ' ・ ' + esc(fmtWhen(selectedDate, '')) + '<b>' + esc(selectedTime) + '</b> ・ $' + (parseInt(selectedService.price, 10) || 0).toLocaleString();
+    bar.classList.add('show');
+  } else {
+    bar.classList.remove('show');
+  }
+}
+function goBook() {
+  document.getElementById('sum-service').textContent = selectedService.name + ' ・ ' + selectedService.duration_min + ' 分鐘';
+  document.getElementById('sum-when').textContent = fmtWhen(selectedDate, selectedTime);
+  document.getElementById('sum-price').textContent = '$' + (parseInt(selectedService.price, 10) || 0).toLocaleString();
+  document.getElementById('book-sec').classList.remove('hidden');
+  document.getElementById('book-anchor').scrollIntoView(); // 即時定位：不依賴平滑動畫，避免與其他捲動互搶
+}
+
+// ── Email 驗證 ──
+async function sendVerifyCode() {
+  const email = document.getElementById('f-email').value.trim();
+  if (!email || !EMAIL_RE.test(email)) { setHint('verify-hint', '請輸入有效的 Email', false); return; }
   const btn = document.getElementById('send-code-btn');
-  btn.disabled = true; btn.textContent = 'Sending…'; hideError();
+  btn.disabled = true;
   try {
-    const checkRes = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'checkMember', site_id: SITE_ID, email }) });
-    const checkData = JSON.parse(await checkRes.text());
-    if (checkData.blocked) { showError('This email has been disabled. Please contact the studio.'); btn.disabled = false; btn.textContent = 'Send code'; return; }
-    if (checkData.hasActiveOrder) { showError('You have a pending booking. Please complete it first.'); btn.disabled = false; btn.textContent = 'Send code'; return; }
-    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'sendVerifyCode', site_id: SITE_ID, email }) });
-    const data = JSON.parse(await res.text());
+    const chk = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'checkMember', site_id: SITE_ID, email }) }).then(r => r.json());
+    if (chk.blocked) { setHint('verify-hint', '此 Email 已被停用，請聯繫店家', false); btn.disabled = false; return; }
+    if (chk.hasActiveOrder) { setHint('verify-hint', '您有未完成的預約，完成後才能再次預約', false); btn.disabled = false; return; }
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'sendVerifyCode', site_id: SITE_ID, email }) });
+    const data = await res.json();
     if (data.success) {
       document.getElementById('code-row').classList.remove('hidden');
-      const st = document.getElementById('verify-status'); st.textContent = data.message || 'Code sent — please check your inbox.'; st.style.color = '#7fe0b0';
-      let sec = 60; btn.textContent = `${sec}s`;
-      const timer = setInterval(() => { sec--; btn.textContent = `${sec}s`; if (sec <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = 'Resend'; } }, 1000);
-    } else { showError(data.error || 'Failed to send code'); btn.disabled = false; btn.textContent = 'Send code'; }
-  } catch (err) { showError('Connection failed'); btn.disabled = false; btn.textContent = 'Send code'; }
+      setHint('verify-hint', data.message || '驗證碼已寄出，請查看信箱（含垃圾郵件）', true);
+      let cd = 60;
+      btn.textContent = cd + 's';
+      const timer = setInterval(() => {
+        cd--;
+        btn.textContent = cd + 's';
+        if (cd <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = '重新發送'; }
+      }, 1000);
+    } else {
+      setHint('verify-hint', data.error || '發送失敗', false);
+      btn.disabled = false;
+    }
+  } catch (e) { setHint('verify-hint', '網路錯誤，請稍後再試', false); btn.disabled = false; }
 }
-
 async function verifyEmail() {
-  const email = document.getElementById('email').value.trim();
-  const code = document.getElementById('verify-code').value.trim();
-  if (!code) { showError('Please enter the code'); return; }
+  const email = document.getElementById('f-email').value.trim();
+  const code = document.getElementById('f-code').value.trim();
+  if (!code || code.length !== 6) { setHint('verify-hint', '請輸入 6 位數驗證碼', false); return; }
   const btn = document.getElementById('verify-btn');
-  btn.disabled = true; btn.textContent = 'Verifying…';
+  btn.disabled = true;
   try {
-    const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'verifyCode', site_id: SITE_ID, email, code }) });
-    const data = JSON.parse(await res.text());
-    if (data.success) {
-      emailVerified = true; verifiedEmail = email;
-      if (data.sessionToken) saveSessionToken(data.sessionToken);
-      showVerified();
-    } else { showError(data.error || 'Verification failed'); btn.disabled = false; btn.textContent = 'Verify'; }
-  } catch (err) { showError('Connection failed'); btn.disabled = false; btn.textContent = 'Verify'; }
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'verifyCode', site_id: SITE_ID, email, code }) });
+    const data = await res.json();
+    if (data.success && data.verified !== false) {
+      emailVerified = true;
+      verifiedEmail = email;
+      sessionToken = data.sessionToken || '';
+      document.getElementById('code-row').classList.add('hidden');
+      document.getElementById('verified-chip').classList.remove('hidden');
+      document.getElementById('send-code-btn').classList.add('hidden');
+      document.getElementById('f-email').disabled = true;
+      setHint('verify-hint', '', true);
+    } else {
+      setHint('verify-hint', data.error || '驗證失敗', false);
+      btn.disabled = false;
+    }
+  } catch (e) { setHint('verify-hint', '網路錯誤，請稍後再試', false); btn.disabled = false; }
 }
 
-function showVerified() {
-  const st = document.getElementById('verify-status'); st.textContent = '✅ Verified'; st.style.color = '#7fe0b0';
-  document.getElementById('email').disabled = true;
-  document.getElementById('verify-code').disabled = true;
-  document.getElementById('verify-btn').disabled = true; document.getElementById('verify-btn').textContent = 'Verified';
-  document.getElementById('send-code-btn').classList.add('hidden');
-  document.getElementById('code-row').classList.add('hidden');
-  document.getElementById('form-section').classList.remove('hidden');
-}
-
+// ── 送出預約 ──
+function showError(msg) { document.getElementById('form-error').textContent = msg; }
 async function submitBooking() {
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const note = document.getElementById('note').value.trim();
-  hideError();
-  if (!name) { showError('Please enter your name'); return; }
-  if (!phone) { showError('Please enter your phone number'); return; }
-  if (!selectedService || !selectedDate || !selectedTime) { showError('Please choose a class, date and time'); return; }
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const note = document.getElementById('f-note').value.trim();
+  showError('');
+  if (!selectedService || !selectedDate || !selectedTime) { showError('請完成課程、日期、時段選擇'); return; }
+  if (!emailVerified) { showError('請先完成 Email 驗證'); return; }
+  if (!name || name.length < 2) { showError('請填寫姓名（至少 2 個字）'); return; }
+  if (!/^09\d{8}$/.test(phone.replace(/[-\s]/g, ''))) { showError('請輸入有效的手機號碼（09 開頭）'); return; }
+
   const btn = document.getElementById('submit-btn');
-  btn.disabled = true; btn.textContent = 'Booking…';
+  btn.disabled = true;
+  btn.textContent = '送出中…';
   try {
     const res = await fetch(API_URL, {
-      method: 'POST', headers: { 'Content-Type': 'text/plain' },
+      method: 'POST',
       body: JSON.stringify({
-        action: 'submitBooking', site_id: SITE_ID, sessionToken: getSessionToken(), email: verifiedEmail,
-        name, phone, service_id: String(selectedService.id),
-        booking_date: selectedDate, booking_time: selectedTime, note
+        action: 'submitBooking',
+        site_id: SITE_ID,
+        email: verifiedEmail,
+        sessionToken,
+        name,
+        phone: phone.replace(/[-\s]/g, ''),
+        service_id: String(selectedService.id),
+        booking_date: selectedDate,
+        booking_time: selectedTime,
+        note
       })
     });
-    const data = JSON.parse(await res.text());
+    const data = await res.json();
     if (data.success) {
-      document.getElementById('shop-view').style.display = 'none';
-      document.getElementById('success-screen').style.display = 'block';
-      document.getElementById('success-id').textContent = 'Booking ref: ' + data.bookingId;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else { showError(data.error || 'Booking failed'); btn.disabled = false; btn.textContent = 'Confirm Booking'; }
-  } catch (err) { showError('Connection failed'); btn.disabled = false; btn.textContent = 'Confirm Booking'; }
+      document.getElementById('shop-view').classList.add('hidden');
+      document.getElementById('success-view').classList.remove('hidden');
+      document.getElementById('success-order-id').textContent = data.bookingId;
+      document.getElementById('success-when').textContent = fmtWhen(selectedDate, selectedTime);
+      document.getElementById('success-meta').textContent = selectedService.name + ' ・ ' + selectedService.duration_min + ' 分鐘 ・ Flow State';
+      celebrate(document.getElementById('moment-card'));
+      window.scrollTo({ top: 0 });
+    } else {
+      showError(data.error || '預約失敗');
+      btn.disabled = false;
+      btn.textContent = '🧘 確認送出預約';
+    }
+  } catch (e) {
+    showError('送出失敗，請稍後再試');
+    btn.disabled = false;
+    btn.textContent = '🧘 確認送出預約';
+  }
 }
 
-function resetPage() {
-  selectedService = null; selectedDate = ''; selectedTime = ''; emailVerified = false; verifiedEmail = '';
-  document.getElementById('success-screen').style.display = 'none';
-  document.getElementById('shop-view').style.display = 'block';
-  document.querySelectorAll('.class-card').forEach(c => c.classList.remove('selected'));
-  ['date-time-section','booking-summary','verify-section','form-section'].forEach(id => document.getElementById(id).classList.add('hidden'));
-  const email = document.getElementById('email'); email.disabled = false; email.value = '';
-  const vc = document.getElementById('verify-code'); vc.disabled = false; vc.value = '';
-  const sc = document.getElementById('send-code-btn'); sc.classList.remove('hidden'); sc.disabled = false; sc.textContent = 'Send code';
-  const vb = document.getElementById('verify-btn'); vb.disabled = false; vb.textContent = 'Verify';
-  document.getElementById('code-row').classList.add('hidden');
-  document.getElementById('verify-status').textContent = '';
-  ['name','phone','note'].forEach(id => document.getElementById(id).value = '');
-  const sb = document.getElementById('submit-btn'); sb.disabled = false; sb.textContent = 'Confirm Booking';
-  document.getElementById('booking-date').value = '';
-  hideError();
-  renderServices();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+// ── 完成卡：彩帶、分享、加入行事曆 ──
+function getCSS(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function celebrate(host) {
+  const colors = [getCSS('--primary'), getCSS('--extra'), getCSS('--success')];
+  for (let i = 0; i < 24; i++) {
+    const c = document.createElement('span');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + '%';
+    c.style.background = colors[i % colors.length];
+    c.style.animationDelay = (Math.random() * .2) + 's';
+    host.appendChild(c);
+    setTimeout(() => c.remove(), 1500);
+  }
 }
+async function shareThis() {
+  const data = { title: document.title, text: '我在 Flow State 預約了瑜伽課，一起來流動 →', url: location.href.split('#')[0] };
+  try {
+    if (navigator.share) { await navigator.share(data); }
+    else { await navigator.clipboard.writeText(data.url); alert('連結已複製，貼給朋友吧！'); }
+  } catch (_) { /* 使用者取消 */ }
+}
+function addToCalendar() {
+  const dur = parseInt(selectedService.duration_min, 10) || 60;
+  const start = new Date(selectedDate + 'T' + selectedTime + ':00');
+  const end = new Date(start.getTime() + dur * 60000);
+  const fmt = d => d.toISOString().replace(/[-:]/g, '').slice(0, 15);
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'BEGIN:VEVENT',
+    'DTSTART:' + fmt(start), 'DTEND:' + fmt(end),
+    'SUMMARY:Flow State ' + selectedService.name,
+    'DESCRIPTION:預約編號 ' + document.getElementById('success-order-id').textContent,
+    'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+  a.download = 'flow-state-booking.ics';
+  a.click();
+}
+function resetPage() { location.reload(); }
 
-function showError(m) { const e = document.getElementById('error-msg'); e.textContent = m; e.classList.remove('hidden'); }
-function hideError() { document.getElementById('error-msg').classList.add('hidden'); }
-
-loadServices();
+// ── 初始化 ──
+(function init() {
+  renderDates();
+  loadServices();
+  loadStats();
+})();
 </script>
 </body>
 </html>
