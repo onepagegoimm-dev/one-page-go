@@ -20,505 +20,224 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
     <link rel="manifest" href="../../site.webmanifest">
     <title>Pixel Pay Test - One Page Go 綠界金流展示</title>
+    <meta property="og:title" content="Pixel Pay — 綠界金流串接展示">
+    <meta property="og:description" content="One Page Go 金流展示：Email 驗證、建單、綠界付款、狀態追蹤。">
+    <meta property="og:image" content="https://one-page-go.com/demos/payment/og.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* ── 霓夜 Neon Night（T-032 改版）──
+           變數名沿用舊版（card/highlight/warning），值換為霓夜 token，行內樣式不需改 */
         :root {
-            --bg: #1a1a2e;
-            --card: #16213e;
-            --accent: #0f3460;
-            --highlight: #e94560;
-            --text: #eee;
-            --muted: #a0a0b0;
-            --success: #4ade80;
-            --warning: #facc15;
-            --radius: 12px;
+            --bg: #0e0e14;
+            --card: #1a1a26;
+            --surface-alt: #25253a;
+            --accent: #2de2e6;            /* 青色點綴 */
+            --highlight: #ff2e88;         /* 霓虹桃紅 */
+            --highlight-dk: #d11f6e;      /* CTA 填色（白字可讀） */
+            --text: #e6e6f0;
+            --muted: #a0a0b8;
+            --success: #3ef0a0;
+            --warning: #ffd166;
+            --radius: 14px;
+            --glow: 0 0 16px rgba(255, 46, 136, 0.55);
+            --glow-cyan: 0 0 14px rgba(45, 226, 230, 0.4);
+            --font-head: "Space Grotesk", "Noto Sans TC", sans-serif;
+            --font-body: "Noto Sans TC", sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: var(--font-body);
             background: var(--bg);
+            background-image: radial-gradient(circle at 15% 0%, rgba(255,46,136,.08), transparent 42%), radial-gradient(circle at 85% 18%, rgba(45,226,230,.07), transparent 45%);
             color: var(--text);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             padding: 40px 16px;
+            line-height: 1.7;
         }
 
-        .container {
-            max-width: 480px;
-            width: 100%;
-        }
+        .container { max-width: 480px; width: 100%; }
 
         /* ── Header ── */
-        .header {
-            text-align: center;
-            margin-bottom: 36px;
-        }
-
+        .header { text-align: center; margin-bottom: 36px; }
         .header .badge {
             display: inline-block;
-            background: var(--highlight);
-            color: #fff;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 2px 10px;
-            border-radius: 20px;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+            background: rgba(255,46,136,.14);
+            color: var(--highlight);
+            border: 1px solid rgba(255,46,136,.45);
+            font-size: 11px; font-weight: 700;
+            padding: 3px 12px; border-radius: 20px;
+            letter-spacing: 2px; margin-bottom: 12px;
+            box-shadow: var(--glow-cyan);
         }
-
         .header h1 {
-            font-size: 26px;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
+            font-family: var(--font-head);
+            font-size: 30px; margin-bottom: 6px; letter-spacing: 1px; color: #fff;
+            text-shadow: var(--glow);
         }
-
-        .header .subtitle {
-            color: var(--muted);
-            font-size: 14px;
-        }
+        .header .subtitle { color: var(--muted); font-size: 14px; }
 
         /* ── Section Title ── */
         .section-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--muted);
-            margin-bottom: 14px;
-            padding-left: 2px;
-            letter-spacing: 0.5px;
+            font-family: var(--font-head);
+            font-size: 15px; font-weight: 600; color: var(--muted);
+            margin-bottom: 14px; padding-left: 2px; letter-spacing: 1px;
         }
-
         .section-title::before {
             content: '';
-            display: inline-block;
-            width: 3px;
-            height: 14px;
-            background: var(--highlight);
-            border-radius: 2px;
-            margin-right: 8px;
-            vertical-align: middle;
+            display: inline-block; width: 22px; height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--highlight));
+            border-radius: 2px; margin-right: 10px; vertical-align: middle;
         }
 
-        /* ── Card ── */
+        /* ── Card（深色玻璃卡）── */
         .card {
-            background: var(--card);
+            background: rgba(26,26,38,.78);
+            backdrop-filter: blur(8px);
             border-radius: var(--radius);
-            padding: 24px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(255,255,255,0.06);
+            padding: 24px; margin-bottom: 16px;
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,.45);
         }
-
-        .card h2 {
-            font-size: 16px;
-            margin-bottom: 16px;
-            color: var(--muted);
-            font-weight: 500;
-        }
+        .card h2 { font-family: var(--font-head); font-size: 16px; margin-bottom: 16px; color: var(--muted); font-weight: 500; letter-spacing: .5px; }
 
         /* ── Plan Cards ── */
         .plan-card {
-            background: var(--card);
+            background: rgba(26,26,38,.78);
+            backdrop-filter: blur(8px);
             border-radius: var(--radius);
-            padding: 22px 20px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255,255,255,0.06);
-            position: relative;
-            transition: border-color 0.2s;
+            padding: 22px 20px; margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,.08);
+            position: relative; transition: border-color .2s, box-shadow .2s;
         }
-
+        .plan-card:hover { border-color: rgba(45,226,230,.35); }
         .plan-card.recommended {
-            border-color: var(--success);
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.08);
+            border-color: rgba(62,240,160,.55);
+            box-shadow: 0 0 22px rgba(62,240,160,.12);
         }
-
-        .plan-badge {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 10px;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-        }
-
-        .plan-badge.green {
-            background: rgba(74, 222, 128, 0.15);
-            color: var(--success);
-        }
-
-        .plan-badge.purple {
-            background: rgba(192, 132, 252, 0.15);
-            color: #c084fc;
-        }
-
-        .plan-name {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .plan-tagline {
-            font-size: 12px;
-            color: var(--muted);
-            margin-bottom: 14px;
-        }
-
-        .plan-price {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 2px;
-        }
-
-        .plan-price .currency {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--muted);
-        }
-
-        .plan-price-note {
-            font-size: 11px;
-            color: var(--muted);
-            margin-bottom: 16px;
-        }
-
-        .plan-details {
-            list-style: none;
-            margin-bottom: 0;
-        }
-
-        .plan-details li {
-            font-size: 13px;
-            color: var(--text);
-            padding: 5px 0;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-
-        .plan-details li:last-child {
-            border-bottom: none;
-        }
-
-        .plan-details .detail-label {
-            color: var(--muted);
-        }
-
-        .plan-details .detail-value {
-            font-weight: 600;
-            text-align: right;
-        }
-
-        .plan-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 14px;
-        }
-
-        .plan-tag {
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.05);
-            color: var(--muted);
-        }
-
-        .plan-card.recommended .plan-tag {
-            background: rgba(74, 222, 128, 0.08);
-            color: rgba(74, 222, 128, 0.8);
-        }
-
-        .plan-footnote {
-            font-size: 12px;
-            color: var(--muted);
-            line-height: 1.6;
-            margin-top: 4px;
-            margin-bottom: 28px;
-            padding: 0 2px;
-        }
+        .plan-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 10px; letter-spacing: .5px; margin-bottom: 10px; }
+        .plan-badge.green { background: rgba(62,240,160,.14); color: var(--success); }
+        .plan-badge.purple { background: rgba(45,226,230,.14); color: var(--accent); }
+        .plan-name { font-family: var(--font-head); font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #fff; }
+        .plan-tagline { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+        .plan-price { font-family: var(--font-head); font-size: 28px; font-weight: 700; margin-bottom: 2px; color: #fff; }
+        .plan-price .currency { font-size: 14px; font-weight: 600; color: var(--muted); }
+        .plan-price-note { font-size: 11px; color: var(--muted); margin-bottom: 16px; }
+        .plan-details { list-style: none; margin-bottom: 0; }
+        .plan-details li { font-size: 13px; color: var(--text); padding: 5px 0; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.05); }
+        .plan-details li:last-child { border-bottom: none; }
+        .plan-details .detail-label { color: var(--muted); }
+        .plan-details .detail-value { font-weight: 600; text-align: right; }
+        .plan-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+        .plan-tag { font-size: 11px; padding: 3px 9px; border-radius: 6px; background: rgba(255,255,255,.06); color: var(--muted); }
+        .plan-card.recommended .plan-tag { background: rgba(62,240,160,.1); color: rgba(62,240,160,.85); }
+        .plan-footnote { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 4px; margin-bottom: 28px; padding: 0 2px; }
 
         /* ── Form Elements ── */
-        label {
-            display: block;
-            font-size: 13px;
-            color: var(--muted);
-            margin-bottom: 6px;
-        }
-
+        label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
         input[type="email"] {
-            width: 100%;
-            padding: 10px 14px;
+            width: 100%; padding: 11px 14px;
             background: var(--bg);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            color: var(--text);
-            font-size: 15px;
-            outline: none;
-            margin-bottom: 6px;
-            transition: border-color 0.2s;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 10px; color: var(--text); font-size: 15px; outline: none;
+            margin-bottom: 6px; transition: border-color .2s, box-shadow .2s;
+            font-family: inherit;
         }
-
-        input[type="email"]:focus {
-            border-color: var(--highlight);
-        }
-
-        input[type="email"].input-error {
-            border-color: var(--highlight);
-        }
-
-        .input-hint {
-            font-size: 12px;
-            color: var(--highlight);
-            margin-bottom: 12px;
-            min-height: 16px;
-        }
+        input[type="email"]:focus { border-color: var(--accent); box-shadow: var(--glow-cyan); }
+        input[type="email"].input-error { border-color: var(--highlight); }
+        .input-hint { font-size: 12px; color: var(--highlight); margin-bottom: 12px; min-height: 16px; }
 
         .checkbox-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 18px;
-            padding: 12px;
-            background: rgba(233, 69, 96, 0.06);
-            border-radius: 8px;
-            border: 1px solid rgba(233, 69, 96, 0.15);
+            display: flex; align-items: flex-start; gap: 10px; margin-bottom: 18px;
+            padding: 12px; background: rgba(255,46,136,.07);
+            border-radius: 10px; border: 1px solid rgba(255,46,136,.28);
         }
-
-        .checkbox-row input[type="checkbox"] {
-            margin-top: 2px;
-            width: 16px;
-            height: 16px;
-            accent-color: var(--highlight);
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-
-        .checkbox-row label {
-            font-size: 13px;
-            color: var(--text);
-            margin-bottom: 0;
-            cursor: pointer;
-            line-height: 1.5;
-        }
+        .checkbox-row input[type="checkbox"] { margin-top: 2px; width: 16px; height: 16px; accent-color: var(--highlight); flex-shrink: 0; cursor: pointer; }
+        .checkbox-row label { font-size: 13px; color: var(--text); margin-bottom: 0; cursor: pointer; line-height: 1.5; }
 
         /* ── Buttons ── */
         .btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s;
+            display: block; width: 100%; padding: 13px;
+            border: none; border-radius: 999px;
+            font-size: 15px; font-weight: 700; cursor: pointer;
+            transition: filter .2s, transform .15s, box-shadow .2s;
+            font-family: inherit; min-height: 46px;
         }
-
-        .btn:hover { opacity: 0.85; }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-        .btn-primary {
-            background: var(--highlight);
-            color: #fff;
-        }
-
+        .btn:hover { filter: brightness(1.12); }
+        .btn:active { transform: translateY(1px); }
+        .btn:disabled { opacity: .4; cursor: not-allowed; }
+        .btn-primary { background: var(--highlight-dk); color: #fff; box-shadow: var(--glow); }
         .btn-ecpay {
-            background: #2ECC71;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            font-weight: 700;
-            font-size: 16px;
-            padding: 14px;
+            background: #21b569; color: #fff; text-decoration: none; text-align: center;
+            font-weight: 700; font-size: 16px; padding: 14px;
+            box-shadow: 0 0 16px rgba(33,181,105,.45);
         }
-
-        .btn-reset {
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-top: 12px;
-            font-size: 13px;
-        }
+        .btn-reset { background: transparent; color: var(--muted); border: 1px solid rgba(255,255,255,.14); margin-top: 12px; font-size: 13px; box-shadow: none; }
 
         /* ── Order Info ── */
-        .order-info {
-            background: var(--bg);
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .order-info .row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 0;
-        }
-
-        .order-info .label {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .order-info .value {
-            font-weight: 600;
-            font-size: 14px;
-            font-family: 'Courier New', monospace;
-        }
+        .order-info { background: var(--bg); border-radius: 10px; padding: 16px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,.06); }
+        .order-info .row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+        .order-info .label { color: var(--muted); font-size: 13px; }
+        .order-info .value { font-weight: 600; font-size: 14px; font-family: 'Space Grotesk', 'Courier New', monospace; letter-spacing: .5px; }
 
         /* ── Status Badges ── */
-        .status-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .status-pending {
-            background: rgba(250, 204, 21, 0.15);
-            color: var(--warning);
-        }
-
-        .status-paid {
-            background: rgba(74, 222, 128, 0.15);
-            color: var(--success);
-        }
-
-        .status-timeout {
-            background: rgba(233, 69, 96, 0.15);
-            color: var(--highlight);
-        }
+        .status-badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+        .status-pending { background: rgba(255,209,102,.14); color: var(--warning); }
+        .status-paid { background: rgba(62,240,160,.14); color: var(--success); }
+        .status-timeout { background: rgba(255,46,136,.14); color: var(--highlight); }
 
         /* ── Poll Info ── */
-        .poll-info {
-            text-align: center;
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 12px;
-        }
+        .poll-info { text-align: center; font-size: 13px; color: var(--muted); margin-top: 12px; }
+        .poll-info .dot { display: inline-block; width: 6px; height: 6px; background: var(--warning); border-radius: 50%; margin-right: 6px; animation: blink 1.2s infinite; }
+        .poll-info.done .dot { background: var(--success); animation: none; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .2; } }
 
-        .poll-info .dot {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: var(--warning);
-            border-radius: 50%;
-            margin-right: 6px;
-            animation: blink 1.2s infinite;
-        }
-
-        .poll-info.done .dot {
-            background: var(--success);
-            animation: none;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
-        }
-
-        /* ── Success Banner ── */
-        .success-banner {
-            text-align: center;
-            padding: 24px;
-        }
-
+        /* ── Success Banner（截圖時刻）── */
+        .success-banner { text-align: center; padding: 24px; }
         .success-banner .icon {
-            font-size: 48px;
-            margin-bottom: 12px;
+            font-size: 40px; margin-bottom: 12px; color: var(--success);
+            width: 76px; height: 76px; line-height: 76px; margin-left: auto; margin-right: auto;
+            border-radius: 50%; background: rgba(62,240,160,.12);
+            box-shadow: 0 0 22px rgba(62,240,160,.35);
         }
-
-        .success-banner h3 {
-            color: var(--success);
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-
-        .success-banner p {
-            color: var(--muted);
-            font-size: 14px;
-        }
+        .success-banner h3 { font-family: var(--font-head); color: var(--success); font-size: 20px; margin-bottom: 8px; text-shadow: 0 0 12px rgba(62,240,160,.4); }
+        .success-banner p { color: var(--muted); font-size: 14px; }
 
         /* ── Log ── */
-        .log-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .log-toggle h2 {
-            margin-bottom: 0;
-        }
-
-        .log-toggle .arrow {
-            font-size: 12px;
-            color: var(--muted);
-            transition: transform 0.2s;
-        }
-
-        .log-toggle .arrow.open {
-            transform: rotate(180deg);
-        }
-
+        .log-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+        .log-toggle h2 { margin-bottom: 0; }
+        .log-toggle .arrow { font-size: 12px; color: var(--muted); transition: transform .2s; }
+        .log-toggle .arrow.open { transform: rotate(180deg); }
         .log {
-            background: var(--bg);
-            border-radius: 8px;
-            padding: 12px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            color: var(--muted);
-            max-height: 200px;
-            overflow-y: auto;
-            line-height: 1.8;
-            margin-top: 14px;
+            background: #0a0a10; border-radius: 10px; padding: 12px;
+            font-family: 'Courier New', monospace; font-size: 12px; color: var(--muted);
+            max-height: 200px; overflow-y: auto; line-height: 1.8; margin-top: 14px;
+            border: 1px solid rgba(255,255,255,.05);
         }
-
-        .log.collapsed {
-            display: none;
-        }
-
+        .log.collapsed { display: none; }
         .log .entry { padding: 2px 0; }
-        .log .time { color: #666; }
+        .log .time { color: #55556a; }
         .log .ok { color: var(--success); }
         .log .err { color: var(--highlight); }
         .log .warn { color: var(--warning); }
 
         /* ── Footer ── */
-        .footer {
-            text-align: center;
-            padding: 28px 0 12px;
-        }
-
-        .footer a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-
-        .footer a:hover {
-            color: var(--text);
-        }
-
-        .footer .copyright {
-            font-size: 12px;
-            color: #555;
-            margin-top: 10px;
-        }
+        .footer { text-align: center; padding: 28px 0 12px; }
+        .footer a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+        .footer a:hover { color: var(--accent); }
+        .footer .copyright { font-size: 12px; color: #55556a; margin-top: 10px; }
 
         /* ── Divider ── */
-        .divider {
-            height: 1px;
-            background: rgba(255,255,255,0.06);
-            margin: 28px 0;
-        }
+        .divider { height: 1px; background: linear-gradient(90deg, rgba(45,226,230,.35), rgba(255,46,136,.35)); margin: 28px 0; }
 
         .hidden { display: none; }
+
+        @media (prefers-reduced-motion: reduce) { .poll-info .dot { animation: none; } }
     </style>
 </head>
 <body>
@@ -567,7 +286,7 @@
 
             <div class="checkbox-row">
                 <input type="checkbox" id="confirmCheck">
-                <label for="confirmCheck">我了解這是正式環境金流測試，將進行 NT$30 的真實信用卡扣款</label>
+                <label for="confirmCheck">我了解這是綠界測試環境的模擬付款流程，不會產生真實扣款</label>
             </div>
 
             <button class="btn btn-primary" id="btnCreate" onclick="createOrder()">

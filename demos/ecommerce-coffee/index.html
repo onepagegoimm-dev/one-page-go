@@ -1,964 +1,398 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-55KYBQLNMV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-55KYBQLNMV');
-  document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
-    if (a) gtag('event', 'contact_email', { link_url: a.getAttribute('href') });
-  });
-</script>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-    <link rel="manifest" href="../../site.webmanifest">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Urban Drip Coffee 精品咖啡訂購</title>
-<meta name="description" content="Drip & Sip Coffee Sample — One Page Go 微型電商 Demo。精品咖啡風格單頁購物體驗，質感設計，整合 Google Sheets 後台。" />
-<meta name="keywords" content="微型電商,咖啡電商,一頁式購物,電商Demo,One Page Go,單頁式網頁" />
-<link rel="canonical" href="https://one-page-go.com/demos/ecommerce-coffee/" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Urban Drip Coffee 精品咖啡訂購" />
-<meta property="og:description" content="Drip & Sip Coffee Sample — One Page Go 微型電商 Demo。精品咖啡風格單頁購物體驗，質感設計，整合 Google Sheets 後台。" />
-<meta property="og:url" content="https://one-page-go.com/demos/ecommerce-coffee/" />
-<meta property="og:locale" content="zh_TW" />
-<meta property="og:site_name" content="One Page Go" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Urban Drip Coffee 精品咖啡訂購" />
-<meta name="twitter:description" content="Drip & Sip Coffee Sample — One Page Go 微型電商 Demo。精品咖啡風格單頁購物體驗，質感設計，整合 Google Sheets 後台。" />
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Urban Drip Coffee 精品咖啡訂購",
-  "description": "Drip & Sip Coffee Sample — One Page Go 微型電商 Demo。精品咖啡風格單頁購物體驗，質感設計，整合 Google Sheets 後台。",
-  "url": "https://one-page-go.com/demos/ecommerce-coffee/",
-  "inLanguage": "zh-TW",
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "One Page Go",
-    "url": "https://one-page-go.com/"
-  }
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<meta name="description" content="Urban Drip Coffee 自家烘焙精品咖啡，線上訂購、到店取貨。">
+<meta property="og:title" content="Urban Drip Coffee — 自家烘焙精品咖啡">
+<meta property="og:description" content="每週新鮮烘焙的單品豆與濾掛，線上訂購、到店取貨。">
+<meta property="og:image" content="https://one-page-go.com/demos/ecommerce-coffee/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  /* ── 色票：暖砂 Warm Sand ── */
+  /* ── 主題 token（暖砂）；版型＝分屏精品櫥窗（T-032 版型 2）──
+     交付其他品牌時換 :root token 與品牌文案，版型不動 */
   :root {
-    --bg:       #f2ede4;
-    --card:     #fbf8f2;
-    --border:   #e0d6c6;
-    --primary:  #3a352d;
-    --accent:   #9c5a30;
-    --gold:     #8a6326;
-    --text:     #3a352d;
-    --muted:    #79705f;
-    --white:    #ffffff;
-    --green:    #6f8f5c;
-    --error:    #9e4127;
-    --btn:      #8c5635;
-    --on-btn:   #ffffff;
+    --bg: #f2ede4; --surface: #fbf8f2; --surface-alt: #e4dccd;
+    --primary: #b06f44; --primary-dk: #8c5635; --accent: #7d9068;
+    --extra: #d9b075;
+    --heading: #3a352d; --text: #4d473d; --muted: #79705f;
+    --success: #6f8f5c; --err: #a24b2e; --shadow: rgba(58,53,45,.10);
+    --btn: #8c5635; --on-btn: #ffffff; --radius: 14px;
+    --font-head: "Fraunces", "Noto Serif TC", serif;
+    --font-body: "Noto Sans TC", sans-serif;
   }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-size:15.5px; line-height:1.8; min-height:100vh; overflow-x:hidden; }
+  .hidden { display:none !important; }
+  img { max-width:100%; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ── 分屏骨架 ──
+     手機優先：單欄；≥880px 才分屏 */
+  .split { display:block; max-width:1180px; margin:0 auto; }
 
-  body {
-    background: var(--bg);
-    font-family: 'Noto Sans TC', sans-serif;
-    font-weight: 300;
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  /* 品牌面板 */
+  aside.brand { background:linear-gradient(160deg, var(--primary), var(--primary-dk)); padding:38px 24px 26px; border-radius:0 0 28px 28px; text-align:center; }
+  .logo-dot { width:64px; height:64px; margin:0 auto 12px; border-radius:50%; background:#fff; display:grid; place-items:center; font-size:1.9rem; box-shadow:0 10px 26px rgba(58,53,45,.25); }
+  aside.brand h1 { font-family:var(--font-head); font-size:2.1rem; font-weight:700; color:#fff; line-height:1.25; text-shadow:0 2px 14px rgba(58,53,45,.2); }
+  aside.brand .tagline { color:#fff; opacity:.92; font-size:.82rem; margin:6px 0 14px; }
+  .proof { background:rgba(255,255,255,.28); border-radius:14px; padding:8px 18px; color:#fff; font-size:.8rem; display:none; }
+  .proof.show { display:inline-block; }
+  .proof b { font-family:var(--font-head); font-size:1.15rem; }
+  aside.brand .meta { color:#fff; opacity:.88; font-size:.76rem; line-height:2; margin-top:14px; }
 
-  /* ── Header ── */
-  header {
-    position: relative; z-index: 10;
-    text-align: center;
-    padding: 2.5rem 1.5rem 1.5rem;
-    background: var(--bg);
-  }
+  /* 主內容 */
+  main { padding:26px 18px 150px; }
+  .sec-head { margin-bottom:14px; }
+  .sec-head h2 { font-family:var(--font-head); font-size:1.5rem; font-weight:600; color:var(--heading); }
+  .sec-head span { font-size:.78rem; color:var(--muted); }
 
-  .logo-wrap {
-    display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem;
-  }
+  /* 橫式商品列 */
+  .product { display:grid; grid-template-columns:104px 1fr; background:var(--surface); border-radius:var(--radius); box-shadow:0 10px 26px var(--shadow); overflow:hidden; margin-bottom:14px; transition:transform .2s ease, box-shadow .2s ease; }
+  .product:hover { transform:translateX(4px); box-shadow:0 14px 32px var(--shadow); }
+  .product .ph { background:linear-gradient(135deg, var(--accent), var(--primary)); display:grid; place-items:center; min-height:118px; overflow:hidden; }
+  .product .ph img { width:100%; height:100%; object-fit:cover; }
+  .product .ph .initial { font-family:var(--font-head); font-size:2rem; color:rgba(255,255,255,.9); }
+  .product .body { padding:13px 15px 14px; display:flex; flex-direction:column; min-width:0; }
+  .product .name { font-family:var(--font-head); font-weight:600; font-size:1.08rem; color:var(--heading); }
+  .product .name .tag { display:inline-block; font-size:.66rem; font-weight:900; background:var(--extra); color:var(--heading); padding:2px 10px; border-radius:999px; vertical-align:2px; margin-left:6px; font-family:var(--font-body); }
+  .product .desc { font-size:.78rem; color:var(--muted); margin:1px 0 auto; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .row { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:8px; flex-wrap:wrap; }
+  .price { font-family:var(--font-head); font-weight:700; font-size:1.2rem; color:var(--btn); }
+  .qty { display:flex; align-items:center; gap:8px; }
+  .qty button { width:38px; height:38px; border-radius:50%; border:1.5px solid var(--surface-alt); background:#fff; color:var(--primary-dk); font-size:1.05rem; font-weight:700; cursor:pointer; transition:all .18s; flex-shrink:0; }
+  .qty button:hover { background:var(--primary); border-color:var(--primary); color:#fff; }
+  .qty button:active { transform:scale(.92); }
+  .qty b { min-width:20px; text-align:center; font-size:1rem; }
+  .skeleton { height:118px; border-radius:var(--radius); margin-bottom:14px; background:linear-gradient(90deg, var(--surface-alt) 25%, var(--surface) 50%, var(--surface-alt) 75%); background-size:200% 100%; animation:shimmer 1.2s infinite; }
+  @keyframes shimmer { to { background-position:-200% 0; } }
+  .empty { text-align:center; color:var(--muted); font-size:.88rem; padding:30px 0; }
+  .fade-up { opacity:0; transform:translateY(16px); transition:opacity .45s ease, transform .45s ease; }
+  .fade-up.in { opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .fade-up { opacity:1; transform:none; transition:none; } .skeleton { animation:none; } }
 
-  .logo-tagline-top {
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 300;
-    letter-spacing: 0.3em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
+  /* 結帳區 */
+  .card { background:var(--surface); border-radius:var(--radius); padding:20px 20px 22px; margin-bottom:16px; box-shadow:0 10px 26px var(--shadow); }
+  .cart-lines { border-bottom:1.5px dashed var(--surface-alt); margin-bottom:12px; padding-bottom:6px; }
+  .cart-line { display:flex; justify-content:space-between; font-size:.86rem; margin-bottom:6px; gap:12px; }
+  .cart-line .n { color:var(--muted); min-width:0; }
+  .cart-total { display:flex; justify-content:space-between; align-items:center; font-size:.9rem; }
+  .cart-total b { font-family:var(--font-head); font-size:1.3rem; color:var(--btn); }
+  label { display:block; font-size:.78rem; color:var(--muted); margin:12px 0 5px; }
+  input, textarea { width:100%; padding:11px 14px; border:1.5px solid var(--surface-alt); border-radius:12px; font-family:inherit; font-size:.92rem; background:#fff; color:var(--text); }
+  input:focus, textarea:focus { outline:2px solid rgba(140,86,53,.25); border-color:var(--primary); }
+  .btn-main { background:var(--btn); color:var(--on-btn); border:0; border-radius:999px; padding:12px 26px; font-weight:900; font-size:.94rem; cursor:pointer; font-family:inherit; box-shadow:0 8px 20px var(--shadow); transition:transform .15s, filter .2s; min-height:48px; }
+  .btn-main:hover { filter:brightness(1.08); } .btn-main:active { transform:translateY(2px) scale(.99); }
+  .btn-main:disabled { opacity:.55; cursor:not-allowed; }
+  .btn-line { background:var(--surface); border:1.5px solid var(--surface-alt); color:var(--text); border-radius:999px; padding:9px 18px; font-size:.86rem; cursor:pointer; font-family:inherit; transition:all .2s; min-height:42px; white-space:nowrap; }
+  .btn-line:hover { border-color:var(--primary); color:var(--primary-dk); }
+  .btn-line:disabled { opacity:.55; cursor:not-allowed; }
+  .verify-row { display:flex; gap:10px; }
+  .verify-row input { flex:1; min-width:0; }
+  .verify-row .btn-line { min-width:118px; }  /* 倒數字寬固定，避免每秒重排觸發捲動錨定跳動 */
 
-  .logo-icon {
-    font-size: 2.5rem;
-    line-height: 1;
-    animation: float 3s ease-in-out infinite;
-  }
+  .ok-chip { display:inline-flex; align-items:center; gap:6px; background:#eaf3e4; color:#4f7040; border-radius:999px; padding:5px 16px; font-size:.82rem; font-weight:700; }
+  .hint { font-size:.82rem; margin-top:8px; min-height:1.2em; }
+  .hint.ok { color:var(--success); } .hint.err { color:var(--err); }
 
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50%     { transform: translateY(-5px); }
-  }
+  /* 購物袋：手機＝底部列；桌機＝右下抽屜 */
+  .drawer { position:fixed; z-index:60; left:0; right:0; bottom:0; background:var(--surface); border-radius:20px 20px 0 0; box-shadow:0 -10px 30px var(--shadow); transform:translateY(120%); transition:transform .3s cubic-bezier(.18,.89,.32,1.12); }
+  .drawer.show { transform:translateY(0); }
+  .drawer .bar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px calc(12px + env(safe-area-inset-bottom)); }
+  .drawer .sum { font-size:.78rem; color:var(--muted); line-height:1.4; }
+  .drawer .sum b { display:block; font-family:var(--font-head); font-size:1.25rem; color:var(--heading); }
+  .drawer .cta { background:var(--btn); color:#fff; border:0; border-radius:999px; padding:12px 26px; font-weight:900; font-size:.92rem; cursor:pointer; font-family:inherit; min-height:46px; }
+  .drawer .cta:active { transform:translateY(1px); }
 
-  .logo-name {
-    font-family: 'Fraunces', serif;
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--primary);
-    letter-spacing: 0.04em;
-  }
+  /* 完成畫面 */
+  #success-view { text-align:center; padding:8vh 18px 40px; }
+  .moment { max-width:360px; margin:0 auto; padding:32px 26px 28px; text-align:center; background:var(--surface); border-radius:var(--radius); box-shadow:0 16px 40px var(--shadow); position:relative; overflow:hidden; }
+  .moment::before { content:""; position:absolute; top:0; left:0; right:0; height:6px; background:linear-gradient(90deg, var(--primary), var(--extra), var(--accent)); }
+  .moment .check { width:70px; height:70px; margin:8px auto 14px; border-radius:50%; background:var(--success); color:#fff; display:grid; place-items:center; font-size:2rem; animation:pop .5s cubic-bezier(.18,.89,.32,1.28); }
+  @keyframes pop { 0%{transform:scale(0)} 100%{transform:scale(1)} }
+  .moment h3 { font-family:var(--font-head); font-size:1.6rem; color:var(--heading); }
+  .moment p { color:var(--muted); font-size:.86rem; margin:6px 0 10px; }
+  .moment .oid { display:inline-block; background:var(--surface-alt); border-radius:999px; padding:6px 18px; font-size:.84rem; font-weight:700; color:var(--heading); margin-bottom:16px; }
+  .confetti { position:absolute; top:-10px; width:8px; height:12px; border-radius:2px; animation:fall 1.2s ease-in forwards; }
+  @keyframes fall { to { transform:translateY(420px) rotate(360deg); opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .confetti { display:none; } .moment .check { animation:none; } }
 
-  .logo-sub {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    font-weight: 300;
-  }
+  footer { text-align:center; font-size:.76rem; color:var(--muted); padding:30px 0 8px; }
+  footer a { color:var(--primary-dk); }
 
-  .header-line {
-    max-width: 260px;
-    margin: 1.2rem auto 0;
-    border: none;
-    border-top: 1px solid var(--border);
+  /* ── 桌機分屏（≥880px）── */
+  @media (min-width:880px) {
+    .split { display:grid; grid-template-columns:380px 1fr; }
+    aside.brand { position:sticky; top:0; height:100vh; border-radius:0 32px 32px 0; text-align:left; padding:48px 40px; display:flex; flex-direction:column; justify-content:center; }
+    .logo-dot { margin:0 0 18px; width:72px; height:72px; }
+    aside.brand h1 { font-size:2.5rem; }
+    aside.brand .meta { margin-top:auto; }
+    main { padding:44px 40px 60px; }
+    .product { grid-template-columns:150px 1fr; }
+    .product .ph { min-height:132px; }
+    .drawer { left:auto; right:24px; bottom:24px; width:300px; border-radius:20px; transform:translateY(140%); }
+    .drawer.show { transform:translateY(0); }
+    .drawer .lines { padding:12px 18px 0; }
+    .drawer .line { display:flex; justify-content:space-between; font-size:.8rem; color:var(--muted); margin-bottom:6px; gap:12px; }
+    .drawer .bar { padding:10px 16px 14px; }
   }
-
-  /* ── 主內容 ── */
-  main { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 1.5rem; }
-
-  /* ── Section 標題 ── */
-  .section-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: var(--primary);
-    margin-bottom: 1.2rem;
-    display: flex; align-items: center; gap: 0.6rem;
-  }
-  .section-title::after { content: ''; flex: 1; height: 0; border-top: 1px solid var(--border); }
-
-  /* ── 商品卡 ── */
-  .products-grid { display: flex; flex-direction: column; gap: 1rem; }
-
-  .product-card {
-    background: var(--card);
-    border-radius: 0;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    border: 1px solid var(--border);
-    display: flex;
-    transition: transform 0.2s, box-shadow 0.3s;
-    animation: fadeUp 0.5s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .product-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
-
-  .product-img {
-    width: 110px; min-height: 110px;
-    background: linear-gradient(135deg, #3a352d, #9c5a30);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 2.8rem;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-  .product-img img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(100%);
-    transition: filter 0.4s ease;
-  }
-  .product-card:hover .product-img img { filter: grayscale(0); }
-
-  .product-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
-
-  .product-name { font-weight: 800; font-size: 1rem; color: var(--primary); }
-  .product-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; font-weight: 300; }
-  .product-price {
-    font-family: 'Fraunces', serif;
-    font-size: 1.1rem;
-    color: var(--gold);
-    margin-top: auto;
-  }
-
-  /* 數量控制 */
-  .qty-control {
-    display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem;
-  }
-  .qty-btn {
-    width: 30px; height: 30px; border-radius: 0;
-    border: 1px solid var(--border);
-    background: var(--bg); color: var(--primary);
-    font-size: 1.1rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-    line-height: 1;
-  }
-  .qty-btn:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
-  .qty-num { min-width: 24px; text-align: center; font-weight: 800; font-size: 0.95rem; }
-
-  /* ── 購物車摘要 ── */
-  #cart-summary {
-    margin: 1.8rem 0 1rem;
-    background: var(--card);
-    border-radius: 0;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    display: none;
-    animation: fadeUp 0.4s ease;
-  }
-  #cart-summary.show { display: block; }
-
-  .cart-header {
-    background: var(--primary);
-    padding: 0.9rem 1.2rem;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .cart-header span { color: var(--white); font-weight: 800; font-size: 0.95rem; }
-
-  .cart-items { padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; }
-
-  .cart-item {
-    display: flex; justify-content: space-between;
-    font-size: 0.88rem; color: var(--text);
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .cart-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .cart-item-name { color: var(--muted); font-weight: 300; }
-
-  .cart-total {
-    padding: 0.8rem 1.2rem;
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .cart-total-label { font-size: 0.85rem; color: var(--muted); font-weight: 300; }
-  .cart-total-amount {
-    font-family: 'Fraunces', serif;
-    font-size: 1.4rem; color: var(--gold);
-    font-weight: 800;
-  }
-
-  /* ── 搭配推薦 ── */
-  #recommend-section {
-    margin: 1rem 0 1.5rem;
-    display: none;
-    animation: fadeUp 0.4s ease;
-  }
-  #recommend-section.show { display: block; }
-
-  .recommend-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--primary);
-    margin-bottom: 0.8rem;
-    display: flex; align-items: center; gap: 0.6rem;
-  }
-  .recommend-title::after { content: ''; flex: 1; height: 0; border-top: 1px solid var(--border); }
-
-  .recommend-scroll {
-    display: flex;
-    gap: 0.8rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-  }
-  .recommend-scroll::-webkit-scrollbar { height: 4px; }
-  .recommend-scroll::-webkit-scrollbar-track { background: transparent; }
-  .recommend-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 0; }
-
-  .recommend-card {
-    flex-shrink: 0;
-    width: 130px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 0;
-    padding: 0.8rem;
-    display: flex; flex-direction: column; gap: 0.4rem;
-    transition: border-color 0.2s;
-  }
-  .recommend-card:hover { border-color: var(--accent); }
-
-  .recommend-name {
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: var(--primary);
-    line-height: 1.3;
-  }
-  .recommend-price {
-    font-family: 'Fraunces', serif;
-    font-size: 0.85rem;
-    color: var(--gold);
-  }
-  .recommend-add-btn {
-    margin-top: auto;
-    padding: 0.35rem 0;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 0;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 300;
-    color: var(--primary);
-    cursor: pointer;
-    letter-spacing: 0.1em;
-    transition: all 0.2s;
-  }
-  .recommend-add-btn:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
-
-  /* ── 訂單表單 ── */
-  #order-form {
-    background: var(--card);
-    border-radius: 0;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    border: 1px solid var(--border);
-    display: flex; flex-direction: column; gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-
-  .form-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-transform: uppercase;
-    font-weight: 300;
-  }
-
-  .form-input, .form-textarea {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 0;
-    padding: 0.7rem 1rem;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s;
-    width: 100%;
-  }
-  .form-input:focus, .form-textarea:focus {
-    border-color: var(--accent);
-  }
-
-  .form-textarea { resize: vertical; min-height: 70px; }
-
-  /* ── Email 驗證區 ── */
-  .verify-section {
-    background: var(--card);
-    border-radius: 0;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    border: 1px solid var(--border);
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.4s ease;
-  }
-
-  .verify-row {
-    display: flex; gap: 0.5rem; align-items: flex-end;
-  }
-  .verify-row .form-group { flex: 1; }
-
-  .verify-btn {
-    padding: 0.7rem 1rem;
-    background: var(--accent);
-    color: var(--primary);
-    border: none;
-    border-radius: 0;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 300;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s;
-    flex-shrink: 0;
-    letter-spacing: 0.05em;
-  }
-  .verify-btn:hover:not(:disabled) { background: #7e4624; }
-  .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .verified-badge {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    background: #e7ece0; border: 1px solid #aebd9f;
-    border-radius: 0; padding: 0.5rem 1rem;
-    font-size: 0.85rem; color: var(--green);
-    margin-top: 0.8rem;
-  }
-
-  .info-msg {
-    background: #efe7da; border: 1px solid var(--border);
-    border-radius: 0; padding: 0.8rem 1rem;
-    font-size: 0.82rem; color: var(--muted); text-align: center;
-    margin-top: 0.5rem;
-  }
-
-  /* ── 送出按鈕 ── */
-  .submit-btn {
-    width: 100%;
-    padding: 1rem;
-    background: var(--primary);
-    color: var(--white);
-    border: none;
-    border-radius: 0;
-    font-family: 'Fraunces', serif;
-    font-size: 1.05rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  }
-  .submit-btn:hover:not(:disabled) { transform: translateY(-1px); background: #2a2620; }
-  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  /* ── 成功畫面 ── */
-  #success-screen {
-    display: none; text-align: center;
-    padding: 3rem 1.5rem;
-    animation: fadeUp 0.5s ease;
-  }
-  #success-screen.show { display: block; }
-  .success-icon { font-size: 3.5rem; margin-bottom: 1rem; animation: pop 0.4s ease 0.1s both; }
-  @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .success-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-  }
-  .success-msg { font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
-  .order-id-badge {
-    display: inline-block; margin-top: 1.2rem;
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 0; padding: 0.5rem 1.5rem;
-    font-size: 0.82rem; color: var(--gold); letter-spacing: 0.08em;
-  }
-  .new-order-btn {
-    margin-top: 2rem;
-    padding: 0.75rem 2rem;
-    background: transparent;
-    border: 1px solid var(--primary);
-    border-radius: 0;
-    color: var(--primary);
-    font-family: 'Noto Sans TC', sans-serif;
-    font-weight: 300;
-    cursor: pointer;
-    font-size: 0.9rem;
-    letter-spacing: 0.1em;
-    transition: all 0.2s;
-  }
-  .new-order-btn:hover { background: var(--primary); color: var(--white); }
-
-  /* ── 載入中 ── */
-  .loading-wrap {
-    text-align: center; padding: 3rem;
-    color: var(--muted); font-size: 0.9rem;
-    font-weight: 300;
-  }
-  .spinner {
-    width: 32px; height: 32px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 1rem;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* 錯誤 */
-  .error-msg {
-    background: #efe7da; border: 1px solid #ddd2c2;
-    border-radius: 0; padding: 0.8rem 1rem;
-    font-size: 0.85rem; color: var(--error); text-align: center;
-  }
-
-  /* Footer */
-  footer {
-    text-align: center; padding: 2rem;
-    font-size: 0.72rem; color: var(--muted);
-    position: relative; z-index: 1;
-    letter-spacing: 0.1em;
-    font-weight: 300;
-  }
-
-  @media (max-width: 360px) {
-    .logo-name { font-size: 1.9rem; }
-    .product-img { width: 90px; min-height: 90px; font-size: 2.4rem; }
-  }
+  /* 手機：抽屜明細列隱藏（保持低干擾），僅合計＋CTA */
+  @media (max-width:879.98px) { .drawer .lines { display:none; } }
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<header>
-  <div class="logo-wrap">
-    <div class="logo-tagline-top">SPECIALTY COFFEE ROASTERS</div>
-    <div class="logo-icon">&#9749;</div>
-    <div class="logo-name">Urban Drip Coffee</div>
-    <div class="logo-sub">&#10022; 城市手沖 &middot; 精品咖啡 &#10022;</div>
-  </div>
-  <hr class="header-line" />
-</header>
+<div id="shop-view">
+  <div class="split">
+    <aside class="brand">
+      <div class="logo-dot">☕</div>
+      <h1>Urban Drip Coffee</h1>
+      <div class="tagline">自家烘豆 ・ 每週新鮮烘焙 ・ 到店取貨</div>
+      <span class="proof" id="proof-badge">已有訂購 <b id="proof-count">0</b> 筆</span>
+      <div class="meta">🕐 週一至週六 08:00–18:00<br>📍 台北市烘豆街 8 號</div>
+    </aside>
 
-<main id="shop-view">
-  <!-- 商品區 -->
-  <div class="section-title">本日商品</div>
+    <main>
+      <div class="sec-head"><h2>本週豆單</h2><span>每週烘焙，點「＋」加入購物袋</span></div>
+      <div id="products-list"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
 
-  <div id="products-container">
-    <div class="loading-wrap">
-      <div class="spinner"></div>
-      正在載入商品中...
-    </div>
-  </div>
+      <div id="checkout-sec" class="hidden">
+        <div class="sec-head" id="checkout-anchor" style="margin-top:26px"><h2>訂購資訊</h2><span>完成 Email 驗證即可送出</span></div>
 
-  <!-- 購物車摘要 -->
-  <div id="cart-summary">
-    <div class="cart-header">
-      <span>購物車</span>
-      <span id="cart-count-badge"></span>
-    </div>
-    <div class="cart-items" id="cart-items-list"></div>
-    <div class="cart-total">
-      <span class="cart-total-label">合計</span>
-      <span class="cart-total-amount">$<span id="cart-total-num">0</span></span>
-    </div>
-  </div>
-
-  <!-- 搭配推薦 -->
-  <div id="recommend-section">
-    <div class="recommend-title">為您推薦</div>
-    <div class="recommend-scroll" id="recommend-list"></div>
-  </div>
-
-  <!-- 訂購表單 -->
-  <div id="form-section" style="display:none">
-    <div class="section-title">填寫訂購資訊</div>
-
-    <!-- Email 驗證區 -->
-    <div class="verify-section" id="verify-section">
-      <div class="form-group">
-        <label class="form-label">EMAIL *</label>
-        <div class="verify-row">
-          <div class="form-group">
-            <input class="form-input" id="f-email" type="email" placeholder="your@email.com" />
-          </div>
-          <button class="verify-btn" id="send-code-btn" onclick="sendCode()">發送驗證碼</button>
+        <div class="card">
+          <div class="cart-lines" id="cart-lines"></div>
+          <div class="cart-total"><span>合計</span><b id="cart-total">$0</b></div>
         </div>
-      </div>
-      <div id="code-section" style="display:none; margin-top:0.8rem;">
-        <div class="form-group">
-          <label class="form-label">驗證碼</label>
+
+        <div class="card">
+          <label for="f-email">Email <span style="color:var(--err)">*</span></label>
           <div class="verify-row">
-            <div class="form-group">
-              <input class="form-input" id="f-code" type="text" placeholder="輸入 6 位數驗證碼" maxlength="6" />
+            <input type="email" id="f-email" placeholder="you@example.com" autocomplete="email">
+            <button class="btn-line" id="send-code-btn" onclick="sendVerifyCode()">發送驗證碼</button>
+          </div>
+          <div id="code-row" class="hidden">
+            <label for="f-code">驗證碼（6 碼）</label>
+            <div class="verify-row">
+              <input type="text" id="f-code" inputmode="numeric" maxlength="6">
+              <button class="btn-line" id="verify-btn" onclick="verifyEmail()">驗證</button>
             </div>
-            <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">驗證</button>
+          </div>
+          <div id="verified-chip" class="hidden" style="margin-top:10px"><span class="ok-chip">✓ Email 已驗證</span></div>
+          <div class="hint" id="verify-hint"></div>
+
+          <label for="f-name">姓名 <span style="color:var(--err)">*</span></label>
+          <input type="text" id="f-name" autocomplete="name">
+          <label for="f-phone">電話 <span style="color:var(--err)">*</span></label>
+          <input type="tel" id="f-phone" placeholder="09xxxxxxxx" autocomplete="tel">
+          <label for="f-date">取貨日期 <span style="color:var(--err)">*</span></label>
+          <input type="date" id="f-date">
+          <label for="f-note">備註</label>
+          <textarea id="f-note" rows="2" placeholder="特殊需求、過敏資訊等…"></textarea>
+
+          <div style="margin-top:18px; text-align:center">
+            <button class="btn-main" id="submit-btn" style="width:100%" onclick="submitOrder()">☕ 確認送出訂單</button>
+            <div class="hint err" id="form-error"></div>
           </div>
         </div>
       </div>
-      <div id="verify-status"></div>
-    </div>
 
-    <!-- 訂購資訊 -->
-    <div id="order-form" style="display:none">
-      <div class="form-group">
-        <label class="form-label">姓名 *</label>
-        <input class="form-input" id="f-name" type="text" placeholder="請輸入您的姓名" required />
-      </div>
-      <div class="form-group">
-        <label class="form-label">電話 *</label>
-        <input class="form-input" id="f-phone" type="tel" placeholder="0912-345-678" required />
-      </div>
-      <div class="form-group">
-        <label class="form-label">取貨日期 *</label>
-        <input class="form-input" id="f-date" type="date" required />
-      </div>
-      <div class="form-group">
-        <label class="form-label">備註</label>
-        <textarea class="form-textarea" id="f-note" placeholder="特殊需求、沖煮偏好等..."></textarea>
-      </div>
-      <div id="form-error" class="error-msg" style="display:none"></div>
-      <button class="submit-btn" id="submit-btn" onclick="submitOrder()">確認送出訂單</button>
+      <footer>Urban Drip Coffee ✦ Specialty Coffee Roasters — Powered by <a href="https://one-page-go.com/" rel="noopener">One Page Go</a></footer>
+    </main>
+  </div>
+
+  <!-- 購物袋（手機＝底部列；桌機＝右下抽屜） -->
+  <div class="drawer" id="drawer">
+    <div class="lines" id="drawer-lines"></div>
+    <div class="bar">
+      <span class="sum"><span id="bar-count">0</span> 項商品<b id="bar-total">$0</b></span>
+      <button class="cta" onclick="goCheckout()">前往結帳 →</button>
     </div>
   </div>
-</main>
-
-<!-- 成功畫面 -->
-<div id="success-screen">
-  <div class="success-icon">&#9749;</div>
-  <div class="success-title">訂單已送出</div>
-  <div class="success-msg">
-    謝謝您的訂購，<br/>我們會盡快與您確認取貨細節。
-  </div>
-  <div class="order-id-badge" id="success-order-id"></div>
-  <br/>
-  <button class="new-order-btn" onclick="resetPage()">再次訂購</button>
 </div>
 
-<footer>Urban Drip Coffee &#10022; Specialty Coffee Roasters — Powered by <a href="https://one-page-go.com/" rel="noopener">One Page Go</a></footer>
+<div id="success-view" class="hidden">
+  <div class="moment" id="moment-card">
+    <div class="check">✓</div>
+    <h3>訂單已送出！</h3>
+    <p id="success-meta">我們會盡快與您確認取貨細節</p>
+    <span class="oid" id="success-order-id"></span><br>
+    <button class="btn-main" onclick="shareThis()">分享給朋友 →</button>
+    <div style="margin-top:12px"><button class="btn-line" onclick="resetPage()">再次訂購</button></div>
+  </div>
+  <footer>Urban Drip Coffee ✦ Powered by <a href="https://one-page-go.com/" rel="noopener">One Page Go</a></footer>
+</div>
 
 <script>
-// ── 設定你的 Apps Script 網址 ──────────────────────────
-const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker（T-019）
-const SITE_ID = "urban-drip";
+// ── 設定：交付時替換為該站 worker 的 API 網址 ──
+const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker
+const SITE_ID = "urban-drip"; // demo 接線：所有 action 帶 site_id
 
-// ── 資料 ─────────────────────────────────────────────
 let products = [];
-let cart     = {};
+let cart = {};
 let emailVerified = false;
-let verifiedEmail = "";
+let verifiedEmail = '';
+let sessionToken = '';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// ── 初始化 ────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
-  setMinDate();
-  loadProducts();
-});
-
-function setMinDate() {
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('f-date').min = today;
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+}
+function setHint(id, msg, ok) {
+  const el = document.getElementById(id);
+  el.textContent = msg || "";
+  el.className = "hint " + (ok ? "ok" : "err");
 }
 
-// ── 載入商品 ──────────────────────────────────────────
+// ── 載入商品與統計 ──
 async function loadProducts() {
   try {
-    const res  = await fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'getProducts', site_id: SITE_ID })
-    });
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getProducts', site_id: SITE_ID }) });
     const data = await res.json();
-    products = data.products || [];
+    products = (data.products || []).filter(p => p.available !== false);
     renderProducts();
-  } catch(e) {
-    document.getElementById('products-container').innerHTML =
-      `<div class="error-msg">無法載入商品，請稍後再試</div>`;
+  } catch (e) {
+    document.getElementById('products-list').innerHTML = '<div class="empty">載入失敗，請重新整理頁面</div>';
   }
 }
-
+async function loadStats() {
+  try {
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getStats', site_id: SITE_ID }) });
+    const data = await res.json();
+    const n = parseInt(data.orderCount, 10) || 0;
+    if (n >= 3) {
+      document.getElementById('proof-count').textContent = n;
+      document.getElementById('proof-badge').classList.add('show');
+    }
+  } catch (e) { /* 統計失敗不影響購物 */ }
+}
 function renderProducts() {
-  const container = document.getElementById('products-container');
-  if (!products.length) {
-    container.innerHTML = `<div class="loading-wrap">目前暫無商品，請稍後再來</div>`;
-    return;
-  }
-
-  const EMOJI = ["\u2615","\u2615","\u2615","\u2615","\u2615","\u2615","\u2615","\u2615"];
-
-  container.innerHTML = `<div class="products-grid">${
-    products.map((p, i) => {
-      const emoji = EMOJI[i % EMOJI.length];
-      const imgHtml = p.image_url
-        ? `<img src="${p.image_url}" alt="${p.name}" />`
-        : emoji;
-      return `
-        <div class="product-card" style="animation-delay:${i*0.08}s">
-          <div class="product-img">${imgHtml}</div>
-          <div class="product-body">
-            <div class="product-name">${p.name}</div>
-            <div class="product-desc">${p.description || ''}</div>
-            <div class="product-price">$${p.price}</div>
-            <div class="qty-control">
-              <button class="qty-btn" onclick="changeQty('${p.id}', -1)">\u2212</button>
-              <span class="qty-num" id="qty-${p.id}">0</span>
-              <button class="qty-btn" onclick="changeQty('${p.id}', 1)">\uFF0B</button>
-            </div>
-          </div>
-        </div>`;
-    }).join('')
-  }</div>`;
+  const list = document.getElementById('products-list');
+  if (!products.length) { list.innerHTML = '<div class="empty">目前暫無商品，請稍後再來</div>'; return; }
+  list.innerHTML = products.map((p, i) => {
+    const qty = cart[p.id] || 0;
+    const ph = p.image_url
+      ? '<img src="' + esc(p.image_url) + '" alt="' + esc(p.name) + '" loading="lazy">'
+      : '<span class="initial">' + esc(String(p.name || "").charAt(0)) + '</span>';
+    const tag = i === 0 ? '<span class="tag">人氣 No.1</span>' : '';
+    return '<div class="product fade-up"><div class="ph">' + ph + '</div>' +
+      '<div class="body"><div class="name">' + esc(p.name) + tag + '</div>' +
+      '<div class="desc">' + esc(p.description) + '</div>' +
+      '<div class="row"><span class="price">$' + (parseInt(p.price, 10) || 0).toLocaleString() + '</span>' +
+      '<span class="qty"><button aria-label="減少" onclick="changeQty(\'' + esc(p.id) + '\', -1)">−</button><b id="q-' + esc(p.id) + '">' + qty + '</b><button aria-label="增加" onclick="changeQty(\'' + esc(p.id) + '\', 1)">＋</button></span></div>' +
+      '</div></div>';
+  }).join("");
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.fade-up').forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 70));
+  });
 }
 
-// ── 購物車操作 ────────────────────────────────────────
+// ── 購物袋 ──
 function changeQty(id, delta) {
   cart[id] = Math.max(0, (cart[id] || 0) + delta);
-  document.getElementById(`qty-${id}`).textContent = cart[id];
-  updateCart();
+  document.getElementById('q-' + id).textContent = cart[id];
+  updateDrawer();
+  renderCheckout();
 }
-
-function updateCart() {
+function getCartItems() {
+  return products.filter(p => cart[p.id] > 0).map(p => ({ ...p, qty: cart[p.id] }));
+}
+function updateDrawer() {
   const items = getCartItems();
   const total = items.reduce((s, i) => s + i.price * i.qty, 0);
-
-  const summary  = document.getElementById('cart-summary');
-  const formSec  = document.getElementById('form-section');
-  const itemList = document.getElementById('cart-items-list');
-
-  if (items.length === 0) {
-    summary.classList.remove('show');
-    formSec.style.display = 'none';
-    document.getElementById('recommend-section').classList.remove('show');
-    return;
-  }
-
-  document.getElementById('cart-count-badge').textContent = `${items.length} 項商品`;
-  itemList.innerHTML = items.map(i => `
-    <div class="cart-item">
-      <span class="cart-item-name">${i.name} \u00D7 ${i.qty}</span>
-      <span>$${i.price * i.qty}</span>
-    </div>`).join('');
-  document.getElementById('cart-total-num').textContent = total;
-
-  summary.classList.add('show');
-  formSec.style.display = 'block';
-
-  updateRecommendations(items);
+  document.getElementById('bar-count').textContent = items.length;
+  document.getElementById('bar-total').textContent = '$' + total.toLocaleString();
+  document.getElementById('drawer-lines').innerHTML = items.map(i =>
+    '<div class="line"><span>' + esc(i.name) + ' ×' + i.qty + '</span><span>$' + (i.price * i.qty).toLocaleString() + '</span></div>').join("");
+  document.getElementById('drawer').classList.toggle('show', items.length > 0);
+}
+function goCheckout() {
+  renderCheckout();
+  document.getElementById('checkout-sec').classList.remove('hidden');
+  document.getElementById('checkout-anchor').scrollIntoView(); // 即時定位：不依賴平滑動畫，避免與其他捲動互搶
+}
+function renderCheckout() {
+  const items = getCartItems();
+  const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+  if (!items.length) { document.getElementById('checkout-sec').classList.add('hidden'); return; }
+  document.getElementById('cart-lines').innerHTML = items.map(i =>
+    '<div class="cart-line"><span class="n">' + esc(i.name) + ' ×' + i.qty + '</span><span>$' + (i.price * i.qty).toLocaleString() + '</span></div>').join("");
+  document.getElementById('cart-total').innerHTML = '<span>合計</span><b>$' + total.toLocaleString() + '</b>';
 }
 
-function getCartItems() {
-  return products
-    .filter(p => cart[p.id] > 0)
-    .map(p => ({ ...p, qty: cart[p.id] }));
-}
-
-// ── 搭配推薦邏輯 ─────────────────────────────────────
-function updateRecommendations(cartItems) {
-  const recSection = document.getElementById('recommend-section');
-  const recList = document.getElementById('recommend-list');
-
-  // 關鍵字分組
-  const coffeeKeywords = ['焙', '豆', '掛耳', '咖啡', '濃縮', '拿鐵', '美式'];
-  const equipKeywords  = ['濾杯', '壺', '入門組', '手沖', '磨豆', '濾紙'];
-
-  const cartTexts = cartItems.map(i => `${i.name} ${i.description || ''}`);
-  const cartStr = cartTexts.join(' ');
-
-  const hasCoffee = coffeeKeywords.some(k => cartStr.includes(k));
-  const hasEquip  = equipKeywords.some(k => cartStr.includes(k));
-
-  // 根據購物車內容推薦互補商品
-  const cartIds = new Set(cartItems.map(i => i.id));
-  let recommended = [];
-
-  if (hasCoffee) {
-    // 購物車有咖啡類 → 推薦器具類
-    recommended = products.filter(p => {
-      if (cartIds.has(p.id)) return false;
-      const txt = `${p.name} ${p.description || ''}`;
-      return equipKeywords.some(k => txt.includes(k));
-    });
-  }
-
-  if (hasEquip) {
-    // 購物車有器具類 → 推薦咖啡類
-    const coffeeRecs = products.filter(p => {
-      if (cartIds.has(p.id)) return false;
-      if (recommended.find(r => r.id === p.id)) return false;
-      const txt = `${p.name} ${p.description || ''}`;
-      return coffeeKeywords.some(k => txt.includes(k));
-    });
-    recommended = recommended.concat(coffeeRecs);
-  }
-
-  // 去重
-  const seen = new Set();
-  recommended = recommended.filter(p => {
-    if (seen.has(p.id)) return false;
-    seen.add(p.id);
-    return true;
-  });
-
-  if (recommended.length === 0) {
-    recSection.classList.remove('show');
-    return;
-  }
-
-  recList.innerHTML = recommended.map(p => `
-    <div class="recommend-card">
-      <div class="recommend-name">${p.name}</div>
-      <div class="recommend-price">$${p.price}</div>
-      <button class="recommend-add-btn" onclick="addRecommend('${p.id}')">加入</button>
-    </div>
-  `).join('');
-
-  recSection.classList.add('show');
-}
-
-function addRecommend(id) {
-  cart[id] = (cart[id] || 0) + 1;
-  const qtyEl = document.getElementById(`qty-${id}`);
-  if (qtyEl) qtyEl.textContent = cart[id];
-  updateCart();
-}
-
-// ── Email 格式驗證 ────────────────────────────────────
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-}
-
-// ── Email 驗證 ───────────────────────────────────────
-async function sendCode() {
+// ── Email 驗證 ──
+async function sendVerifyCode() {
   const email = document.getElementById('f-email').value.trim();
-  const statusEl = document.getElementById('verify-status');
+  if (!email || !EMAIL_RE.test(email)) { setHint('verify-hint', '請輸入有效的 Email', false); return; }
   const btn = document.getElementById('send-code-btn');
-
-  if (!email) {
-    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">請輸入 Email</div>`;
-    return;
-  }
-  if (!isValidEmail(email)) {
-    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">Email 格式不正確，請確認格式（例如：name@example.com）</div>`;
-    return;
-  }
-
   btn.disabled = true;
-  btn.textContent = '發送中...';
-  statusEl.innerHTML = '';
-
   try {
-    // 先檢查會員狀態
-    const checkRes = await fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'checkMember', site_id: SITE_ID, email })
-    });
-    const checkData = await checkRes.json();
-
-    if (checkData.blocked) {
-      statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">此 Email 已被停用，請聯繫店家</div>`;
-      btn.disabled = false;
-      btn.textContent = '發送驗證碼';
-      return;
-    }
-
-    if (checkData.hasActiveOrder) {
-      statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">您有未完成的訂單，結單後才能再次訂購</div>`;
-      btn.disabled = false;
-      btn.textContent = '發送驗證碼';
-      return;
-    }
-
-    if (checkData.exists && checkData.verified) {
-      emailVerified = true;
-      verifiedEmail = email;
-      showVerified();
-      return;
-    }
-
-    // 發送驗證碼
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'sendVerifyCode', site_id: SITE_ID, email })
-    });
+    const chk = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'checkMember', site_id: SITE_ID, email }) }).then(r => r.json());
+    if (chk.blocked) { setHint('verify-hint', '此 Email 已被停用，請聯繫店家', false); btn.disabled = false; return; }
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'sendVerifyCode', site_id: SITE_ID, email }) });
     const data = await res.json();
-
     if (data.success) {
-      document.getElementById('code-section').style.display = 'block';
-      statusEl.innerHTML = `<div class="info-msg">${data.message || ('驗證碼已寄到 ' + email + '，請查收信箱')}</div>`;
-      // 60 秒冷卻
+      document.getElementById('code-row').classList.remove('hidden');
+      setHint('verify-hint', data.message || '驗證碼已寄出，請查看信箱（含垃圾郵件）', true);
       let cd = 60;
-      btn.textContent = `${cd}s`;
+      btn.textContent = cd + 's';
       const timer = setInterval(() => {
         cd--;
-        btn.textContent = `${cd}s`;
-        if (cd <= 0) {
-          clearInterval(timer);
-          btn.disabled = false;
-          btn.textContent = '重新發送';
-        }
+        btn.textContent = cd + 's';
+        if (cd <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = '重新發送'; }
       }, 1000);
     } else {
-      statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">${data.error || '發送失敗'}</div>`;
+      setHint('verify-hint', data.error || '發送失敗', false);
       btn.disabled = false;
-      btn.textContent = '發送驗證碼';
     }
-  } catch(e) {
-    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">網路錯誤，請稍後再試</div>`;
-    btn.disabled = false;
-    btn.textContent = '發送驗證碼';
-  }
+  } catch (e) { setHint('verify-hint', '網路錯誤，請稍後再試', false); btn.disabled = false; }
 }
-
 async function verifyEmail() {
   const email = document.getElementById('f-email').value.trim();
-  const code  = document.getElementById('f-code').value.trim();
-  const statusEl = document.getElementById('verify-status');
+  const code = document.getElementById('f-code').value.trim();
+  if (!code || code.length !== 6) { setHint('verify-hint', '請輸入 6 位數驗證碼', false); return; }
   const btn = document.getElementById('verify-btn');
-
-  if (!code || code.length !== 6) {
-    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">請輸入 6 位數驗證碼</div>`;
-    return;
-  }
-
   btn.disabled = true;
-  btn.textContent = '驗證中...';
-
   try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'verifyCode', site_id: SITE_ID, email, code })
-    });
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'verifyCode', site_id: SITE_ID, email, code }) });
     const data = await res.json();
-
     if (data.success && data.verified) {
       emailVerified = true;
       verifiedEmail = email;
-      showVerified();
+      sessionToken = data.sessionToken || '';
+      document.getElementById('code-row').classList.add('hidden');
+      document.getElementById('verified-chip').classList.remove('hidden');
+      document.getElementById('send-code-btn').classList.add('hidden');
+      document.getElementById('f-email').disabled = true;
+      setHint('verify-hint', '', true);
     } else {
-      statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">${data.error || '驗證失敗'}</div>`;
+      setHint('verify-hint', data.error || '驗證失敗', false);
       btn.disabled = false;
-      btn.textContent = '驗證';
     }
-  } catch(e) {
-    statusEl.innerHTML = `<div class="error-msg" style="margin-top:0.5rem">網路錯誤，請稍後再試</div>`;
-    btn.disabled = false;
-    btn.textContent = '驗證';
-  }
+  } catch (e) { setHint('verify-hint', '網路錯誤，請稍後再試', false); btn.disabled = false; }
 }
 
-function showVerified() {
-  const section = document.getElementById('verify-section');
-  section.innerHTML = `
-    <div class="verified-badge">已驗證：${verifiedEmail}</div>
-  `;
-  document.getElementById('order-form').style.display = 'flex';
-}
-
-// ── 送出訂單 ──────────────────────────────────────────
+// ── 送出訂單 ──
+function showError(msg) { document.getElementById('form-error').textContent = msg; }
 async function submitOrder() {
-  const name       = document.getElementById('f-name').value.trim();
-  const phone      = document.getElementById('f-phone').value.trim();
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
   const pickupDate = document.getElementById('f-date').value;
-  const note       = document.getElementById('f-note').value.trim();
-  const errorEl    = document.getElementById('form-error');
-  const btn        = document.getElementById('submit-btn');
-
-  errorEl.style.display = 'none';
-
+  const note = document.getElementById('f-note').value.trim();
+  showError('');
   if (!emailVerified) { showError('請先完成 Email 驗證'); return; }
-  if (!name)          { showError('請填寫姓名'); return; }
-  if (name.length < 2){ showError('姓名至少 2 個字'); return; }
-  if (!phone)         { showError('請填寫電話'); return; }
+  if (!name || name.length < 2) { showError('請填寫姓名（至少 2 個字）'); return; }
   if (!/^09\d{8}$/.test(phone.replace(/[-\s]/g, ''))) { showError('請輸入有效的手機號碼（09 開頭）'); return; }
-  if (!pickupDate)    { showError('請選擇取貨日期'); return; }
-
+  if (!pickupDate) { showError('請選擇取貨日期'); return; }
   const items = getCartItems();
-  if (!items.length) { showError('購物車是空的'); return; }
-
+  if (!items.length) { showError('購物袋是空的喔！'); return; }
   const total = items.reduce((s, i) => s + i.price * i.qty, 0);
 
+  const btn = document.getElementById('submit-btn');
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:2px;margin:0"></span>';
-
+  btn.textContent = '送出中…';
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
@@ -966,80 +400,62 @@ async function submitOrder() {
         action: 'submitOrder',
         site_id: SITE_ID,
         email: verifiedEmail,
+        sessionToken,
         customerName: name,
         phone: phone.replace(/[-\s]/g, ''),
         pickupDate, note, items, total
       })
     });
     const data = await res.json();
-
     if (data.success) {
-      document.getElementById('shop-view').style.display = 'none';
-      const s = document.getElementById('success-screen');
-      s.classList.add('show');
-      document.getElementById('success-order-id').textContent = `訂單編號：${data.orderId}`;
+      document.getElementById('shop-view').classList.add('hidden');
+      document.getElementById('success-view').classList.remove('hidden');
+      document.getElementById('success-order-id').textContent = data.orderId;
+      document.getElementById('success-meta').textContent = pickupDate + ' 取貨 ・ Urban Drip Coffee';
+      celebrate(document.getElementById('moment-card'));
+      window.scrollTo({ top: 0 });
     } else {
       showError(data.error || '送出失敗');
       btn.disabled = false;
-      btn.innerHTML = '確認送出訂單';
+      btn.textContent = '☕ 確認送出訂單';
     }
-  } catch(e) {
+  } catch (e) {
     showError('送出失敗，請稍後再試');
     btn.disabled = false;
-    btn.innerHTML = '確認送出訂單';
+    btn.textContent = '☕ 確認送出訂單';
   }
 }
 
-function showError(msg) {
-  const el = document.getElementById('form-error');
-  el.textContent = msg;
-  el.style.display = 'block';
+// ── 完成卡：彩帶與分享 ──
+function getCSS(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function celebrate(host) {
+  const colors = [getCSS('--primary'), getCSS('--extra'), getCSS('--success')];
+  for (let i = 0; i < 24; i++) {
+    const c = document.createElement('span');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + '%';
+    c.style.background = colors[i % colors.length];
+    c.style.animationDelay = (Math.random() * .2) + 's';
+    host.appendChild(c);
+    setTimeout(() => c.remove(), 1500);
+  }
 }
-
-function resetPage() {
-  cart = {};
-  emailVerified = false;
-  verifiedEmail = "";
-  document.getElementById('success-screen').classList.remove('show');
-  document.getElementById('shop-view').style.display = 'block';
-  document.getElementById('order-form').style.display = 'none';
-  document.getElementById('form-error').style.display = 'none';
-  document.getElementById('recommend-section').classList.remove('show');
-
-  // 重建驗證區
-  const vs = document.getElementById('verify-section');
-  vs.innerHTML = `
-    <div class="form-group">
-      <label class="form-label">EMAIL *</label>
-      <div class="verify-row">
-        <div class="form-group">
-          <input class="form-input" id="f-email" type="email" placeholder="your@email.com" />
-        </div>
-        <button class="verify-btn" id="send-code-btn" onclick="sendCode()">發送驗證碼</button>
-      </div>
-    </div>
-    <div id="code-section" style="display:none; margin-top:0.8rem;">
-      <div class="form-group">
-        <label class="form-label">驗證碼</label>
-        <div class="verify-row">
-          <div class="form-group">
-            <input class="form-input" id="f-code" type="text" placeholder="輸入 6 位數驗證碼" maxlength="6" />
-          </div>
-          <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">驗證</button>
-        </div>
-      </div>
-    </div>
-    <div id="verify-status"></div>
-  `;
-
-  document.getElementById('f-name').value = '';
-  document.getElementById('f-phone').value = '';
-  document.getElementById('f-date').value = '';
-  document.getElementById('f-note').value = '';
-  renderProducts();
-  updateCart();
-  window.scrollTo(0,0);
+async function shareThis() {
+  const data = { title: document.title, text: '我在 Urban Drip 訂了自家烘焙咖啡！推薦給你 →', url: location.href.split('#')[0] };
+  try {
+    if (navigator.share) { await navigator.share(data); }
+    else { await navigator.clipboard.writeText(data.url); alert('連結已複製，貼給朋友吧！'); }
+  } catch (_) { /* 使用者取消 */ }
 }
+function resetPage() { location.reload(); }
+
+// ── 初始化 ──
+(function init() {
+  const d = new Date(Date.now() + 86400000);
+  document.getElementById('f-date').min = d.toISOString().slice(0, 10);
+  loadProducts();
+  loadStats();
+})();
 </script>
 </body>
 </html>
