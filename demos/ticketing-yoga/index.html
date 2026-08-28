@@ -1,1132 +1,929 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-55KYBQLNMV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-55KYBQLNMV');
-  document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
-    if (a) gtag('event', 'contact_email', { link_url: a.getAttribute('href') });
-  });
-</script>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-    <link rel="manifest" href="../../site.webmanifest">
-<title>Morning Yoga Retreat — 線上購票</title>
-<meta name="description" content="Sunrise Yoga Festival Sample — One Page Go 活動售票 Demo。瑜伽節風格線上售票體驗，手機優先設計，整合 Google Sheets 後台。" />
-<meta name="keywords" content="活動售票,瑜伽售票,線上售票,售票Demo,One Page Go,單頁式網頁" />
-<link rel="canonical" href="https://one-page-go.com/demos/ticketing-yoga/" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Morning Yoga Retreat — 線上購票" />
-<meta property="og:description" content="Sunrise Yoga Festival Sample — One Page Go 活動售票 Demo。瑜伽節風格線上售票體驗，手機優先設計，整合 Google Sheets 後台。" />
-<meta property="og:url" content="https://one-page-go.com/demos/ticketing-yoga/" />
-<meta property="og:locale" content="zh_TW" />
-<meta property="og:site_name" content="One Page Go" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Morning Yoga Retreat — 線上購票" />
-<meta name="twitter:description" content="Sunrise Yoga Festival Sample — One Page Go 活動售票 Demo。瑜伽節風格線上售票體驗，手機優先設計，整合 Google Sheets 後台。" />
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Morning Yoga Retreat — 線上購票",
-  "description": "Sunrise Yoga Festival Sample — One Page Go 活動售票 Demo。瑜伽節風格線上售票體驗，手機優先設計，整合 Google Sheets 後台。",
-  "url": "https://one-page-go.com/demos/ticketing-yoga/",
-  "inLanguage": "zh-TW",
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "One Page Go",
-    "url": "https://one-page-go.com/"
-  }
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Yoga Retreat 線上購票</title>
+<meta name="description" content="Morning Yoga Retreat 晨間瑜伽營線上購票，選場次、選票種、驗證後即可取得電子票券。">
+<meta property="og:title" content="Morning Yoga Retreat — 晨間瑜伽營">
+<meta property="og:description" content="在晨光裡開始一天。報名後立即取得電子票券與簽到碼。">
+<meta property="og:image" content="https://one-page-go.com/demos/ticketing-yoga/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+  /* ── 主題 token（粉彩）；版型＝售票櫃台（T-035 版型 2）──
+     交付其他品牌時換 :root token 與品牌文案，版型不動 */
   :root {
-    --primary:   #7E57C2;
-    --secondary: #B39DDB;
-    --accent:    #FFB74D;
-    --bg:        #FDFBFF;
-    --card:      #FFFFFF;
-    --border:    #E8E0F0;
-    --text:      #37303E;
-    --muted:     #7A7082;
-    --green:     #4CAF50;
-    --orange:    #FF9800;
-    --red:       #E53935;
+    /* 主題色（art-direction 語意化 token） */
+    --bg:#fdf2f6; --surface:#ffffff; --surface-alt:#f3e8ff;
+    --primary:#a865c9; --primary-dk:#8a4fb0; --accent:#7fb8e6;
+    --heading:#4a3a5a; --text:#564a63; --muted:#7f7390;
+    --success:#5cbf86; --err:#c0392b; --shadow:rgba(74,58,90,.14);
+    --btn:#8a4fb0; --on-btn:#ffffff; --radius:22px;
+    --glow:0 8px 22px rgba(138,79,176,.30);
+    /* 衍生色：淺色主題換主題時一併換，元件不必改 */
+    --line:rgba(74,58,90,.18);             /* 中性細框 */
+    --tint:rgba(168,101,201,.10);          /* 選中列的淡主色底 */
+    --hot:#c2185b;                         /* 「快售完」文字 */
+    --hot-bg:rgba(255,159,192,.24); --hot-border:rgba(255,159,192,.62);
+    --accent-bg:rgba(127,184,230,.20); --accent-border:rgba(127,184,230,.55);
+    --accent-ink:#2b6f9e;                  /* 點綴色當文字用（需對比達標） */
+    --success-ink:#23704a;                 /* 成功訊息文字 */
+    --on-primary:#ffffff;                  /* 主色塊（票頭、選中日期方塊）上的文字 */
+    --ticket-head:linear-gradient(135deg,#8a4fb0,#653a86);  /* 票頭漸層（白字需達 AA） */
+    --perf:rgba(74,58,90,.22);             /* 撕票虛線 */
+    --err-bg:rgba(192,57,43,.10); --err-border:rgba(192,57,43,.32);
+    --checkout-border:rgba(138,79,176,.35);
+    --font-head:"Quicksand","Noto Sans TC",sans-serif;
+    --font-body:"Noto Sans TC",sans-serif;
   }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-size:15.5px; line-height:1.8; min-height:100vh; overflow-x:hidden; }
+  .hidden { display:none !important; }
+  img { max-width:100%; }
+  .wrap { max-width:560px; margin:0 auto; padding:0 18px 150px; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* 細長 header：品牌讓位給流程 */
+  .bar { margin:0 -18px; padding:14px 20px 0; background:var(--surface); border-bottom:1px solid var(--surface-alt); }
+  .bar .brand { display:flex; align-items:center; gap:10px; }
+  .bar .mark { width:34px; height:34px; flex:0 0 34px; border-radius:10px; display:grid; place-items:center; font-size:1.1rem;
+               background:linear-gradient(135deg,var(--primary),var(--accent)); }
+  .bar .brand b { display:block; font-family:var(--font-head); font-size:1.05rem; color:var(--heading); font-weight:700; line-height:1.35; }
+  .bar .brand span { display:block; font-size:.68rem; letter-spacing:.2em; color:var(--muted); text-transform:uppercase; }
 
-  body {
-    background: var(--bg);
-    font-family: 'Noto Serif TC', serif;
-    font-weight: 300;
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  /* 四步進度條 */
+  .steps { display:flex; margin-top:12px; }
+  .steps > div { flex:1; text-align:center; font-size:.68rem; color:var(--muted); padding-bottom:10px; position:relative; }
+  .steps > div::after { content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--surface-alt); }
+  .steps > div.done { color:var(--accent-ink); }
+  .steps > div.done::after { background:var(--accent); }
+  .steps > div.on { color:var(--primary); font-weight:700; }
+  .steps > div.on::after { background:var(--primary); box-shadow:var(--glow); }
+  .steps b { display:block; font-family:var(--font-head); font-size:.92rem; }
 
-  /* -- 晨光漸層背景 -- */
-  body::before {
-    content: '';
-    position: fixed; inset: 0; z-index: 0;
-    pointer-events: none;
-    background:
-      linear-gradient(180deg,
-        rgba(255,255,255,1) 0%,
-        rgba(179,157,219,0.08) 30%,
-        rgba(126,87,194,0.06) 50%,
-        rgba(179,157,219,0.04) 70%,
-        rgba(255,255,255,1) 100%
-      );
-  }
+  h2 { font-family:var(--font-head); font-size:1.1rem; color:var(--heading); margin:24px 0 12px; font-weight:600; }
+  h2 small { display:block; font-family:var(--font-body); font-size:.72rem; color:var(--muted); font-weight:400; }
 
-  header {
-    position: relative; z-index: 10;
-    text-align: center;
-    padding: 2.5rem 1.5rem 1.5rem;
-    background: linear-gradient(180deg, rgba(179,157,219,0.1) 0%, transparent 100%);
-  }
+  /* 緊湊場次列：日期方塊在左 */
+  .evt { display:grid; grid-template-columns:62px 1fr; gap:14px; align-items:center; cursor:pointer; width:100%; text-align:left;
+         background:var(--surface); border:1.5px solid var(--surface-alt); border-radius:14px; padding:13px 15px; margin-bottom:10px;
+         font-family:inherit; font-size:inherit; color:inherit; transition:border-color .2s, transform .2s; }
+  .evt:hover { transform:translateY(-2px); }
+  .evt.on { border-color:var(--primary); background:linear-gradient(100deg, var(--tint), var(--surface)); }
+  .evt .d { text-align:center; border-radius:11px; padding:7px 0; background:var(--surface-alt); line-height:1.2; }
+  .evt.on .d { background:var(--ticket-head); }
+  .evt .d b { display:block; font-family:var(--font-head); font-size:1.4rem; color:var(--heading); }
+  .evt .d span { display:block; font-size:.62rem; letter-spacing:.14em; color:var(--muted); text-transform:uppercase; }
+  .evt.on .d b { color:var(--on-primary); }
+  .evt.on .d span { color:var(--on-primary); }
+  .evt .nm { display:block; font-family:var(--font-head); font-size:1.02rem; font-weight:600; color:var(--heading); }
+  .evt .meta { display:block; font-size:.73rem; color:var(--muted); }
+  .evt .desc { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+               font-size:.73rem; color:var(--muted); margin-top:1px; }
+  .evt .tag { display:inline-block; font-size:.65rem; font-weight:700; padding:2px 9px; border-radius:999px; margin-top:4px;
+              background:var(--accent-bg); color:var(--accent-ink); border:1px solid var(--accent-border); }
+  .evt .tag.few { background:var(--hot-bg); color:var(--hot); border-color:var(--hot-border); }
+  .evt .tag.off { background:var(--surface-alt); color:var(--muted); border-color:var(--surface-alt); }
+  .evt.out { filter:grayscale(1); opacity:.45; cursor:not-allowed; }
+  .evt.out:hover { transform:none; }
 
-  .logo-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; }
-  .logo-icon {
-    font-size: 2.8rem;
-    line-height: 1;
-    animation: breathe 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 8px rgba(126,87,194,0.2));
-  }
-  @keyframes breathe {
-    0%, 100% { transform: scale(1.0); }
-    50%      { transform: scale(1.02); }
-  }
-  .logo-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: var(--primary);
-    letter-spacing: 2px;
-  }
-  .logo-sub {
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.2em;
-  }
+  .evt-banner { display:block; width:100%; aspect-ratio:16/6; object-fit:cover; border-radius:14px;
+                margin-bottom:12px; background:var(--surface-alt); }
 
-  .deco-line {
-    margin-top: 0.8rem;
-    font-size: 0.75rem;
-    color: var(--secondary);
-    letter-spacing: 0.3em;
-  }
+  /* 票種價格卡 */
+  .tt { display:flex; align-items:center; justify-content:space-between; gap:12px; cursor:pointer; width:100%; text-align:left;
+        background:var(--surface); border:1.5px solid var(--surface-alt); border-radius:14px; padding:14px 16px; margin-bottom:10px;
+        font-family:inherit; font-size:inherit; color:inherit; transition:border-color .2s, transform .2s; }
+  .tt:hover { transform:translateY(-2px); }
+  .tt.on { border-color:var(--primary); box-shadow:0 0 0 1px var(--primary); }
+  .tt .lt { flex:1; min-width:0; }
+  .tt .tn { display:block; font-weight:700; color:var(--heading); }
+  .tt .td { display:block; font-size:.72rem; color:var(--muted); }
+  .tt .rt { text-align:right; white-space:nowrap; }
+  .tt .tp { display:block; font-family:var(--font-head); font-size:1.3rem; font-weight:700; color:var(--heading); }
+  .tt .rm { display:block; font-size:.68rem; color:var(--muted); }
+  .tt .rm.few { color:var(--hot); font-weight:700; }
+  .tt.out { filter:grayscale(1); opacity:.42; cursor:not-allowed; }
+  .tt.out:hover { transform:none; }
+  .tt.out .rm { color:var(--muted); }
+  .bar-stock { display:block; height:4px; border-radius:999px; background:var(--surface-alt); overflow:hidden; margin-top:7px; }
+  .bar-stock i { display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,var(--accent),var(--primary)); transition:width .8s ease; }
 
-  .main {
-    position: relative; z-index: 5;
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 0 1.2rem 3rem;
-  }
+  .qtyrow { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px;
+            background:var(--surface); border:1.5px dashed var(--surface-alt); border-radius:14px; padding:12px 16px; }
+  .qtyrow .lb { font-size:.8rem; color:var(--muted); }
+  .qtyrow .ctl { display:flex; align-items:center; gap:12px; }
+  .qtyrow button { width:44px; height:44px; border-radius:12px; border:1px solid var(--line); background:transparent;
+                   color:var(--heading); font-size:1.2rem; cursor:pointer; font-family:inherit; }
+  .qtyrow button:disabled { opacity:.35; cursor:not-allowed; }
+  .qtyrow b { font-family:var(--font-head); font-size:1.5rem; min-width:36px; text-align:center; color:var(--heading); font-variant-numeric:tabular-nums; }
 
-  .section-title {
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 400;
-    margin: 1.5rem 0 1rem;
-    color: var(--primary);
-    letter-spacing: 2px;
-  }
+  /* 表單 */
+  label { display:block; font-size:.78rem; color:var(--muted); margin:12px 0 6px; }
+  input, textarea { width:100%; background:var(--surface); border:1.5px solid var(--surface-alt); border-radius:12px;
+                    padding:12px 14px; color:var(--text); font-family:inherit; font-size:.95rem; min-height:46px; }
+  input:focus, textarea:focus { outline:none; border-color:var(--primary); }
+  input:disabled { opacity:.6; }
+  textarea { min-height:74px; resize:vertical; }
+  .verify-row { display:flex; gap:8px; align-items:stretch; }
+  .verify-row input { flex:1; min-width:0; }
+  .btn-line { min-width:118px; border:1.5px solid var(--accent-ink); background:transparent; color:var(--accent-ink); border-radius:12px;
+              font-family:inherit; font-weight:700; font-size:.85rem; cursor:pointer; padding:0 14px; }
+  .btn-line:disabled { opacity:.5; cursor:not-allowed; }
+  .vstatus { font-size:.78rem; margin-top:8px; min-height:1.4em; }
+  .submit { display:block; width:100%; margin-top:18px; min-height:52px; border:0; border-radius:999px; cursor:pointer;
+            background:var(--btn); color:var(--on-btn); font-family:inherit; font-weight:700; font-size:1.02rem; box-shadow:var(--glow); }
+  .submit:disabled { opacity:.55; cursor:not-allowed; box-shadow:none; }
+  .err { margin-top:14px; background:var(--err-bg); border:1px solid var(--err-border); color:var(--err);
+         border-radius:12px; padding:11px 14px; font-size:.85rem; }
 
-  /* -- 活動卡片 -- */
-  .event-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    animation: fadeUp 0.5s ease both;
-    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
-  }
-  .event-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 28px rgba(126,87,194,0.12);
-    border-color: var(--secondary);
-  }
-  .event-card.selected {
-    border: 2px solid var(--primary);
-    box-shadow: 0 4px 24px rgba(126,87,194,0.15);
-  }
+  /* 固定結帳列 */
+  .checkout { position:fixed; left:50%; transform:translateX(-50%); bottom:16px; width:min(524px, calc(100% - 36px)); z-index:50;
+              background:var(--surface); border:1px solid var(--checkout-border); border-radius:18px; padding:11px 12px 11px 18px;
+              display:flex; align-items:center; justify-content:space-between; gap:12px; box-shadow:0 18px 44px var(--shadow); }
+  .checkout .sum { font-size:.74rem; color:var(--muted); line-height:1.4; min-width:0; }
+  .checkout .sum b { display:block; font-family:var(--font-head); font-size:1.3rem; color:var(--heading); }
+  .checkout .go { border:0; border-radius:14px; padding:13px 20px; cursor:pointer; white-space:nowrap; min-height:44px;
+                  background:var(--btn); color:var(--on-btn); font-family:inherit; font-weight:700; font-size:.92rem; box-shadow:var(--glow); }
 
-  .event-img { font-size: 2.5rem; text-align: center; margin-bottom: 0.6rem; }
-  .event-img img { width: 100%; border-radius: 14px; }
-  .event-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; color: var(--text); }
-  .event-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
-  .event-info { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.3rem; }
-  .event-badge {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
-    background: rgba(126,87,194,0.08);
-    color: var(--primary);
-    border: 1px solid rgba(126,87,194,0.12);
-  }
+  /* 骨架屏 */
+  .skeleton { height:74px; border-radius:14px; margin-bottom:10px;
+              background:linear-gradient(90deg, var(--surface) 25%, var(--surface-alt) 50%, var(--surface) 75%);
+              background-size:200% 100%; animation:shimmer 1.2s infinite; }
+  @keyframes shimmer { to { background-position:-200% 0; } }
+  .empty { text-align:center; color:var(--muted); font-size:.85rem; padding:26px 0; }
 
-  /* -- 場次選擇器 -- */
-  .session-section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-    animation: fadeUp 0.5s ease both;
-    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
-  }
-  .session-section > label {
-    display: block;
-    font-size: 0.85rem;
-    margin-bottom: 0.6rem;
-    color: var(--primary);
-    font-weight: 400;
-    letter-spacing: 1px;
-  }
+  /* 取票畫面 */
+  .done { max-width:560px; margin:0 auto; padding:34px 18px 60px; text-align:center; position:relative; overflow:hidden; }
+  .done .hi { font-family:var(--font-head); font-size:1.6rem; color:var(--heading); }
+  .done .hint { font-size:.82rem; color:var(--muted); margin:4px 0 22px; }
+  .ticket { max-width:340px; margin:0 auto; background:var(--surface); border-radius:18px; overflow:hidden; box-shadow:0 20px 50px var(--shadow); text-align:left; }
+  .ticket .top { padding:18px 22px 16px; background:var(--ticket-head); color:var(--on-primary); }
+  .ticket .top .lb { font-size:.63rem; letter-spacing:.24em; text-transform:uppercase; }
+  .ticket .top h3 { font-family:var(--font-head); font-size:1.24rem; margin-top:2px; line-height:1.35; }
+  .ticket .top p { font-size:.75rem; }
+  .ticket .perf { position:relative; height:0; border-top:2px dashed var(--perf); }
+  .ticket .perf::before, .ticket .perf::after { content:""; position:absolute; top:-11px; width:22px; height:22px; border-radius:50%; background:var(--bg); }
+  .ticket .perf::before { left:-11px; } .ticket .perf::after { right:-11px; }
+  .ticket .body { padding:24px 22px 22px; text-align:center; }
+  .ticket canvas { width:178px; height:178px; background:#fff; border-radius:12px; padding:9px; }
+  .ticket .code { font-family:var(--font-head); font-size:1.7rem; letter-spacing:.18em; color:var(--heading); margin-top:14px; }
+  .ticket .code-label { font-size:.63rem; letter-spacing:.2em; color:var(--muted); text-transform:uppercase; }
+  .ticket .grid { display:grid; grid-template-columns:1fr 1fr; gap:8px 12px; margin-top:18px; text-align:left;
+                  border-top:1px solid var(--surface-alt); padding-top:14px; }
+  .ticket .grid span { display:block; font-size:.62rem; letter-spacing:.14em; color:var(--muted); text-transform:uppercase; }
+  .ticket .grid b { font-family:var(--font-head); font-size:.92rem; color:var(--heading); font-weight:600; word-break:break-all; }
+  .done .acts { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+  .done .share { border:1.5px solid var(--accent-ink); background:transparent; color:var(--accent-ink); border-radius:999px;
+                 padding:11px 24px; font-family:inherit; font-weight:700; font-size:.85rem; cursor:pointer; min-height:44px; }
+  .done .again { border:1.5px solid var(--surface-alt); background:transparent; color:var(--muted); border-radius:999px;
+                 padding:11px 24px; font-family:inherit; font-weight:700; font-size:.85rem; cursor:pointer; min-height:44px; }
+  .toast { position:fixed; left:50%; transform:translateX(-50%); bottom:96px; z-index:60; background:var(--surface-alt);
+           color:var(--heading); border-radius:999px; padding:10px 20px; font-size:.82rem; box-shadow:0 10px 30px var(--shadow); }
 
-  .session-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: var(--card);
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: var(--text);
-    cursor: pointer;
-    margin-bottom: 0.5rem;
-    transition: all 0.3s;
-  }
-  .session-card:hover {
-    background: rgba(126,87,194,0.05);
-    border-color: var(--secondary);
-  }
-  .session-card.selected {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-    box-shadow: 0 4px 16px rgba(126,87,194,0.25);
-  }
+  .confetti { position:absolute; top:-12px; width:8px; height:13px; border-radius:2px; animation:fall 1.3s ease-in forwards; }
+  @keyframes fall { to { transform:translateY(460px) rotate(360deg); opacity:0; } }
 
-  .session-date { font-weight: 600; }
-  .session-time { font-size: 0.8rem; opacity: 0.85; }
-  .session-meta { text-align: right; }
-  .session-remaining { font-size: 0.75rem; font-weight: 600; display: block; }
-  .remaining-green  { color: var(--green); }
-  .remaining-orange { color: var(--orange); }
-  .remaining-red    { color: var(--red); animation: pulse-remaining 1.5s ease-in-out infinite; }
-  .session-card.selected .session-remaining { color: rgba(255,255,255,0.9); }
-  .session-card.selected .remaining-red { animation: none; color: rgba(255,255,255,0.9); }
+  footer { text-align:center; color:var(--muted); font-size:.72rem; padding:26px 18px 34px; }
+  footer a { color:var(--accent-ink); }
 
-  @keyframes pulse-remaining {
-    0%, 100% { opacity: 1; }
-    50%      { opacity: 0.5; }
-  }
-
-  /* -- 票種選擇 -- */
-  .ticket-section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-    animation: fadeUp 0.5s ease both;
-    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
-  }
-  .ticket-section label {
-    display: block;
-    font-size: 0.85rem;
-    margin-bottom: 0.6rem;
-    color: var(--primary);
-    font-weight: 400;
-    letter-spacing: 1px;
-  }
-
-  .ticket-type-btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: var(--card);
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: var(--text);
-    cursor: pointer;
-    margin-bottom: 0.5rem;
-    transition: all 0.3s;
-  }
-  .ticket-type-btn:hover {
-    background: rgba(126,87,194,0.05);
-    border-color: var(--secondary);
-  }
-  .ticket-type-btn.selected {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-    box-shadow: 0 4px 16px rgba(126,87,194,0.25);
-  }
-
-  .ticket-type-name { font-weight: 600; }
-  .ticket-type-meta { text-align: right; }
-  .ticket-type-price { font-weight: 600; color: var(--accent); }
-  .ticket-type-btn.selected .ticket-type-price { color: var(--accent); }
-  .remaining-badge { font-size: 0.7rem; opacity: 0.8; display: block; }
-  .ticket-type-btn.selected .remaining-badge { color: rgba(255,255,255,0.8); }
-
-  /* -- 數量選擇 -- */
-  .qty-section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-    animation: fadeUp 0.5s ease both;
-    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
-  }
-  .qty-section label {
-    display: block;
-    font-size: 0.85rem;
-    margin-bottom: 0.6rem;
-    color: var(--primary);
-    font-weight: 400;
-    letter-spacing: 1px;
-  }
-  .qty-control {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content: center;
-  }
-  .qty-btn {
-    width: 38px; height: 38px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    background: var(--card);
-    font-size: 1.2rem;
-    color: var(--primary);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.3s;
-    box-shadow: 0 2px 8px rgba(126,87,194,0.08);
-  }
-  .qty-btn:hover { background: rgba(126,87,194,0.08); border-color: var(--secondary); }
-  .qty-display {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--primary);
-    min-width: 40px;
-    text-align: center;
-  }
-  .qty-hint { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 0.5rem; }
-
-  /* -- 訂單摘要 -- */
-  .order-summary {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 1rem 1.2rem;
-    margin-bottom: 1rem;
-    animation: fadeUp 0.5s ease both;
-    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
-  }
-  .summary-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--primary); }
-  .summary-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem; color: var(--text); }
-  .summary-total { border-top: 1px solid var(--border); padding-top: 0.5rem; margin-top: 0.5rem; font-weight: 600; color: var(--primary); }
-
-  /* -- Email 驗證 -- */
-  .verify-section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-    animation: fadeUp 0.5s ease both;
-    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
-  }
-  .verify-section > label {
-    display: block;
-    font-size: 0.85rem;
-    margin-bottom: 0.6rem;
-    color: var(--primary);
-    font-weight: 400;
-    letter-spacing: 1px;
-  }
-  .verify-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
-  .verify-row input { flex: 1; }
-  .verify-btn {
-    padding: 0.55rem 0.8rem;
-    border: none;
-    border-radius: 12px;
-    background: var(--primary);
-    color: white;
-    font-family: inherit;
-    font-size: 0.8rem;
-    font-weight: 400;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.3s;
-    box-shadow: 0 2px 10px rgba(126,87,194,0.2);
-  }
-  .verify-btn:hover { background: var(--secondary); box-shadow: 0 4px 16px rgba(126,87,194,0.3); }
-  .verify-btn:disabled { background: rgba(122,112,130,0.2); color: var(--muted); cursor: not-allowed; box-shadow: none; }
-  .verify-status { font-size: 0.75rem; margin-top: 0.3rem; }
-
-  /* -- 表單 -- */
-  .form-section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 1.2rem;
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.5s ease both;
-    box-shadow: 0 2px 12px rgba(126,87,194,0.06);
-  }
-  .form-section label {
-    display: block;
-    font-size: 0.8rem;
-    margin-bottom: 0.3rem;
-    color: var(--muted);
-    letter-spacing: 1px;
-  }
-  .form-section input, .form-section textarea {
-    width: 100%;
-    padding: 0.55rem 0.7rem;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: var(--text);
-    background: var(--bg);
-    margin-bottom: 0.8rem;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  .form-section input:focus, .form-section textarea:focus {
-    border-color: var(--secondary);
-    box-shadow: 0 0 0 3px rgba(179,157,219,0.15);
-  }
-  .form-section textarea { height: 70px; resize: vertical; }
-
-  /* -- 送出按鈕 -- */
-  .submit-btn {
-    width: 100%;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    letter-spacing: 0.1em;
-    box-shadow: 0 4px 20px rgba(126,87,194,0.25);
-  }
-  .submit-btn:hover { box-shadow: 0 6px 28px rgba(126,87,194,0.4); transform: translateY(-1px); }
-  .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
-
-  /* -- 成功畫面 -- */
-  .success-screen {
-    display: none;
-    position: relative; z-index: 5;
-    max-width: 480px; margin: 0 auto; padding: 3rem 1.5rem;
-    text-align: center;
-  }
-  .success-icon { font-size: 3rem; animation: pop 0.6s ease; }
-  @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
-  .success-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    color: var(--primary);
-    margin: 0.8rem 0 0.5rem;
-    letter-spacing: 2px;
-  }
-  .success-msg { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; }
-  .success-badge {
-    display: inline-block;
-    background: rgba(126,87,194,0.08);
-    border: 1px solid var(--border);
-    padding: 0.5rem 1.2rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    color: var(--primary);
-    font-weight: 600;
-    margin-bottom: 0.8rem;
-  }
-
-  .checkin-code-display {
-    display: inline-block;
-    background: rgba(126,87,194,0.06);
-    border: 2px solid var(--primary);
-    padding: 0.8rem 1.5rem;
-    border-radius: 16px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    letter-spacing: 0.3em;
-    margin-bottom: 0.5rem;
-    font-family: 'Courier New', monospace;
-    box-shadow: 0 4px 20px rgba(126,87,194,0.15);
-  }
-  .checkin-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
-
-  .new-order-btn {
-    padding: 0.7rem 2rem;
-    border: 2px solid var(--primary);
-    border-radius: 16px;
-    background: transparent;
-    color: var(--primary);
-    font-family: inherit;
-    font-size: 0.9rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.3s;
-    letter-spacing: 1px;
-  }
-  .new-order-btn:hover {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 4px 16px rgba(126,87,194,0.25);
-  }
-
-  /* -- Loading / Error -- */
-  .loading-wrap { text-align: center; padding: 2rem; color: var(--muted); }
-  .spinner {
-    display: inline-block;
-    width: 28px; height: 28px;
-    border: 3px solid var(--border);
-    border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .error-msg {
-    background: rgba(229,57,53,0.08);
-    border: 1px solid rgba(229,57,53,0.2);
-    color: var(--red);
-    padding: 0.6rem 1rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .hidden { display: none !important; }
-
-  footer {
-    position: relative; z-index: 5;
-    text-align: center; padding: 1.5rem;
-    font-size: 0.7rem; color: rgba(122,112,130,0.5);
-    letter-spacing: 1px;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton { animation:none; }
+    .bar-stock i { transition:none; }
+    .evt, .tt { transition:none; }
+    .evt:hover, .tt:hover { transform:none; }
+    .confetti { display:none; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo-wrap">
-    <div class="logo-icon">&#x1F9D8;</div>
-    <div class="logo-name">Morning Yoga Retreat</div>
-    <div class="logo-sub">BREATHE &middot; STRETCH &middot; RENEW</div>
-  </div>
-  <div class="deco-line">&#x2500; &#x6668;&#x9593;&#x7464;&#x4F3D; &middot; &#x8EAB;&#x5FC3;&#x6B78;&#x96F6; &#x2500;</div>
-</header>
-
-<!-- -- 主頁面 -- -->
-<div class="main" id="shop-view">
-  <h2 class="section-title">&#x1F9D8; 活動列表</h2>
-  <div id="events-container">
-    <div class="loading-wrap"><div class="spinner"></div></div>
-  </div>
-
-  <!-- 場次選擇 -->
-  <div id="session-section" class="session-section hidden">
-    <label>&#x2600;&#xFE0F; 選擇場次</label>
-    <div id="session-container"></div>
-  </div>
-
-  <!-- 票種選擇 -->
-  <div id="ticket-section" class="ticket-section hidden">
-    <label>&#x1F3AB; 選擇票種</label>
-    <div id="ticket-types-container">
-      <div class="loading-wrap"><div class="spinner"></div></div>
+<div class="wrap" id="buy-view">
+  <div class="bar">
+    <div class="brand">
+      <div class="mark">🧘</div>
+      <div><b>Morning Yoga Retreat</b><span>Sunrise Sessions</span></div>
+    </div>
+    <div class="steps" id="steps">
+      <div data-s="1"><b>1</b>選場次</div>
+      <div data-s="2"><b>2</b>選票種</div>
+      <div data-s="3"><b>3</b>填資料</div>
+      <div data-s="4"><b>4</b>取票</div>
     </div>
   </div>
 
-  <!-- 數量選擇 -->
-  <div id="qty-section" class="qty-section hidden">
-    <label>&#x1F4E6; 選擇數量</label>
-    <div class="qty-control">
-      <button class="qty-btn" onclick="changeQty(-1)">&minus;</button>
-      <div class="qty-display" id="qty-display">1</div>
-      <button class="qty-btn" onclick="changeQty(1)">+</button>
+  <h2 id="evt-head">選擇場次<small id="evt-sub">載入中…</small></h2>
+  <div id="events">
+    <div class="skeleton"></div><div class="skeleton"></div>
+  </div>
+
+  <div id="tt-section" class="hidden">
+    <h2>選擇票種<small id="tt-sub"></small></h2>
+    <img id="evt-banner" class="evt-banner hidden" alt="">
+    <div id="tts"></div>
+    <div class="qtyrow hidden" id="qtyrow">
+      <span class="lb" id="qty-hint">購買張數</span>
+      <span class="ctl">
+        <button type="button" id="qty-minus" aria-label="減少一張">−</button>
+        <b id="qty">1</b>
+        <button type="button" id="qty-plus" aria-label="增加一張">+</button>
+      </span>
     </div>
-    <div class="qty-hint" id="qty-hint"></div>
   </div>
 
-  <!-- 訂單摘要 -->
-  <div id="order-summary" class="order-summary hidden">
-    <div class="summary-title">&#x1F4CB; 訂單摘要</div>
-    <div class="summary-row"><span>活動</span><span id="sum-event"></span></div>
-    <div class="summary-row" id="sum-session-row" style="display:none;"><span>場次</span><span id="sum-session"></span></div>
-    <div class="summary-row"><span>票種</span><span id="sum-ticket"></span></div>
-    <div class="summary-row"><span>單價</span><span id="sum-price"></span></div>
-    <div class="summary-row"><span>數量</span><span id="sum-qty"></span></div>
-    <div class="summary-row summary-total"><span>合計</span><span id="sum-total"></span></div>
-  </div>
-
-  <!-- Email 驗證 -->
-  <div id="verify-section" class="verify-section hidden">
-    <label>&#x1F4E7; Email 驗證</label>
+  <div id="verify-section" class="hidden">
+    <h2>Email 驗證<small>票券與簽到碼會寄到這個信箱</small></h2>
+    <label for="email">Email</label>
     <div class="verify-row">
-      <input type="email" id="email" placeholder="your@email.com" />
-      <button class="verify-btn" id="send-code-btn" onclick="sendCode()">發送驗證碼</button>
+      <input type="email" id="email" placeholder="your@email.com" autocomplete="email">
+      <button type="button" class="btn-line" id="send-code">發送驗證碼</button>
     </div>
-    <div id="code-row" class="verify-row hidden">
-      <input type="text" id="verify-code" placeholder="輸入 6 位驗證碼" maxlength="6" />
-      <button class="verify-btn" id="verify-btn" onclick="verifyEmail()">驗證</button>
+    <div class="verify-row hidden" id="code-row" style="margin-top:8px">
+      <input type="text" id="code" placeholder="輸入 6 位驗證碼" maxlength="6" inputmode="numeric" autocomplete="one-time-code">
+      <button type="button" class="btn-line" id="do-verify">驗證</button>
     </div>
-    <div class="verify-status" id="verify-status"></div>
+    <div class="vstatus" id="vstatus"></div>
   </div>
 
-  <!-- 表單 -->
-  <div id="form-section" class="form-section hidden">
-    <label>姓名</label>
-    <input type="text" id="name" placeholder="您的姓名" />
-    <label>電話</label>
-    <input type="tel" id="phone" placeholder="0912-345-678" />
-    <label>備註（選填）</label>
-    <textarea id="note" placeholder="有什麼需要備註的嗎？"></textarea>
-    <button class="submit-btn" id="submit-btn" onclick="submitOrder()">&#x1F9D8; 確認購票</button>
+  <div id="form-section" class="hidden">
+    <h2>取票人資料<small>現場以簽到碼報到，請填寫可聯繫的資料</small></h2>
+    <label for="name">姓名</label>
+    <input type="text" id="name" placeholder="您的姓名" autocomplete="name">
+    <label for="phone">電話</label>
+    <input type="tel" id="phone" placeholder="0912-345-678" autocomplete="tel">
+    <label for="note">備註（選填）</label>
+    <textarea id="note" placeholder="有身體狀況或需要準備的器材嗎？"></textarea>
+    <button type="button" class="submit" id="submit">🎫 確認購票</button>
   </div>
 
-  <div id="error-msg" class="error-msg hidden"></div>
+  <div id="err" class="err hidden"></div>
 </div>
 
-<!-- -- 成功畫面 -- -->
-<div class="success-screen" id="success-screen">
-  <div class="success-icon">&#x2728;</div>
-  <h2 class="success-title">購票成功！</h2>
-  <p class="success-msg">請截圖保存您的簽到碼，活動當天出示即可入場</p>
-  <div class="success-badge" id="success-id"></div>
-  <br/>
-  <div class="checkin-code-display" id="checkin-code"></div>
-  <div class="checkin-label">簽到碼 — 請妥善保存</div>
-  <button class="new-order-btn" onclick="resetPage()">再次購票</button>
+<div class="checkout hidden" id="checkout">
+  <span class="sum" id="sum-text">尚未選擇票種<b id="sum-total">$0</b></span>
+  <button type="button" class="go" id="go">下一步 →</button>
 </div>
 
-<footer>Morning Yoga Retreat Sample &mdash; Powered by <a href="https://one-page-go.com/" rel="noopener">One Page Go</a></footer>
+<div class="done hidden" id="done-view">
+  <div class="hi">購票完成 🎉</div>
+  <p class="hint">請截圖保存下方票券，當天到場出示 QR 或簽到碼即可報到。</p>
+  <div class="ticket">
+    <div class="top">
+      <div class="lb">E-Ticket 電子票券</div>
+      <h3 id="tk-event"></h3>
+      <p id="tk-sub"></p>
+    </div>
+    <div class="perf"></div>
+    <div class="body">
+      <canvas id="tk-qr" width="420" height="420" aria-label="入場 QR 碼"></canvas>
+      <div class="code" id="tk-code"></div>
+      <div class="code-label">Check-in Code 簽到碼</div>
+      <div class="grid">
+        <div><span>Date</span><b id="tk-date"></b></div>
+        <div><span>Time</span><b id="tk-time"></b></div>
+        <div><span>Admits</span><b id="tk-qty"></b></div>
+        <div><span>Order</span><b id="tk-oid"></b></div>
+      </div>
+    </div>
+  </div>
+  <div class="acts">
+    <button type="button" class="share" id="share">分享票券給同行朋友 →</button>
+    <button type="button" class="again" id="again">再買一張</button>
+  </div>
+</div>
+
+<footer>Morning Yoga Retreat Sample — Powered by <a href="https://one-page-go.com/" rel="noopener">One Page Go</a></footer>
 
 <script>
-// -- 設定你的 Apps Script 網址 --
-const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker (T-020)
-const SITE_ID = "yoga-retreat";
+// ── 設定你的 API 網址 ──────────────────────────────────
+const API_URL = "https://demo-api.one-page-go.com/api"; // demo worker
+const SITE_ID = "yoga-retreat"; // demo 接線：所有 action 帶 site_id // 交付時替換為該站 worker 的 API 網址
 
-const EVENT_EMOJI = ["\u{1F9D8}","\u{1F31F}","\u{1F33F}","\u{1F338}","\u{2600}\uFE0F","\u{1F54A}\uFE0F"];
+const MAX_PER_ORDER = 4;                 // 每筆訂單上限張數
+const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
 
-let events = [];
-let selectedEvent = null;
-let ticketTypes = [];
-let selectedTicket = null;
-let qty = 1;
-let emailVerified = false;
-let verifiedEmail = '';
-let sessionToken = '';
+let events = [], ticketTypes = [];
+let selEvent = null, selTicket = null, qty = 1;
+let emailVerified = false, sessionToken = "", verifiedEmail = "";
+let codeTimer = null;                    // 重新發送的倒數；重置時要清掉，否則會繼續覆寫按鈕文字
 
-// 場次相關
-let sessions = [];
-let selectedSession = null;
-let hasSessionConfig = false;
+const $ = (id) => document.getElementById(id);
 
-// -- 載入活動 --
+// ══════════════════════════════════════════════════════
+// QR 產生器（byte 模式、ECC M、版本 1–4）；內容＝簽到碼
+// ══════════════════════════════════════════════════════
+function qrMatrix(text) {
+  const bytes = [];
+  for (const ch of text) {
+    const c = ch.codePointAt(0);
+    if (c < 0x80) bytes.push(c);
+    else if (c < 0x800) bytes.push(0xC0 | (c >> 6), 0x80 | (c & 63));
+    else if (c < 0x10000) bytes.push(0xE0 | (c >> 12), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63));
+    else bytes.push(0xF0 | (c >> 18), 0x80 | ((c >> 12) & 63), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63));
+  }
+  const SPEC = { 1: [16, 10, 1], 2: [28, 16, 1], 3: [44, 26, 1], 4: [64, 18, 2] };
+  let ver = 0;
+  for (let v = 1; v <= 4; v++) if (bytes.length + 2 <= SPEC[v][0]) { ver = v; break; }
+  if (!ver) throw new Error("QR: 內容過長");
+  const [dataCw, ecPerBlock, blocks] = SPEC[ver];
+
+  const bits = [];
+  const push = (val, len) => { for (let i = len - 1; i >= 0; i--) bits.push((val >> i) & 1); };
+  push(0b0100, 4);
+  push(bytes.length, 8);
+  for (const b of bytes) push(b, 8);
+  for (let i = 0; i < 4 && bits.length < dataCw * 8; i++) bits.push(0);
+  while (bits.length % 8) bits.push(0);
+  const dataBytes = [];
+  for (let i = 0; i < bits.length; i += 8) {
+    let v = 0;
+    for (let j = 0; j < 8; j++) v = (v << 1) | bits[i + j];
+    dataBytes.push(v);
+  }
+  const PAD = [0xEC, 0x11];
+  for (let i = 0; dataBytes.length < dataCw; i++) dataBytes.push(PAD[i % 2]);
+
+  const EXP = new Uint8Array(512), LOG = new Uint8Array(256);
+  for (let i = 0, x = 1; i < 255; i++) { EXP[i] = x; LOG[x] = i; x <<= 1; if (x & 0x100) x ^= 0x11D; }
+  for (let i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+  const mul = (a, b) => (a && b) ? EXP[LOG[a] + LOG[b]] : 0;
+  const genPoly = (n) => {
+    let g = [1];
+    for (let i = 0; i < n; i++) {
+      const ng = new Array(g.length + 1).fill(0);
+      for (let j = 0; j < g.length; j++) { ng[j] ^= g[j]; ng[j + 1] ^= mul(g[j], EXP[i]); }
+      g = ng;
+    }
+    return g;
+  };
+  const rsEncode = (data, ecLen) => {
+    const g = genPoly(ecLen), res = new Array(ecLen).fill(0);
+    for (const d of data) {
+      const factor = d ^ res[0];
+      res.shift(); res.push(0);
+      if (factor) for (let i = 0; i < ecLen; i++) res[i] ^= mul(g[i + 1], factor);
+    }
+    return res;
+  };
+
+  const perBlock = dataCw / blocks, dBlocks = [], eBlocks = [];
+  for (let i = 0; i < blocks; i++) {
+    const blk = dataBytes.slice(i * perBlock, (i + 1) * perBlock);
+    dBlocks.push(blk); eBlocks.push(rsEncode(blk, ecPerBlock));
+  }
+  const finalCw = [];
+  for (let i = 0; i < perBlock; i++) for (const b of dBlocks) finalCw.push(b[i]);
+  for (let i = 0; i < ecPerBlock; i++) for (const b of eBlocks) finalCw.push(b[i]);
+
+  const size = 17 + 4 * ver;
+  const mat = Array.from({ length: size }, () => new Array(size).fill(0));
+  const fixed = Array.from({ length: size }, () => new Array(size).fill(false));
+  const setFn = (r, c, v) => {
+    if (r < 0 || r >= size || c < 0 || c >= size) return;
+    mat[r][c] = v; fixed[r][c] = true;
+  };
+  const finder = (r0, c0) => {
+    for (let r = -1; r <= 7; r++) for (let c = -1; c <= 7; c++) {
+      const ring = (r >= 0 && r <= 6 && (c === 0 || c === 6)) || (c >= 0 && c <= 6 && (r === 0 || r === 6));
+      const core = r >= 2 && r <= 4 && c >= 2 && c <= 4;
+      setFn(r0 + r, c0 + c, (ring || core) ? 1 : 0);
+    }
+  };
+  finder(0, 0); finder(0, size - 7); finder(size - 7, 0);
+  for (let i = 8; i < size - 8; i++) { setFn(6, i, i % 2 === 0 ? 1 : 0); setFn(i, 6, i % 2 === 0 ? 1 : 0); }
+  const ALIGN = { 1: [], 2: [6, 18], 3: [6, 22], 4: [6, 26] }[ver];
+  const last = ALIGN[ALIGN.length - 1];
+  for (const r0 of ALIGN) for (const c0 of ALIGN) {
+    if ((r0 === 6 && c0 === 6) || (r0 === 6 && c0 === last) || (r0 === last && c0 === 6)) continue;
+    for (let r = -2; r <= 2; r++) for (let c = -2; c <= 2; c++)
+      setFn(r0 + r, c0 + c, Math.max(Math.abs(r), Math.abs(c)) !== 1 ? 1 : 0);
+  }
+  setFn(size - 8, 8, 1);
+
+  const FMT = [];
+  for (let i = 0; i <= 5; i++) FMT.push([[8, i], [size - 1 - i, 8]]);
+  FMT.push([[8, 7], [size - 7, 8]]);
+  FMT.push([[8, 8], [8, size - 8]]);
+  FMT.push([[7, 8], [8, size - 7]]);
+  for (let i = 9; i <= 14; i++) FMT.push([[14 - i, 8], [8, size - 15 + i]]);
+  for (const [a, b] of FMT) { fixed[a[0]][a[1]] = true; fixed[b[0]][b[1]] = true; }
+
+  const dataBits = [];
+  for (const cw of finalCw) for (let i = 7; i >= 0; i--) dataBits.push((cw >> i) & 1);
+  let idx = 0, up = true;
+  for (let col = size - 1; col >= 1; col -= 2) {
+    if (col === 6) col = 5;
+    for (let i = 0; i < size; i++) {
+      const row = up ? size - 1 - i : i;
+      for (const c of [col, col - 1]) {
+        if (fixed[row][c]) continue;
+        mat[row][c] = idx < dataBits.length ? dataBits[idx++] : 0;
+      }
+    }
+    up = !up;
+  }
+
+  const MASKS = [
+    (r, c) => (r + c) % 2 === 0,
+    (r, c) => r % 2 === 0,
+    (r, c) => c % 3 === 0,
+    (r, c) => (r + c) % 3 === 0,
+    (r, c) => (Math.floor(r / 2) + Math.floor(c / 3)) % 2 === 0,
+    (r, c) => ((r * c) % 2 + (r * c) % 3) === 0,
+    (r, c) => (((r * c) % 2 + (r * c) % 3) % 2) === 0,
+    (r, c) => (((r + c) % 2 + (r * c) % 3) % 2) === 0,
+  ];
+  const FA = [1,0,1,1,1,0,1,0,0,0,0], FB = [0,0,0,0,1,0,1,1,1,0,1];
+  const lineScore = (line) => {
+    let run = 1, s = 0;
+    for (let i = 1; i < line.length; i++) {
+      if (line[i] === line[i - 1]) run++;
+      else { if (run >= 5) s += run - 2; run = 1; }
+    }
+    if (run >= 5) s += run - 2;
+    for (let i = 0; i + 11 <= line.length; i++) {
+      let a = true, b = true;
+      for (let j = 0; j < 11; j++) { if (line[i + j] !== FA[j]) a = false; if (line[i + j] !== FB[j]) b = false; }
+      if (a) s += 40;
+      if (b) s += 40;
+    }
+    return s;
+  };
+  const penalty = (m) => {
+    let p = 0;
+    for (let r = 0; r < size; r++) p += lineScore(m[r]);
+    for (let c = 0; c < size; c++) p += lineScore(m.map((row) => row[c]));
+    for (let r = 0; r < size - 1; r++) for (let c = 0; c < size - 1; c++)
+      if (m[r][c] === m[r][c + 1] && m[r][c] === m[r + 1][c] && m[r][c] === m[r + 1][c + 1]) p += 3;
+    let dark = 0;
+    for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) dark += m[r][c];
+    p += 10 * Math.floor(Math.abs(dark * 100 / (size * size) - 50) / 5);
+    return p;
+  };
+  const fmtBits = (mask) => {
+    const data = mask;               // ECC M ＝ 00，左移 3 位後即等於 mask
+    let rem = data;
+    for (let i = 0; i < 10; i++) rem = (rem << 1) ^ (((rem >>> 9) & 1) * 0x537);
+    return ((data << 10) | rem) ^ 0x5412;
+  };
+  let best = null, bestP = Infinity;
+  for (let mk = 0; mk < 8; mk++) {
+    const m = mat.map((row) => row.slice());
+    for (let r = 0; r < size; r++) for (let c = 0; c < size; c++)
+      if (!fixed[r][c] && MASKS[mk](r, c)) m[r][c] ^= 1;
+    const fb = fmtBits(mk);
+    for (let i = 0; i < 15; i++) {
+      const bit = (fb >> (14 - i)) & 1;
+      const [a, b] = FMT[i];
+      m[a[0]][a[1]] = bit; m[b[0]][b[1]] = bit;
+    }
+    const p = penalty(m);
+    if (p < bestP) { bestP = p; best = m; }
+  }
+  return best;
+}
+
+function paintQR(cv, text) {
+  const m = qrMatrix(text);
+  const n = m.length, quiet = 2, total = n + quiet * 2;
+  const px = Math.max(1, Math.floor(420 / total));
+  cv.width = cv.height = px * total;            // 模組落在整數像素，掃描才穩
+  const ctx = cv.getContext("2d");
+  ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, cv.width, cv.height);
+  ctx.fillStyle = "#111111";   // QR 模組固定深色，不隨主題變
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++)
+    if (m[r][c]) ctx.fillRect((c + quiet) * px, (r + quiet) * px, px, px);
+}
+
+// ══════════════════════════════════════════════════════
+// 工具
+// ══════════════════════════════════════════════════════
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, (ch) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+}
+function money(n) { return "$" + Number(n || 0).toLocaleString("en-US"); }
+function showError(msg) { const el = $("err"); el.textContent = msg; el.classList.remove("hidden"); }
+function hideError() { $("err").classList.add("hidden"); }
+function toast(msg) {
+  const t = document.createElement("div");
+  t.className = "toast"; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2200);
+}
+function goTo(el) { if (el) el.scrollIntoView(); }   // 即時定位：不用平滑動畫，避免與其他捲動互搶
+
+function dateParts(str) {
+  const m = String(str || "").match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+  if (!m) return { day: "--", mon: "", full: String(str || "") };
+  return { day: String(Number(m[3])).padStart(2, "0"), mon: MONTHS[Number(m[2]) - 1] || "",
+           full: m[1] + "/" + String(Number(m[2])).padStart(2, "0") + "/" + String(Number(m[3])).padStart(2, "0") };
+}
+
+function setStep(n) {
+  document.querySelectorAll("#steps > div").forEach((d) => {
+    const i = Number(d.dataset.s);
+    d.classList.toggle("done", i < n);
+    d.classList.toggle("on", i === n);
+    d.querySelector("b").textContent = i < n ? "✓" : String(i);
+  });
+}
+
+function currentStep() {
+  if (!selEvent) return 1;
+  if (!selTicket) return 2;
+  return 3;
+}
+
+// ══════════════════════════════════════════════════════
+// 場次
+// ══════════════════════════════════════════════════════
 async function loadEvents() {
   try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'getEvents', site_id: SITE_ID })
-    });
-    const text = await res.text();
-    const data = JSON.parse(text);
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getEvents', site_id: SITE_ID }) });
+    const data = JSON.parse(await res.text());
     events = data.events || [];
-    renderEvents();
   } catch (err) {
-    document.getElementById('events-container').innerHTML =
-      '<div class="loading-wrap">目前暫無售票活動，請稍後再來</div>';
+    events = [];
+    $("events").innerHTML = '<div class="empty">活動載入失敗，請稍後再試</div>';
+    $("evt-sub").textContent = "";
+    return;
   }
+  renderEvents();
 }
 
 function renderEvents() {
-  const container = document.getElementById('events-container');
+  const box = $("events");
   if (!events.length) {
-    container.innerHTML = '<div class="loading-wrap">目前暫無售票活動，請稍後再來</div>';
+    box.innerHTML = '<div class="empty">目前暫無售票活動，請稍後再來</div>';
+    $("evt-sub").textContent = "";
     return;
   }
-  container.innerHTML = events.map((e, i) => {
-    const emoji = EVENT_EMOJI[i % EVENT_EMOJI.length];
-    const imgHtml = e.image_url
-      ? `<img src="${e.image_url}" alt="${e.name}" />`
-      : emoji;
-    // 過濾 description 中的場次設定（不顯示在卡片上）
-    const displayDesc = stripSessionConfig(e.description || '');
-    return `
-      <div class="event-card" id="evt-${e.id}" onclick="selectEvent('${e.id}')" style="animation-delay:${i*0.08}s">
-        <div class="event-img">${imgHtml}</div>
-        <div class="event-name">${e.name}</div>
-        <div class="event-desc">${displayDesc}</div>
-        <div class="event-info">
-          <span class="event-badge">\u{1F4C5} ${e.date}</span>
-          <span class="event-badge">\u23F0 ${e.time}</span>
-          <span class="event-badge">\u{1F4CD} ${e.venue}</span>
-        </div>
-      </div>`;
-  }).join('');
+  const selling = events.filter((e) => String(e.status || "selling") === "selling").length;
+  $("evt-sub").textContent = "共 " + events.length + " 場，其中 " + selling + " 場售票中";
+  box.innerHTML = events.map((e) => {
+    const st = String(e.status || "selling");
+    const open = st === "selling";
+    const d = dateParts(e.date);
+    const tag = open ? '<span class="tag">售票中</span>'
+      : st === "soldout" ? '<span class="tag off">已售完</span>'
+      : '<span class="tag off">已結束</span>';
+    return '<button type="button" class="evt' + (open ? "" : " out") + '" data-id="' + esc(e.id) + '"' +
+      (open ? "" : " disabled") + '>' +
+      '<span class="d"><b>' + esc(d.day) + '</b><span>' + esc(d.mon) + '</span></span>' +
+      '<span><span class="nm">' + esc(e.name) + '</span>' +
+      '<span class="meta">' + esc(e.time) + (e.venue ? " ・ " + esc(e.venue) : "") + '</span>' +
+      (e.description ? '<span class="desc">' + esc(e.description) + '</span>' : "") +
+      tag + '</span></button>';
+  }).join("");
+  box.querySelectorAll(".evt:not(.out)").forEach((b) => {
+    b.addEventListener("click", () => selectEvent(b.dataset.id));
+  });
 }
 
-// -- 場次設定解析 --
-function stripSessionConfig(desc) {
-  // 移除 ｜場次：... 部分
-  return desc.replace(/\uff5c\u5834\u6b21\uff1a[^\n]*/g, '').trim();
-}
-
-function parseSessionConfig(desc) {
-  // 搜尋 ｜場次：4/18(六)06:00/剩15名,4/19(日)06:00/剩20名,...
-  const match = desc.match(/\uff5c\u5834\u6b21\uff1a(.+)/);
-  if (!match) return [];
-  const parts = match[1].split(',');
-  return parts.map(part => {
-    const p = part.trim();
-    // 格式: 4/18(六)06:00/剩15名
-    const m = p.match(/^(.+?\(.+?\))\s*(\d{1,2}:\d{2})\s*\/\s*\u5269(\d+)\u540d$/);
-    if (!m) return null;
-    const dateWeekday = m[1]; // 4/18(六)
-    const time = m[2];       // 06:00
-    const remaining = parseInt(m[3], 10);
-    return { dateWeekday, time, remaining, raw: p };
-  }).filter(Boolean);
-}
-
-function getRemainingClass(remaining) {
-  if (remaining < 5)  return 'remaining-red';
-  if (remaining <= 10) return 'remaining-orange';
-  return 'remaining-green';
-}
-
-function renderSessions() {
-  const container = document.getElementById('session-container');
-  container.innerHTML = sessions.map((s, i) => {
-    const cls = getRemainingClass(s.remaining);
-    return `
-      <button class="session-card" id="ses-${i}" onclick="selectSession(${i})">
-        <span>
-          <span class="session-date">${s.dateWeekday}</span>
-          <span class="session-time"> ${s.time}</span>
-        </span>
-        <span class="session-meta">
-          <span class="session-remaining ${cls}">\u5269 ${s.remaining} \u540d</span>
-        </span>
-      </button>`;
-  }).join('');
-}
-
-function selectSession(index) {
-  selectedSession = sessions[index];
-  if (!selectedSession) return;
-
-  // 標記選中
-  document.querySelectorAll('.session-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('ses-' + index).classList.add('selected');
-
-  // 重設後續狀態
-  selectedTicket = null;
-  qty = 1;
-  document.getElementById('qty-section').classList.add('hidden');
-  document.getElementById('order-summary').classList.add('hidden');
-  document.getElementById('verify-section').classList.add('hidden');
-  document.getElementById('form-section').classList.add('hidden');
-
-  // 載入票種
-  loadTicketTypes(selectedEvent.id);
-
-  document.getElementById('session-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-// -- 選擇活動 --
 async function selectEvent(id) {
-  selectedEvent = events.find(e => String(e.id) === String(id));
-  if (!selectedEvent) return;
-
-  // 標記選中
-  document.querySelectorAll('.event-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('evt-' + id).classList.add('selected');
-
-  // 重設狀態
-  selectedTicket = null;
-  selectedSession = null;
-  sessions = [];
-  hasSessionConfig = false;
-  qty = 1;
-  document.getElementById('session-section').classList.add('hidden');
-  document.getElementById('ticket-section').classList.add('hidden');
-  document.getElementById('qty-section').classList.add('hidden');
-  document.getElementById('order-summary').classList.add('hidden');
-  document.getElementById('verify-section').classList.add('hidden');
-  document.getElementById('form-section').classList.add('hidden');
-
-  // 檢查是否有場次設定
-  sessions = parseSessionConfig(selectedEvent.description || '');
-  hasSessionConfig = sessions.length > 0;
-
-  if (hasSessionConfig) {
-    // 顯示場次選擇器
-    const section = document.getElementById('session-section');
-    section.classList.remove('hidden');
-    renderSessions();
-    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const ev = events.find((e) => String(e.id) === String(id));
+  if (!ev) return;
+  selEvent = ev; selTicket = null; qty = 1;
+  hideError();
+  document.querySelectorAll(".evt").forEach((b) => b.classList.toggle("on", b.dataset.id === String(id)));
+  $("tt-section").classList.remove("hidden");
+  $("qtyrow").classList.add("hidden");
+  $("verify-section").classList.add("hidden");
+  $("form-section").classList.add("hidden");
+  $("tt-sub").textContent = ev.name + " ・ " + dateParts(ev.date).full;
+  const banner = $("evt-banner");
+  if (ev.image_url) {
+    banner.src = ev.image_url;
+    banner.alt = ev.name;
+    banner.onerror = () => banner.classList.add("hidden");   // 圖掛了就收起來，不留破圖
+    banner.classList.remove("hidden");
   } else {
-    // 無場次設定，直接載入票種
-    loadTicketTypes(id);
+    banner.classList.add("hidden");
+    banner.removeAttribute("src");
   }
-}
-
-// -- 載入票種 --
-async function loadTicketTypes(eventId) {
-  const section = document.getElementById('ticket-section');
-  const container = document.getElementById('ticket-types-container');
-  section.classList.remove('hidden');
-  container.innerHTML = '<div class="loading-wrap"><div class="spinner"></div></div>';
+  $("tts").innerHTML = '<div class="skeleton"></div><div class="skeleton"></div>';
+  refresh();
 
   try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'getTicketTypes', site_id: SITE_ID, event_id: eventId })
-    });
-    const text = await res.text();
-    const data = JSON.parse(text);
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getTicketTypes', site_id: SITE_ID, event_id: id }) });
+    const data = JSON.parse(await res.text());
     ticketTypes = data.ticketTypes || [];
-
-    if (!ticketTypes.length) {
-      container.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:0.85rem;padding:1rem;">此活動暫無可購票種</div>';
-      return;
-    }
-
-    container.innerHTML = ticketTypes.map(t => `
-      <button class="ticket-type-btn" id="tt-${t.id}" onclick="selectTicketType('${t.id}')">
-        <span class="ticket-type-name">\u{1F3AB} ${t.name}</span>
-        <span class="ticket-type-meta">
-          <span class="ticket-type-price">$${t.price}</span>
-          <span class="remaining-badge">\u5269 ${t.available} \u5F35</span>
-        </span>
-      </button>
-    `).join('');
   } catch (err) {
-    container.innerHTML = '<div style="text-align:center;color:var(--red);font-size:0.8rem;">載入票種失敗</div>';
+    ticketTypes = [];
+    $("tts").innerHTML = '<div class="empty">票種載入失敗，請稍後再試</div>';
+    return;
   }
-
-  section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  renderTicketTypes();
+  goTo($("tt-section"));
 }
 
-// -- 選擇票種 --
-function selectTicketType(id) {
-  selectedTicket = ticketTypes.find(t => String(t.id) === String(id));
-  if (!selectedTicket) return;
+function renderTicketTypes() {
+  const box = $("tts");
+  if (!ticketTypes.length) {
+    box.innerHTML = '<div class="empty">此活動暫無可購票種</div>';
+    return;
+  }
+  box.innerHTML = ticketTypes.map((t) => {
+    const avail = Number(t.available) || 0;
+    const total = Number(t.total_qty) || 0;
+    const soldPct = total > 0 ? Math.min(100, Math.round((total - avail) * 100 / total)) : 0;
+    const out = avail <= 0;
+    const few = !out && avail <= 20;
+    const rm = out ? "已售完" : "剩 " + avail + (total ? " / " + total : "");
+    return '<button type="button" class="tt' + (out ? " out" : "") + '" data-id="' + esc(t.id) + '"' +
+      (out ? " disabled" : "") + '>' +
+      '<span class="lt"><span class="tn">' + esc(t.name) + '</span>' +
+      '<span class="td">' + (out ? "已結束販售" : "單張 " + money(t.price)) + '</span>' +
+      '<span class="bar-stock"><i style="width:' + soldPct + '%"></i></span></span>' +
+      '<span class="rt"><span class="tp">' + money(t.price) + '</span>' +
+      '<span class="rm' + (few ? " few" : "") + '">' + esc(rm) + '</span></span></button>';
+  }).join("");
+  box.querySelectorAll(".tt:not(.out)").forEach((b) => {
+    b.addEventListener("click", () => selectTicket(b.dataset.id));
+  });
+}
 
-  // 標記選中
-  document.querySelectorAll('.ticket-type-btn').forEach(b => b.classList.remove('selected'));
-  document.getElementById('tt-' + id).classList.add('selected');
+function selectTicket(id) {
+  const t = ticketTypes.find((x) => String(x.id) === String(id));
+  if (!t || Number(t.available) <= 0) return;
+  selTicket = t; qty = 1;
+  hideError();
+  document.querySelectorAll(".tt").forEach((b) => b.classList.toggle("on", b.dataset.id === String(id)));
+  $("qtyrow").classList.remove("hidden");
+  $("verify-section").classList.remove("hidden");
+  if (emailVerified) $("form-section").classList.remove("hidden");
+  refresh();
+  goTo($("qtyrow"));
+}
 
-  // 重設數量
-  qty = 1;
-  document.getElementById('qty-display').textContent = qty;
-  document.getElementById('qty-hint').textContent = `最多可購 ${Math.min(selectedTicket.available, 4)} 張`;
-
-  // 顯示數量選擇
-  document.getElementById('qty-section').classList.remove('hidden');
-  updateSummary();
-
-  document.getElementById('qty-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+function maxQty() {
+  if (!selTicket) return 1;
+  return Math.max(1, Math.min(Number(selTicket.available) || 1, MAX_PER_ORDER));
 }
 
 function changeQty(delta) {
-  if (!selectedTicket) return;
-  const maxQty = Math.min(selectedTicket.available, 4);
-  const newQty = qty + delta;
-  if (newQty < 1 || newQty > maxQty) return;
-  qty = newQty;
-  document.getElementById('qty-display').textContent = qty;
-  updateSummary();
+  const next = qty + delta;
+  if (next < 1 || next > maxQty()) return;
+  qty = next;
+  refresh();
 }
 
-function updateSummary() {
-  if (!selectedEvent || !selectedTicket) return;
+// 依目前狀態更新數量列、結帳列與進度條
+function refresh() {
+  const step = currentStep();
+  setStep(step);
 
-  document.getElementById('sum-event').textContent = selectedEvent.name;
-  document.getElementById('sum-ticket').textContent = selectedTicket.name;
-  document.getElementById('sum-price').textContent = '$' + selectedTicket.price;
-  document.getElementById('sum-qty').textContent = qty + ' 張';
-  document.getElementById('sum-total').textContent = '$' + (selectedTicket.price * qty);
-
-  // 場次資訊
-  if (hasSessionConfig && selectedSession) {
-    document.getElementById('sum-session-row').style.display = 'flex';
-    document.getElementById('sum-session').textContent = selectedSession.dateWeekday + ' ' + selectedSession.time;
-  } else {
-    document.getElementById('sum-session-row').style.display = 'none';
+  if (selTicket) {
+    const mx = maxQty();
+    $("qty").textContent = qty;
+    $("qty-hint").textContent = "購買張數（本次最多 " + mx + " 張）";
+    $("qty-minus").disabled = qty <= 1;
+    $("qty-plus").disabled = qty >= mx;
   }
 
-  document.getElementById('order-summary').classList.remove('hidden');
-  document.getElementById('verify-section').classList.remove('hidden');
-
-  if (emailVerified) {
-    document.getElementById('form-section').classList.remove('hidden');
+  const bar = $("checkout");
+  if (!selTicket) {
+    bar.classList.add("hidden");
+    return;
   }
+  bar.classList.remove("hidden");
+  const total = (Number(selTicket.price) || 0) * qty;
+  $("sum-text").innerHTML = esc(selTicket.name) + " ×" + qty + '<b id="sum-total">' + money(total) + '</b>';
+  $("go").textContent = emailVerified ? "前往填資料 →" : "下一步：驗證 Email →";
 }
 
-// -- Email 驗證 --
+// ══════════════════════════════════════════════════════
+// Email 驗證
+// ══════════════════════════════════════════════════════
 async function sendCode() {
-  const email = document.getElementById('email').value.trim();
-  if (!email) { showError('請輸入 Email'); return; }
-
-  const btn = document.getElementById('send-code-btn');
-  btn.disabled = true;
-  btn.textContent = '發送中\u2026';
+  const email = $("email").value.trim();
+  if (!email) { showError("請輸入 Email"); return; }
+  const btn = $("send-code");
+  btn.disabled = true; btn.textContent = "發送中…";
   hideError();
 
   try {
-    const checkRes = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
+    const chk = JSON.parse(await (await fetch(API_URL, {
+      method: "POST", headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({ action: 'checkMember', site_id: SITE_ID, email })
-    });
-    const checkData = JSON.parse(await checkRes.text());
+    })).text());
+    if (chk.blocked) {
+      showError("此 Email 已被停用，請聯繫主辦單位");
+      btn.disabled = false; btn.textContent = "發送驗證碼"; return;
+    }
 
-    if (checkData.blocked) { showError('此 Email 已被停用，請聯繫主辦單位'); btn.disabled = false; btn.textContent = '發送驗證碼'; return; }
-    if (checkData.hasActiveOrder) { showError('您有未完成的訂單，請先完成付款後再購票'); btn.disabled = false; btn.textContent = '發送驗證碼'; return; }
-
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
+    const data = JSON.parse(await (await fetch(API_URL, {
+      method: "POST", headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({ action: 'sendVerifyCode', site_id: SITE_ID, email })
-    });
-    const data = JSON.parse(await res.text());
+    })).text());
 
     if (data.success) {
-      document.getElementById('code-row').classList.remove('hidden');
-      document.getElementById('verify-status').textContent = (data.message || '驗證碼已寄出，請查看信箱');
-      document.getElementById('verify-status').style.color = 'var(--green)';
+      $("code-row").classList.remove("hidden");
+      const st = $("vstatus");
+      st.textContent = data.message || "驗證碼已寄出，請查看信箱";
+      st.style.color = "var(--success-ink)";
       let sec = 60;
-      btn.textContent = `${sec}s`;
-      const timer = setInterval(() => {
+      btn.textContent = sec + "s";                     // 按鈕已定寬，每秒換字不會推擠版面
+      if (codeTimer) clearInterval(codeTimer);
+      codeTimer = setInterval(() => {
         sec--;
-        btn.textContent = `${sec}s`;
-        if (sec <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = '重新發送'; }
+        btn.textContent = sec + "s";
+        if (sec <= 0) { clearInterval(codeTimer); codeTimer = null; btn.disabled = false; btn.textContent = "重新發送"; }
       }, 1000);
+      $("code").focus();
     } else {
-      showError(data.error || '發送失敗');
-      btn.disabled = false;
-      btn.textContent = '發送驗證碼';
+      showError(data.error || "發送失敗");
+      btn.disabled = false; btn.textContent = "發送驗證碼";
     }
   } catch (err) {
-    showError('API 連線失敗');
-    btn.disabled = false;
-    btn.textContent = '發送驗證碼';
+    showError("API 連線失敗");
+    btn.disabled = false; btn.textContent = "發送驗證碼";
   }
 }
 
 async function verifyEmail() {
-  const email = document.getElementById('email').value.trim();
-  const code  = document.getElementById('verify-code').value.trim();
-  if (!code) { showError('請輸入驗證碼'); return; }
-
-  const btn = document.getElementById('verify-btn');
-  btn.disabled = true;
-  btn.textContent = '驗證中\u2026';
+  const email = $("email").value.trim();
+  const code = $("code").value.trim();
+  if (!code) { showError("請輸入驗證碼"); return; }
+  const btn = $("do-verify");
+  btn.disabled = true; btn.textContent = "驗證中…";
+  hideError();
 
   try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
+    const data = JSON.parse(await (await fetch(API_URL, {
+      method: "POST", headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({ action: 'verifyCode', site_id: SITE_ID, email, code })
-    });
-    const data = JSON.parse(await res.text());
+    })).text());
 
     if (data.success) {
       emailVerified = true;
+      sessionToken = data.sessionToken || "";
       verifiedEmail = email;
-      sessionToken = data.sessionToken || '';
-      showVerified();
+      const st = $("vstatus");
+      st.textContent = "✅ 驗證成功";
+      st.style.color = "var(--success-ink)";
+      $("email").disabled = true;
+      $("code").disabled = true;
+      btn.disabled = true; btn.textContent = "已驗證";
+      $("send-code").classList.add("hidden");
+      $("code-row").classList.add("hidden");
+      $("form-section").classList.remove("hidden");
+      refresh();
+      goTo($("form-section"));
     } else {
-      showError(data.error || '驗證失敗');
-      btn.disabled = false;
-      btn.textContent = '驗證';
+      showError(data.error || "驗證失敗");
+      btn.disabled = false; btn.textContent = "驗證";
     }
   } catch (err) {
-    showError('API 連線失敗');
-    btn.disabled = false;
-    btn.textContent = '驗證';
+    showError("API 連線失敗");
+    btn.disabled = false; btn.textContent = "驗證";
   }
 }
 
-function showVerified() {
-  document.getElementById('verify-status').textContent = '\u2705 驗證成功';
-  document.getElementById('verify-status').style.color = 'var(--green)';
-  document.getElementById('email').disabled = true;
-  document.getElementById('verify-code').disabled = true;
-  document.getElementById('verify-btn').disabled = true;
-  document.getElementById('verify-btn').textContent = '已驗證';
-  document.getElementById('send-code-btn').classList.add('hidden');
-  document.getElementById('code-row').classList.add('hidden');
-  document.getElementById('form-section').classList.remove('hidden');
-}
-
-// -- 送出訂單 --
+// ══════════════════════════════════════════════════════
+// 送出訂單
+// ══════════════════════════════════════════════════════
 async function submitOrder() {
-  const name  = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  let   note  = document.getElementById('note').value.trim();
-
+  const name = $("name").value.trim();
+  const phone = $("phone").value.trim();
+  const note = $("note").value.trim();
   hideError();
-  if (!name)  { showError('請輸入姓名'); return; }
-  if (!phone) { showError('請輸入電話'); return; }
-  const phoneClean = phone.replace(/[-\s]/g, '');
-  if (!/^09\d{8}$/.test(phoneClean)) { showError('請輸入有效的手機號碼（09 開頭，共 10 碼）'); return; }
-  if (!selectedEvent || !selectedTicket) { showError('請選擇活動和票種'); return; }
 
-  // 場次資訊寫入備註
-  if (hasSessionConfig && selectedSession) {
-    const sessionNote = `\u3010\u5834\u6B21\u3011${selectedSession.dateWeekday} ${selectedSession.time}`;
-    note = note ? `${sessionNote}\n${note}` : sessionNote;
-  }
+  if (!name) { showError("請輸入姓名"); return; }
+  if (!phone) { showError("請輸入電話"); return; }
+  if (!/^09\d{8}$/.test(phone.replace(/[-\s]/g, ""))) { showError("請輸入有效的手機號碼（09 開頭，共 10 碼）"); return; }
+  if (!selEvent || !selTicket) { showError("請選擇活動與票種"); return; }
 
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.textContent = '送出中\u2026';
+  const btn = $("submit");
+  btn.disabled = true; btn.textContent = "送出中…";
 
   try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
+    const data = JSON.parse(await (await fetch(API_URL, {
+      method: "POST", headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({
-        action: 'submitTicketOrder', site_id: SITE_ID,
+        action: 'submitTicketOrder',
+        site_id: SITE_ID,
         email: verifiedEmail,
         sessionToken,
         name,
         phone,
-        event_id: String(selectedEvent.id),
-        ticket_type_id: String(selectedTicket.id),
+        event_id: String(selEvent.id),
+        ticket_type_id: String(selTicket.id),
         qty,
         note
       })
-    });
-    const data = JSON.parse(await res.text());
+    })).text());
 
     if (data.success) {
-      document.getElementById('shop-view').style.display = 'none';
-      document.getElementById('success-screen').style.display = 'block';
-      document.getElementById('success-id').textContent = '訂單編號：' + data.orderId;
-      document.getElementById('checkin-code').textContent = data.checkinCode;
+      showTicket(data.orderId, data.checkinCode);
     } else {
-      showError(data.error || '購票失敗');
-      btn.disabled = false;
-      btn.textContent = '\u{1F9D8} 確認購票';
+      showError(data.error || "購票失敗");
+      btn.disabled = false; btn.textContent = "🎫 確認購票";
     }
   } catch (err) {
-    showError('API 連線失敗');
-    btn.disabled = false;
-    btn.textContent = '\u{1F9D8} 確認購票';
+    showError("API 連線失敗");
+    btn.disabled = false; btn.textContent = "🎫 確認購票";
   }
 }
 
-// -- 重置 --
+function showTicket(orderId, checkinCode) {
+  const d = dateParts(selEvent.date);
+  $("tk-event").textContent = selEvent.name;
+  $("tk-sub").textContent = selTicket.name + " ・ " + qty + " 張" + (selEvent.venue ? " ・ " + selEvent.venue : "");
+  $("tk-date").textContent = d.full;
+  $("tk-time").textContent = selEvent.time || "—";
+  $("tk-qty").textContent = qty + " 人";
+  $("tk-oid").textContent = orderId;
+  $("tk-code").textContent = checkinCode;
+  paintQR($("tk-qr"), checkinCode);
+
+  $("buy-view").classList.add("hidden");
+  $("checkout").classList.add("hidden");
+  $("done-view").classList.remove("hidden");
+  setStep(4);
+  window.scrollTo(0, 0);
+  celebrate($("done-view"));
+}
+
+function celebrate(host) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cs = getComputedStyle(document.documentElement);
+  const colors = ["--primary", "--accent", "--success"].map((v) => cs.getPropertyValue(v).trim());
+  for (let i = 0; i < 26; i++) {
+    const c = document.createElement("span");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "%";
+    c.style.background = colors[i % colors.length];
+    c.style.animationDelay = (Math.random() * 0.25) + "s";
+    host.appendChild(c);
+    setTimeout(() => c.remove(), 1600);
+  }
+}
+
+async function shareTicket() {
+  const data = {
+    title: document.title,
+    text: "我報名了「" + (selEvent ? selEvent.name : "") + "」，一起來晨練 →",
+    url: location.href
+  };
+  try {
+    if (navigator.share) await navigator.share(data);
+    else { await navigator.clipboard.writeText(data.url); toast("連結已複製，貼給朋友吧！"); }
+  } catch (err) { /* 使用者取消分享 */ }
+}
+
+// ══════════════════════════════════════════════════════
+// 重置
+// ══════════════════════════════════════════════════════
 function resetPage() {
-  selectedEvent = null;
-  selectedTicket = null;
-  selectedSession = null;
-  sessions = [];
-  hasSessionConfig = false;
-  ticketTypes = [];
-  qty = 1;
-  emailVerified = false;
-  verifiedEmail = '';
-  sessionToken = '';
+  selEvent = null; selTicket = null; ticketTypes = []; qty = 1;
+  emailVerified = false; sessionToken = ""; verifiedEmail = "";
+  if (codeTimer) { clearInterval(codeTimer); codeTimer = null; }
 
-  document.getElementById('success-screen').style.display = 'none';
-  document.getElementById('shop-view').style.display = 'block';
+  $("done-view").classList.add("hidden");
+  $("buy-view").classList.remove("hidden");
+  $("tt-section").classList.add("hidden");
+  $("qtyrow").classList.add("hidden");
+  $("verify-section").classList.add("hidden");
+  $("form-section").classList.add("hidden");
 
-  document.querySelectorAll('.event-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('session-section').classList.add('hidden');
-  document.getElementById('ticket-section').classList.add('hidden');
-  document.getElementById('qty-section').classList.add('hidden');
-  document.getElementById('order-summary').classList.add('hidden');
-  document.getElementById('verify-section').classList.add('hidden');
-  document.getElementById('form-section').classList.add('hidden');
-
-  // 重建驗證區
-  document.getElementById('email').disabled = false;
-  document.getElementById('email').value = '';
-  document.getElementById('verify-code').disabled = false;
-  document.getElementById('verify-code').value = '';
-  document.getElementById('send-code-btn').classList.remove('hidden');
-  document.getElementById('send-code-btn').disabled = false;
-  document.getElementById('send-code-btn').textContent = '發送驗證碼';
-  document.getElementById('verify-btn').disabled = false;
-  document.getElementById('verify-btn').textContent = '驗證';
-  document.getElementById('code-row').classList.add('hidden');
-  document.getElementById('verify-status').textContent = '';
-
-  document.getElementById('name').value = '';
-  document.getElementById('phone').value = '';
-  document.getElementById('note').value = '';
-  document.getElementById('submit-btn').disabled = false;
-  document.getElementById('submit-btn').textContent = '\u{1F9D8} 確認購票';
-  document.getElementById('qty-display').textContent = '1';
+  $("email").disabled = false; $("email").value = "";
+  $("code").disabled = false; $("code").value = "";
+  $("code-row").classList.add("hidden");
+  $("send-code").classList.remove("hidden");
+  $("send-code").disabled = false; $("send-code").textContent = "發送驗證碼";
+  $("do-verify").disabled = false; $("do-verify").textContent = "驗證";
+  $("vstatus").textContent = "";
+  $("name").value = ""; $("phone").value = ""; $("note").value = "";
+  $("submit").disabled = false; $("submit").textContent = "🎫 確認購票";
 
   hideError();
+  refresh();
+  window.scrollTo(0, 0);
   loadEvents();
 }
 
-// -- 工具 --
-function showError(msg) {
-  const el = document.getElementById('error-msg');
-  el.textContent = msg;
-  el.classList.remove('hidden');
-}
-function hideError() {
-  document.getElementById('error-msg').classList.add('hidden');
+// ── 結帳列的「下一步」：帶去下一個還沒完成的區塊 ──
+function goNext() {
+  if (!emailVerified) { goTo($("verify-section")); $("email").focus(); return; }
+  goTo($("form-section"));
+  $("name").focus();
 }
 
-// -- 啟動 --
+// ══════════════════════════════════════════════════════
+// 啟動
+// ══════════════════════════════════════════════════════
+$("qty-minus").addEventListener("click", () => changeQty(-1));
+$("qty-plus").addEventListener("click", () => changeQty(1));
+$("send-code").addEventListener("click", sendCode);
+$("do-verify").addEventListener("click", verifyEmail);
+$("submit").addEventListener("click", submitOrder);
+$("go").addEventListener("click", goNext);
+$("share").addEventListener("click", shareTicket);
+$("again").addEventListener("click", resetPage);
+
+setStep(1);
 loadEvents();
 </script>
 </body>
