@@ -282,7 +282,12 @@ async function loadCampaigns() {
   }
 }
 function renderTotals() {
-  const open = campaigns.filter(c => pctOf(c) < 100 && msLeft(c) > 0).length;
+  // 正在開團＝尚未結團（未過期且未達人數上限）；已達標但仍可跟的團也算在內
+  const open = campaigns.filter(c => {
+    const max = parseInt(c.max_qty, 10) || 0;
+    const cur = parseInt(c.current_qty, 10) || 0;
+    return msLeft(c) > 0 && (max <= 0 || cur < max);
+  }).length;
   const done = campaigns.filter(c => pctOf(c) >= 100).length;
   const joined = campaigns.reduce((s, c) => s + (parseInt(c.current_qty, 10) || 0), 0);
   document.getElementById('stat-open').textContent = open + ' 團';
