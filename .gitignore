@@ -1,3 +1,13 @@
+# ===== 機密（不可移除這一區的規則）=====
+git_info.txt
+.env
+.env.*
+!.env.example
+*.token
+*.pem
+TOKENS.md
+_devtools/
+
 # OS
 .DS_Store
 Thumbs.db
@@ -14,3 +24,7 @@ Thumbs.db
 TOKENS.md
 tokens.md
 *.secret.md
+
+# 產物
+node_modules/
+*.log
