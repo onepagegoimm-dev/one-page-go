@@ -221,7 +221,7 @@ section{scroll-margin-top:calc(var(--header-h) + 8px)}
 .eyebrow{display:block;font-family:"Manrope";font-size:.78rem;font-weight:700;letter-spacing:.34em;color:var(--gold-400);text-transform:uppercase;margin-bottom:14px}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.orbit,.orbit-2,.orbit-dot{animation:none!important}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
 
 /* ── Header ── */
 header{position:fixed;inset:0 0 auto;z-index:100;height:var(--header-h);display:flex;align-items:center;
@@ -260,36 +260,229 @@ header.scrolled{background:rgba(7,12,30,.94);border-bottom-color:var(--hairline)
   background-size:56px 56px;
   mask-image:radial-gradient(760px 520px at 68% 42%,#000 15%,transparent 78%);
   -webkit-mask-image:radial-gradient(760px 520px at 68% 42%,#000 15%,transparent 78%)}
-.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-.hero h1{font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:900;letter-spacing:.03em;line-height:1.24;color:#fff}
-.hero h1 i{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p.lead{margin:22px 0 36px;font-size:clamp(1rem,1.6vw,1.12rem);color:var(--muted);max-width:30em}
-.hero p.lead b{color:var(--gold-300);font-weight:700}
-.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
-.hero-stats{display:flex;gap:38px;margin-top:46px;padding-top:26px;border-top:1px solid var(--hairline-2)}
-.hero-stats b{display:block;font-family:"Manrope";font-size:1.5rem;font-weight:800;color:var(--gold-300)}
-.hero-stats span{font-size:.82rem;color:var(--muted)}
+.hero-grid{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+.hero h1{font-size:clamp(2.4rem,4.9vw,3.9rem);font-weight:900;letter-spacing:.04em;line-height:1.22;color:#fff;text-shadow:0 0 44px rgba(231,205,156,.22)}
+.hero h1 i{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 26px rgba(201,160,99,.38))}
+.hv-copy{position:relative}
+.hv-copy::before{content:"";position:absolute;inset:-18% -14%;z-index:-1;
+  background:radial-gradient(closest-side,rgba(7,12,30,.88),rgba(7,12,30,.4) 62%,transparent)}
+.hv-cta{margin-top:38px;padding:15px 46px;font-size:1.05rem;letter-spacing:.08em;
+  box-shadow:0 10px 34px rgba(201,160,99,.36),0 0 60px rgba(201,160,99,.16);
+  animation:hvCtaGlow 4.5s ease-in-out infinite}
+@keyframes hvCtaGlow{50%{box-shadow:0 10px 34px rgba(201,160,99,.52),0 0 84px rgba(201,160,99,.28)}}
 .hero-seo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-/* ── 軌道視覺：呼應 logo 的雙圓 ── */
-.orbit-wrap{position:relative;width:min(430px,86vw);aspect-ratio:1;margin-left:auto}
-.orbit,.orbit-2{position:absolute;inset:0;border-radius:50%}
-.orbit{border:1.5px dashed rgba(201,160,99,.45);animation:spin 42s linear infinite}
-.orbit-2{inset:11%;border:1px solid var(--hairline-2);animation:spin 30s linear infinite reverse}
-.orbit-ring-3{position:absolute;inset:24%;border-radius:50%;border:1px solid rgba(201,160,99,.2)}
-.orbit-core{position:absolute;inset:33%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#18244C,#0B1228 70%);
-  border:1px solid var(--hairline);display:grid;place-items:center;box-shadow:0 24px 70px rgba(0,0,0,.55),inset 0 0 40px rgba(201,160,99,.08)}
-.orbit-core .core-chip{width:56%;aspect-ratio:1;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 10px 34px rgba(0,0,0,.5)}
-.orbit-core img{width:62%}
-.orbit-dot{position:absolute;top:50%;left:50%;width:10px;height:10px;margin:-5px;border-radius:50%}
-.orbit-dot i{position:absolute;inset:0;border-radius:50%}
-.d1{animation:spin 42s linear infinite}.d1 i{background:var(--gold-400);transform:translateX(calc(min(430px,86vw)/2));box-shadow:0 0 14px rgba(201,160,99,.8)}
-.d2{animation:spin 30s linear infinite reverse}.d2 i{background:#5B79D9;transform:translateX(calc(min(430px,86vw)/2*.78));box-shadow:0 0 12px rgba(91,121,217,.8)}
-.orbit-tag{position:absolute;padding:8px 14px;border-radius:999px;font-size:.78rem;font-family:"Manrope";font-weight:700;letter-spacing:.06em;
-  background:rgba(16,26,56,.85);border:1px solid var(--hairline);backdrop-filter:blur(6px)}
-.tag-1{top:9%;right:2%;color:var(--gold-300)}
-.tag-2{bottom:12%;left:0;color:#9DB4F5}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* ── hero 主視覺：活的一頁 3D 長卷（T-038）── */
+.hv-aur{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.hv-aur-1{width:56vw;height:46vh;left:-12vw;top:-14vh;opacity:.32;
+  background:radial-gradient(closest-side,rgba(201,160,99,.5),transparent 72%);
+  animation:hvDrift1 46s ease-in-out infinite alternate}
+.hv-aur-2{width:48vw;height:52vh;right:-14vw;bottom:-18vh;opacity:.26;
+  background:radial-gradient(closest-side,rgba(91,121,217,.42),rgba(201,160,99,.18) 55%,transparent 75%);
+  animation:hvDrift2 52s ease-in-out infinite alternate}
+@keyframes hvDrift1{to{transform:translate(9vw,7vh) scale(1.15)}}
+@keyframes hvDrift2{to{transform:translate(-7vw,-6vh) scale(1.12)}}
+.hv-stars{position:absolute;inset:0;pointer-events:none}
+.hv-stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(231,205,156,.9);animation:hvTw 4.6s ease-in-out infinite}
+.hv-stars i:nth-child(2n){width:2px;height:2px;background:rgba(244,241,234,.8)}
+.hv-stars i:nth-child(1){left:6%;top:18%;animation-delay:.2s}
+.hv-stars i:nth-child(2){left:14%;top:66%;animation-delay:1.4s}
+.hv-stars i:nth-child(3){left:22%;top:34%;animation-delay:2.6s}
+.hv-stars i:nth-child(4){left:31%;top:82%;animation-delay:.9s}
+.hv-stars i:nth-child(5){left:38%;top:12%;animation-delay:3.3s}
+.hv-stars i:nth-child(6){left:47%;top:58%;animation-delay:1.9s}
+.hv-stars i:nth-child(7){left:55%;top:26%;animation-delay:.5s}
+.hv-stars i:nth-child(8){left:63%;top:74%;animation-delay:2.2s}
+.hv-stars i:nth-child(9){left:71%;top:16%;animation-delay:3.8s}
+.hv-stars i:nth-child(10){left:78%;top:48%;animation-delay:1.1s}
+.hv-stars i:nth-child(11){left:86%;top:70%;animation-delay:2.9s}
+.hv-stars i:nth-child(12){left:92%;top:30%;animation-delay:.7s}
+.hv-stars i:nth-child(13){left:52%;top:88%;animation-delay:4.1s}
+.hv-stars i:nth-child(14){left:9%;top:44%;animation-delay:3.1s}
+@keyframes hvTw{0%,100%{opacity:.15}50%{opacity:.95}}
+.hv-stageOuter{position:relative;min-width:0}
+.hv-stage{perspective:1300px;width:fit-content;margin-left:auto;margin-right:0;position:relative}
+.hv-page{width:520px;transform:rotateY(-16deg) rotateX(6deg);transform-style:preserve-3d;border-radius:22px;
+  background:linear-gradient(165deg,rgba(24,38,82,.62),rgba(10,17,36,.78));
+  border:1px solid rgba(231,205,156,.34);overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 1px rgba(255,255,255,.04),0 38px 90px rgba(0,0,0,.55),0 0 110px rgba(201,160,99,.16)}
+.hv-chrome{display:flex;align-items:center;gap:8px;padding:15px 18px;border-bottom:1px solid var(--hairline-2)}
+.hv-chrome b{width:10px;height:10px;border-radius:50%;background:#2A3558}
+.hv-chrome b:nth-child(3){background:var(--gold-500)}
+.hv-chrome span{flex:1;height:12px;margin-left:8px;border-radius:999px;background:rgba(255,255,255,.09)}
+.hv-viewport{position:relative;height:470px;overflow:hidden}
+.hv-roll{animation:hvRoll 31.5s infinite;will-change:transform}
+/* 9 段＋首段複本；位移 = n × 470px */
+@keyframes hvRoll{
+  0%,6.7%{transform:translateY(0);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  11.11%,17.8%{transform:translateY(-470px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  22.22%,28.9%{transform:translateY(-940px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  33.33%,40%{transform:translateY(-1410px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  44.44%,51.1%{transform:translateY(-1880px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  55.55%,62.2%{transform:translateY(-2350px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  66.66%,73.4%{transform:translateY(-2820px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  77.77%,84.5%{transform:translateY(-3290px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  88.88%,95.6%{transform:translateY(-3760px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  100%{transform:translateY(-4230px)}
+}
+.hv-scan{position:absolute;left:0;right:0;top:-14%;height:80px;z-index:3;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(to bottom,transparent,rgba(231,205,156,.16) 40%,rgba(231,205,156,.34) 50%,rgba(231,205,156,.16) 60%,transparent);
+  animation:hvScan 3.5s cubic-bezier(.4,.1,.5,.9) infinite}
+@keyframes hvScan{0%{top:-16%;opacity:0}10%{opacity:1}52%{top:108%;opacity:1}58%{top:108%;opacity:0}100%{top:-16%;opacity:0}}
+.hv-sec{height:470px;padding:26px 24px;position:relative}
+.hv-tag{position:absolute;left:24px;bottom:18px;font-size:.74rem;letter-spacing:.3em;color:var(--muted)}
+.hv-bar{border-radius:999px;background:rgba(255,255,255,.1);height:12px}
+.hv-bar.gold{background:var(--grad-gold);box-shadow:0 0 18px rgba(201,160,99,.4)}
+.hv-card{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.14);border-radius:var(--r-md)}
+.hv-banner{height:196px;border-radius:var(--r-md);position:relative;overflow:hidden;margin-bottom:18px;
+  background:linear-gradient(180deg,rgba(7,12,30,.05),rgba(7,12,30,.58)),url('assets/opg-banner.jpg') center 62%/cover no-repeat;
+  border:1px solid var(--hairline);box-shadow:0 0 44px rgba(201,160,99,.16)}
+.hv-bname{position:absolute;left:16px;bottom:10px;line-height:1.3}
+.hv-bname b{display:block;font-size:1.05rem;font-weight:900;letter-spacing:.12em}
+.hv-bname small{font-size:.68rem;letter-spacing:.3em;color:var(--gold-300)}
+.hv-pills{display:flex;gap:10px;margin-top:18px}
+.hv-pills span{padding:7px 20px;border-radius:999px;font-size:.78rem;color:var(--muted);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.hv-pills span.on{color:#131A36;font-weight:700;background:var(--grad-gold);box-shadow:0 0 22px rgba(201,160,99,.4)}
+.hv-prods{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:8px}
+.hv-prod{padding:10px}
+.hv-prod .hv-ph{height:118px;border-radius:10px;background-image:url('assets/opg-products.jpg');background-size:300% auto;background-repeat:no-repeat;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.hv-ph-1{background-position:0% 50%}
+.hv-ph-2{background-position:50% 50%}
+.hv-ph-3{background-position:100% 50%}
+.hv-nm{display:block;margin-top:9px;font-size:.8rem;color:var(--muted);line-height:1.4}
+.hv-price{display:block;font-weight:800;color:var(--gold-300);font-size:.92rem}
+.hv-prod.hot{border-color:rgba(231,205,156,.5);box-shadow:0 0 30px rgba(201,160,99,.24)}
+.hv-row{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:12px}
+.hv-row.suggest{border-style:dashed}
+.hv-av{width:40px;height:40px;border-radius:10px;flex:none;background-image:url('assets/opg-products.jpg');background-size:300% auto;background-repeat:no-repeat}
+.hv-av.cake{background-position:0% 50%}
+.hv-av.latte{background-position:50% 50%}
+.hv-av.gift{background-position:100% 50%}
+.hv-av.evt{background-image:url('assets/opg-banner.jpg');background-size:cover;background-position:center 60%}
+.hv-info{flex:1;min-width:0}
+.hv-info b{display:block;font-size:.84rem;font-weight:700}
+.hv-info small{color:var(--muted);font-size:.72rem}
+.hv-qty{font-style:normal;color:var(--muted);font-size:.82rem}
+.hv-addchip{font-style:normal;flex:none;padding:5px 13px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--hairline);color:var(--gold-300);font-size:.74rem;font-weight:700}
+.hv-shipbar{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.76rem;color:var(--gold-300);white-space:nowrap}
+.hv-shipbar i{flex:1;height:7px;border-radius:999px;background:linear-gradient(90deg,rgba(231,205,156,.95),rgba(201,160,99,.45));box-shadow:0 0 14px rgba(201,160,99,.4)}
+.hv-total{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--hairline-2);padding-top:16px;margin-top:6px}
+.hv-total b{color:var(--gold-300);font-size:1.25rem;font-weight:800}
+.hv-paybtn{margin-top:16px;text-align:center;padding:12px 0;border-radius:999px;background:var(--grad-gold);color:#131A36;font-weight:800;letter-spacing:.1em;box-shadow:0 8px 26px rgba(201,160,99,.32)}
+.hv-paybtn.slim{margin-top:14px;padding:10px 0}
+.hv-pay{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hv-checkmark{width:118px;height:118px;border-radius:50%;position:relative;background:var(--grad-gold);box-shadow:0 0 60px rgba(201,160,99,.5);display:flex;align-items:center;justify-content:center}
+.hv-checkmark svg{width:56px;height:56px}
+.hv-checkmark::before,.hv-checkmark::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(231,205,156,.55);animation:hvRing 2.6s ease-out infinite}
+.hv-checkmark::after{animation-delay:1.3s}
+@keyframes hvRing{to{transform:scale(2);opacity:0}}
+.hv-pay p{margin-top:22px;font-weight:700;letter-spacing:.2em;color:var(--gold-300)}
+.hv-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:8px}
+.hv-cal span{height:34px;border-radius:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+.hv-cal span.on{background:var(--grad-gold);box-shadow:0 0 18px rgba(201,160,99,.45)}
+.hv-times{display:flex;gap:10px;margin-top:18px}
+.hv-times span{flex:1;text-align:center;padding:9px 0;border-radius:999px;font-size:.82rem;color:var(--muted);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.hv-times span.on{color:#131A36;font-weight:800;background:var(--grad-gold);box-shadow:0 0 22px rgba(201,160,99,.4)}
+.hv-seats{display:grid;grid-template-columns:repeat(12,1fr);gap:9px;margin-top:14px;padding:18px}
+.hv-seats span{aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.09)}
+.hv-seats span.pick{background:var(--grad-gold);box-shadow:0 0 14px rgba(201,160,99,.55)}
+.hv-seats span.blink{animation:hvPk 2.2s ease-in-out infinite}
+@keyframes hvPk{0%,100%{background:rgba(255,255,255,.09);box-shadow:none}50%{background:var(--grad-gold);box-shadow:0 0 14px rgba(201,160,99,.55)}}
+.hv-stagebar{height:10px;border-radius:999px;margin:4px 30px 0;background:linear-gradient(90deg,transparent,rgba(231,205,156,.5),transparent)}
+.hv-mini{padding:16px}
+.hv-mphead{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.hv-mplogo{width:22px;height:22px;border-radius:50%}
+.hv-mpnav{flex:1;height:9px;border-radius:999px;background:rgba(255,255,255,.1)}
+.hv-mphero{height:52px;border-radius:9px;margin-bottom:12px;opacity:.9}
+.hv-mpgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.hv-mpgrid span{height:44px;border-radius:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09)}
+.hv-mpbtn{width:120px;height:26px;border-radius:999px}
+.hv-accent{background:var(--grad-gold);animation:hvAccent 9s infinite}
+@keyframes hvAccent{
+  0%,30%{background:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45)}
+  33%,63%{background:linear-gradient(135deg,#9DB4F5,#5B79D9 60%,#3D56A8)}
+  66%,96%{background:linear-gradient(135deg,#F5C2CE,#D9738F 60%,#A84E68)}
+  100%{background:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45)}
+}
+.hv-swatches{display:flex;gap:14px;margin-top:16px;align-items:center}
+.hv-lbl{font-size:.76rem;color:var(--muted);margin-right:4px}
+.hv-sw{width:26px;height:26px;border-radius:50%;position:relative}
+.hv-sw.gold{background:linear-gradient(135deg,#E7CD9C,#A87F45)}
+.hv-sw.blue{background:linear-gradient(135deg,#9DB4F5,#3D56A8)}
+.hv-sw.rose{background:linear-gradient(135deg,#F5C2CE,#A84E68)}
+.hv-sw::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(231,205,156,.9);opacity:0;animation:hvSwOn 9s infinite}
+.hv-sw.blue::after{animation-delay:3s;border-color:rgba(157,180,245,.9)}
+.hv-sw.rose::after{animation-delay:6s;border-color:rgba(245,194,206,.9)}
+@keyframes hvSwOn{0%,30%{opacity:1}33%,100%{opacity:0}}
+.hv-layouts{display:flex;gap:12px;margin-top:14px;align-items:center}
+.hv-lay{width:56px;height:40px;border-radius:8px;position:relative;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14)}
+.hv-lay::before{content:"";position:absolute;left:6px;right:6px;top:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.18)}
+.hv-lay-1::after{content:"";position:absolute;left:6px;top:17px;bottom:6px;width:18px;border-radius:3px;background:rgba(255,255,255,.1)}
+.hv-lay-2::after{content:"";position:absolute;left:6px;right:6px;top:17px;bottom:6px;border-radius:3px;
+  background:linear-gradient(90deg,rgba(255,255,255,.1) 30%,transparent 30%,transparent 36%,rgba(255,255,255,.1) 36%,rgba(255,255,255,.1) 64%,transparent 64%,transparent 70%,rgba(255,255,255,.1) 70%)}
+.hv-lay-3::after{content:"";position:absolute;left:6px;right:6px;top:17px;height:12px;border-radius:3px;background:rgba(201,160,99,.35)}
+.hv-lay.on{border-color:rgba(231,205,156,.7);box-shadow:0 0 16px rgba(201,160,99,.35)}
+.hv-msg{max-width:82%;padding:13px 16px;margin-bottom:14px}
+.hv-msg.user{margin-left:auto;background:linear-gradient(160deg,rgba(201,160,99,.24),rgba(201,160,99,.1));border-color:rgba(231,205,156,.35);font-size:.86rem;font-weight:700}
+.hv-msg.bot{position:relative;padding-left:44px}
+.hv-spark{position:absolute;left:14px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--grad-gold);color:#131A36;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(201,160,99,.5);animation:hvSpark 2.4s ease-in-out infinite}
+@keyframes hvSpark{50%{box-shadow:0 0 28px rgba(201,160,99,.8)}}
+.hv-type{height:9px;border-radius:999px;background:rgba(255,255,255,.14);margin:9px 0;animation:hvTyping 6s cubic-bezier(.25,.9,.35,1) infinite}
+.hv-t1{--w:92%}
+.hv-t2{--w:76%;animation-delay:.7s}
+.hv-t3{--w:56%;animation-delay:1.4s}
+.hv-g1{--w:96%;animation-delay:2.1s}
+.hv-g2{--w:68%;animation-delay:2.7s}
+@keyframes hvTyping{0%{width:0;opacity:.4}30%{width:var(--w);opacity:1}100%{width:var(--w);opacity:1}}
+.hv-aiTag{display:inline-block;margin-top:8px;padding:4px 14px;border-radius:999px;background:var(--grad-gold);color:#131A36;font-size:.72rem;font-weight:800;letter-spacing:.1em;animation:hvTagIn 6s ease infinite}
+@keyframes hvTagIn{0%,55%{opacity:0;transform:translateY(6px)}68%,96%{opacity:1;transform:none}100%{opacity:0}}
+.hv-gen{display:flex;align-items:center;gap:12px;padding:12px 14px;max-width:82%}
+.hv-gen .hv-info{flex:1;min-width:0}
+.hv-gen .hv-type{margin:7px 0}
+.hv-kpi{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.hv-kpi span{font-size:.82rem;color:var(--muted)}
+.hv-kpi b{font-size:1.45rem;font-weight:800;color:var(--gold-300);text-shadow:0 0 24px rgba(201,160,99,.4)}
+.hv-statchips{display:flex;gap:12px;margin-bottom:12px}
+.hv-scp{flex:1;text-align:center;padding:8px 0 6px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);line-height:1.35}
+.hv-scp b{display:block;color:var(--gold-300);font-size:1.02rem;font-weight:800}
+.hv-scp small{color:var(--muted);font-size:.7rem}
+.hv-chart{display:flex;align-items:flex-end;gap:12px;height:132px;padding:18px;margin-bottom:12px}
+.hv-chart i{flex:1;border-radius:6px 6px 2px 2px;height:var(--h);background:linear-gradient(180deg,rgba(231,205,156,.85),rgba(201,160,99,.25));transform-origin:bottom;animation:hvBarGrow 8s cubic-bezier(.3,1.2,.4,1) infinite}
+.hv-chart i:nth-child(2){animation-delay:.15s}
+.hv-chart i:nth-child(3){animation-delay:.3s}
+.hv-chart i:nth-child(4){animation-delay:.45s}
+.hv-chart i:nth-child(5){animation-delay:.6s}
+.hv-chart i:nth-child(6){animation-delay:.75s}
+.hv-chart i:nth-child(7){animation-delay:.9s}
+.hv-chart i.hot{background:var(--grad-gold);box-shadow:0 0 22px rgba(201,160,99,.5)}
+@keyframes hvBarGrow{0%{transform:scaleY(.12);opacity:.4}26%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:1}}
+.hv-insight{position:relative;padding:12px 14px 12px 46px;font-size:.79rem;line-height:1.6}
+.hv-insight .hv-spark{top:13px}
+.hv-insight b{color:var(--gold-300)}
+.hv-chip{position:absolute;z-index:4;display:flex;align-items:center;gap:11px;padding:11px 18px;border-radius:14px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.17);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 12px 34px rgba(0,0,0,.4),0 0 28px rgba(201,160,99,.13);font-size:.86rem;white-space:nowrap}
+.hv-chip b{font-weight:800;color:var(--ink)}
+.hv-chip small{color:var(--muted);font-size:.74rem}
+.hv-ico{width:27px;height:27px;border-radius:50%;flex:none;background:var(--grad-gold);color:#131A36;font-weight:800;font-size:.72rem;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(201,160,99,.5)}
+.hv-chip-1{top:6%;left:-13%;animation:hvFl1 6.5s ease-in-out infinite}
+.hv-chip-2{top:36%;right:-9%;animation:hvFl2 8s ease-in-out infinite}
+.hv-chip-3{bottom:12%;left:-7%;animation:hvFl3 9.5s ease-in-out infinite}
+.hv-chip-4{bottom:-3%;right:-6%;animation:hvFl4 7.2s ease-in-out infinite}
+@keyframes hvFl1{50%{transform:translateY(-14px)}}
+@keyframes hvFl2{50%{transform:translateY(-18px)}}
+@keyframes hvFl3{50%{transform:translateY(-11px)}}
+@keyframes hvFl4{50%{transform:translateY(-15px)}}
+@media (prefers-reduced-motion:reduce){
+  .hv-roll,.hv-scan,.hv-aur,.hv-stars i,.hv-chip,.hv-cta,
+  .hv-checkmark::before,.hv-checkmark::after,.hv-seats span.blink,
+  .hv-accent,.hv-sw::after,.hv-type,.hv-aiTag,.hv-chart i{animation:none!important}
+  .hv-scan{display:none}
+  .hv-roll{transform:translateY(-470px)} /* 靜態停在商品段 */
+  .hv-type{width:var(--w)}
+  .hv-aiTag{opacity:1}
+}
 
 /* ── 區塊通用 ── */
 .sec{padding:96px 0}
@@ -433,15 +626,29 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
   .hamburger{display:block}
   .hero{padding:calc(var(--header-h) + 48px) 0 80px}
   .hero-grid{grid-template-columns:1fr;gap:52px}
-  .orbit-wrap{margin:0 auto}
+  .hv-copy{text-align:center}
+  .hv-copy::before{inset:-12% -20%}
+  .hv-stageOuter{height:600px;overflow:visible}
+  .hv-stage{position:relative;left:50%;margin:0;transform:translateX(-50%) scale(.9);transform-origin:top center}
   .features{grid-template-columns:1fr}
   .templates{grid-template-columns:1fr}
   .plans{grid-template-columns:1fr;max-width:440px;margin:0 auto}
   .faqs{grid-template-columns:1fr}
-  .hero-stats{gap:24px}
+  .hv-chip-1{left:-6%}.hv-chip-2{right:-4%}.hv-chip-3{left:-2%}.hv-chip-4{right:-2%}
   .compare-card{padding:28px 18px}
 }
-@media (max-width:520px){.sec{padding:66px 0}.stats{grid-template-columns:1fr 1fr;gap:12px}.hero-btns .btn{flex:1}.tpl{flex-direction:column}.tech-plus{display:none}}
+@media (max-width:640px){
+  .hv-stageOuter{height:490px}
+  .hv-stage{transform:translateX(-50%) scale(.72)}
+}
+@media (max-width:520px){.sec{padding:66px 0}.stats{grid-template-columns:1fr 1fr;gap:12px}.tpl{flex-direction:column}.tech-plus{display:none}
+  .hv-stageOuter{height:410px}
+  .hv-stage{transform:translateX(-50%) scale(.58)}
+  .hv-chip{font-size:.78rem;padding:9px 13px}
+  .hv-chip-1{left:-4%;top:2%}
+  .hv-chip-2{right:-6%;top:34%}
+  .hv-chip-3,.hv-chip-4{display:none}
+}
         </style>
     </head>
     <body>
@@ -474,35 +681,178 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
 
         <!-- ── Hero ── -->
         <section class="hero" id="hero">
+            <div class="hv-aur hv-aur-1" aria-hidden="true"></div>
+            <div class="hv-aur hv-aur-2" aria-hidden="true"></div>
+            <div class="hv-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
             <div class="container hero-grid">
-                <div class="reveal in">
-                    <span class="eyebrow en">One-Page Web App</span>
-                    <h1>一頁搞定，<br><i>生意啟動</i></h1>
-                    <p class="lead">專為小型商家打造的單頁式網頁應用：微型電商、預約、團購、售票。<b>NT$2,500 起一次付清，終身免月費</b>，版型與風格可依需求客製討論。</p>
+                <div class="hv-copy reveal in">
+                    <h1>一頁搞定<br><i>生意啟動</i></h1>
                     <!-- GEO：完整描述供搜尋引擎擷取，視覺上不顯示 -->
                     <p class="hero-seo">
                         One Page Go 是一項台灣的單頁式網頁應用製作服務，為小型商家提供微型電商、預約系統、團購管理與活動售票四種方案。採用 GitHub Pages、Cloudflare Workers 與 D1 免費架構，NT$2,500 起一次付清後終身零月費運作。與月租開店平台相比，兩年可節省超過 NT$27,000，且每個商家擁有獨立的專屬資料庫，資料可隨時完整匯出，不受平台綁定。
                     </p>
-                    <div class="hero-btns">
-                        <a class="btn btn-gold" href="onboarding/index.html">立即開始</a>
-                        <a class="btn btn-ghost" href="#pricing">查看方案</a>
-                    </div>
-                    <div class="hero-stats">
-                        <div><b class="en">3 天</b><span>最快上線</span></div>
-                        <div><b class="en">NT$2,500 起</b><span>一次付清</span></div>
-                        <div><b class="en">$0</b><span>上線後月費</span></div>
-                    </div>
+                    <a class="btn btn-gold hv-cta" href="onboarding/index.html">立即開始</a>
                 </div>
-                <div class="hero-visual reveal in">
-                    <div class="orbit-wrap" aria-hidden="true">
-                        <div class="orbit"></div>
-                        <div class="orbit-2"></div>
-                        <div class="orbit-ring-3"></div>
-                        <div class="orbit-dot d1"><i></i></div>
-                        <div class="orbit-dot d2"><i></i></div>
-                        <div class="orbit-core"><div class="core-chip"><img src="onepagego_mark_only_transparent.png" alt=""></div></div>
-                        <div class="orbit-tag tag-1 en">ONE PAGE</div>
-                        <div class="orbit-tag tag-2 en">GO LIVE</div>
+                <div class="hv-stageOuter reveal in" aria-hidden="true">
+                    <div class="hv-stage">
+                        <div class="hv-page">
+                            <div class="hv-chrome"><b></b><b></b><b></b><span></span></div>
+                            <div class="hv-viewport">
+                                <div class="hv-scan"></div>
+                                <div class="hv-roll">
+
+                                    <!-- S1 店頭橫幅 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-banner">
+                                            <div class="hv-bname"><b>暖窩烘焙</b><small class="en">WARM NEST BAKERY</small></div>
+                                        </div>
+                                        <div class="hv-bar gold" style="width:44%;margin-bottom:12px"></div>
+                                        <div class="hv-bar" style="width:66%"></div>
+                                        <div class="hv-pills"><span class="on">全部商品</span><span>本週熱銷</span><span>關於我們</span></div>
+                                        <span class="hv-tag en">ONLINE STORE</span>
+                                    </div>
+
+                                    <!-- S2 商品三格 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-bar gold" style="width:38%;margin-bottom:16px"></div>
+                                        <div class="hv-prods">
+                                            <div class="hv-card hv-prod"><div class="hv-ph hv-ph-1"></div><span class="hv-nm">生巧克力蛋糕</span><span class="hv-price en">NT$180</span></div>
+                                            <div class="hv-card hv-prod hot"><div class="hv-ph hv-ph-2"></div><span class="hv-nm">經典拿鐵</span><span class="hv-price en">NT$170</span></div>
+                                            <div class="hv-card hv-prod"><div class="hv-ph hv-ph-3"></div><span class="hv-nm">職人禮盒</span><span class="hv-price en">NT$320</span></div>
+                                        </div>
+                                        <span class="hv-tag">微型電商・商品一覽</span>
+                                    </div>
+
+                                    <!-- S3 購物車 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-card hv-row"><div class="hv-av cake"></div><div class="hv-info"><b>生巧克力蛋糕</b><small class="en">NT$180</small></div><em class="hv-qty">×1</em></div>
+                                        <div class="hv-card hv-row"><div class="hv-av latte"></div><div class="hv-info"><b>經典拿鐵</b><small class="en">NT$170</small></div><em class="hv-qty">×2</em></div>
+                                        <div class="hv-card hv-row suggest"><div class="hv-av gift"></div><div class="hv-info"><b>加購推薦・職人禮盒</b><small class="en">NT$320</small></div><em class="hv-addchip">＋加購</em></div>
+                                        <div class="hv-total"><span>合計</span><b class="en">NT$520</b></div>
+                                        <div class="hv-shipbar"><i></i><span>已達免運門檻 ✓</span></div>
+                                        <div class="hv-paybtn slim">前往結帳</div>
+                                        <span class="hv-tag">購物車・線上收款</span>
+                                    </div>
+
+                                    <!-- S4 付款成功 -->
+                                    <div class="hv-sec hv-pay">
+                                        <div class="hv-checkmark">
+                                            <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l5 5 10-11" stroke="#131A36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                        <p>付款成功</p>
+                                    </div>
+
+                                    <!-- S5 預約日曆 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-card hv-row"><div class="hv-av latte"></div><div class="hv-info"><b>甜點手作課</b><small>90 分鐘・NT$680</small></div><em class="hv-addchip">餘 3 位</em></div>
+                                        <div class="hv-cal">
+                                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span class="on"></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span class="on"></span><span></span><span></span>
+                                        </div>
+                                        <div class="hv-times"><span>10:00</span><span class="on">14:00</span><span>16:30</span></div>
+                                        <div class="hv-paybtn slim">確認預約</div>
+                                        <span class="hv-tag">預約系統・時段即時鎖定</span>
+                                    </div>
+
+                                    <!-- S6 座位圖 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-card hv-row"><div class="hv-av evt"></div><div class="hv-info"><b>假日烘焙市集</b><small>12/14（六）14:00・暖窩門市</small></div><em class="hv-addchip">熱賣中</em></div>
+                                        <div class="hv-stagebar"></div>
+                                        <div class="hv-card hv-seats">
+                                            <span></span><span></span><span></span><span class="pick"></span><span class="pick"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span class="pick"></span><span class="pick"></span><span class="blink"></span><span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span class="pick"></span><span></span><span></span><span></span><span></span><span class="blink"></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span></span><span class="pick"></span><span class="pick"></span><span></span><span></span><span></span><span></span><span></span>
+                                        </div>
+                                        <div class="hv-total"><span>已選 2 位</span><b class="en">NT$800</b></div>
+                                        <div class="hv-paybtn slim">確認座位</div>
+                                        <span class="hv-tag">活動售票・座位即選即鎖</span>
+                                    </div>
+
+                                    <!-- S7 客製設計 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-bar gold" style="width:36%;margin-bottom:16px"></div>
+                                        <div class="hv-card hv-mini">
+                                            <div class="hv-mphead"><i class="hv-mplogo hv-accent"></i><span class="hv-mpnav"></span></div>
+                                            <div class="hv-mphero hv-accent"></div>
+                                            <div class="hv-mpgrid"><span></span><span></span><span></span></div>
+                                            <div class="hv-mpbtn hv-accent"></div>
+                                        </div>
+                                        <div class="hv-swatches">
+                                            <span class="hv-lbl">配色</span>
+                                            <span class="hv-sw gold"></span>
+                                            <span class="hv-sw blue"></span>
+                                            <span class="hv-sw rose"></span>
+                                        </div>
+                                        <div class="hv-layouts">
+                                            <span class="hv-lbl">版型</span>
+                                            <span class="hv-lay hv-lay-1"></span>
+                                            <span class="hv-lay hv-lay-2 on"></span>
+                                            <span class="hv-lay hv-lay-3"></span>
+                                        </div>
+                                        <span class="hv-tag">客製設計・版型與配色都能談</span>
+                                    </div>
+
+                                    <!-- S8 AI 輔助 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-bar gold" style="width:32%;margin-bottom:16px"></div>
+                                        <div class="hv-card hv-msg user">幫我寫一段商品介紹文案</div>
+                                        <div class="hv-card hv-msg bot">
+                                            <span class="hv-spark">✦</span>
+                                            <div class="hv-type hv-t1"></div>
+                                            <div class="hv-type hv-t2"></div>
+                                            <div class="hv-type hv-t3"></div>
+                                            <div class="hv-aiTag">AI 文案完成</div>
+                                        </div>
+                                        <div class="hv-card hv-gen">
+                                            <div class="hv-av cake"></div>
+                                            <div class="hv-info"><div class="hv-type hv-g1"></div><div class="hv-type hv-g2"></div></div>
+                                            <em class="hv-addchip">套用文案</em>
+                                        </div>
+                                        <span class="hv-tag">AI 輔助工具・可選購或附贈</span>
+                                    </div>
+
+                                    <!-- S9 AI 訂單分析 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-kpi"><span>本月營收</span><b class="en">NT$48,200</b></div>
+                                        <div class="hv-statchips">
+                                            <span class="hv-scp"><b class="en">32</b><small>今日訂單</small></span>
+                                            <span class="hv-scp"><b class="en">NT$412</b><small>平均客單</small></span>
+                                            <span class="hv-scp"><b class="en">68%</b><small>回頭客</small></span>
+                                        </div>
+                                        <div class="hv-card hv-chart">
+                                            <i style="--h:38%"></i><i style="--h:52%"></i><i style="--h:46%"></i>
+                                            <i style="--h:64%"></i><i style="--h:58%"></i><i style="--h:78%"></i>
+                                            <i class="hot" style="--h:92%"></i>
+                                        </div>
+                                        <div class="hv-card hv-insight">
+                                            <span class="hv-spark">✦</span>
+                                            <b>AI 分析</b>：週五 18:00 訂單最集中，生巧克力蛋糕連續 3 週熱銷，建議推出限時組合優惠。
+                                        </div>
+                                        <span class="hv-tag">AI 訂單分析・自動統計、主動建議</span>
+                                    </div>
+
+                                    <!-- S1 複本（無縫循環用） -->
+                                    <div class="hv-sec">
+                                        <div class="hv-banner">
+                                            <div class="hv-bname"><b>暖窩烘焙</b><small class="en">WARM NEST BAKERY</small></div>
+                                        </div>
+                                        <div class="hv-bar gold" style="width:44%;margin-bottom:12px"></div>
+                                        <div class="hv-bar" style="width:66%"></div>
+                                        <div class="hv-pills"><span class="on">全部商品</span><span>本週熱銷</span><span>關於我們</span></div>
+                                        <span class="hv-tag en">ONLINE STORE</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 玻璃通知晶片 -->
+                        <div class="hv-chip hv-chip-1"><span class="hv-ico">+1</span><span><b>新訂單</b> <small>微型電商・剛剛</small></span></div>
+                        <div class="hv-chip hv-chip-2"><span class="hv-ico">✓</span><span><b>已收款 NT$520</b></span></div>
+                        <div class="hv-chip hv-chip-3"><span class="hv-ico">✓</span><span><b>預約成功</b> <small>14:00</small></span></div>
+                        <div class="hv-chip hv-chip-4"><span class="hv-ico">✦</span><span><b>AI 文案已生成</b></span></div>
                     </div>
                 </div>
             </div>
