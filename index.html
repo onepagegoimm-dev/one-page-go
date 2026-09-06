@@ -232,9 +232,12 @@ header.scrolled{background:rgba(7,12,30,.94);border-bottom-color:var(--hairline)
 .logo-chip{flex:none;width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 1px var(--hairline),0 2px 12px rgba(0,0,0,.4)}
 .logo-chip img{width:26px;height:26px}
 .brand b{font-family:"Manrope";font-weight:800;font-size:1.15rem;color:#fff;white-space:nowrap}
-.nav-links{display:flex;gap:26px}
-.nav-links a{color:var(--muted);font-size:.94rem;font-weight:500;transition:color .2s}
-.nav-links a:hover{color:var(--gold-300)}
+.nav-links{display:flex;gap:30px}
+.nav-links a{position:relative;color:#fff;font-size:.98rem;font-weight:700;letter-spacing:.04em;padding:6px 0;transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--grad-gold);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
+.nav-links a:hover,.nav-links a.on{color:var(--gold-300)}
+.nav-links a:hover::after,.nav-links a.on::after{transform:scaleX(1)}
 .nav-right{display:flex;align-items:center;gap:14px}
 .link-track{font-size:.92rem;color:var(--ink);border:1px solid var(--hairline);padding:7px 16px;border-radius:999px;transition:.2s;white-space:nowrap}
 .link-track:hover{border-color:var(--gold-400);color:var(--gold-300)}
@@ -249,7 +252,7 @@ header.scrolled{background:rgba(7,12,30,.94);border-bottom-color:var(--hairline)
 .hamburger span{display:block;width:24px;height:2.5px;background:#fff;margin:5px 0;border-radius:2px}
 .mobile-menu{display:none;position:fixed;top:var(--header-h);left:0;right:0;z-index:99;background:rgba(7,12,30,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline-2);padding:12px 6% 22px;flex-direction:column}
 .mobile-menu.open{display:flex}
-.mobile-menu a{color:var(--ink);padding:12px 4px;font-size:1.02rem;border-bottom:1px solid var(--hairline-2)}
+.mobile-menu a{color:#fff;padding:12px 4px;font-size:1.02rem;font-weight:700;letter-spacing:.04em;border-bottom:1px solid var(--hairline-2)}
 
 /* ── Hero ── */
 .hero{position:relative;overflow:hidden;padding:calc(var(--header-h) + 84px) 0 110px;
@@ -1543,6 +1546,19 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
                 entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
             }, { threshold: 0.12 });
             document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+            /* ── 主選單：捲到哪一區，該項亮金＋底線（T-038） ── */
+            var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-links a[href^='#']"));
+            var navMap = {};
+            navLinks.forEach(function (a) { var s = document.querySelector(a.getAttribute("href")); if (s) navMap[s.id] = a; });
+            var spy = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (!e.isIntersecting) return;
+                    navLinks.forEach(function (a) { a.classList.remove("on"); });
+                    var a = navMap[e.target.id]; if (a) a.classList.add("on");
+                });
+            }, { rootMargin: "-40% 0px -55% 0px" });
+            Object.keys(navMap).forEach(function (id) { spy.observe(document.getElementById(id)); });
 
             /* ── FAQ 展開收合 ── */
             document.querySelectorAll(".faq").forEach(function (f) {
