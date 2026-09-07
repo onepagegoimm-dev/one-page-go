@@ -31,11 +31,12 @@
 ## 技術棧
 
 - **前端**：純 HTML/CSS/JS（單一檔案，無需 build）
-- **後端**：Google Apps Script（免費）
-- **資料庫**：Google Sheets（免費）
+- **後端**：Cloudflare Workers（免費方案）
+- **資料庫**：Cloudflare D1（免費方案，每個商家一個獨立資料庫）
 - **託管**：GitHub Pages（免費）
+- **寄信**：Resend（免費額度）
 
-所有資料存在你自己的 Google 帳號，我們不保留任何副本。
+資料庫預設由平台託管，可隨時完整匯出；也可整套部署到你自己的 Cloudflare 帳號。
 
 ## 開始訂購
 

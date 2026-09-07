@@ -1,6 +1,6 @@
 # One Page Go
 
-> One Page Go 是台灣的單頁式網頁應用製作服務，為小型商家提供微型電商、線上訂單系統、線上預約、團購管理與活動售票等方案。採用 GitHub Pages + Google Apps Script + Google Sheets 免費架構，NT$2,500 起一次付清、終身免月費、無交易抽成，所有訂單與顧客資料存在商家自己的 Google 帳號。One Page Go is a Taiwan-based single-page web-app service for small businesses: online ordering systems, micro e-commerce, booking, group-buy and ticketing — pay once, no monthly fees, no transaction cut, data stays in the merchant's own Google account.
+> One Page Go 是台灣的單頁式網頁應用製作服務，為小型商家提供微型電商、線上訂單系統、線上預約、團購管理與活動售票等方案。採用 GitHub Pages + Cloudflare Workers 與 D1 免費架構，NT$2,500 起一次付清、終身免月費、無交易抽成，每個商家一個獨立資料庫，資料可隨時完整匯出，也可整套部署到商家自己的 Cloudflare 帳號。One Page Go is a Taiwan-based single-page web-app service for small businesses: online ordering systems, micro e-commerce, booking, group-buy and ticketing — pay once, no monthly fees, no transaction cut, each merchant gets a dedicated database with full data export, and the whole stack can be deployed to the merchant's own Cloudflare account.
 
 ## 方案 Solutions
 - [線上訂單系統（餐廳・飲料店・零售）](https://one-page-go.com/solutions/order-system/): 網路接單系統，手機下單、訂單追蹤、客戶訂單管理，免月費買斷 / online ordering & order management system for restaurants, drink shops and retail

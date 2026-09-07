@@ -1056,14 +1056,14 @@
     <div id="trackImgGuide" class="img-guide-card hidden">
       <div class="guide-title">🖼️ 商品圖片設定教學</div>
       <p>
-        商品照片可上傳到 Google 雲端硬碟，取得連結後即可填入 Google Sheet 的 <code>image_url</code> 欄位。
+        商品照片可上傳到 Google 雲端硬碟，取得連結後即可填入商家後台商品編輯的「圖片網址」欄位。
       </p>
       <ol>
         <li>將圖片上傳到你的 <b>Google 雲端硬碟</b></li>
         <li>右鍵點擊該圖片 → <b>共用</b> → 將權限改為「<b>知道連結的任何人</b>」→ 檢視者</li>
         <li>複製分享連結（格式類似 <code>https://drive.google.com/file/d/xxxx/view?usp=sharing</code>）</li>
         <li>貼到下方的轉換器，自動取得可用網址</li>
-        <li>將轉換後的網址填入 Google Sheet 的 <code>image_url</code> 欄位</li>
+        <li>將轉換後的網址填入商家後台商品編輯的「圖片網址」欄位</li>
       </ol>
 
       <div class="converter-block">
@@ -1707,8 +1707,8 @@
 一、服務內容
 乙方為甲方製作「${typeName}」類型之單頁式網頁應用，服務包含：
 • 依所選模板類型建立前端網頁（響應式設計，支援手機與電腦瀏覽）
-• 設定 Google Sheets 資料後台
-• 部署 Google Apps Script 後端 API
+• 建立商家專屬資料庫（Cloudflare D1）與後端 API（Cloudflare Workers）
+• 商家後台（訂單管理、內容管理、資料匯出）
 • GitHub Pages 靜態網頁託管${addonsText}
 
 本服務不包含：
@@ -1758,14 +1758,15 @@
 本服務為依甲方需求量身製作之客製化數位內容，依據消費者保護法第 19 條及「通訊交易解除權合理例外情事適用準則」第 2 條規定，經甲方同意提供服務後，不適用七日無條件解除權。
 
 十、免責聲明
-• 本服務使用之第三方平台（Google Sheets、Google Apps Script、GitHub Pages）之可用性、效能與政策變更，非乙方所能控制，乙方不負擔保責任
+• 本服務使用之第三方平台（Cloudflare Workers、Cloudflare D1、GitHub Pages、Resend）之可用性、效能與政策變更，非乙方所能控制，乙方不負擔保責任
 • 甲方提供之素材（文案、圖片等）如涉及侵權，相關責任由甲方自行承擔
 • 乙方不保證網頁帶來之商業成效（如銷售額、流量、轉換率等）
 • 甲方透過第三方金流（ECPay 綠界科技）付款，付款資訊之安全性由該金流服務商負責，乙方不留存甲方信用卡資訊
 
 十一、隱私權與資料安全
 • 乙方僅蒐集提供本服務所必需之個人資料
-• 甲方之營運資料（訂單、會員等）存放於甲方自有之 Google Sheet，乙方不保留副本
+• 甲方之營運資料（訂單、會員等）存放於甲方專屬之獨立資料庫，甲方得隨時要求完整匯出
+• 資料庫預設由乙方託管於乙方之 Cloudflare 帳號，不與其他商家共用；甲方亦得選擇自備模式，由乙方將整套服務部署至甲方自有之 Cloudflare 帳號
 • 合約完成後，乙方將於 30 日內刪除甲方提供之素材檔案
 
 十二、爭議處理
