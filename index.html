@@ -241,6 +241,13 @@ header.scrolled{background:rgba(7,12,30,.94);border-bottom-color:var(--hairline)
 .nav-right{display:flex;align-items:center;gap:14px}
 .link-track{font-size:.92rem;color:var(--ink);border:1px solid var(--hairline);padding:7px 16px;border-radius:999px;transition:.2s;white-space:nowrap}
 .link-track:hover{border-color:var(--gold-400);color:var(--gold-300)}
+/* ── 語系切換：地球圖示膠囊鈕（T-041 提案 B）。手機版留在 header 上，不藏進漢堡選單 ── */
+.lang-switch{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px 0 11px;border:1px solid var(--hairline);border-radius:999px;color:var(--ink);font-family:"Manrope","Noto Sans TC",sans-serif;font-size:.86rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;transition:.2s}
+.lang-switch svg{width:16px;height:16px;color:var(--gold-300);flex:none}
+.lang-switch:hover{border-color:var(--gold-400);color:var(--gold-300);box-shadow:0 0 0 3px rgba(201,160,99,.12)}
+.menu-lang{display:flex;align-items:center;justify-content:space-between;padding:14px 4px 2px;border-top:1px solid var(--hairline);margin-top:6px}
+.menu-lang small{font-family:"Manrope";font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.mobile-menu .menu-lang a{padding:0 14px 0 11px;border-bottom:0;font-size:.86rem;letter-spacing:.06em}
 .btn{display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.98rem;padding:12px 28px;border-radius:999px;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .btn:active{transform:scale(.97)}
 .btn-gold{background:var(--grad-gold);color:#131A36;box-shadow:0 8px 24px rgba(201,160,99,.32)}
@@ -700,10 +707,14 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
 #toTop.show{opacity:1;pointer-events:auto}
 
 /* ── RWD ── */
-@media (max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.plans{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:920px){
+/* 語系切換鈕加入後，header 在 921～1100px 放不下：1100 以下鈕縮成純圖示，1024 以下提早收進漢堡（T-041） */
+@media (max-width:1100px){.lang-switch{width:36px;padding:0;justify-content:center}.lang-switch .lang-label{display:none}}
+@media (max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.plans{grid-template-columns:repeat(2,1fr)}
   .nav-links,.nav-right .btn,.nav-right .link-track{display:none}
   .hamburger{display:block}
+  .lang-switch{width:auto;padding:0 14px 0 11px}.lang-switch .lang-label{display:inline}
+}
+@media (max-width:920px){
   .hero{padding:calc(var(--header-h) + 48px) 0 80px}
   .hero-grid{grid-template-columns:1fr;gap:52px}
   .hv-copy{text-align:center}
@@ -744,6 +755,7 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
                     <a href="#pricing">方案價格</a><a href="#faq">常見問題</a>
                 </nav>
                 <div class="nav-right">
+                    <a class="lang-switch" href="/en/" lang="en" hreflang="en" aria-label="Switch to English"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label">EN</span></a>
                     <a class="link-track" href="onboarding/index.html">訂單查詢</a>
                     <a class="btn btn-gold btn-sm" href="onboarding/index.html">立即開始</a>
                     <button class="hamburger" id="menuBtn" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -755,6 +767,7 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
             <a href="#pricing">方案價格</a><a href="#faq">常見問題</a>
             <a href="onboarding/index.html">立即開始 / 訂單查詢</a>
             <a href="revision/index.html">專案調整需求</a>
+            <div class="menu-lang"><small>Language</small><a class="lang-switch" href="/en/" lang="en" hreflang="en"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label">English</span></a></div>
         </nav>
 
         <main id="top">

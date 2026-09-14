@@ -19,86 +19,116 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
-
-        <title>One Page Go — One-page websites for small businesses, pay once, no monthly fees</title>
-        <meta name="description" content="One Page Go builds single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once from NT$2,500 (~US$80), no monthly fees, no transaction cut. Your data stays in your own dedicated Cloudflare D1 database, fully exportable." />
-        <meta name="keywords" content="one page website, single-page website builder, no monthly fee website, pay once website, small business landing page, online ordering system, GitHub Pages business site, Taiwan website" />
+        <title>One Page Go — One page. Open for business. | From NT$2,500, no monthly fees, ever</title>
+        <meta name="description" content="One Page Go builds single-page web apps for small businesses in Taiwan: micro e-commerce, online booking, group-buy management and event ticketing, with layout and style customised to your brand. Pay once from NT$2,500 (about US$78), no monthly fees. Built on GitHub Pages and Cloudflare Workers + D1 (free tiers); every merchant gets a dedicated database and notifications go out from your own Resend account." />
+        <meta name="keywords" content="one page website, single-page web app, no monthly fee website, pay once website, small business website Taiwan, online ordering system, online booking, group buy, event ticketing, free hosting" />
         <meta name="author" content="One Page Go" />
         <link rel="canonical" href="https://one-page-go.com/en/" />
         <link rel="alternate" hreflang="zh-Hant-TW" href="https://one-page-go.com/" />
         <link rel="alternate" hreflang="en" href="https://one-page-go.com/en/" />
         <link rel="alternate" hreflang="x-default" href="https://one-page-go.com/" />
 
-        <!-- Open Graph -->
+        <!-- Open Graph / 社群分享 -->
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="One Page Go — One-page websites for small businesses, pay once, no monthly fees" />
-        <meta property="og:description" content="Single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once, no monthly fees, your data in your own dedicated Cloudflare D1 database." />
+        <meta property="og:title" content="One Page Go — Pay once, run free for life. Websites for small businesses" />
+        <meta property="og:description" content="Single-page web apps for small businesses in Taiwan: micro e-commerce, booking, group-buy and ticketing, customised to your brand. Pay once from NT$2,500 on a free stack with zero monthly fees. Every merchant owns a dedicated database with full data export." />
         <meta property="og:url" content="https://one-page-go.com/en/" />
         <meta property="og:image" content="https://one-page-go.com/one_page_go.png" />
         <meta property="og:image:width" content="2490" />
         <meta property="og:image:height" content="2490" />
-        <meta property="og:image:alt" content="One Page Go" />
+        <meta property="og:image:alt" content="One Page Go | Single-page web apps" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:locale:alternate" content="zh_TW" />
         <meta property="og:site_name" content="One Page Go" />
 
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="One Page Go — One-page websites for small businesses" />
-        <meta name="twitter:description" content="Pay once, no monthly fees. Online ordering, e-commerce, booking, group-buy and ticketing on a single page." />
+        <meta name="twitter:title" content="One Page Go — Websites for small businesses, no monthly fees" />
+        <meta name="twitter:description" content="Pay once from NT$2,500. Micro e-commerce, booking, group-buy and ticketing templates, customised to your brand. Your own dedicated database, full data export." />
 
-        <!-- Structured data: WebSite -->
+        <!-- 結構化資料：網站 -->
         <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "One Page Go",
             "url": "https://one-page-go.com/en/",
-            "description": "Single-page web apps for small businesses — pay once, no monthly fees.",
+            "description": "Single-page web apps for small businesses. Pay once, no monthly fees.",
             "inLanguage": "en"
         }
         </script>
-        <!-- Structured data: Organization -->
+        <!-- 結構化資料：組織（品牌實體，供搜尋引擎與 AI 辨識） -->
         <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Organization",
             "@id": "https://one-page-go.com/#organization",
             "name": "One Page Go",
+            "alternateName": "一頁搞定",
             "url": "https://one-page-go.com/",
             "logo": "https://one-page-go.com/one_page_go.png",
             "image": "https://one-page-go.com/one_page_go.png",
-            "description": "A Taiwan-based service that builds single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once, no monthly fees.",
+            "description": "A Taiwan-based service that builds single-page web apps for small businesses: micro e-commerce, online ordering, booking, group-buy management and event ticketing. Pay once, no monthly fees; every merchant owns a dedicated database with full export rights.",
             "email": "Onepagegoimm@gmail.com",
             "areaServed": { "@type": "Country", "name": "TW" },
             "contactPoint": {
                 "@type": "ContactPoint",
                 "email": "Onepagegoimm@gmail.com",
                 "contactType": "customer service",
-                "availableLanguage": ["en", "zh-TW"]
+                "availableLanguage": ["zh-TW", "en"]
             }
         }
         </script>
-        <!-- Structured data: Service -->
+        <!-- 結構化資料：服務與定價 -->
         <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Service",
-            "serviceType": "One-page website / web app development",
-            "name": "One Page Go",
-            "description": "Single-page web apps for small businesses — online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once, no monthly fees, no transaction cut.",
-            "provider": { "@type": "Organization", "name": "One Page Go", "url": "https://one-page-go.com/" },
-            "areaServed": { "@type": "Country", "name": "TW" },
-            "offers": {
-                "@type": "Offer",
-                "price": "2500",
-                "priceCurrency": "TWD",
-                "description": "One-time payment from NT$2,500, lifetime no monthly fee"
+            "serviceType": "Web design",
+            "provider": {
+                "@type": "Organization",
+                "name": "One Page Go",
+                "url": "https://one-page-go.com/"
             },
-            "inLanguage": "en"
+            "areaServed": { "@type": "Country", "name": "TW" },
+            "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Single-page web app plans",
+                "itemListElement": [
+                    {
+                        "@type": "Offer",
+                        "itemOffered": { "@type": "Service", "name": "Micro e-commerce shop" },
+                        "price": "4000",
+                        "priceCurrency": "TWD",
+                        "description": "Product showcase + multi-item checkout + order notifications. Pay once, free for life"
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": { "@type": "Service", "name": "Booking + capacity control" },
+                        "price": "3500",
+                        "priceCurrency": "TWD",
+                        "description": "Service menu + online time-slot booking + live capacity control"
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": { "@type": "Service", "name": "Group-buy manager" },
+                        "price": "3000",
+                        "priceCurrency": "TWD",
+                        "description": "Open a group + take joins + progress tracking + countdown to close"
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": { "@type": "Service", "name": "Event ticketing page" },
+                        "price": "2500",
+                        "priceCurrency": "TWD",
+                        "description": "Ticket tiers + online ticket sales + automatic e-check-in codes"
+                    }
+                ]
+            }
         }
         </script>
-        <!-- Structured data: FAQPage -->
+
+        <!-- 結構化資料：常見問題 FAQPage（內容與頁面「常見問題」區一致） -->
         <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -106,23 +136,59 @@
             "mainEntity": [
                 {
                     "@type": "Question",
-                    "name": "How much does a one-page website cost?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "One Page Go is a one-time payment from NT$2,500 (about US$80) up to NT$4,000 depending on the features. There are no monthly fees and no transaction cut, unlike subscription platforms such as Shopline, WACA, Wix or Squarespace." }
+                    "name": "What is One Page Go?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "One Page Go builds single-page web apps for small businesses in Taiwan. Four templates: micro e-commerce, online booking, group-buy management and event ticketing. Pay once from NT$2,500 (about US$78) and there are no monthly fees after launch. Every merchant gets a dedicated database that is never shared with anyone else."
+                    }
                 },
                 {
                     "@type": "Question",
-                    "name": "Where is my data stored?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Everything runs on GitHub Pages + Cloudflare Workers & D1 (free tier) + Resend (free tier). All orders and customer data are stored in your own dedicated Cloudflare D1 database, fully exportable, so you are never locked into a platform." }
+                    "name": "How much does One Page Go cost? Are there monthly fees?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "One Page Go is a one-time payment with no monthly, yearly or renewal fees. Event ticketing page NT$2,500, group-buy manager NT$3,000, booking with capacity control NT$3,500, micro e-commerce shop NT$4,000. After launch the site runs on free hosting and a free database, so the running cost is zero."
+                    }
                 },
                 {
                     "@type": "Question",
-                    "name": "What can One Page Go build?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "Single-page web apps for small businesses: online ordering systems for restaurants, cafés and retail; micro e-commerce shops; online booking with capacity management; group-buy management; and event ticketing with electronic check-in." }
+                    "name": "Why can One Page Go run free for life?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "One Page Go is built on a free stack: GitHub Pages for web hosting (free), Cloudflare Workers and D1 for the backend and database (free tier), and Resend for email notifications (free quota). Every layer is on a free plan, so there are no hosting or maintenance fees after launch."
+                    }
                 },
                 {
                     "@type": "Question",
-                    "name": "How long does it take to launch?",
-                    "acceptedAnswer": { "@type": "Answer", "text": "From requirements to launch is about 3 days. The site is handed over to you and you own it outright — no servers and no monthly fees to maintain." }
+                    "name": "Where is my order data stored? Is it safe?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "All orders, members and bookings are stored in your own Cloudflare D1 database. Each merchant has a separate database that is never shared with other merchants, and you can request a full export or backup at any time."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How is One Page Go different from monthly platforms like Shopline or WACA?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The main differences are cost structure and data ownership. Monthly platforms usually start at NT$1,299 a month, which adds up to over NT$31,000 in two years, and your data stays locked on their servers. One Page Go is a one-time NT$2,500-4,000 with nothing to pay afterwards, and you own a dedicated database you can export in full, with no platform lock-in."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How long does it take to build?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "From a confirmed brief to a live site takes as little as 3 days. The flow is: fill in the brief → confirm content and sign → pay → build and hand over → we help you set it up and go live."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What if I need changes after launch?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Existing customers submit changes through the project change page. Each change request is NT$500 (about US$16) and covers text, image and colour adjustments, completed in as little as 1 day after submission."
+                    }
                 }
             ]
         }
@@ -130,180 +196,1417 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
         <style>
-            /* Design baseline: deep navy x gold (docs/standards/design.md) */
-            :root {
-                --navy-950:#070C1E; --navy-900:#0A1124; --navy-800:#101A38; --navy-700:#182652;
-                --gold-500:#C9A063; --gold-400:#D8B478; --gold-300:#E7CD9C;
-                --ink:#F4F1EA; --muted:#A7ADC2;
-                --hairline:rgba(201,160,99,.28); --hairline-2:rgba(255,255,255,.08);
-                --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
-            }
-            * { box-sizing: border-box; margin: 0; padding: 0; }
-            body { background: var(--navy-950); font-family: "Manrope", "Noto Sans TC", system-ui, sans-serif; color: var(--ink); line-height: 1.7; -webkit-font-smoothing: antialiased; }
-            .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
-            nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(7, 12, 30, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--hairline-2); }
-            nav .container { display: flex; justify-content: space-between; align-items: center; height: 56px; }
-            .nav-logo { font-family: "Manrope", sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; text-decoration: none; }
-            .nav-right { display: flex; align-items: center; gap: 14px; }
-            .nav-lang { font-size: 0.82rem; color: var(--gold-300); text-decoration: none; }
-            .nav-lang:hover { color: var(--gold-400); text-decoration: underline; }
-            .nav-cta { background: var(--grad-gold); color: #131A36; font-weight: 700; padding: 8px 18px; border-radius: 20px; font-size: 0.82rem; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; display: inline-flex; align-items: center; min-height: 36px; }
-            .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201, 160, 99, 0.32); }
-            .hero { text-align: center; padding: 88px 0 24px; }
-            .hero h1 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: clamp(1.9rem, 7vw, 2.5rem); font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 14px; }
-            .hero .tagline { font-size: 1.05rem; color: var(--muted); margin-bottom: 20px; line-height: 1.8; }
-            .badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 26px; }
-            .badge { display: inline-block; background: rgba(201, 160, 99, 0.08); border: 1px solid var(--hairline); color: var(--gold-300); border-radius: 999px; padding: 5px 14px; font-size: 0.8rem; }
-            .btn-primary { display: inline-block; background: var(--grad-gold); color: #131A36; font-weight: 700; padding: 14px 32px; border-radius: 24px; min-height: 48px; font-size: 1rem; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 8px 24px rgba(201, 160, 99, 0.32); }
-            .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(201, 160, 99, 0.45); }
-            h2 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.35rem; font-weight: 800; color: #fff; margin: 44px 0 16px; padding-top: 16px; border-top: 1px solid var(--hairline-2); text-align: center; }
-            p { margin-bottom: 18px; font-size: 0.95rem; line-height: 1.9; }
-            p a { color: var(--gold-300); text-decoration: underline; text-underline-offset: 2px; }
-            p a:hover { color: var(--gold-400); }
-            .solution-grid { display: grid; gap: 12px; margin: 8px 0 18px; }
-            @media (min-width: 540px) { .solution-grid { grid-template-columns: 1fr 1fr; } }
-            .solution { display: block; background: var(--navy-900); border: 1px solid var(--hairline-2); border-radius: 14px; padding: 18px; text-decoration: none; color: var(--ink); transition: border-color 0.2s, transform 0.2s; }
-            .solution:hover { border-color: var(--hairline); transform: translateY(-1px); }
-            .solution h3 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
-            .solution p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.7; }
-            .solution .see { display: inline-block; margin-top: 8px; font-size: 0.82rem; color: var(--gold-300); }
-            .check-list { list-style: none; margin: 4px auto 18px; max-width: 560px; }
-            .check-list li { position: relative; padding-left: 26px; margin-bottom: 12px; font-size: 0.95rem; line-height: 1.8; }
-            .check-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--gold-400); font-weight: 700; }
-            .check-list strong { color: var(--gold-300); }
-            .pricing { text-align: center; background: linear-gradient(170deg, rgba(24, 38, 82, 0.55), rgba(10, 17, 36, 0.65)); border: 1.5px solid var(--gold-500); border-radius: 16px; padding: 26px 22px; margin: 28px 0; }
-            .pricing .price { font-family: "Manrope", sans-serif; font-size: 2rem; font-weight: 800; color: var(--gold-300); }
-            .pricing .price small { font-size: 0.95rem; color: var(--muted); }
-            .faq-section { background: var(--navy-900); border: 1px solid var(--hairline-2); border-radius: 16px; padding: 28px 24px; margin: 40px 0; }
-            .faq-section h2 { border-top: none; padding-top: 0; margin-top: 0; margin-bottom: 20px; }
-            .faq-item { border-bottom: 1px solid var(--hairline-2); padding: 16px 0; }
-            .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
-            .faq-question { font-weight: 700; color: #fff; margin-bottom: 8px; font-size: 0.95rem; }
-            .faq-answer { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
-            .cta { background: linear-gradient(170deg, rgba(24, 38, 82, 0.55), rgba(10, 17, 36, 0.65)); border: 1.5px solid var(--gold-500); border-radius: 16px; padding: 30px 24px; text-align: center; margin: 40px 0; }
-            .cta h3 { font-family: "Manrope", "Noto Sans TC", sans-serif; font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
-            .cta p { font-size: 0.9rem; color: var(--muted); margin-bottom: 18px; }
-            footer { text-align: center; padding: 30px 0; border-top: 1px solid var(--hairline-2); margin-top: 8px; }
-            footer .footer-links { margin-bottom: 10px; font-size: 0.82rem; }
-            footer .footer-links a { color: var(--gold-300); text-decoration: none; }
-            footer .footer-links a:hover { color: var(--gold-400); }
-            footer p { font-size: 0.75rem; color: var(--muted); }
-            @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+/* ── 設計基準：深藍×金（docs/standards/design.md）── */
+:root{
+  --navy-950:#070C1E;--navy-900:#0A1124;--navy-800:#101A38;--navy-700:#182652;
+  --gold-500:#C9A063;--gold-400:#D8B478;--gold-300:#E7CD9C;
+  --ink:#F4F1EA;--muted:#A7ADC2;
+  --hairline:rgba(201,160,99,.28);--hairline-2:rgba(255,255,255,.08);
+  --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
+  --r-lg:18px;--r-md:14px;--header-h:72px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Manrope","Noto Sans TC",system-ui,sans-serif;background:var(--navy-950);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.en{font-family:"Manrope","Noto Sans TC",sans-serif}
+.container{width:min(1120px,92%);margin:0 auto}
+section{scroll-margin-top:calc(var(--header-h) + 8px)}
+.eyebrow{display:block;font-family:"Manrope";font-size:.78rem;font-weight:700;letter-spacing:.34em;color:var(--gold-400);text-transform:uppercase;margin-bottom:14px}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
+
+/* ── Header ── */
+header{position:fixed;inset:0 0 auto;z-index:100;height:var(--header-h);display:flex;align-items:center;
+  background:rgba(7,12,30,.68);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline-2);transition:background .3s}
+header.scrolled{background:rgba(7,12,30,.94);border-bottom-color:var(--hairline)}
+.nav{display:flex;align-items:center;justify-content:space-between;width:min(1200px,94%);margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px}
+.logo-chip{flex:none;width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 1px var(--hairline),0 2px 12px rgba(0,0,0,.4)}
+.logo-chip img{width:26px;height:26px}
+.brand b{font-family:"Manrope";font-weight:800;font-size:1.15rem;color:#fff;white-space:nowrap}
+.nav-links{display:flex;gap:30px}
+.nav-links a{position:relative;color:#fff;font-size:.98rem;font-weight:700;letter-spacing:.04em;padding:6px 0;transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--grad-gold);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
+.nav-links a:hover,.nav-links a.on{color:var(--gold-300)}
+.nav-links a:hover::after,.nav-links a.on::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.link-track{font-size:.92rem;color:var(--ink);border:1px solid var(--hairline);padding:7px 16px;border-radius:999px;transition:.2s;white-space:nowrap}
+.link-track:hover{border-color:var(--gold-400);color:var(--gold-300)}
+/* ── 語系切換：地球圖示膠囊鈕（T-041 提案 B）。手機版留在 header 上，不藏進漢堡選單 ── */
+.lang-switch{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px 0 11px;border:1px solid var(--hairline);border-radius:999px;color:var(--ink);font-family:"Manrope","Noto Sans TC",sans-serif;font-size:.86rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;transition:.2s}
+.lang-switch svg{width:16px;height:16px;color:var(--gold-300);flex:none}
+.lang-switch:hover{border-color:var(--gold-400);color:var(--gold-300);box-shadow:0 0 0 3px rgba(201,160,99,.12)}
+.menu-lang{display:flex;align-items:center;justify-content:space-between;padding:14px 4px 2px;border-top:1px solid var(--hairline);margin-top:6px}
+.menu-lang small{font-family:"Manrope";font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.mobile-menu .menu-lang a{padding:0 14px 0 11px;border-bottom:0;font-size:.86rem;letter-spacing:.06em}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.98rem;padding:12px 28px;border-radius:999px;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:var(--grad-gold);color:#131A36;box-shadow:0 8px 24px rgba(201,160,99,.32)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(201,160,99,.45)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(255,255,255,.35)}
+.btn-ghost:hover{border-color:var(--gold-400);color:var(--gold-300)}
+.btn-sm{padding:9px 20px;font-size:.9rem}
+.hamburger{display:none;background:none;border:0;cursor:pointer;padding:8px}
+.hamburger span{display:block;width:24px;height:2.5px;background:#fff;margin:5px 0;border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:var(--header-h);left:0;right:0;z-index:99;background:rgba(7,12,30,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline-2);padding:12px 6% 22px;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:#fff;padding:12px 4px;font-size:1.02rem;font-weight:700;letter-spacing:.04em;border-bottom:1px solid var(--hairline-2)}
+
+/* ── Hero ── */
+.hero{position:relative;overflow:hidden;padding:calc(var(--header-h) + 84px) 0 110px;
+  background:radial-gradient(900px 480px at 78% 8%,rgba(201,160,99,.10),transparent 60%),
+             radial-gradient(700px 420px at -6% 100%,rgba(24,38,82,.7),transparent 65%),var(--navy-950)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(760px 520px at 68% 42%,#000 15%,transparent 78%);
+  -webkit-mask-image:radial-gradient(760px 520px at 68% 42%,#000 15%,transparent 78%)}
+.hero-grid{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+.hero h1{font-size:clamp(2.4rem,4.9vw,3.9rem);font-weight:900;letter-spacing:.04em;line-height:1.22;color:#fff;text-shadow:0 0 44px rgba(231,205,156,.22)}
+.hero h1 i{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 26px rgba(201,160,99,.38))}
+.hv-copy{position:relative}
+.hv-copy::before{content:"";position:absolute;inset:-18% -14%;z-index:-1;
+  background:radial-gradient(closest-side,rgba(7,12,30,.88),rgba(7,12,30,.4) 62%,transparent)}
+.hv-cta{margin-top:38px;padding:15px 46px;font-size:1.05rem;letter-spacing:.08em;
+  box-shadow:0 10px 34px rgba(201,160,99,.36),0 0 60px rgba(201,160,99,.16);
+  animation:hvCtaGlow 4.5s ease-in-out infinite}
+@keyframes hvCtaGlow{50%{box-shadow:0 10px 34px rgba(201,160,99,.52),0 0 84px rgba(201,160,99,.28)}}
+.hero-seo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ── hero 主視覺：活的一頁 3D 長卷（T-038）── */
+.hv-aur{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.hv-aur-1{width:56vw;height:46vh;left:-12vw;top:-14vh;opacity:.32;
+  background:radial-gradient(closest-side,rgba(201,160,99,.5),transparent 72%);
+  animation:hvDrift1 46s ease-in-out infinite alternate}
+.hv-aur-2{width:48vw;height:52vh;right:-14vw;bottom:-18vh;opacity:.26;
+  background:radial-gradient(closest-side,rgba(91,121,217,.42),rgba(201,160,99,.18) 55%,transparent 75%);
+  animation:hvDrift2 52s ease-in-out infinite alternate}
+@keyframes hvDrift1{to{transform:translate(9vw,7vh) scale(1.15)}}
+@keyframes hvDrift2{to{transform:translate(-7vw,-6vh) scale(1.12)}}
+.hv-stars{position:absolute;inset:0;pointer-events:none}
+.hv-stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(231,205,156,.9);animation:hvTw 4.6s ease-in-out infinite}
+.hv-stars i:nth-child(2n){width:2px;height:2px;background:rgba(244,241,234,.8)}
+.hv-stars i:nth-child(1){left:6%;top:18%;animation-delay:.2s}
+.hv-stars i:nth-child(2){left:14%;top:66%;animation-delay:1.4s}
+.hv-stars i:nth-child(3){left:22%;top:34%;animation-delay:2.6s}
+.hv-stars i:nth-child(4){left:31%;top:82%;animation-delay:.9s}
+.hv-stars i:nth-child(5){left:38%;top:12%;animation-delay:3.3s}
+.hv-stars i:nth-child(6){left:47%;top:58%;animation-delay:1.9s}
+.hv-stars i:nth-child(7){left:55%;top:26%;animation-delay:.5s}
+.hv-stars i:nth-child(8){left:63%;top:74%;animation-delay:2.2s}
+.hv-stars i:nth-child(9){left:71%;top:16%;animation-delay:3.8s}
+.hv-stars i:nth-child(10){left:78%;top:48%;animation-delay:1.1s}
+.hv-stars i:nth-child(11){left:86%;top:70%;animation-delay:2.9s}
+.hv-stars i:nth-child(12){left:92%;top:30%;animation-delay:.7s}
+.hv-stars i:nth-child(13){left:52%;top:88%;animation-delay:4.1s}
+.hv-stars i:nth-child(14){left:9%;top:44%;animation-delay:3.1s}
+@keyframes hvTw{0%,100%{opacity:.15}50%{opacity:.95}}
+.hv-stageOuter{position:relative;min-width:0}
+.hv-stage{perspective:1300px;width:fit-content;margin-left:auto;margin-right:0;position:relative}
+.hv-page{width:520px;transform:rotateY(-16deg) rotateX(6deg);transform-style:preserve-3d;border-radius:22px;
+  background:linear-gradient(165deg,rgba(24,38,82,.62),rgba(10,17,36,.78));
+  border:1px solid rgba(231,205,156,.34);overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 1px rgba(255,255,255,.04),0 38px 90px rgba(0,0,0,.55),0 0 110px rgba(201,160,99,.16)}
+.hv-chrome{display:flex;align-items:center;gap:8px;padding:15px 18px;border-bottom:1px solid var(--hairline-2)}
+.hv-chrome b{width:10px;height:10px;border-radius:50%;background:#2A3558}
+.hv-chrome b:nth-child(3){background:var(--gold-500)}
+.hv-chrome span{flex:1;height:12px;margin-left:8px;border-radius:999px;background:rgba(255,255,255,.09)}
+.hv-viewport{position:relative;height:470px;overflow:hidden}
+.hv-roll{animation:hvRoll 31.5s infinite;will-change:transform}
+/* 9 段＋首段複本；位移 = n × 470px */
+@keyframes hvRoll{
+  0%,6.7%{transform:translateY(0);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  11.11%,17.8%{transform:translateY(-470px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  22.22%,28.9%{transform:translateY(-940px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  33.33%,40%{transform:translateY(-1410px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  44.44%,51.1%{transform:translateY(-1880px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  55.55%,62.2%{transform:translateY(-2350px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  66.66%,73.4%{transform:translateY(-2820px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  77.77%,84.5%{transform:translateY(-3290px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  88.88%,95.6%{transform:translateY(-3760px);animation-timing-function:cubic-bezier(.3,1.18,.42,1)}
+  100%{transform:translateY(-4230px)}
+}
+.hv-scan{position:absolute;left:0;right:0;top:-14%;height:80px;z-index:3;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(to bottom,transparent,rgba(231,205,156,.16) 40%,rgba(231,205,156,.34) 50%,rgba(231,205,156,.16) 60%,transparent);
+  animation:hvScan 3.5s cubic-bezier(.4,.1,.5,.9) infinite}
+@keyframes hvScan{0%{top:-16%;opacity:0}10%{opacity:1}52%{top:108%;opacity:1}58%{top:108%;opacity:0}100%{top:-16%;opacity:0}}
+.hv-sec{height:470px;padding:26px 24px;position:relative}
+.hv-tag{position:absolute;left:24px;bottom:18px;font-size:.74rem;letter-spacing:.3em;color:var(--muted)}
+.hv-bar{border-radius:999px;background:rgba(255,255,255,.1);height:12px}
+.hv-bar.gold{background:var(--grad-gold);box-shadow:0 0 18px rgba(201,160,99,.4)}
+.hv-card{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.14);border-radius:var(--r-md)}
+.hv-banner{height:196px;border-radius:var(--r-md);position:relative;overflow:hidden;margin-bottom:18px;
+  background:linear-gradient(180deg,rgba(7,12,30,.05),rgba(7,12,30,.58)),url('/assets/opg-banner.jpg') center 62%/cover no-repeat;
+  border:1px solid var(--hairline);box-shadow:0 0 44px rgba(201,160,99,.16)}
+.hv-bname{position:absolute;left:16px;bottom:10px;line-height:1.3}
+.hv-bname b{display:block;font-size:1.05rem;font-weight:900;letter-spacing:.12em}
+.hv-bname small{font-size:.68rem;letter-spacing:.3em;color:var(--gold-300)}
+.hv-pills{display:flex;gap:10px;margin-top:18px}
+.hv-pills span{padding:7px 20px;border-radius:999px;font-size:.78rem;color:var(--muted);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.hv-pills span.on{color:#131A36;font-weight:700;background:var(--grad-gold);box-shadow:0 0 22px rgba(201,160,99,.4)}
+.hv-prods{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:8px}
+.hv-prod{padding:10px}
+.hv-prod .hv-ph{height:118px;border-radius:10px;background-image:url('/assets/opg-products.jpg');background-size:300% auto;background-repeat:no-repeat;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.hv-ph-1{background-position:0% 50%}
+.hv-ph-2{background-position:50% 50%}
+.hv-ph-3{background-position:100% 50%}
+.hv-nm{display:block;margin-top:9px;font-size:.8rem;color:var(--muted);line-height:1.4}
+.hv-price{display:block;font-weight:800;color:var(--gold-300);font-size:.92rem}
+.hv-prod.hot{border-color:rgba(231,205,156,.5);box-shadow:0 0 30px rgba(201,160,99,.24)}
+.hv-row{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:12px}
+.hv-row.suggest{border-style:dashed}
+.hv-av{width:40px;height:40px;border-radius:10px;flex:none;background-image:url('/assets/opg-products.jpg');background-size:300% auto;background-repeat:no-repeat}
+.hv-av.cake{background-position:0% 50%}
+.hv-av.latte{background-position:50% 50%}
+.hv-av.gift{background-position:100% 50%}
+.hv-av.evt{background-image:url('/assets/opg-banner.jpg');background-size:cover;background-position:center 60%}
+.hv-info{flex:1;min-width:0}
+.hv-info b{display:block;font-size:.84rem;font-weight:700}
+.hv-info small{color:var(--muted);font-size:.72rem}
+.hv-qty{font-style:normal;color:var(--muted);font-size:.82rem}
+.hv-addchip{font-style:normal;flex:none;padding:5px 13px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--hairline);color:var(--gold-300);font-size:.74rem;font-weight:700}
+.hv-shipbar{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.76rem;color:var(--gold-300);white-space:nowrap}
+.hv-shipbar i{flex:1;height:7px;border-radius:999px;background:linear-gradient(90deg,rgba(231,205,156,.95),rgba(201,160,99,.45));box-shadow:0 0 14px rgba(201,160,99,.4)}
+.hv-total{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--hairline-2);padding-top:16px;margin-top:6px}
+.hv-total b{color:var(--gold-300);font-size:1.25rem;font-weight:800}
+.hv-paybtn{margin-top:16px;text-align:center;padding:12px 0;border-radius:999px;background:var(--grad-gold);color:#131A36;font-weight:800;letter-spacing:.1em;box-shadow:0 8px 26px rgba(201,160,99,.32)}
+.hv-paybtn.slim{margin-top:14px;padding:10px 0}
+.hv-pay{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hv-checkmark{width:118px;height:118px;border-radius:50%;position:relative;background:var(--grad-gold);box-shadow:0 0 60px rgba(201,160,99,.5);display:flex;align-items:center;justify-content:center}
+.hv-checkmark svg{width:56px;height:56px}
+.hv-checkmark::before,.hv-checkmark::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(231,205,156,.55);animation:hvRing 2.6s ease-out infinite}
+.hv-checkmark::after{animation-delay:1.3s}
+@keyframes hvRing{to{transform:scale(2);opacity:0}}
+.hv-pay p{margin-top:22px;font-weight:700;letter-spacing:.2em;color:var(--gold-300)}
+.hv-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:8px}
+.hv-cal span{height:34px;border-radius:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+.hv-cal span.on{background:var(--grad-gold);box-shadow:0 0 18px rgba(201,160,99,.45)}
+.hv-times{display:flex;gap:10px;margin-top:18px}
+.hv-times span{flex:1;text-align:center;padding:9px 0;border-radius:999px;font-size:.82rem;color:var(--muted);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.hv-times span.on{color:#131A36;font-weight:800;background:var(--grad-gold);box-shadow:0 0 22px rgba(201,160,99,.4)}
+.hv-seats{display:grid;grid-template-columns:repeat(12,1fr);gap:9px;margin-top:14px;padding:18px}
+.hv-seats span{aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.09)}
+.hv-seats span.pick{background:var(--grad-gold);box-shadow:0 0 14px rgba(201,160,99,.55)}
+.hv-seats span.blink{animation:hvPk 2.2s ease-in-out infinite}
+@keyframes hvPk{0%,100%{background:rgba(255,255,255,.09);box-shadow:none}50%{background:var(--grad-gold);box-shadow:0 0 14px rgba(201,160,99,.55)}}
+.hv-stagebar{height:10px;border-radius:999px;margin:4px 30px 0;background:linear-gradient(90deg,transparent,rgba(231,205,156,.5),transparent)}
+.hv-mini{padding:16px}
+.hv-mphead{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.hv-mplogo{width:22px;height:22px;border-radius:50%}
+.hv-mpnav{flex:1;height:9px;border-radius:999px;background:rgba(255,255,255,.1)}
+.hv-mphero{height:52px;border-radius:9px;margin-bottom:12px;opacity:.9}
+.hv-mpgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.hv-mpgrid span{height:44px;border-radius:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09)}
+.hv-mpbtn{width:120px;height:26px;border-radius:999px}
+.hv-accent{background:var(--grad-gold);animation:hvAccent 9s infinite}
+@keyframes hvAccent{
+  0%,30%{background:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45)}
+  33%,63%{background:linear-gradient(135deg,#9DB4F5,#5B79D9 60%,#3D56A8)}
+  66%,96%{background:linear-gradient(135deg,#F5C2CE,#D9738F 60%,#A84E68)}
+  100%{background:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45)}
+}
+.hv-swatches{display:flex;gap:14px;margin-top:16px;align-items:center}
+.hv-lbl{font-size:.76rem;color:var(--muted);margin-right:4px}
+.hv-sw{width:26px;height:26px;border-radius:50%;position:relative}
+.hv-sw.gold{background:linear-gradient(135deg,#E7CD9C,#A87F45)}
+.hv-sw.blue{background:linear-gradient(135deg,#9DB4F5,#3D56A8)}
+.hv-sw.rose{background:linear-gradient(135deg,#F5C2CE,#A84E68)}
+.hv-sw::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(231,205,156,.9);opacity:0;animation:hvSwOn 9s infinite}
+.hv-sw.blue::after{animation-delay:3s;border-color:rgba(157,180,245,.9)}
+.hv-sw.rose::after{animation-delay:6s;border-color:rgba(245,194,206,.9)}
+@keyframes hvSwOn{0%,30%{opacity:1}33%,100%{opacity:0}}
+.hv-layouts{display:flex;gap:12px;margin-top:14px;align-items:center}
+.hv-lay{width:56px;height:40px;border-radius:8px;position:relative;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14)}
+.hv-lay::before{content:"";position:absolute;left:6px;right:6px;top:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.18)}
+.hv-lay-1::after{content:"";position:absolute;left:6px;top:17px;bottom:6px;width:18px;border-radius:3px;background:rgba(255,255,255,.1)}
+.hv-lay-2::after{content:"";position:absolute;left:6px;right:6px;top:17px;bottom:6px;border-radius:3px;
+  background:linear-gradient(90deg,rgba(255,255,255,.1) 30%,transparent 30%,transparent 36%,rgba(255,255,255,.1) 36%,rgba(255,255,255,.1) 64%,transparent 64%,transparent 70%,rgba(255,255,255,.1) 70%)}
+.hv-lay-3::after{content:"";position:absolute;left:6px;right:6px;top:17px;height:12px;border-radius:3px;background:rgba(201,160,99,.35)}
+.hv-lay.on{border-color:rgba(231,205,156,.7);box-shadow:0 0 16px rgba(201,160,99,.35)}
+.hv-msg{max-width:82%;padding:13px 16px;margin-bottom:14px}
+.hv-msg.user{margin-left:auto;background:linear-gradient(160deg,rgba(201,160,99,.24),rgba(201,160,99,.1));border-color:rgba(231,205,156,.35);font-size:.86rem;font-weight:700}
+.hv-msg.bot{position:relative;padding-left:44px}
+.hv-spark{position:absolute;left:14px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--grad-gold);color:#131A36;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(201,160,99,.5);animation:hvSpark 2.4s ease-in-out infinite}
+@keyframes hvSpark{50%{box-shadow:0 0 28px rgba(201,160,99,.8)}}
+.hv-type{height:9px;border-radius:999px;background:rgba(255,255,255,.14);margin:9px 0;animation:hvTyping 6s cubic-bezier(.25,.9,.35,1) infinite}
+.hv-t1{--w:92%}
+.hv-t2{--w:76%;animation-delay:.7s}
+.hv-t3{--w:56%;animation-delay:1.4s}
+.hv-g1{--w:96%;animation-delay:2.1s}
+.hv-g2{--w:68%;animation-delay:2.7s}
+@keyframes hvTyping{0%{width:0;opacity:.4}30%{width:var(--w);opacity:1}100%{width:var(--w);opacity:1}}
+.hv-aiTag{display:inline-block;margin-top:8px;padding:4px 14px;border-radius:999px;background:var(--grad-gold);color:#131A36;font-size:.72rem;font-weight:800;letter-spacing:.1em;animation:hvTagIn 6s ease infinite}
+@keyframes hvTagIn{0%,55%{opacity:0;transform:translateY(6px)}68%,96%{opacity:1;transform:none}100%{opacity:0}}
+.hv-gen{display:flex;align-items:center;gap:12px;padding:12px 14px;max-width:82%}
+.hv-gen .hv-info{flex:1;min-width:0}
+.hv-gen .hv-type{margin:7px 0}
+.hv-kpi{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.hv-kpi span{font-size:.82rem;color:var(--muted)}
+.hv-kpi b{font-size:1.45rem;font-weight:800;color:var(--gold-300);text-shadow:0 0 24px rgba(201,160,99,.4)}
+.hv-statchips{display:flex;gap:12px;margin-bottom:12px}
+.hv-scp{flex:1;text-align:center;padding:8px 0 6px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);line-height:1.35}
+.hv-scp b{display:block;color:var(--gold-300);font-size:1.02rem;font-weight:800}
+.hv-scp small{color:var(--muted);font-size:.7rem}
+.hv-chart{display:flex;align-items:flex-end;gap:12px;height:132px;padding:18px;margin-bottom:12px}
+.hv-chart i{flex:1;border-radius:6px 6px 2px 2px;height:var(--h);background:linear-gradient(180deg,rgba(231,205,156,.85),rgba(201,160,99,.25));transform-origin:bottom;animation:hvBarGrow 8s cubic-bezier(.3,1.2,.4,1) infinite}
+.hv-chart i:nth-child(2){animation-delay:.15s}
+.hv-chart i:nth-child(3){animation-delay:.3s}
+.hv-chart i:nth-child(4){animation-delay:.45s}
+.hv-chart i:nth-child(5){animation-delay:.6s}
+.hv-chart i:nth-child(6){animation-delay:.75s}
+.hv-chart i:nth-child(7){animation-delay:.9s}
+.hv-chart i.hot{background:var(--grad-gold);box-shadow:0 0 22px rgba(201,160,99,.5)}
+@keyframes hvBarGrow{0%{transform:scaleY(.12);opacity:.4}26%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:1}}
+.hv-insight{position:relative;padding:12px 14px 12px 46px;font-size:.79rem;line-height:1.6}
+.hv-insight .hv-spark{top:13px}
+.hv-insight b{color:var(--gold-300)}
+.hv-chip{position:absolute;z-index:4;display:flex;align-items:center;gap:11px;padding:11px 18px;border-radius:14px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.17);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 12px 34px rgba(0,0,0,.4),0 0 28px rgba(201,160,99,.13);font-size:.86rem;white-space:nowrap}
+.hv-chip b{font-weight:800;color:var(--ink)}
+.hv-chip small{color:var(--muted);font-size:.74rem}
+.hv-ico{width:27px;height:27px;border-radius:50%;flex:none;background:var(--grad-gold);color:#131A36;font-weight:800;font-size:.72rem;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(201,160,99,.5)}
+.hv-chip-1{top:6%;left:-13%;animation:hvFl1 6.5s ease-in-out infinite}
+.hv-chip-2{top:36%;right:-9%;animation:hvFl2 8s ease-in-out infinite}
+.hv-chip-3{bottom:12%;left:-7%;animation:hvFl3 9.5s ease-in-out infinite}
+.hv-chip-4{bottom:-3%;right:-6%;animation:hvFl4 7.2s ease-in-out infinite}
+@keyframes hvFl1{50%{transform:translateY(-14px)}}
+@keyframes hvFl2{50%{transform:translateY(-18px)}}
+@keyframes hvFl3{50%{transform:translateY(-11px)}}
+@keyframes hvFl4{50%{transform:translateY(-15px)}}
+@media (prefers-reduced-motion:reduce){
+  .hv-roll,.hv-scan,.hv-aur,.hv-stars i,.hv-chip,.hv-cta,
+  .hv-checkmark::before,.hv-checkmark::after,.hv-seats span.blink,
+  .hv-accent,.hv-sw::after,.hv-type,.hv-aiTag,.hv-chart i{animation:none!important}
+  .hv-scan{display:none}
+  .hv-roll{transform:translateY(-470px)} /* 靜態停在商品段 */
+  .hv-type{width:var(--w)}
+  .hv-aiTag{opacity:1}
+}
+
+/* ── 作品展示：活的卡片牆（T-038 5b）── */
+.sc-sec{position:relative;overflow:hidden;background:var(--navy-900);padding:96px 0 90px}
+.sc-wall{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;perspective:1400px}
+.sc-card{position:relative;cursor:pointer;border-radius:var(--r-lg);
+  background:linear-gradient(165deg,rgba(24,38,82,.6),rgba(10,17,36,.85));
+  border:1px solid var(--hairline-2);transform-style:preserve-3d;will-change:transform;
+  transition:transform .25s ease-out,box-shadow .35s,border-color .35s}
+.sc-card:hover,.sc-card:focus-visible{border-color:rgba(231,205,156,.6);outline:none;
+  box-shadow:0 26px 60px rgba(0,0,0,.55),0 0 46px rgba(201,160,99,.28);
+  animation:scBreath 2.4s ease-in-out infinite}
+@keyframes scBreath{50%{box-shadow:0 26px 60px rgba(0,0,0,.55),0 0 72px rgba(201,160,99,.44)}}
+.sc-shot{position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:var(--r-lg) var(--r-lg) 0 0;background:#0A1124}
+.sc-shot img{position:absolute;left:0;top:0;width:100%;height:auto;display:block;
+  animation:scRoll var(--d,18s) ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
+@keyframes scRoll{from{transform:translateY(0)}to{transform:translateY(var(--dy,0px))}}
+.sc-shot img.still{transform-origin:50% 20%;animation:scZoom var(--d,16s) ease-in-out infinite alternate}
+@keyframes scZoom{from{transform:scale(1)}to{transform:scale(1.08)}}
+.sc-shot::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 62%,rgba(7,12,30,.55))}
+.sc-sheen{position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:inherit;overflow:hidden}
+.sc-sheen::before{content:"";position:absolute;top:-60%;left:-40%;width:50%;height:220%;opacity:0;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.2) 50%,transparent 70%);
+  transform:rotate(12deg) translateX(-160%)}
+.sc-card:hover .sc-sheen::before{animation:scSheen .9s ease-out forwards}
+@keyframes scSheen{0%{transform:rotate(12deg) translateX(-160%);opacity:0}15%{opacity:1}100%{transform:rotate(12deg) translateX(360%);opacity:0}}
+.sc-meta{display:flex;flex-direction:column;gap:2px;padding:15px 16px 16px;position:relative}
+.sc-meta b{font-size:1rem;font-weight:800;color:var(--ink)}
+.sc-meta small{color:var(--muted);font-size:.78rem}
+.sc-badge{padding:4px 13px;border-radius:999px;font-size:.7rem;font-weight:800;letter-spacing:.08em;white-space:nowrap}
+.sc-meta .sc-badge{position:absolute;top:-14px;right:14px;z-index:4}
+.sc-badge.client{background:var(--grad-gold);color:#131A36;box-shadow:0 0 18px rgba(201,160,99,.45)}
+.sc-badge.demo{background:rgba(16,26,56,.92);color:var(--muted);border:1px solid var(--hairline-2)}
+.sc-live{position:absolute;top:12px;left:12px;z-index:4;display:flex;align-items:center;gap:8px;
+  padding:6px 12px;border-radius:999px;background:rgba(10,17,36,.84);border:1px solid rgba(231,205,156,.42);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:.74rem;font-weight:700;color:var(--ink);
+  box-shadow:0 0 18px rgba(201,160,99,.25);opacity:0;transform:translateY(-6px) scale(.95);
+  animation:scLive 14s ease-in-out infinite;animation-delay:var(--live,0s)}
+.sc-live i{width:8px;height:8px;border-radius:50%;background:var(--gold-400);box-shadow:0 0 10px var(--gold-400)}
+@keyframes scLive{0%,6%{opacity:0;transform:translateY(-6px) scale(.95)}10%,28%{opacity:1;transform:none}33%,100%{opacity:0;transform:translateY(-6px) scale(.95)}}
+/* 說明浮層 */
+.sc-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(7,12,30,.74);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.sc-modal[hidden]{display:none}
+.sc-dialog{width:min(540px,94vw);max-height:88vh;overflow:auto;border-radius:var(--r-lg);
+  background:linear-gradient(165deg,#111C3E,#0A1124);border:1px solid rgba(231,205,156,.4);
+  box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 80px rgba(201,160,99,.18);
+  animation:scPop .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes scPop{from{transform:translateY(26px) scale(.96);opacity:0}}
+.sc-dialog .shot{position:relative;aspect-ratio:16/9;overflow:hidden;border-bottom:1px solid var(--hairline-2);background:#0A1124}
+.sc-dialog .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block;
+  opacity:0;transform:scale(1.06);transition:opacity .9s ease,transform 7s ease-out}
+.sc-dialog .shot img.on{opacity:1;transform:scale(1)}
+.sc-cap{position:absolute;left:12px;bottom:30px;z-index:2;padding:4px 12px;border-radius:999px;font-size:.72rem;font-weight:700;
+  background:rgba(10,17,36,.72);color:var(--gold-300);border:1px solid var(--hairline);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.sc-dots{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:8px;z-index:2}
+.sc-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.38);cursor:pointer;transition:background .3s,transform .3s}
+.sc-dots i.on{background:var(--gold-300);transform:scale(1.3);box-shadow:0 0 10px rgba(201,160,99,.6)}
+.sc-body{padding:22px 24px 24px}
+.sc-body .sc-badge{display:inline-block}
+.sc-body h3{font-size:1.2rem;font-weight:900;letter-spacing:.04em;margin:12px 0 2px;color:#fff}
+.sc-body .sub{color:var(--muted);font-size:.8rem}
+.sc-body p{color:var(--muted);font-size:.9rem;margin:12px 0 14px}
+.sc-feats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.sc-feats span{padding:6px 14px;border-radius:999px;font-size:.76rem;color:var(--gold-300);
+  background:rgba(201,160,99,.1);border:1px solid var(--hairline)}
+.sc-actions{display:flex;gap:12px}
+.sc-actions .btn{flex:1}
+@media (max-width:920px){.sc-wall{grid-template-columns:repeat(2,1fr);gap:18px}}
+@media (max-width:520px){.sc-wall{grid-template-columns:1fr;gap:16px}}
+@media (prefers-reduced-motion:reduce){
+  .sc-shot img{animation:none}
+  .sc-live{animation:none;opacity:1;transform:none}
+  .sc-card:hover{animation:none}
+  .sc-card:hover .sc-sheen::before{animation:none}
+  .sc-dialog{animation:none}
+}
+
+/* ── 區塊通用 ── */
+.sec{padding:96px 0}
+.sec-deep{background:var(--navy-900)}
+.sec-head{text-align:center;max-width:42em;margin:0 auto 56px}
+.sec-head .eyebrow{margin-bottom:10px}
+.sec-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;letter-spacing:.06em;color:#fff}
+.sec-sub{color:var(--muted);margin-top:12px}
+.rule{width:56px;height:2px;background:var(--grad-gold);margin:18px auto 0;border-radius:2px}
+
+/* ── 服務特色 ── */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.feature{background:linear-gradient(170deg,rgba(24,38,82,.55),rgba(10,17,36,.65));border:1px solid var(--hairline-2);border-radius:var(--r-lg);padding:30px 26px;transition:border-color .25s,transform .25s}
+.feature:hover{border-color:var(--hairline);transform:translateY(-5px)}
+.feature .ico{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;margin-bottom:18px;background:rgba(201,160,99,.1);border:1px solid var(--hairline);font-size:1.5rem}
+.feature h3{font-size:1.06rem;font-weight:700;color:#fff;margin-bottom:8px}
+.feature p{font-size:.92rem;color:var(--muted)}
+
+/* ── 功能模板 ── */
+.templates{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.tpl{background:var(--navy-900);border:1px solid var(--hairline-2);border-radius:var(--r-lg);padding:28px 26px;display:flex;gap:18px;align-items:flex-start;transition:border-color .25s,transform .25s}
+.tpl:hover{border-color:var(--hairline);transform:translateY(-4px)}
+.tpl-emoji{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:rgba(201,160,99,.1);border:1px solid var(--hairline);font-size:1.5rem}
+.tpl-info{flex:1;min-width:0}
+.tpl-info h3{font-size:1.06rem;font-weight:700;color:#fff;margin-bottom:6px}
+.tpl-info>p{font-size:.9rem;color:var(--muted);margin-bottom:12px}
+.variants{display:flex;flex-direction:column;gap:7px}
+.variant{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;color:var(--ink);transition:color .2s}
+.variant:hover{color:var(--gold-300)}
+.variant .v-style{font-size:.76rem;color:var(--muted)}
+.variant .arrow{color:var(--gold-400)}
+.tpl-admin{display:inline-block;margin-top:12px;font-size:.85rem;color:var(--gold-300);border-bottom:1px dashed var(--gold-500);padding-bottom:1px;transition:color .2s}
+.tpl-admin:hover{color:var(--gold-400)}
+.tpl-custom{grid-column:1 / -1;border:1.5px dashed var(--gold-500);background:linear-gradient(170deg,rgba(24,38,82,.4),rgba(10,17,36,.55))}
+.tpl-links{display:flex;gap:20px;flex-wrap:wrap;margin-top:6px}
+.tpl-link{font-size:.9rem;font-weight:700;color:var(--gold-300);border-bottom:1px dashed var(--gold-500);padding-bottom:1px;transition:color .2s}
+.tpl-link:hover{color:var(--gold-400)}
+.tpl-link.dim{color:var(--muted);border-bottom-color:var(--muted)}
+.tpl-link.dim:hover{color:var(--gold-300);border-bottom-color:var(--gold-500)}
+
+/* ── Demo 即時數據 ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat{background:linear-gradient(170deg,rgba(24,38,82,.55),rgba(10,17,36,.65));border:1px solid var(--hairline-2);border-radius:var(--r-md);padding:26px 16px;text-align:center;transition:border-color .25s,transform .25s}
+.stat:hover{border-color:var(--hairline);transform:translateY(-4px)}
+.stat .s-emoji{font-size:1.6rem;margin-bottom:8px}
+.stat .s-count{font-family:"Manrope";font-size:2rem;font-weight:800;color:var(--gold-300);line-height:1.3}
+.stat .s-label{font-size:.82rem;color:var(--muted)}
+
+/* ── 技術架構 band ── */
+.band{position:relative;overflow:hidden;text-align:center;border-radius:24px;padding:60px 8% 54px;
+  background:linear-gradient(165deg,var(--navy-800),var(--navy-900));border:1px solid var(--hairline)}
+.band::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;border:1px solid rgba(201,160,99,.18);right:-140px;top:-180px}
+.band::after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;border:1px dashed rgba(255,255,255,.1);left:-90px;bottom:-120px}
+.band h2{font-size:clamp(1.4rem,2.8vw,1.9rem);font-weight:900;color:#fff;letter-spacing:.04em}
+.band .band-sub{color:var(--muted);margin:12px auto 0;max-width:34em}
+.tech-stack{position:relative;display:flex;justify-content:center;align-items:stretch;gap:14px;flex-wrap:wrap;margin:36px 0 8px}
+.tech-badge{background:rgba(255,255,255,.04);border:1px solid var(--hairline-2);border-radius:var(--r-md);padding:20px 18px;min-width:150px;transition:.25s}
+.tech-badge:hover{border-color:var(--hairline);transform:translateY(-3px)}
+.tech-badge .b-icon{width:42px;height:42px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;background:rgba(201,160,99,.1);border:1px solid var(--hairline);font-size:1.15rem}
+.tech-badge .b-name{font-size:.92rem;font-weight:700;color:#fff}
+.tech-badge .b-desc{font-size:.78rem;color:var(--muted)}
+.tech-plus{align-self:center;font-family:"Manrope";font-size:1.2rem;color:var(--gold-400);font-weight:800}
+.tech-note{position:relative;font-size:.92rem;color:var(--gold-300);font-weight:700;margin-top:18px}
+
+/* ── 費用對比 ── */
+.compare-card{background:var(--navy-900);border:1px solid var(--hairline-2);border-radius:var(--r-lg);padding:36px 32px;max-width:640px;margin:0 auto}
+.compare-table{width:100%;border-collapse:collapse;margin:4px 0 20px}
+.compare-table th{font-size:.85rem;font-weight:700;padding:10px 8px;text-align:center;color:var(--muted)}
+.compare-table th:first-child{text-align:left}
+.compare-table th:nth-child(3){color:var(--gold-300)}
+.compare-table td{font-size:.95rem;padding:13px 8px;text-align:center;border-top:1px solid var(--hairline-2)}
+.compare-table td:first-child{text-align:left;color:var(--ink);font-weight:700;font-size:.86rem}
+.compare-table td:nth-child(2){color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(201,160,99,.6)}
+.compare-table td:nth-child(3){color:var(--gold-300);font-weight:700;font-family:"Manrope"}
+.compare-highlight{background:linear-gradient(135deg,rgba(201,160,99,.16),rgba(24,38,82,.35));border:1px solid var(--hairline);border-radius:var(--r-md);padding:18px;text-align:center}
+.compare-highlight .save-amount{font-family:"Manrope";font-size:1.9rem;font-weight:800;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.compare-highlight .save-label{font-size:.84rem;color:var(--ink);font-weight:700;margin-top:2px}
+.compare-note{font-size:.78rem;color:var(--muted);text-align:center;margin-top:16px;line-height:1.7}
+
+/* ── 方案價格 ── */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.plan{position:relative;display:flex;flex-direction:column;background:linear-gradient(170deg,rgba(24,38,82,.45),rgba(10,17,36,.6));
+  border:1px solid var(--hairline-2);border-radius:var(--r-lg);padding:34px 28px 28px;transition:border-color .25s,transform .25s}
+.plan:hover{border-color:var(--hairline);transform:translateY(-4px)}
+.plan.hot{border:1.5px solid var(--gold-500);box-shadow:0 20px 60px rgba(201,160,99,.14);background:linear-gradient(170deg,rgba(41,52,96,.55),rgba(13,20,44,.7))}
+.plan.custom{border:1.5px dashed var(--gold-500)}
+.badge{position:absolute;top:-13px;right:22px;background:var(--grad-gold);color:#131A36;font-size:.76rem;font-weight:800;padding:5px 14px;border-radius:999px}
+.plan h3{font-size:1rem;font-weight:700;color:var(--muted);letter-spacing:.08em}
+.price{margin:12px 0 20px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.price small{font-size:.85rem;color:var(--muted);font-weight:700}
+.price b{font-family:"Manrope";font-size:2rem;font-weight:800;color:var(--gold-300)}
+.price .per{font-size:.82rem;color:var(--muted)}
+.plan ul{display:grid;gap:11px;flex:1}
+.plan li{display:flex;gap:10px;font-size:.9rem;color:var(--ink)}
+.plan li::before{content:"✓";flex:none;color:var(--gold-400);font-weight:700}
+.plan .plan-contact{margin-top:16px;font-size:.85rem;color:var(--muted)}
+.plan .plan-contact a{color:var(--gold-300);font-weight:700}
+
+/* ── FAQ ── */
+.faqs{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;align-items:start}
+.faq{background:var(--navy-950);border:1px solid var(--hairline-2);border-radius:12px;overflow:hidden}
+.sec-deep .faq{background:var(--navy-950)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;background:none;border:0;cursor:pointer;text-align:left;
+  padding:16px 18px;font:inherit;font-size:.95rem;font-weight:500;color:var(--ink)}
+.faq-q .chev{color:var(--gold-400);transition:transform .3s}
+.faq.open .chev{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{padding:0 18px 16px;font-size:.9rem;color:var(--muted)}
+
+/* ── CTA band ── */
+.cta-band{position:relative;overflow:hidden;text-align:center;border-radius:24px;padding:66px 8% 58px;
+  background:linear-gradient(165deg,var(--navy-800),var(--navy-900));border:1px solid var(--hairline)}
+.cta-band::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;border:1px solid rgba(201,160,99,.18);right:-140px;top:-180px}
+.cta-band::after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;border:1px dashed rgba(255,255,255,.1);left:-90px;bottom:-120px}
+.cta-band h2{font-size:clamp(1.4rem,2.8vw,1.9rem);font-weight:900;color:#fff;letter-spacing:.04em}
+.cta-band>p{color:var(--muted);margin:14px auto 30px;max-width:34em;position:relative}
+.cta-band .btn{position:relative}
+.customer{position:relative;margin-top:44px;padding-top:30px;border-top:1px solid var(--hairline-2)}
+.customer>p{font-size:.9rem;color:var(--muted);margin-bottom:16px}
+.customer-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.customer-link{display:inline-block;padding:10px 26px;border-radius:999px;font-size:.9rem;font-weight:700;transition:.25s;border:1.5px solid var(--gold-500);color:var(--gold-300)}
+.customer-link:hover{background:rgba(201,160,99,.12);transform:translateY(-2px)}
+.customer-link.alt{border-color:rgba(255,255,255,.35);color:var(--ink)}
+.customer-link.alt:hover{border-color:var(--gold-400);color:var(--gold-300);background:none}
+
+/* ── Footer ── */
+footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid var(--hairline-2)}
+.foot{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.foot-links{display:flex;gap:8px 18px;font-size:.85rem;flex-wrap:wrap;justify-content:center}
+.foot-links a{transition:color .2s}
+.foot-links a:hover{color:var(--gold-300)}
+.copy{font-size:.8rem}
+#toTop{position:fixed;right:22px;bottom:24px;z-index:90;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold-500);cursor:pointer;
+  background:rgba(10,17,36,.9);color:var(--gold-300);font-size:1.05rem;opacity:0;pointer-events:none;transition:opacity .3s}
+#toTop.show{opacity:1;pointer-events:auto}
+
+/* ── RWD ── */
+/* 語系切換鈕加入後，header 在 921～1100px 放不下：1100 以下鈕縮成純圖示，1024 以下提早收進漢堡（T-041） */
+@media (max-width:1100px){.lang-switch{width:36px;padding:0;justify-content:center}.lang-switch .lang-label{display:none}}
+@media (max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.plans{grid-template-columns:repeat(2,1fr)}
+  .nav-links,.nav-right .btn,.nav-right .link-track{display:none}
+  .hamburger{display:block}
+  .lang-switch{width:auto;padding:0 14px 0 11px}.lang-switch .lang-label{display:inline}
+}
+@media (max-width:920px){
+  .hero{padding:calc(var(--header-h) + 48px) 0 80px}
+  .hero-grid{grid-template-columns:1fr;gap:52px}
+  .hv-copy{text-align:center}
+  .hv-copy::before{inset:-12% -20%}
+  .hv-stageOuter{height:600px;overflow:visible}
+  .hv-stage{position:relative;left:50%;margin:0;transform:translateX(-50%) scale(.9);transform-origin:top center}
+  .features{grid-template-columns:1fr}
+  .templates{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+  .faqs{grid-template-columns:1fr}
+  .hv-chip-1{left:-6%}.hv-chip-2{right:-4%}.hv-chip-3{left:-2%}.hv-chip-4{right:-2%}
+  .compare-card{padding:28px 18px}
+}
+@media (max-width:640px){
+  .hv-stageOuter{height:490px}
+  .hv-stage{transform:translateX(-50%) scale(.72)}
+}
+@media (max-width:520px){.sec{padding:66px 0}.stats{grid-template-columns:1fr 1fr;gap:12px}.tpl{flex-direction:column}.tech-plus{display:none}
+  .hv-stageOuter{height:410px}
+  .hv-stage{transform:translateX(-50%) scale(.58)}
+  .hv-chip{font-size:.78rem;padding:9px 13px}
+  .hv-chip-1{left:-4%;top:2%}
+  .hv-chip-2{right:-6%;top:34%}
+  .hv-chip-3,.hv-chip-4{display:none}
+}
         </style>
     </head>
     <body>
-        <nav>
-            <div class="container">
-                <a href="/en/" class="nav-logo">One Page Go</a>
+        <!-- ── 導覽列 ── -->
+        <header id="hd">
+            <div class="nav">
+                <a class="brand" href="#top" aria-label="One Page Go home">
+                    <span class="logo-chip"><img src="/onepagego_mark_only_transparent.png" alt="One Page Go logo"></span>
+                    <b class="en">One Page Go</b>
+                </a>
+                <nav class="nav-links" aria-label="Main menu">
+                    <a href="#features">Features</a><a href="#templates">Templates</a><a href="#tech">Free Stack</a>
+                    <a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+                </nav>
                 <div class="nav-right">
-                    <a href="/" class="nav-lang">中文</a>
-                    <a href="mailto:Onepagegoimm@gmail.com" class="nav-cta">Get a quote</a>
+                    <a class="lang-switch" href="/" lang="zh-Hant-TW" hreflang="zh-Hant-TW" aria-label="切換到中文版"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label">中文</span></a>
+                    <a class="link-track" href="/onboarding/index.html">Track order</a>
+                    <a class="btn btn-gold btn-sm" href="/onboarding/index.html">Get started</a>
+                    <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
                 </div>
             </div>
+        </header>
+        <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile menu">
+            <a href="#features">Features</a><a href="#templates">Templates</a><a href="#tech">Free Stack</a>
+            <a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+            <a href="/onboarding/index.html">Get started / Track order</a>
+            <a href="/revision/index.html">Request a change</a>
+            <div class="menu-lang"><small>Language</small><a class="lang-switch" href="/" lang="zh-Hant-TW" hreflang="zh-Hant-TW"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label">中文</span></a></div>
         </nav>
 
-        <main class="container">
-            <section class="hero">
-                <h1>One-page websites for small businesses — pay once, no monthly fees</h1>
-                <p class="tagline">
-                    One Page Go builds single-page web apps for small businesses: online ordering, micro e-commerce, booking, group-buy and ticketing. Pay once, own it forever, and keep your data in your own dedicated database.
-                </p>
-                <div class="badges">
-                    <span class="badge">One-time payment</span>
-                    <span class="badge">No monthly fees</span>
-                    <span class="badge">No transaction cut</span>
-                    <span class="badge">Live in ~3 days</span>
-                </div>
-                <a href="mailto:Onepagegoimm@gmail.com" class="btn-primary">Email us to get started</a>
-            </section>
+        <main id="top">
 
-            <section>
-                <h2>What we build</h2>
-                <div class="solution-grid">
-                    <a class="solution" href="/en/solutions/order-system/">
-                        <h3>Online ordering system</h3>
-                        <p>Order-taking pages for restaurants, cafés and retail — mobile ordering, order tracking and customer order management.</p>
-                        <span class="see">Learn more →</span>
-                    </a>
-                    <a class="solution" href="/demos/ecommerce/index.html">
-                        <h3>Micro e-commerce</h3>
-                        <p>A one-page shop: product showcase, multi-item checkout and order notifications.</p>
-                        <span class="see">View demo →</span>
-                    </a>
-                    <a class="solution" href="/demos/booking/index.html">
-                        <h3>Online booking</h3>
-                        <p>Service menu, time-slot booking and live capacity management.</p>
-                        <span class="see">View demo →</span>
-                    </a>
-                    <a class="solution" href="/demos/groupbuy/index.html">
-                        <h3>Group-buy</h3>
-                        <p>Open a group order and track join / target / fulfilment progress.</p>
-                        <span class="see">View demo →</span>
-                    </a>
-                    <a class="solution" href="/demos/ticketing/index.html">
-                        <h3>Event ticketing</h3>
-                        <p>Online ticket sales with an electronic check-in code.</p>
-                        <span class="see">View demo →</span>
-                    </a>
+        <!-- ── Hero ── -->
+        <section class="hero" id="hero">
+            <div class="hv-aur hv-aur-1" aria-hidden="true"></div>
+            <div class="hv-aur hv-aur-2" aria-hidden="true"></div>
+            <div class="hv-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="container hero-grid">
+                <div class="hv-copy reveal in">
+                    <h1>One page.<br><i>Open for business.</i></h1>
+                    <!-- GEO：完整描述供搜尋引擎擷取，視覺上不顯示 -->
+                    <p class="hero-seo">
+                        One Page Go is a Taiwan-based service that builds single-page web apps for small businesses, with four plans: micro e-commerce, online booking, group-buy management and event ticketing. It runs on the free tiers of GitHub Pages, Cloudflare Workers and D1, so after a one-time payment from NT$2,500 (about US$78) there are no monthly fees, ever. Compared with subscription store platforms it saves more than NT$27,000 over two years, and every merchant owns a dedicated database that can be exported in full at any time, with no platform lock-in.
+                    </p>
+                    <a class="btn btn-gold hv-cta" href="/onboarding/index.html">Get started</a>
                 </div>
-            </section>
+                <div class="hv-stageOuter reveal in" aria-hidden="true">
+                    <div class="hv-stage">
+                        <div class="hv-page">
+                            <div class="hv-chrome"><b></b><b></b><b></b><span></span></div>
+                            <div class="hv-viewport">
+                                <div class="hv-scan"></div>
+                                <div class="hv-roll">
 
-            <section>
-                <h2>Why One Page Go</h2>
-                <ul class="check-list">
-                    <li><strong>Pay once, no monthly fees.</strong> A one-time buyout instead of an endless subscription — far lower long-term cost than monthly platforms.</li>
-                    <li><strong>You own your data.</strong> Orders and customers live in your own dedicated database, fully exportable; nothing is locked behind a platform.</li>
-                    <li><strong>No transaction cut.</strong> We don't take a percentage of your sales.</li>
-                    <li><strong>Custom design.</strong> Layout and style are tailored to your brand.</li>
-                    <li><strong>Fast to launch.</strong> From brief to live in about 3 days.</li>
-                </ul>
-            </section>
+                                    <!-- S1 店頭橫幅 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-banner">
+                                            <div class="hv-bname"><b>Warm Nest Bakery</b><small class="en">HANDMADE PASTRIES</small></div>
+                                        </div>
+                                        <div class="hv-bar gold" style="width:44%;margin-bottom:12px"></div>
+                                        <div class="hv-bar" style="width:66%"></div>
+                                        <div class="hv-pills"><span class="on">All items</span><span>This week</span><span>About us</span></div>
+                                        <span class="hv-tag en">ONLINE STORE</span>
+                                    </div>
 
-            <section>
-                <h2>Pricing</h2>
-                <div class="pricing">
-                    <div class="price">from NT$2,500 <small>(~US$80) one-time</small></div>
-                    <p style="margin-top:10px;">No monthly fees · No transaction cut · You own it</p>
-                </div>
-            </section>
+                                    <!-- S2 商品三格 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-bar gold" style="width:38%;margin-bottom:16px"></div>
+                                        <div class="hv-prods">
+                                            <div class="hv-card hv-prod"><div class="hv-ph hv-ph-1"></div><span class="hv-nm">Ganache Cake</span><span class="hv-price en">NT$180</span></div>
+                                            <div class="hv-card hv-prod hot"><div class="hv-ph hv-ph-2"></div><span class="hv-nm">Classic Latte</span><span class="hv-price en">NT$170</span></div>
+                                            <div class="hv-card hv-prod"><div class="hv-ph hv-ph-3"></div><span class="hv-nm">Artisan Gift Box</span><span class="hv-price en">NT$320</span></div>
+                                        </div>
+                                        <span class="hv-tag">Micro e-commerce · Product list</span>
+                                    </div>
 
-            <section class="faq-section">
-                <h2>FAQ</h2>
-                <div class="faq-item">
-                    <div class="faq-question">How much does a one-page website cost?</div>
-                    <div class="faq-answer">A one-time payment from NT$2,500 (about US$80) up to NT$4,000 depending on the features. No monthly fees and no transaction cut, unlike subscription platforms such as Shopline, WACA, Wix or Squarespace.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Where is my data stored?</div>
-                    <div class="faq-answer">Everything runs on GitHub Pages + Cloudflare Workers &amp; D1 (free tier) + Resend (free tier). All orders and customer data are stored in your own dedicated Cloudflare D1 database, fully exportable, so you are never locked in.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">What can One Page Go build?</div>
-                    <div class="faq-answer">Online ordering systems for restaurants, cafés and retail; micro e-commerce shops; online booking with capacity management; group-buy management; and event ticketing with electronic check-in.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">How long does it take to launch?</div>
-                    <div class="faq-answer">About 3 days from requirements to launch. The site is handed over to you and you own it outright — no servers and no monthly fees.</div>
-                </div>
-            </section>
+                                    <!-- S3 購物車 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-card hv-row"><div class="hv-av cake"></div><div class="hv-info"><b>Ganache Cake</b><small class="en">NT$180</small></div><em class="hv-qty">×1</em></div>
+                                        <div class="hv-card hv-row"><div class="hv-av latte"></div><div class="hv-info"><b>Classic Latte</b><small class="en">NT$170</small></div><em class="hv-qty">×2</em></div>
+                                        <div class="hv-card hv-row suggest"><div class="hv-av gift"></div><div class="hv-info"><b>Add-on · Artisan Gift Box</b><small class="en">NT$320</small></div><em class="hv-addchip">+ Add</em></div>
+                                        <div class="hv-total"><span>Total</span><b class="en">NT$520</b></div>
+                                        <div class="hv-shipbar"><i></i><span>Free shipping unlocked ✓</span></div>
+                                        <div class="hv-paybtn slim">Checkout</div>
+                                        <span class="hv-tag">Cart · Online payment</span>
+                                    </div>
 
-            <section class="cta">
-                <h3>Ready to put your business online?</h3>
-                <p>Tell us what you need and we'll get back to you within 24 hours.</p>
-                <a href="mailto:Onepagegoimm@gmail.com" class="btn-primary">Email us to get started</a>
-            </section>
+                                    <!-- S4 付款成功 -->
+                                    <div class="hv-sec hv-pay">
+                                        <div class="hv-checkmark">
+                                            <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l5 5 10-11" stroke="#131A36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                        <p>Payment received</p>
+                                    </div>
+
+                                    <!-- S5 預約日曆 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-card hv-row"><div class="hv-av latte"></div><div class="hv-info"><b>Pastry Workshop</b><small>90 min · NT$680</small></div><em class="hv-addchip">3 seats left</em></div>
+                                        <div class="hv-cal">
+                                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span class="on"></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span class="on"></span><span></span><span></span>
+                                        </div>
+                                        <div class="hv-times"><span>10:00</span><span class="on">14:00</span><span>16:30</span></div>
+                                        <div class="hv-paybtn slim">Confirm booking</div>
+                                        <span class="hv-tag">Booking · Slots locked in real time</span>
+                                    </div>
+
+                                    <!-- S6 座位圖 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-card hv-row"><div class="hv-av evt"></div><div class="hv-info"><b>Weekend Bakery Market</b><small>Sat 14 Dec 14:00 · Warm Nest store</small></div><em class="hv-addchip">Selling fast</em></div>
+                                        <div class="hv-stagebar"></div>
+                                        <div class="hv-card hv-seats">
+                                            <span></span><span></span><span></span><span class="pick"></span><span class="pick"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span class="pick"></span><span class="pick"></span><span class="blink"></span><span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span class="pick"></span><span></span><span></span><span></span><span></span><span class="blink"></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span></span><span class="pick"></span><span class="pick"></span><span></span><span></span><span></span><span></span><span></span>
+                                        </div>
+                                        <div class="hv-total"><span>2 seats selected</span><b class="en">NT$800</b></div>
+                                        <div class="hv-paybtn slim">Confirm seats</div>
+                                        <span class="hv-tag">Ticketing · Pick a seat, lock it instantly</span>
+                                    </div>
+
+                                    <!-- S7 客製設計 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-bar gold" style="width:36%;margin-bottom:16px"></div>
+                                        <div class="hv-card hv-mini">
+                                            <div class="hv-mphead"><i class="hv-mplogo hv-accent"></i><span class="hv-mpnav"></span></div>
+                                            <div class="hv-mphero hv-accent"></div>
+                                            <div class="hv-mpgrid"><span></span><span></span><span></span></div>
+                                            <div class="hv-mpbtn hv-accent"></div>
+                                        </div>
+                                        <div class="hv-swatches">
+                                            <span class="hv-lbl">Colors</span>
+                                            <span class="hv-sw gold"></span>
+                                            <span class="hv-sw blue"></span>
+                                            <span class="hv-sw rose"></span>
+                                        </div>
+                                        <div class="hv-layouts">
+                                            <span class="hv-lbl">Layout</span>
+                                            <span class="hv-lay hv-lay-1"></span>
+                                            <span class="hv-lay hv-lay-2 on"></span>
+                                            <span class="hv-lay hv-lay-3"></span>
+                                        </div>
+                                        <span class="hv-tag">Custom design · Layout and colors, your call</span>
+                                    </div>
+
+                                    <!-- S8 AI 輔助 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-bar gold" style="width:32%;margin-bottom:16px"></div>
+                                        <div class="hv-card hv-msg user">Write a product description for me</div>
+                                        <div class="hv-card hv-msg bot">
+                                            <span class="hv-spark">✦</span>
+                                            <div class="hv-type hv-t1"></div>
+                                            <div class="hv-type hv-t2"></div>
+                                            <div class="hv-type hv-t3"></div>
+                                            <div class="hv-aiTag">AI copy ready</div>
+                                        </div>
+                                        <div class="hv-card hv-gen">
+                                            <div class="hv-av cake"></div>
+                                            <div class="hv-info"><div class="hv-type hv-g1"></div><div class="hv-type hv-g2"></div></div>
+                                            <em class="hv-addchip">Apply copy</em>
+                                        </div>
+                                        <span class="hv-tag">AI assistant · Optional add-on or bundled</span>
+                                    </div>
+
+                                    <!-- S9 AI 訂單分析 -->
+                                    <div class="hv-sec">
+                                        <div class="hv-kpi"><span>Revenue this month</span><b class="en">NT$48,200</b></div>
+                                        <div class="hv-statchips">
+                                            <span class="hv-scp"><b class="en">32</b><small>Orders today</small></span>
+                                            <span class="hv-scp"><b class="en">NT$412</b><small>Avg. order</small></span>
+                                            <span class="hv-scp"><b class="en">68%</b><small>Repeat buyers</small></span>
+                                        </div>
+                                        <div class="hv-card hv-chart">
+                                            <i style="--h:38%"></i><i style="--h:52%"></i><i style="--h:46%"></i>
+                                            <i style="--h:64%"></i><i style="--h:58%"></i><i style="--h:78%"></i>
+                                            <i class="hot" style="--h:92%"></i>
+                                        </div>
+                                        <div class="hv-card hv-insight">
+                                            <span class="hv-spark">✦</span>
+                                            <b>AI insight</b>: Orders peak on Fridays at 18:00 and the ganache cake has topped sales 3 weeks running. Consider a limited-time bundle.
+                                        </div>
+                                        <span class="hv-tag">AI order analytics · Auto stats, proactive tips</span>
+                                    </div>
+
+                                    <!-- S1 複本（無縫循環用） -->
+                                    <div class="hv-sec">
+                                        <div class="hv-banner">
+                                            <div class="hv-bname"><b>Warm Nest Bakery</b><small class="en">HANDMADE PASTRIES</small></div>
+                                        </div>
+                                        <div class="hv-bar gold" style="width:44%;margin-bottom:12px"></div>
+                                        <div class="hv-bar" style="width:66%"></div>
+                                        <div class="hv-pills"><span class="on">All items</span><span>This week</span><span>About us</span></div>
+                                        <span class="hv-tag en">ONLINE STORE</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 玻璃通知晶片 -->
+                        <div class="hv-chip hv-chip-1"><span class="hv-ico">+1</span><span><b>New order</b> <small>E-commerce · just now</small></span></div>
+                        <div class="hv-chip hv-chip-2"><span class="hv-ico">✓</span><span><b>NT$520 received</b></span></div>
+                        <div class="hv-chip hv-chip-3"><span class="hv-ico">✓</span><span><b>Booking confirmed</b> <small>14:00</small></span></div>
+                        <div class="hv-chip hv-chip-4"><span class="hv-ico">✦</span><span><b>AI copy generated</b></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 作品展示（T-038・5b 活的卡片牆）── -->
+        <section id="showcase" class="sec sc-sec">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Showcase</span>
+                    <h2 class="sec-title">Sites we've actually built</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">A real client site plus demos of all four templates. Every card is a live site. Click one to see what it does. Demos are in Traditional Chinese.</p>
+                </div>
+                <div class="sc-wall reveal" id="scWall"></div>
+            </div>
+        </section>
+
+        <!-- 作品說明浮層 -->
+        <div class="sc-modal" id="scModal" hidden role="dialog" aria-modal="true" aria-label="Site details">
+            <div class="sc-dialog">
+                <div class="shot" id="scShot"></div>
+                <div class="sc-body">
+                    <span class="sc-badge" id="scBadge"></span>
+                    <h3></h3>
+                    <div class="sub en" id="scSub"></div>
+                    <p id="scDesc"></p>
+                    <div class="sc-feats" id="scFeats"></div>
+                    <div class="sc-actions">
+                        <a class="btn btn-gold" id="scGo" href="#" target="_blank" rel="noopener">Visit site</a>
+                        <button class="btn btn-ghost" id="scClose" type="button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        /* 作品展示：活的卡片牆＋說明浮層（T-038 5b） */
+        const SC_DATA = [
+            {k:'soom', type:'client', name:'Studio Soom', sub:'Booking + packages · Gyrotonic® studio, London', live:'New booking · slot locked',
+             img:'/assets/sc-soom.jpg', tall:'/assets/sc-soom-tall.jpg', url:'https://studiosoom.one-page-go.com/',
+             shots:[{src:'/assets/sc-soom-1.jpg',cap:'Home'},{src:'/assets/sc-soom-2.jpg',cap:'Booking flow'},{src:'/assets/sc-soom-3.jpg',cap:'Packages and availability calendar'},{src:'/assets/sc-soom-m.jpg',cap:'Mobile'}],
+             desc:'A private Gyrotonic® studio in London. Clients buy single sessions or packages online, book a class slot straight away, and check their remaining sessions in their account any time.',
+             feats:['Buy packages online','Time-slot booking','Member accounts','Remaining-session tracking']},
+            {k:'bakery', type:'demo', name:'Bloom Bakery', sub:'Micro e-commerce · Handmade bakery', live:'New order +1',
+             img:'/assets/sc-bakery.jpg', tall:'/assets/sc-bakery-tall.jpg', url:'https://one-page-go.com/demos/ecommerce/',
+             shots:[{src:'/assets/sc-bakery.jpg',cap:'Product list'},{src:'/assets/sc-bakery-m.jpg',cap:'Mobile'}],
+             desc:'A small bakery with fresh daily bakes. Today\'s items go up, sell out and stop. Customers order from their phone and pick up in store, with no app to install.',
+             feats:['Product listing','Stock and sold-out','Bag checkout','Order management']},
+            {k:'spa', type:'demo', name:'Serenity Spa', sub:'Booking · Massage studio', live:'Booked 14:00',
+             img:'/assets/sc-spa.jpg', tall:'/assets/sc-spa-tall.jpg', url:'https://one-page-go.com/demos/booking/',
+             shots:[{src:'/assets/sc-spa.jpg',cap:'Services and calendar'},{src:'/assets/sc-spa-m.jpg',cap:'Mobile'}],
+             desc:'Online booking for a massage studio. Pick a service, choose a date, see live availability. Full slots are crossed out automatically.',
+             feats:['Service picker','Calendar slots','Live availability','Booking confirmation']},
+            {k:'fruit', type:'demo', name:'Fruitbox Collective', sub:'Group-buy · Farm direct', live:'Joined +1 · Target met',
+             img:'/assets/sc-fruit.jpg', tall:'/assets/sc-fruit-tall.jpg', url:'https://one-page-go.com/demos/groupbuy/',
+             shots:[{src:'/assets/sc-fruit.jpg',cap:'Group progress'},{src:'/assets/sc-fruit-m.jpg',cap:'Mobile'}],
+             desc:'Fruit-box group buying. Progress updates live: how many have joined, the target to unlock the group, and the pickup list, all at a glance.',
+             feats:['Group stats','Join +1','Target threshold','Pickup list']},
+            {k:'star', type:'demo', name:'Starlight Festival', sub:'Ticketing · Arts festival', live:'Tickets sold ×2',
+             img:'/assets/sc-star.jpg', tall:'/assets/sc-star-tall.jpg', url:'https://one-page-go.com/demos/ticketing/',
+             shots:[{src:'/assets/sc-star.jpg',cap:'Pick a session'},{src:'/assets/sc-star-m.jpg',cap:'Mobile'}],
+             desc:'Four steps to a ticket: pick a session, pick a ticket type, fill in your details, get an e-ticket. The whole purchase happens on a phone.',
+             feats:['Sessions and tiers','Checkout flow','E-tickets','Guest list']},
+            {k:'coffee', type:'demo', name:'Urban Drip Coffee', sub:'Micro e-commerce · Home roaster', live:'NT$480 received',
+             img:'/assets/sc-coffee.jpg', tall:'/assets/sc-coffee-tall.jpg', url:'https://one-page-go.com/demos/ecommerce-coffee/',
+             shots:[{src:'/assets/sc-coffee.jpg',cap:'This week\'s beans'},{src:'/assets/sc-coffee-m.jpg',cap:'Mobile'}],
+             desc:'A coffee roaster\'s weekly bean list. Items rotate every week; order online, pick up in store, and sold out means sold out.',
+             feats:['Weekly bean list','Online orders','In-store pickup']}
+        ];
+        (function(){
+            const wall = document.getElementById('scWall');
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const card = (d, i) => '<article class="sc-card" data-sc="' + d.k + '" tabindex="0" role="button" aria-label="' + d.name + ' details">'
+                + '<div class="sc-shot"><img src="' + d.tall + '" alt="' + d.name + ' screenshot" loading="lazy" style="--delay:' + (-(i * 3.7)) + 's"></div>'
+                + '<span class="sc-live" style="--live:' + (i * 2.3) + 's"><i></i>' + d.live + '</span>'
+                + '<div class="sc-sheen"></div>'
+                + '<div class="sc-meta"><span class="sc-badge ' + (d.type === 'client' ? 'client' : 'demo') + '">' + (d.type === 'client' ? 'Client site' : 'Demo · Chinese') + '</span>'
+                + '<b class="en">' + d.name + '</b><small>' + d.sub + '</small></div></article>';
+            wall.innerHTML = SC_DATA.map(card).join('');
+
+            /* 縮圖在卡內自動捲動：依圖片實際高度算位移與時長 */
+            const imgs = [...wall.querySelectorAll('.sc-shot img')];
+            function fit(img){
+                const dy = Math.max(0, img.offsetHeight - img.parentElement.clientHeight);
+                if (dy < 40) { img.classList.add('still'); img.style.setProperty('--d', '16s'); return; } /* 太短捲不動：改緩慢放大 */
+                img.classList.remove('still');
+                img.style.setProperty('--dy', (-dy) + 'px');
+                img.style.setProperty('--d', Math.max(4.5, 3 + dy / 60).toFixed(1) + 's');
+            }
+            imgs.forEach(img => { if (img.complete && img.naturalHeight) fit(img); else img.addEventListener('load', () => fit(img)); });
+            window.addEventListener('resize', () => imgs.forEach(fit));
+
+            /* 滑鼠跟隨 3D 傾斜（觸控與 reduced-motion 不套用） */
+            if (!reduce) {
+                wall.addEventListener('pointermove', e => {
+                    if (e.pointerType === 'touch') return;
+                    const c = e.target.closest('.sc-card'); if (!c) return;
+                    const r = c.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+                    c.style.transform = 'translateY(-8px) rotateX(' + (-y * 10).toFixed(2) + 'deg) rotateY(' + (x * 12).toFixed(2) + 'deg)';
+                });
+                wall.addEventListener('pointerout', e => {
+                    const c = e.target.closest('.sc-card'); if (c && !c.contains(e.relatedTarget)) c.style.transform = '';
+                });
+            }
+
+            /* 說明浮層 */
+            const modal = document.getElementById('scModal');
+            let scTimer = null;
+            function scOpen(k){
+                const d = SC_DATA.find(x => x.k === k);
+                if (!d) return;
+                /* 大圖輪播：2～3 張不同功能／頁面，每 3.4 秒交叉淡入＋緩慢縮放 */
+                const shot = document.getElementById('scShot');
+                const shots = (d.shots && d.shots.length) ? d.shots : [{src:d.img, cap:''}];
+                shot.innerHTML = shots.map((s, i) => '<img src="' + s.src + '" alt="' + d.name + ' ' + (s.cap || 'Screenshot') + '"' + (i === 0 ? ' class="on"' : '') + '>').join('')
+                    + (shots.length > 1 ? '<span class="sc-cap">' + (shots[0].cap || '') + '</span><div class="sc-dots">' + shots.map((s, i) => '<i' + (i === 0 ? ' class="on"' : '') + ' data-i="' + i + '"></i>').join('') + '</div>' : '');
+                let cur = 0;
+                const show = n => {
+                    cur = (n + shots.length) % shots.length;
+                    shot.querySelectorAll('img').forEach((im, i) => im.classList.toggle('on', i === cur));
+                    shot.querySelectorAll('.sc-dots i').forEach((dot, i) => dot.classList.toggle('on', i === cur));
+                    const cap = shot.querySelector('.sc-cap'); if (cap) cap.textContent = shots[cur].cap || '';
+                };
+                clearInterval(scTimer);
+                if (shots.length > 1 && !reduce) scTimer = setInterval(() => show(cur + 1), 3400);
+                shot.onclick = e => { const dot = e.target.closest('.sc-dots i'); if (dot) { show(+dot.dataset.i); clearInterval(scTimer); if (!reduce) scTimer = setInterval(() => show(cur + 1), 3400); } };
+                const badge = document.getElementById('scBadge');
+                badge.className = 'sc-badge ' + (d.type === 'client' ? 'client' : 'demo');
+                badge.textContent = d.type === 'client' ? 'Client site' : 'Demo · Chinese';
+                modal.querySelector('h3').textContent = d.name;
+                document.getElementById('scSub').textContent = d.sub;
+                document.getElementById('scDesc').textContent = d.desc;
+                document.getElementById('scFeats').innerHTML = d.feats.map(f => '<span>' + f + '</span>').join('');
+                const go = document.getElementById('scGo');
+                go.href = d.url;
+                go.textContent = d.type === 'client' ? 'Visit client site' : 'Open demo (Chinese)';
+                modal.hidden = false;
+                document.body.style.overflow = 'hidden';
+            }
+            function scClose(){ modal.hidden = true; document.body.style.overflow = ''; clearInterval(scTimer); }
+            wall.addEventListener('click', e => { const c = e.target.closest('.sc-card'); if (c) scOpen(c.dataset.sc); });
+            wall.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { const c = e.target.closest('.sc-card'); if (c) { e.preventDefault(); scOpen(c.dataset.sc); } }
+            });
+            modal.addEventListener('click', e => { if (e.target === modal) scClose(); });
+            document.getElementById('scClose').addEventListener('click', scClose);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) scClose(); });
+        })();
+        </script>
+
+        <!-- ── 服務特色 ── -->
+        <section id="features" class="sec sec-deep">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Why Us</span>
+                    <h2 class="sec-title">Why choose One Page Go?</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">A simple, fast and affordable way to take your business online</p>
+                </div>
+                <div class="features">
+                    <div class="feature reveal">
+                        <div class="ico">📱</div>
+                        <h3>Mobile first</h3>
+                        <p>Customers browse and order on their phone. No app to download.</p>
+                    </div>
+                    <div class="feature reveal">
+                        <div class="ico">⚡</div>
+                        <h3>Fast launch</h3>
+                        <p>Delivered in as little as 3 days, so your business doesn't wait.</p>
+                    </div>
+                    <div class="feature reveal">
+                        <div class="ico">💰</div>
+                        <h3>Zero monthly fees, for life</h3>
+                        <p>No monthly, yearly or renewal fees. Once live, it runs free forever.</p>
+                    </div>
+                    <div class="feature reveal">
+                        <div class="ico">🔒</div>
+                        <h3>Your data, kept private</h3>
+                        <p>Every merchant gets a dedicated database. Nothing is shared, and a full export is yours on request.</p>
+                    </div>
+                    <div class="feature reveal">
+                        <div class="ico">💳</div>
+                        <h3>Simple, safe payments</h3>
+                        <p>Built-in bank-transfer confirmation notifies you after each payment, so every order's status is easy to track. Add ECPay, Taiwan's payment gateway, for credit card, ATM and more.</p>
+                    </div>
+                    <div class="feature reveal">
+                        <div class="ico">🔔</div>
+                        <h3>Instant notifications</h3>
+                        <p>Add Telegram or LINE alerts and new orders land on your phone right away.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 功能模板 ── -->
+        <section id="templates" class="sec">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Templates</span>
+                    <h2 class="sec-title">Templates</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">Layout and style can be customised. Start from the template closest to what you need. Demos open in Traditional Chinese.</p>
+                </div>
+                <div class="templates">
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🧁</div>
+                        <div class="tpl-info">
+                            <h3>Micro e-commerce shop</h3>
+                            <p>Product showcase, multi-item checkout and automatic order alerts. An easy start for your online store.</p>
+                            <div class="variants">
+                                <a href="/demos/ecommerce/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>🧁</span>Bloom Bakery<span class="v-style">Warm handmade</span><span class="arrow">→</span></a>
+                                <a href="/demos/ecommerce-coffee/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>☕</span>Urban Drip Coffee<span class="v-style">Industrial minimal</span><span class="arrow">→</span></a>
+                                <a href="/demos/ecommerce-tea/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>🍵</span>Jade Leaf Tea<span class="v-style">Eastern elegance</span><span class="arrow">→</span></a>
+                            </div>
+                            <a href="/demos/ecommerce/admin.html" class="tpl-admin" hreflang="zh-Hant-TW" title="Demo in Chinese">Admin dashboard demo (in Chinese) →</a>
+                        </div>
+                    </div>
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">💆</div>
+                        <div class="tpl-info">
+                            <h3>Booking + capacity control</h3>
+                            <p>Services, time slots and capacity limits. Ideal for beauty, hair and consulting.</p>
+                            <div class="variants">
+                                <a href="/demos/booking/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>💆</span>Serenity Spa<span class="v-style">Zen green and gold</span><span class="arrow">→</span></a>
+                                <a href="/demos/booking-barber/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>💈</span>Sharp Cuts Barber<span class="v-style">Sharp gentleman</span><span class="arrow">→</span></a>
+                                <a href="/demos/booking-pet/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>🐾</span>Paws &amp; Love Pet<span class="v-style">Soft pastel</span><span class="arrow">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🍊</div>
+                        <div class="tpl-info">
+                            <h3>Group-buy manager</h3>
+                            <p>Open a group, take joins, track progress with a countdown to close. Built for community group buys.</p>
+                            <div class="variants">
+                                <a href="/demos/groupbuy/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>🍊</span>Fruitbox Collective<span class="v-style">Fresh fruit</span><span class="arrow">→</span></a>
+                                <a href="/demos/groupbuy-kitchen/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>🍳</span>Mama's Kitchen<span class="v-style">Home kitchen</span><span class="arrow">→</span></a>
+                                <a href="/demos/groupbuy-dock/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>🐟</span>Fisherman's Dock<span class="v-style">Harbour blue</span><span class="arrow">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🎪</div>
+                        <div class="tpl-info">
+                            <h3>Event ticketing page</h3>
+                            <p>Ticket tiers, online sales and e-check-in codes. Running an event has never been simpler.</p>
+                            <div class="variants">
+                                <a href="/demos/ticketing/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>🎪</span>Starlight Festival<span class="v-style">Neon night</span><span class="arrow">→</span></a>
+                                <a href="/demos/ticketing-yoga/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>🧘</span>Morning Yoga Retreat<span class="v-style">Morning calm</span><span class="arrow">→</span></a>
+                                <a href="/demos/ticketing-arcade/index.html" class="variant" hreflang="zh-Hant-TW" title="Demo in Chinese"><span>🕹️</span>Retro Arcade Night<span class="v-style">Retro pixel</span><span class="arrow">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tpl tpl-custom reveal">
+                        <div class="tpl-emoji">✨</div>
+                        <div class="tpl-info">
+                            <h3>Need something beyond these four? We'll design your own style.</h3>
+                            <p>Like a demo but want different colours? Have a logo, a layout in mind or a design sketch? After purchase, describe the style and details you want in the brief and we'll design around your brand. Questions? Just email us.</p>
+                            <div class="tpl-links">
+                                <a href="/onboarding/index.html" class="tpl-link">Start your brief →</a>
+                                <a href="mailto:Onepagegoimm@gmail.com" class="tpl-link dim">Email us →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Demo 即時數據 ── -->
+        <section id="demo-stats" class="sec sec-deep">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Live Demo</span>
+                    <h2 class="sec-title">Live demo order counts</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">These numbers come from the demo sites. Place a test order and watch them update in real time.</p>
+                </div>
+                <div class="stats reveal">
+                    <div class="stat">
+                        <div class="s-emoji">🧁</div>
+                        <div class="s-count en" id="stat-ecommerce">-</div>
+                        <div class="s-label">E-commerce orders</div>
+                    </div>
+                    <div class="stat">
+                        <div class="s-emoji">💆</div>
+                        <div class="s-count en" id="stat-booking">-</div>
+                        <div class="s-label">Bookings</div>
+                    </div>
+                    <div class="stat">
+                        <div class="s-emoji">🍊</div>
+                        <div class="s-count en" id="stat-groupbuy">-</div>
+                        <div class="s-label">Group-buy orders</div>
+                    </div>
+                    <div class="stat">
+                        <div class="s-emoji">🎪</div>
+                        <div class="s-count en" id="stat-ticketing">-</div>
+                        <div class="s-label">Ticket orders</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 技術架構 ── -->
+        <section id="tech" class="sec">
+            <div class="container">
+                <div class="band reveal">
+                    <span class="eyebrow en">Zero Monthly Fee</span>
+                    <h2>Free for life, no hidden fees</h2>
+                    <p class="band-sub">No server to rent, no database to buy, no hidden costs</p>
+                    <div class="tech-stack">
+                        <div class="tech-badge">
+                            <div class="b-icon">🌐</div>
+                            <div class="b-name">Free web hosting</div>
+                            <div class="b-desc">No server to rent</div>
+                        </div>
+                        <div class="tech-plus">+</div>
+                        <div class="tech-badge">
+                            <div class="b-icon">🗄️</div>
+                            <div class="b-name">Free database</div>
+                            <div class="b-desc">No database to buy</div>
+                        </div>
+                        <div class="tech-plus">+</div>
+                        <div class="tech-badge">
+                            <div class="b-icon">✉️</div>
+                            <div class="b-name">Free email quota</div>
+                            <div class="b-desc">Notifications sent from your own account</div>
+                        </div>
+                    </div>
+                    <p class="tech-note">Pay once for the build, then it runs free forever. Truly zero running cost.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 資料私有 ── -->
+        <section id="privacy" class="sec sec-deep">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Data Ownership</span>
+                    <h2 class="sec-title">Your data. Only you can see it.</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">Unlike SaaS platforms, your data is never locked inside someone else's server.</p>
+                </div>
+                <div class="templates">
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🔐</div>
+                        <div class="tpl-info">
+                            <h3>A dedicated database, never mixed</h3>
+                            <p>Orders, members and bookings live in your own database, shared with no other merchant. Request a full export or backup at any time.</p>
+                        </div>
+                    </div>
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">✉️</div>
+                        <div class="tpl-info">
+                            <h3>Notifications sent from your own account</h3>
+                            <p>Order and verification emails go out from your own sending account. Quotas, sending logs and access all stay in your hands.</p>
+                        </div>
+                    </div>
+                    <div class="tpl reveal">
+                        <div class="tpl-emoji">🌐</div>
+                        <div class="tpl-info">
+                            <h3>Hosting, your choice</h3>
+                            <p>Hosted by One Page Go by default (zero effort on your side), or on your own GitHub account for full control.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 費用對比 ── -->
+        <section id="compare" class="sec">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Compare</span>
+                    <h2 class="sec-title">Do the maths</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">A micro e-commerce shop versus a monthly subscription platform</p>
+                </div>
+                <div class="compare-card reveal">
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Monthly platform</th>
+                                <th>One Page Go</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Month 1</td>
+                                <td>NT$1,299</td>
+                                <td>NT$4,000</td>
+                            </tr>
+                            <tr>
+                                <td>After 6 months</td>
+                                <td>NT$7,794</td>
+                                <td>NT$4,000</td>
+                            </tr>
+                            <tr>
+                                <td>After 1 year</td>
+                                <td>NT$15,588</td>
+                                <td>NT$4,000</td>
+                            </tr>
+                            <tr>
+                                <td>After 2 years</td>
+                                <td>NT$31,176</td>
+                                <td>NT$4,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="compare-highlight">
+                        <div class="save-amount">Save NT$27,176</div>
+                        <div class="save-label">Total saved over two years (about US$849)</div>
+                    </div>
+                    <p class="compare-note">
+                        Monthly platform estimated at the cheapest plan on the market, NT$1,299 a month<br />
+                        Excludes platform transaction fees of 2% to 5.5%
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 方案與定價 ── -->
+        <section id="pricing" class="sec sec-deep">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Pricing</span>
+                    <h2 class="sec-title">Plans and pricing</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">Pay once, runs free for life. No monthly, yearly or renewal fees.</p>
+                </div>
+                <div class="plans">
+                    <div class="plan hot reveal">
+                        <span class="badge">Most popular</span>
+                        <h3>Micro e-commerce shop</h3>
+                        <div class="price"><small>NT$</small><b class="en">4,000</b><span class="per">≈ US$125 · one-time</span></div>
+                        <ul>
+                            <li>Product showcase + multi-item checkout + order notifications</li>
+                            <li>Member email verification</li>
+                            <li>Free for life after launch, zero monthly or yearly fees</li>
+                            <li>Your own dedicated database, full export, deployable to your own account</li>
+                            <li>Hosting managed by us or by you, your choice</li>
+                            <li>Mobile-responsive design</li>
+                        </ul>
+                    </div>
+                    <div class="plan reveal">
+                        <h3>Booking + capacity control</h3>
+                        <div class="price"><small>NT$</small><b class="en">3,500</b><span class="per">≈ US$109 · one-time</span></div>
+                        <ul>
+                            <li>Service menu + online time-slot selection</li>
+                            <li>Live capacity control that prevents overbooking</li>
+                            <li>Free for life after launch, zero monthly or yearly fees</li>
+                            <li>Your own dedicated database, full export, deployable to your own account</li>
+                            <li>Hosting managed by us or by you, your choice</li>
+                            <li>Mobile-responsive design</li>
+                        </ul>
+                    </div>
+                    <div class="plan reveal">
+                        <h3>Group-buy manager</h3>
+                        <div class="price"><small>NT$</small><b class="en">3,000</b><span class="per">≈ US$94 · one-time</span></div>
+                        <ul>
+                            <li>Open a group + take joins + progress tracking</li>
+                            <li>Countdown to close + instant new-order alerts</li>
+                            <li>Free for life after launch, zero monthly or yearly fees</li>
+                            <li>Your own dedicated database, full export, deployable to your own account</li>
+                            <li>Hosting managed by us or by you, your choice</li>
+                            <li>Mobile-responsive design</li>
+                        </ul>
+                    </div>
+                    <div class="plan reveal">
+                        <h3>Event ticketing page</h3>
+                        <div class="price"><small>NT$</small><b class="en">2,500</b><span class="per">≈ US$78 · one-time</span></div>
+                        <ul>
+                            <li>Ticket tiers + online sales + quantity control</li>
+                            <li>E-check-in codes generated automatically</li>
+                            <li>Free for life after launch, zero monthly or yearly fees</li>
+                            <li>Your own dedicated database, full export, deployable to your own account</li>
+                            <li>Hosting managed by us or by you, your choice</li>
+                            <li>Mobile-responsive design</li>
+                        </ul>
+                    </div>
+                    <div class="plan reveal">
+                        <h3>Post-launch changes</h3>
+                        <div class="price"><small>NT$</small><b class="en">500</b><span class="per">≈ US$16 · per request</span></div>
+                        <ul>
+                            <li>For existing customers only</li>
+                            <li>Text, image and colour adjustments</li>
+                            <li>Done in as little as 1 day after submission</li>
+                            <li>Submit and pay through the project change page</li>
+                        </ul>
+                    </div>
+                    <div class="plan custom reveal">
+                        <h3>Custom build</h3>
+                        <div class="price"><b style="font-size:1.4rem">Quote on request</b></div>
+                        <ul>
+                            <li>Fully custom design and colours</li>
+                            <li>Multiple feature modules combined</li>
+                            <li>Brand logo integration</li>
+                            <li>Help with custom domain setup</li>
+                            <li>Advanced interactions</li>
+                        </ul>
+                        <p class="plan-contact">Email us: <a href="mailto:Onepagegoimm@gmail.com" class="en">Onepagegoimm@gmail.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 常見問題 ── -->
+        <section id="faq" class="sec">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">FAQ</span>
+                    <h2 class="sec-title">Frequently asked questions</h2>
+                    <div class="rule"></div>
+                </div>
+                <div class="faqs">
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">What is One Page Go?<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>One Page Go builds single-page web apps for small businesses in Taiwan. Four templates: micro e-commerce, online booking, group-buy management and event ticketing. Pay once from NT$2,500 (about US$78) and there are no monthly fees after launch. Every merchant gets a dedicated database that is never shared with anyone else.</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">How much does it cost? Are there monthly fees?<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>One Page Go is a one-time payment with no monthly, yearly or renewal fees. Event ticketing page NT$2,500, group-buy manager NT$3,000, booking with capacity control NT$3,500, micro e-commerce shop NT$4,000. After launch the site runs on free hosting and a free database, so the running cost is zero.</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">Why can it run free for life?<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>One Page Go is built on a free stack: GitHub Pages for web hosting (free), Cloudflare Workers and D1 for the backend and database (free tier), and Resend for email notifications (free quota). Every layer is on a free plan, so there are no hosting or maintenance fees after launch.</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">Where is my order data stored? Is it safe?<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>All orders, members and bookings are stored in your own Cloudflare D1 database. Each merchant has a separate database that is never shared with other merchants, and you can request a full export or backup at any time.</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">How is this different from monthly store platforms?<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>The main differences are cost structure and data ownership. Monthly platforms usually start at NT$1,299 a month, which adds up to over NT$31,000 in two years, and your data stays locked on their servers. One Page Go is a one-time NT$2,500-4,000 with nothing to pay afterwards, and you own a dedicated database you can export in full, with no platform lock-in.</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">How long does it take to build?<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>From a confirmed brief to a live site takes as little as 3 days. The flow is: fill in the brief → confirm content and sign → pay → build and hand over → we help you set it up and go live.</p></div>
+                    </div>
+                    <div class="faq reveal">
+                        <button class="faq-q" aria-expanded="false">What if I need changes after launch?<span class="chev">▾</span></button>
+                        <div class="faq-a"><p>Existing customers submit changes through the project change page. Each change request is NT$500 (about US$16) and covers text, image and colour adjustments, completed in as little as 1 day after submission.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CTA ── -->
+        <section id="cta" class="sec sec-deep">
+            <div class="container">
+                <div class="cta-band reveal">
+                    <span class="eyebrow en">Get Started</span>
+                    <h2>Ready to take your business online?</h2>
+                    <p>Fill in a short brief and we'll get back to you within 24 hours.<br />From confirmed brief to launch in as little as 3 days.</p>
+                    <a class="btn btn-gold" href="/onboarding/index.html">Get started</a>
+                    <div class="customer">
+                        <p>Already a customer?</p>
+                        <div class="customer-links">
+                            <a href="/onboarding/index.html" class="customer-link">Track your order</a>
+                            <a href="/revision/index.html" class="customer-link alt">Request a change</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         </main>
 
+        <!-- ── Footer ── -->
         <footer>
-            <div class="container">
-                <div class="footer-links">
-                    <a href="/en/solutions/order-system/">Online ordering system</a> ·
-                    <a href="/">中文版</a>
-                </div>
-                <p>One Page Go &copy; 2026</p>
+            <div class="container foot">
+                <a class="brand" href="#top" aria-label="Back to top"><span class="logo-chip"><img src="/onepagego_mark_only_transparent.png" alt=""></span></a>
+                <p class="foot-links">
+                    <a href="/blog/index.html" hreflang="zh-Hant-TW">Blog (Chinese)</a>
+                    <a href="#templates">Templates</a>
+                    <a href="/en/solutions/order-system/">Online ordering system</a>
+                    <a href="#pricing">Plans and pricing</a>
+                    <a href="/onboarding/index.html">Get started</a>
+                    <a href="/guide/index.html" hreflang="zh-Hant-TW">Setup guide (Chinese)</a>
+                    <a href="/" hreflang="zh-Hant-TW" lang="zh-Hant-TW">中文</a>
+                </p>
+                <p class="copy en">One Page Go &copy; 2026</p>
             </div>
         </footer>
+
+        <button id="toTop" aria-label="Back to top">↑</button>
+
+        <script>
+            /* ── Header 捲動狀態與回頂按鈕 ── */
+            var hd = document.getElementById("hd"), toTop = document.getElementById("toTop");
+            window.addEventListener("scroll", function () {
+                hd.classList.toggle("scrolled", window.scrollY > 30);
+                toTop.classList.toggle("show", window.scrollY > 600);
+            }, { passive: true });
+            toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+            /* ── 行動版選單 ── */
+            var menuBtn = document.getElementById("menuBtn"), mobileMenu = document.getElementById("mobileMenu");
+            menuBtn.addEventListener("click", function () {
+                var open = mobileMenu.classList.toggle("open");
+                menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+            });
+            mobileMenu.querySelectorAll("a").forEach(function (a) {
+                a.addEventListener("click", function () { mobileMenu.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); });
+            });
+
+            /* ── Intersection Observer：reveal 進場 ── */
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+            }, { threshold: 0.12 });
+            document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+            /* ── 主選單：捲到哪一區，該項亮金＋底線（T-038） ── */
+            var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-links a[href^='#']"));
+            var navMap = {};
+            navLinks.forEach(function (a) { var s = document.querySelector(a.getAttribute("href")); if (s) navMap[s.id] = a; });
+            var spy = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (!e.isIntersecting) return;
+                    navLinks.forEach(function (a) { a.classList.remove("on"); });
+                    var a = navMap[e.target.id]; if (a) a.classList.add("on");
+                });
+            }, { rootMargin: "-40% 0px -55% 0px" });
+            Object.keys(navMap).forEach(function (id) { spy.observe(document.getElementById(id)); });
+
+            /* ── FAQ 展開收合 ── */
+            document.querySelectorAll(".faq").forEach(function (f) {
+                var q = f.querySelector(".faq-q"), a = f.querySelector(".faq-a");
+                q.addEventListener("click", function () {
+                    var open = f.classList.toggle("open");
+                    q.setAttribute("aria-expanded", open ? "true" : "false");
+                    a.style.maxHeight = open ? a.scrollHeight + "px" : 0;
+                });
+            });
+
+            /* ── Demo Stats(demo worker + D1,T-021)── */
+            const DEMO_STATS_API = "https://demo-api.one-page-go.com/api";
+            const DEMO_TYPES = ["ecommerce", "booking", "groupbuy", "ticketing"];
+
+            // 唯讀統計:連線層失敗時自動重試,最多 3 次
+            async function fetchStats(type, tries) {
+                for (let i = 0; i < tries; i++) {
+                    try {
+                        const r = await fetch(DEMO_STATS_API, { method: "POST", body: JSON.stringify({ action: "getTypeStats", type: type }) });
+                        if (!r.ok) throw new Error("HTTP " + r.status);
+                        return await r.json();
+                    } catch (e) {
+                        if (i < tries - 1) await new Promise((res) => setTimeout(res, 500 * (i + 1)));
+                    }
+                }
+                return null;
+            }
+            DEMO_TYPES.forEach((key) => {
+                fetchStats(key, 3).then((data) => {
+                    const el = document.getElementById(`stat-${key}`);
+                    if (el) el.textContent = data && data.orderCount != null ? data.orderCount : 0;
+                });
+            });
+        </script>
     </body>
 </html>
