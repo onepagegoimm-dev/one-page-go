@@ -17,3 +17,7 @@
 ## 開始 Get started
 - [接單流程與定價](https://one-page-go.com/onboarding/)
 - [購買後設定指南](https://one-page-go.com/guide/)
+
+## 關於 About
+- [品牌故事：兩個創業者，一個願景](https://one-page-go.com/about/): 由創業者創立，為創業者而做 / Our story: built by two founders, for founders — [English](https://one-page-go.com/en/about/)
+- [English home](https://one-page-go.com/en/)

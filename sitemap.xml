@@ -21,6 +21,25 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://one-page-go.com/en/" />
         <xhtml:link rel="alternate" hreflang="x-default" href="https://one-page-go.com/" />
     </url>
+    <!-- 品牌故事 -->
+    <url>
+        <loc>https://one-page-go.com/about/</loc>
+        <lastmod>2026-09-14</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+        <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://one-page-go.com/about/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://one-page-go.com/en/about/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://one-page-go.com/about/" />
+    </url>
+    <url>
+        <loc>https://one-page-go.com/en/about/</loc>
+        <lastmod>2026-09-14</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+        <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://one-page-go.com/about/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://one-page-go.com/en/about/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://one-page-go.com/about/" />
+    </url>
     <!-- 接單流程 -->
     <url>
         <loc>https://one-page-go.com/onboarding/</loc>

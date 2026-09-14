@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="zh-TW">
+    <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-55KYBQLNMV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-55KYBQLNMV');
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+    if (a) gtag('event', 'contact_email', { link_url: a.getAttribute('href') });
+  });
+</script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <title>品牌故事｜One Page Go — 由創業者創立，為創業者而做</title>
+        <meta name="description" content="兩個創業者，一個願景。我們在職場相識、各自創業，多年後再次相遇，決定把創業、品牌與技術經驗放在一起，創立 One Page Go：用簡單、專業、合理的方式，幫助初創公司與小型企業建立自己的品牌與線上形象。" />
+        <meta name="author" content="One Page Go" />
+        <link rel="canonical" href="https://one-page-go.com/about/" />
+        <link rel="alternate" hreflang="zh-Hant-TW" href="https://one-page-go.com/about/" />
+        <link rel="alternate" hreflang="en" href="https://one-page-go.com/en/about/" />
+        <link rel="alternate" hreflang="x-default" href="https://one-page-go.com/about/" />
+
+        <!-- Open Graph / 社群分享 -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="品牌故事｜One Page Go — 由創業者創立，為創業者而做" />
+        <meta property="og:description" content="兩個創業者，一個願景。我們相信專業不應該等於複雜，好的數位服務也不應該遙不可及，所以從最重要的一頁開始，把事情做得更簡單。" />
+        <meta property="og:url" content="https://one-page-go.com/about/" />
+        <meta property="og:image" content="https://one-page-go.com/one_page_go.png" />
+        <meta property="og:image:width" content="2490" />
+        <meta property="og:image:height" content="2490" />
+        <meta property="og:image:alt" content="One Page Go｜品牌故事" />
+        <meta property="og:locale" content="zh_TW" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:site_name" content="One Page Go" />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="品牌故事｜One Page Go" />
+        <meta name="twitter:description" content="兩個創業者，一個願景。由創業者創立，為創業者而做。" />
+
+        <!-- 結構化資料：關於頁（主體指向首頁宣告的組織實體） -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "品牌故事｜One Page Go",
+            "url": "https://one-page-go.com/about/",
+            "inLanguage": "zh-TW",
+            "description": "兩個創業者，一個願景。One Page Go 由兩位創業者創立，用簡單、專業、合理的方式，幫助初創公司與小型企業建立品牌與線上形象。",
+            "mainEntity": { "@id": "https://one-page-go.com/#organization" },
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "One Page Go", "item": "https://one-page-go.com/" },
+                    { "@type": "ListItem", "position": 2, "name": "品牌故事", "item": "https://one-page-go.com/about/" }
+                ]
+            }
+        }
+        </script>
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "@id": "https://one-page-go.com/#organization",
+            "name": "One Page Go",
+            "alternateName": "一頁搞定",
+            "url": "https://one-page-go.com/",
+            "logo": "https://one-page-go.com/one_page_go.png",
+            "slogan": "From entrepreneurs, for entrepreneurs.",
+            "description": "由兩位創業者創立的台灣單頁式網頁應用製作服務，為初創公司與小型企業提供微型電商、線上預約、團購管理與活動售票方案，一次付清、終身免月費。",
+            "email": "Onepagegoimm@gmail.com",
+            "areaServed": { "@type": "Country", "name": "TW" }
+        }
+        </script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+        <style>
+/* ── 設計基準：深藍×金（docs/standards/design.md）── */
+:root{
+  --navy-950:#070C1E;--navy-900:#0A1124;--navy-800:#101A38;--navy-700:#182652;
+  --gold-500:#C9A063;--gold-400:#D8B478;--gold-300:#E7CD9C;
+  --ink:#F4F1EA;--muted:#A7ADC2;
+  --hairline:rgba(201,160,99,.28);--hairline-2:rgba(255,255,255,.08);
+  --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
+  --r-lg:18px;--r-md:14px;--header-h:72px;--blue:#5B79D9;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Sans TC","Manrope",system-ui,sans-serif;background:var(--navy-950);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.en{font-family:"Manrope","Noto Sans TC",sans-serif}
+.container{width:min(1120px,92%);margin:0 auto}
+.eyebrow{display:block;font-family:"Manrope";font-size:.78rem;font-weight:700;letter-spacing:.34em;color:var(--gold-400);text-transform:uppercase;margin-bottom:14px}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*,*::before,*::after{animation:none!important}}
+
+/* ── Header（與首頁相同）── */
+header{position:fixed;inset:0 0 auto;z-index:100;height:var(--header-h);display:flex;align-items:center;
+  background:rgba(7,12,30,.68);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline-2);transition:background .3s}
+header.scrolled{background:rgba(7,12,30,.94);border-bottom-color:var(--hairline)}
+.nav{display:flex;align-items:center;justify-content:space-between;width:min(1200px,94%);margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px}
+.logo-chip{flex:none;width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 1px var(--hairline),0 2px 12px rgba(0,0,0,.4)}
+.logo-chip img{width:26px;height:26px}
+.brand b{font-family:"Manrope";font-weight:800;font-size:1.15rem;color:#fff;white-space:nowrap}
+.nav-links{display:flex;gap:30px}
+.nav-links a{position:relative;color:#fff;font-size:.98rem;font-weight:700;letter-spacing:.04em;padding:6px 0;transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--grad-gold);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
+.nav-links a:hover,.nav-links a.on{color:var(--gold-300)}
+.nav-links a:hover::after,.nav-links a.on::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.link-track{font-size:.92rem;color:var(--ink);border:1px solid var(--hairline);padding:7px 16px;border-radius:999px;transition:.2s;white-space:nowrap}
+.link-track:hover{border-color:var(--gold-400);color:var(--gold-300)}
+/* ── 語系切換：地球圖示膠囊鈕（T-041 提案 B）── */
+.lang-switch{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px 0 11px;border:1px solid var(--hairline);border-radius:999px;color:var(--ink);font-family:"Manrope","Noto Sans TC",sans-serif;font-size:.86rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;transition:.2s}
+.lang-switch svg{width:16px;height:16px;color:var(--gold-300);flex:none}
+.lang-switch:hover{border-color:var(--gold-400);color:var(--gold-300);box-shadow:0 0 0 3px rgba(201,160,99,.12)}
+.menu-lang{display:flex;align-items:center;justify-content:space-between;padding:14px 4px 2px;border-top:1px solid var(--hairline);margin-top:6px}
+.menu-lang small{font-family:"Manrope";font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.mobile-menu .menu-lang a{padding:0 14px 0 11px;border-bottom:0;font-size:.86rem;letter-spacing:.06em}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.98rem;padding:12px 28px;border-radius:999px;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:var(--grad-gold);color:#131A36;box-shadow:0 8px 24px rgba(201,160,99,.32)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(201,160,99,.45)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(255,255,255,.35)}
+.btn-ghost:hover{border-color:var(--gold-400);color:var(--gold-300)}
+.btn-sm{padding:9px 20px;font-size:.9rem}
+.hamburger{display:none;background:none;border:0;cursor:pointer;padding:8px}
+.hamburger span{display:block;width:24px;height:2.5px;background:#fff;margin:5px 0;border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:var(--header-h);left:0;right:0;z-index:99;background:rgba(7,12,30,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline-2);padding:12px 6% 22px;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:#fff;padding:12px 4px;font-size:1.02rem;font-weight:700;letter-spacing:.04em;border-bottom:1px solid var(--hairline-2)}
+
+/* ── 區塊通用 ── */
+.sec{padding:96px 0}
+.sec-deep{background:var(--navy-900)}
+.sec-head{text-align:center;max-width:42em;margin:0 auto 56px}
+.sec-head .eyebrow{margin-bottom:10px}
+.sec-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;letter-spacing:.06em;color:#fff}
+.sec-sub{color:var(--muted);margin-top:12px}
+.rule{width:56px;height:2px;background:var(--grad-gold);margin:18px auto 0;border-radius:2px}
+
+/* ── Hero：兩條創業路徑交會成雙圓（T-044 提案 A）── */
+.hero{position:relative;overflow:hidden;padding:calc(var(--header-h) + 80px) 0 70px;
+  background:radial-gradient(900px 480px at 78% 8%,rgba(201,160,99,.10),transparent 60%),radial-gradient(700px 420px at -6% 100%,rgba(24,38,82,.7),transparent 65%),var(--navy-950)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:56px 56px;
+  mask-image:radial-gradient(760px 520px at 50% 60%,#000 15%,transparent 78%);-webkit-mask-image:radial-gradient(760px 520px at 50% 60%,#000 15%,transparent 78%)}
+.hero-grid{position:relative;display:grid;grid-template-columns:.95fr 1.05fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.2rem,4.6vw,3.6rem);font-weight:900;letter-spacing:.04em;line-height:1.22;color:#fff}
+.hero h1 i{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .tag{font-family:"Manrope";font-size:1.05rem;font-weight:700;letter-spacing:.08em;color:var(--gold-300);margin-top:22px}
+.hero p.lead{color:var(--muted);margin-top:18px;max-width:30em}
+.paths{width:100%;height:auto}
+.paths .draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 3.2s ease-out forwards}
+.paths .draw.b{animation-delay:.3s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.paths .orbit{stroke-dasharray:4 6;animation:spin 40s linear infinite;transform-origin:520px 160px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.paths .pulse{animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.paths text{font-family:"Noto Sans TC","Manrope",sans-serif;font-size:13px;fill:var(--muted);font-weight:500}
+.paths text.en{font-family:"Manrope";font-size:11px;letter-spacing:.2em;fill:var(--gold-400)}
+@media (prefers-reduced-motion:reduce){.paths .draw{stroke-dashoffset:0}}
+
+/* ── 章節時間軸 ── */
+.tl{position:relative;max-width:980px;margin:0 auto}
+.tl::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:linear-gradient(180deg,transparent,var(--gold-500) 8%,var(--gold-500) 92%,transparent)}
+.ch{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0 72px;padding:34px 0}
+.ch .node{position:absolute;left:50%;top:44px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:var(--navy-950);border:2px solid var(--gold-400);box-shadow:0 0 0 6px rgba(201,160,99,.12)}
+.ch .card{background:linear-gradient(170deg,rgba(24,38,82,.55),rgba(10,17,36,.65));border:1px solid var(--hairline-2);border-radius:var(--r-lg);padding:30px 30px 28px;transition:border-color .25s,transform .25s}
+.ch .card:hover{border-color:var(--hairline);transform:translateY(-4px)}
+.ch:nth-child(odd) .card{grid-column:1}
+.ch:nth-child(even) .card{grid-column:2}
+.ch .num{font-family:"Manrope";font-size:2.4rem;font-weight:800;color:var(--gold-300);line-height:1;opacity:.9}
+.ch h3{font-size:1.2rem;font-weight:900;color:#fff;margin:10px 0 10px;letter-spacing:.04em}
+.ch p{color:var(--muted);font-size:.96rem}
+.ch p b{color:var(--ink);font-weight:700}
+.ch .side{grid-row:1;align-self:center;display:flex;justify-content:center}
+.ch:nth-child(odd) .side{grid-column:2}
+.ch:nth-child(even) .side{grid-column:1}
+/* 章節小圖 */
+.mini{width:min(100%,320px);border:1px solid var(--hairline-2);border-radius:var(--r-md);background:rgba(255,255,255,.03);padding:22px}
+.mini .lbl{font-family:"Manrope";font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-400);margin-bottom:12px}
+.mini .cap{text-align:center;color:var(--muted);font-size:.82rem;margin-top:14px}
+.bars{display:flex;align-items:flex-end;gap:8px;height:110px}
+.bars i{flex:1;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.06));border-radius:6px 6px 0 0;transform-origin:bottom;animation:grow 1.4s ease-out both}
+.bars i.gold{background:var(--grad-gold)}
+@keyframes grow{from{transform:scaleY(0)}}
+.bars-cap{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-top:8px}
+.bars-cap .gold{color:var(--gold-300)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.chips span{padding:8px 16px;border-radius:999px;border:1px solid var(--hairline);color:var(--gold-300);font-size:.85rem;font-weight:700}
+.merge{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px;color:var(--gold-400);font-family:"Manrope";font-weight:800}
+.merge .chipmark{width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 1px var(--hairline),0 0 24px rgba(201,160,99,.35)}
+.merge .chipmark img{width:30px}
+.page-mini{width:190px;margin:0 auto;border-radius:14px;border:1px solid rgba(231,205,156,.34);background:linear-gradient(165deg,rgba(24,38,82,.62),rgba(10,17,36,.78));padding:12px;box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 60px rgba(201,160,99,.12)}
+.page-mini b{display:block;height:8px;border-radius:4px;background:var(--grad-gold);width:60%;margin-bottom:8px}
+.page-mini i{display:block;height:6px;border-radius:3px;background:rgba(255,255,255,.12);margin-bottom:6px}
+.page-mini .g{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0}
+.page-mini .g span{height:34px;border-radius:6px;background:rgba(255,255,255,.07);border:1px solid var(--hairline-2)}
+.page-mini .cta{height:20px;border-radius:999px;background:var(--grad-gold);width:70%;margin:6px auto 0}
+
+/* ── 信念帶 ── */
+.belief{position:relative;overflow:hidden;text-align:center;border-radius:24px;padding:60px 8%;background:linear-gradient(165deg,var(--navy-800),var(--navy-900));border:1px solid var(--hairline)}
+.belief::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;border:1px solid rgba(201,160,99,.18);right:-140px;top:-180px}
+.belief::after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;border:1px dashed rgba(255,255,255,.1);left:-90px;bottom:-120px}
+.belief blockquote{position:relative;font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:900;color:#fff;letter-spacing:.04em;line-height:1.5}
+.belief blockquote i{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.belief p{position:relative;color:var(--muted);margin-top:16px}
+
+/* ── 結語 ── */
+.closing{text-align:center}
+.closing .mark{width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center;margin:0 auto 24px;box-shadow:0 0 0 1px var(--hairline),0 0 40px rgba(201,160,99,.3)}
+.closing .mark img{width:42px}
+.closing h2{font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:900;letter-spacing:.08em;color:#fff}
+.closing .sig{font-family:"Manrope";font-size:.9rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-400);margin-top:26px}
+.closing .acts{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px}
+
+/* ── Footer（與首頁相同）── */
+footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid var(--hairline-2)}
+.foot{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.foot-links{display:flex;gap:8px 18px;font-size:.85rem;flex-wrap:wrap;justify-content:center}
+.foot-links a{transition:color .2s}
+.foot-links a:hover{color:var(--gold-300)}
+.copy{font-size:.8rem}
+#toTop{position:fixed;right:22px;bottom:24px;z-index:90;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold-500);cursor:pointer;
+  background:rgba(10,17,36,.9);color:var(--gold-300);font-size:1.05rem;opacity:0;pointer-events:none;transition:opacity .3s}
+#toTop.show{opacity:1;pointer-events:auto}
+
+/* ── RWD（header 斷點與首頁一致：1100 純圖示、1024 漢堡）── */
+@media (max-width:1100px){.lang-switch{width:36px;padding:0;justify-content:center}.lang-switch .lang-label{display:none}}
+@media (max-width:1024px){
+  .nav-links,.nav-right .btn,.nav-right .link-track{display:none}
+  .hamburger{display:block}
+  .lang-switch{width:auto;padding:0 14px 0 11px}.lang-switch .lang-label{display:inline}
+}
+@media (max-width:920px){
+  .hero{padding:calc(var(--header-h) + 48px) 0 60px}
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .tl::before{left:12px}
+  .ch{grid-template-columns:1fr;padding:22px 0 22px 40px}
+  .ch .node{left:12px}
+  .ch .card,.ch .side{grid-column:1!important}
+  .ch .side{grid-row:auto;margin-top:16px}
+}
+@media (max-width:520px){.sec{padding:66px 0}.belief{padding:44px 7%}}
+        </style>
+    </head>
+    <body>
+        <!-- ── 導覽列 ── -->
+        <header id="hd">
+            <div class="nav">
+                <a class="brand" href="/" aria-label="One Page Go 首頁">
+                    <span class="logo-chip"><img src="/onepagego_mark_only_transparent.png" alt="One Page Go 標誌"></span>
+                    <b class="en">One Page Go</b>
+                </a>
+                <nav class="nav-links" aria-label="主選單">
+                    <a href="/#features">服務特色</a><a href="/#templates">功能模板</a><a href="/#pricing">方案價格</a>
+                    <a href="/#faq">常見問題</a><a href="/about/" class="on" aria-current="page">品牌故事</a>
+                </nav>
+                <div class="nav-right">
+                    <a class="lang-switch" href="/en/about/" lang="en" hreflang="en" aria-label="Switch to English"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label">EN</span></a>
+                    <a class="link-track" href="/onboarding/index.html">訂單查詢</a>
+                    <a class="btn btn-gold btn-sm" href="/onboarding/index.html">立即開始</a>
+                    <button class="hamburger" id="menuBtn" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
+                </div>
+            </div>
+        </header>
+        <nav class="mobile-menu" id="mobileMenu" aria-label="行動版選單">
+            <a href="/#features">服務特色</a><a href="/#templates">功能模板</a><a href="/#pricing">方案價格</a>
+            <a href="/#faq">常見問題</a><a href="/about/">品牌故事</a>
+            <a href="/onboarding/index.html">立即開始 / 訂單查詢</a>
+            <a href="/revision/index.html">專案調整需求</a>
+            <div class="menu-lang"><small>Language</small><a class="lang-switch" href="/en/about/" lang="en" hreflang="en"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label">English</span></a></div>
+        </nav>
+
+        <main id="top">
+
+        <!-- ── Hero：兩條路徑交會 ── -->
+        <section class="hero" id="story">
+            <div class="container hero-grid">
+                <div class="reveal in">
+                    <span class="eyebrow">Our Story · 品牌故事</span>
+                    <h1>兩個創業者，<br><i>一個願景</i></h1>
+                    <div class="tag en">From entrepreneurs, for entrepreneurs.</div>
+                    <p class="lead">我們在職場上相識，後來各自踏上創業的道路；多年後再次相遇，決定把累積的經驗放在一起。這一頁，是我們為什麼做 One Page Go。</p>
+                </div>
+                <div class="reveal in">
+                    <svg class="paths" viewBox="0 0 600 320" aria-hidden="true">
+                        <defs><linearGradient id="pathGold" x1="0" x2="1"><stop offset="0" stop-color="#E7CD9C"/><stop offset="1" stop-color="#C9A063"/></linearGradient></defs>
+                        <!-- 兩條路徑：職場相識 → 各自創業 → 再次相遇 → 交會成雙圓（呼應 logo）-->
+                        <path class="draw" d="M40 160 C120 160 150 60 240 60 S380 120 470 150" fill="none" stroke="url(#pathGold)" stroke-width="2.5" stroke-linecap="round"/>
+                        <path class="draw b" d="M40 160 C120 160 150 260 240 260 S380 200 470 170" fill="none" stroke="#5B79D9" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="40" cy="160" r="6" fill="#E7CD9C"/>
+                        <circle cx="240" cy="60" r="5" fill="#E7CD9C" class="pulse"/>
+                        <circle cx="240" cy="260" r="5" fill="#5B79D9" class="pulse"/>
+                        <circle class="orbit" cx="520" cy="160" r="56" fill="none" stroke="#C9A063" stroke-width="1.5"/>
+                        <circle cx="520" cy="160" r="34" fill="none" stroke="#E7CD9C" stroke-width="2"/>
+                        <circle cx="520" cy="160" r="8" fill="#E7CD9C"/>
+                        <text x="40" y="196" text-anchor="middle">職場相識</text>
+                        <text x="240" y="40" text-anchor="middle">各自創業</text>
+                        <text x="240" y="292" text-anchor="middle">各自創業</text>
+                        <text x="440" y="128" text-anchor="middle">再次相遇</text>
+                        <text class="en" x="520" y="248" text-anchor="middle">ONE PAGE GO</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 六章時間軸 ── -->
+        <section class="sec" id="chapters">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="eyebrow en">Chapters</span>
+                    <h2 class="sec-title">從相識到創立</h2>
+                    <div class="rule"></div>
+                    <p class="sec-sub">一條時間軸，六個章節</p>
+                </div>
+                <div class="tl">
+                    <article class="ch reveal"><span class="node" aria-hidden="true"></span>
+                        <div class="card"><div class="num en">01</div><h3>相識</h3><p>我們在職場上相識，後來也各自踏上創業的道路。</p></div>
+                        <div class="side" aria-hidden="true"><div class="mini"><div class="lbl">Two paths</div><div class="chips"><span>創辦人 A</span><span>創辦人 B</span></div><p class="cap">同一個起點，走向不同方向</p></div></div>
+                    </article>
+                    <article class="ch reveal"><span class="node" aria-hidden="true"></span>
+                        <div class="card"><div class="num en">02</div><h3>體會</h3><p>在一次次的創業過程中，我們親身體會到，對初創公司和小型企業來說，<b>找到合適的數位服務並不容易</b>，而<b>高昂的費用</b>，更常成為創業路上的負擔。</p></div>
+                        <div class="side" aria-hidden="true"><div class="mini"><div class="lbl">The burden</div><div class="bars"><i style="height:22%"></i><i style="height:38%;animation-delay:.1s"></i><i style="height:55%;animation-delay:.2s"></i><i style="height:72%;animation-delay:.3s"></i><i style="height:90%;animation-delay:.4s"></i><i class="gold" style="height:26%;animation-delay:.6s"></i></div><div class="bars-cap"><span>月費逐年累積</span><span class="gold">一次付清</span></div></div></div>
+                    </article>
+                    <article class="ch reveal"><span class="node" aria-hidden="true"></span>
+                        <div class="card"><div class="num en">03</div><h3>再遇</h3><p>多年後，我們再次相遇。</p></div>
+                    </article>
+                    <article class="ch reveal"><span class="node" aria-hidden="true"></span>
+                        <div class="card"><div class="num en">04</div><h3>創立</h3><p>這一次，我們決定把彼此累積的<b>創業、品牌與技術</b>經驗放在一起，創立 One Page Go。</p></div>
+                        <div class="side" aria-hidden="true"><div class="mini"><div class="lbl">Experience, combined</div><div class="chips"><span>創業</span><span>品牌</span><span>技術</span></div><div class="merge">↓ <span class="chipmark"><img src="/onepagego_mark_only_transparent.png" alt=""></span> One Page Go</div></div></div>
+                    </article>
+                    <article class="ch reveal"><span class="node" aria-hidden="true"></span>
+                        <div class="card"><div class="num en">05</div><h3>願景</h3><p>我們希望用<b>簡單、專業、合理</b>的方式，幫助初創公司和小型企業建立自己的品牌與線上形象，擁有專業的品牌形象與實用的數位工具。</p></div>
+                        <div class="side" aria-hidden="true"><div class="mini"><div class="lbl">Three words</div><div class="chips"><span>簡單</span><span>專業</span><span>合理</span></div></div></div>
+                    </article>
+                    <article class="ch reveal"><span class="node" aria-hidden="true"></span>
+                        <div class="card"><div class="num en">06</div><h3>做法</h3><p><b>從最重要的一頁開始</b>，用合理的方式，打造專業、實用，真正能幫助品牌成長的數位工具。讓創業者少一點負擔，多一點時間，專注在真正重要的事。</p></div>
+                        <div class="side" aria-hidden="true"><div class="page-mini"><b></b><i></i><i style="width:80%"></i><div class="g"><span></span><span></span><span></span></div><i></i><i style="width:60%"></i><div class="cta"></div></div></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 信念 ── -->
+        <section class="sec sec-deep" id="belief">
+            <div class="container">
+                <div class="belief reveal">
+                    <span class="eyebrow en">What we believe</span>
+                    <blockquote>我們相信，專業不應該等於複雜，<br>好的數位服務也不應該<i>遙不可及</i>。</blockquote>
+                    <p>所以我們把事情做得更簡單。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 結語與 CTA ── -->
+        <section class="sec" id="cta">
+            <div class="container closing reveal">
+                <div class="mark"><img src="/onepagego_mark_only_transparent.png" alt=""></div>
+                <h2>由創業者創立，為創業者而做。</h2>
+                <div class="sig">From entrepreneurs, for entrepreneurs.</div>
+                <div class="acts"><a class="btn btn-gold" href="/onboarding/index.html">立即開始</a><a class="btn btn-ghost" href="/#templates">看功能模板</a></div>
+            </div>
+        </section>
+
+        </main>
+
+        <!-- ── Footer ── -->
+        <footer>
+            <div class="container foot">
+                <a class="brand" href="#top" aria-label="回頂部"><span class="logo-chip"><img src="/onepagego_mark_only_transparent.png" alt=""></span></a>
+                <p class="foot-links">
+                    <a href="/blog/index.html">部落格</a>
+                    <a href="/#templates">功能模板</a>
+                    <a href="/solutions/order-system/index.html">線上訂單系統</a>
+                    <a href="/#pricing">方案與定價</a>
+                    <a href="/about/">品牌故事</a>
+                    <a href="/onboarding/index.html">開始接單</a>
+                    <a href="/guide/index.html">設定指南</a>
+                    <a href="/en/about/">English</a>
+                </p>
+                <p class="copy en">One Page Go &copy; 2026</p>
+            </div>
+        </footer>
+
+        <button id="toTop" aria-label="回到頂部">↑</button>
+
+        <script>
+            /* ── Header 捲動狀態與回頂按鈕 ── */
+            var hd = document.getElementById("hd"), toTop = document.getElementById("toTop");
+            window.addEventListener("scroll", function () {
+                hd.classList.toggle("scrolled", window.scrollY > 30);
+                toTop.classList.toggle("show", window.scrollY > 600);
+            }, { passive: true });
+            toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+            /* ── 行動版選單 ── */
+            var menuBtn = document.getElementById("menuBtn"), mobileMenu = document.getElementById("mobileMenu");
+            menuBtn.addEventListener("click", function () {
+                var open = mobileMenu.classList.toggle("open");
+                menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+            });
+            mobileMenu.querySelectorAll("a").forEach(function (a) {
+                a.addEventListener("click", function () { mobileMenu.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); });
+            });
+
+            /* ── Intersection Observer：reveal 進場 ── */
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+            }, { threshold: 0.12 });
+            document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+        </script>
+    </body>
+</html>

@@ -8,8 +8,10 @@ One Page Go 是一個接案平台，為客戶製作「單頁式網頁應用」�
 ```
 one-page-go/                              ← GitHub Pages 公開展示
 ├── index.html                            # 主銷售頁（中文）
+├── about/index.html                      # 品牌故事（T-044）
 ├── en/
 │   ├── index.html                        # 主銷售頁英文鏡射（T-041）
+│   ├── about/index.html                  # 品牌故事英文鏡射（T-044）
 │   └── solutions/order-system/index.html # 方案頁英文版
 ├── solutions/order-system/index.html     # 方案：線上訂單系統
 ├── blog/
@@ -39,7 +41,7 @@ one-page-go/                              ← GitHub Pages 公開展示
 ├── guide/index.html                      # 購買後設定指南（寄信／資料庫／後台管理）
 ├── revision/index.html                   # 專案調整需求
 ├── assets/                               # 首頁作品展示區與 hero 用圖
-├── sitemap.xml                           # SEO sitemap（26 筆：中文 9、英文 2、示範站 15）
+├── sitemap.xml                           # SEO sitemap（28 筆：中文 10、英文 3、示範站 15）
 ├── robots.txt                            # SEO robots
 ├── llms.txt                              # 給 AI 爬蟲的站台摘要
 ├── favicon.ico                           # Favicon 系列
@@ -74,7 +76,7 @@ one-page-go/                              ← GitHub Pages 公開展示
 
 英文頁是中文頁的**鏡射**，不是獨立文案：同一份 HTML／CSS／JS，只換文字、`lang`、meta 與結構化資料。2026-06 建立的英文頁因獨立維護，到 2026-09 已與中文首頁脫節 3 次改版，此後照以下規則：
 
-- 有英文鏡射頁的中文頁：`index.html` ⇄ `en/index.html`、`solutions/order-system/` ⇄ `en/solutions/order-system/`（T-042、T-043 完成後再加 blog、onboarding、guide、revision）。
+- 有英文鏡射頁的中文頁：`index.html` ⇄ `en/index.html`、`about/` ⇄ `en/about/`、`solutions/order-system/` ⇄ `en/solutions/order-system/`（T-042、T-043 完成後再加 blog、onboarding、guide、revision）。
 - **改中文頁的任何內容（文案、區塊、JS 行為、meta），同一個 commit 必須同步改 `en/` 對應頁**；沒同步就不能提交。
 - 同一個 commit 一併更新 `sitemap.xml` 中該中英兩筆的 `lastmod`（值＝推送日）。新增頁面要加進 sitemap；`lastmod` 只在內容真的變更時才動，不填假日期。
 - 每一對中英頁互指 hreflang 三筆（`zh-Hant-TW`、`en`、`x-default` 指中文版），`canonical` 各指自己。
