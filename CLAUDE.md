@@ -80,7 +80,7 @@ one-page-go/                              ← GitHub Pages 公開展示
 - **改中文頁的任何內容（文案、區塊、JS 行為、meta），同一個 commit 必須同步改 `en/` 對應頁**；沒同步就不能提交。
 - 同一個 commit 一併更新 `sitemap.xml` 中該中英兩筆的 `lastmod`（值＝推送日）。新增頁面要加進 sitemap；`lastmod` 只在內容真的變更時才動，不填假日期。
 - 每一對中英頁互指 hreflang 三筆（`zh-Hant-TW`、`en`、`x-default` 指中文版），`canonical` 各指自己。
-- 語系切換元件 `.lang-switch`（地球圖示膠囊鈕，規格見 `../docs/standards/design.md`）連到**同一頁的另一語系**，不是首頁；手機版留在 header 上，不藏進漢堡選單。
+- 語系切換元件 `.lang-switch`（地球圖示膠囊鈕，兩個語系並列、目前語系白字，規格見 `../docs/standards/design.md`）連到**同一頁的另一語系**，不是首頁；手機版留在 header 上，不藏進漢堡選單。
 - 英文頁 `body` 字型改為 `"Manrope","Noto Sans TC"`（英文優先），其餘樣式與中文頁相同。
 - 示範站不翻譯；英文頁連到示範站處標示「Demo in Chinese」或「(in Chinese)」，並加 `hreflang="zh-Hant-TW"`。
 - 英文頁的路徑一律用根相對路徑（`/assets/…`、`/demos/…`），因為 `en/` 在子目錄。

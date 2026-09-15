@@ -245,6 +245,11 @@ header.scrolled{background:rgba(7,12,30,.94);border-bottom-color:var(--hairline)
 /* ── 語系切換：地球圖示膠囊鈕（T-041 提案 B）。手機版留在 header 上，不藏進漢堡選單 ── */
 .lang-switch{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px 0 11px;border:1px solid var(--hairline);border-radius:999px;color:var(--ink);font-family:"Manrope","Noto Sans TC",sans-serif;font-size:.86rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;transition:.2s}
 .lang-switch svg{width:16px;height:16px;color:var(--gold-300);flex:none}
+/* 兩個語系並列：目前語系白字、另一語系藍灰字，整顆鈕連到另一語系（T-045） */
+.lang-switch .lang-cur{color:#fff}
+.lang-switch .lang-sep{width:1px;height:12px;background:var(--hairline)}
+.lang-switch .lang-label{color:var(--muted);transition:color .2s}
+.lang-switch:hover .lang-label{color:var(--gold-300)}
 .lang-switch:hover{border-color:var(--gold-400);color:var(--gold-300);box-shadow:0 0 0 3px rgba(201,160,99,.12)}
 .menu-lang{display:flex;align-items:center;justify-content:space-between;padding:14px 4px 2px;border-top:1px solid var(--hairline);margin-top:6px}
 .menu-lang small{font-family:"Manrope";font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
@@ -709,11 +714,11 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
 
 /* ── RWD ── */
 /* 語系切換鈕加入後，header 在 921～1100px 放不下：1100 以下鈕縮成純圖示，1024 以下提早收進漢堡（T-041） */
-@media (max-width:1100px){.lang-switch{width:36px;padding:0;justify-content:center}.lang-switch .lang-label{display:none}}
+@media (max-width:1100px){.lang-switch{width:36px;padding:0;justify-content:center}.lang-switch .lang-cur,.lang-switch .lang-sep,.lang-switch .lang-label{display:none}}
 @media (max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.plans{grid-template-columns:repeat(2,1fr)}
   .nav-links,.nav-right .btn,.nav-right .link-track{display:none}
   .hamburger{display:block}
-  .lang-switch{width:auto;padding:0 14px 0 11px}.lang-switch .lang-label{display:inline}
+  .lang-switch{width:auto;padding:0 14px 0 11px}.lang-switch .lang-cur,.lang-switch .lang-sep,.lang-switch .lang-label{display:inline}
 }
 @media (max-width:920px){
   .hero{padding:calc(var(--header-h) + 48px) 0 80px}
@@ -756,7 +761,7 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
                     <a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="/en/about/">Our Story</a>
                 </nav>
                 <div class="nav-right">
-                    <a class="lang-switch" href="/" lang="zh-Hant-TW" hreflang="zh-Hant-TW" aria-label="切換到中文版"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label">中文</span></a>
+                    <a class="lang-switch" href="/" hreflang="zh-Hant-TW" aria-label="Currently English, switch to 中文"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label" lang="zh-Hant-TW">中文</span><span class="lang-sep" aria-hidden="true"></span><span class="lang-cur">EN</span></a>
                     <a class="link-track" href="/onboarding/index.html">Track order</a>
                     <a class="btn btn-gold btn-sm" href="/onboarding/index.html">Get started</a>
                     <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -769,7 +774,7 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
             <a href="/en/about/">Our Story</a>
             <a href="/onboarding/index.html">Get started / Track order</a>
             <a href="/revision/index.html">Request a change</a>
-            <div class="menu-lang"><small>Language</small><a class="lang-switch" href="/" lang="zh-Hant-TW" hreflang="zh-Hant-TW"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label">中文</span></a></div>
+            <div class="menu-lang"><small>Language</small><a class="lang-switch" href="/" hreflang="zh-Hant-TW" aria-label="Currently English, switch to 中文"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="lang-label" lang="zh-Hant-TW">中文</span><span class="lang-sep" aria-hidden="true"></span><span class="lang-cur">English</span></a></div>
         </nav>
 
         <main id="top">
