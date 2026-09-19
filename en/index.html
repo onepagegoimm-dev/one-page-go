@@ -209,6 +209,8 @@
   --hairline:rgba(201,160,99,.28);--hairline-2:rgba(255,255,255,.08);
   --grad-gold:linear-gradient(135deg,#E7CD9C,#C9A063 55%,#A87F45);
   --r-lg:18px;--r-md:14px;--header-h:72px;
+  /* 亮區塊（T-046）：偶數區塊純白底，文字改深藍、金色改深金（對白底對比 5.9:1） */
+  --paper:#FFFFFF;--paper-card:#F5F7FB;--ink-dark:#131A36;--muted-dark:#4A5470;--gold-dark:#7F5F2C;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -579,7 +581,7 @@ header.scrolled{background:rgba(7,12,30,.94);border-bottom-color:var(--hairline)
 
 /* ── 區塊通用 ── */
 .sec{padding:96px 0}
-.sec-deep{background:var(--navy-900)}
+.sec-deep{background:var(--paper);color:var(--ink-dark)} /* 亮區塊；元件在亮底上的配色見檔尾「亮區塊配色」 */
 .sec-head{text-align:center;max-width:42em;margin:0 auto 56px}
 .sec-head .eyebrow{margin-bottom:10px}
 .sec-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;letter-spacing:.06em;color:#fff}
@@ -746,6 +748,26 @@ footer{background:#05091A;color:var(--muted);padding:30px 0;border-top:1px solid
   .hv-chip-2{right:-6%;top:34%}
   .hv-chip-3,.hv-chip-4{display:none}
 }
+
+/* ── 亮區塊配色（T-046 提案 3，2026-09-19 使用者定案）：.sec-deep 改純白底後，區塊內元件改用亮底配色。放檔尾是為了蓋過各元件的深底預設 ── */
+.sec-deep .sec-title,.sec-deep h2,.sec-deep h3{color:var(--ink-dark)}
+.sec-deep .sec-sub,.sec-deep p,.sec-deep .s-label,.sec-deep .plan h3,.sec-deep .price small,.sec-deep .price .per,.sec-deep .plan .plan-contact{color:var(--muted-dark)}
+.sec-deep .eyebrow{color:var(--gold-dark)}
+.sec-deep .rule{background:linear-gradient(135deg,var(--gold-dark),#A87F45)}
+.sec-deep .feature,.sec-deep .stat,.sec-deep .tpl,.sec-deep .plan{background:var(--paper-card);border-color:rgba(19,26,54,.1);box-shadow:0 10px 30px rgba(19,26,54,.06)}
+.sec-deep .feature:hover,.sec-deep .stat:hover,.sec-deep .tpl:hover,.sec-deep .plan:hover{border-color:var(--gold-500)}
+.sec-deep .feature .ico,.sec-deep .tpl-emoji{background:rgba(201,160,99,.14);border-color:rgba(127,95,44,.35)}
+.sec-deep .feature h3,.sec-deep .tpl-info h3{color:var(--ink-dark)}
+.sec-deep .feature p,.sec-deep .tpl-info>p{color:var(--muted-dark)}
+.sec-deep .s-count,.sec-deep .price b,.sec-deep .plan li::before,.sec-deep .plan .plan-contact a{color:var(--gold-dark)}
+.sec-deep .plan li{color:var(--ink-dark)}
+.sec-deep .plan.hot{border-color:var(--gold-500);box-shadow:0 20px 50px rgba(201,160,99,.22);background:var(--paper)}
+.sec-deep .plan.custom{border-color:var(--gold-500)}
+/* CTA 區塊：白底上保留深藍卡片，卡內文字維持深底配色 */
+.sec-deep .cta-band{box-shadow:0 30px 70px rgba(19,26,54,.18)}
+.sec-deep .cta-band .eyebrow{color:var(--gold-400)}
+.sec-deep .cta-band h2{color:#fff}
+.sec-deep .cta-band>p,.sec-deep .customer>p{color:var(--muted)}
         </style>
     </head>
     <body>
